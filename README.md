@@ -1,4 +1,4 @@
-# IEPE-FAUSAC
+# IEPE-FARUSAC
 Este proyecto tiene como finalidad la automatización del proceso de inscripción y evaluación de estudiantes de primer ingreso, a las pruebas específicas de la Facultad de Arquitectura, de la Universidad de San Carlos de Guatemala. 
 
 ## Ambiente de desarrollo
@@ -48,7 +48,7 @@ en la ruta especificada, por lo que puede continuar con el proceso y descargarlo
 
 ### Instalar dependencias de proyecto
 - Conectarse por ssh a la máquina virtual (dentro del directorio del proyecto) `vagrant ssh` o con putty utilizando las llaves que están en `puphpet/files/dot/ssh`
-- Instalar dependencias locales del proyecto `cd /var/www/iepe && composer update`
+- Instalar dependencias locales del proyecto `cd /var/www/public_ftp/iepe && composer update`
 
 ## Como utilizar ambiente de desarrollo
 
@@ -76,9 +76,10 @@ del proyecto.
 
 ## ¿Donde veo los cambios realizados en el backend?
 Todos los cambios se pueden revisar desde su navegador en [www.iepe.dev](http://www.iepe.dev)
+Si el servidor no responde revisar en la maquina fisica (en linux) el archivo /etc/hosts y agregar la entrada(192.168.56.52 iepe.dev www.iepe.dev) o su equivalente en windows. Tambien pruebe correr el comando: sudo vagrant plugin install vagrant-hostmanager
 
 ## Paquetes adicionales
-- MySql Adminer, para la administracion de las bases de datos. Se puede acceder a éste desde [192.168.56.104/adminer](http://192.168.56.104/adminer)
+- MySql Adminer, para la administracion de las bases de datos. Se puede acceder a éste desde [192.168.56.52/adminer](http://192.168.56.52/adminer)
 - Xdebug, para integrar con PhpStorm, Notepad++, Sublime Text o cual quier otro IDE que lo permita. Para mayor información 
 visitar [How to configure PHPStorm with Xdebug on vagrant box](http://www.sitepoint.com/install-xdebug-phpstorm-vagrant/), 
 [Xdebug and You: Why You Should be Using a Real Debugger](https://jtreminio.com/2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger), 

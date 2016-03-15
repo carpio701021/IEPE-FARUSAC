@@ -1,31 +1,35 @@
 vagrantfile:
     target: local
     vm:
-        box: puphpet/centos65-x64
-        box_url: puphpet/centos65-x64
-        hostname: local.iepe
-        memory: '512'
-        cpus: '1'
-        chosen_provider: virtualbox
-        box_version: ''
-        network:
-            private_network: 192.168.56.52
-            forwarded_port:
-                vflnp_kwt3mpv90hy4:
-                    host: '5258'
-                    guest: '80'
-        post_up_message: ''
         provider:
-            virtualbox:
-                modifyvm:
-                    natdnshostresolver1: false
-                showgui: '0'
-            vmware:
-                numvcpus: 1
-            parallels:
-                use_linked_clone: '0'
-                check_guest_tools: '0'
-                update_guest_tools: '0'
+            local:
+                box: puphpet/centos65-x64
+                box_url: puphpet/centos65-x64
+                box_version: '0'
+                chosen_virtualizer: virtualbox
+                virtualizers:
+                    virtualbox:
+                        modifyvm:
+                            natdnshostresolver1: false
+                        showgui: 0
+                    vmware:
+                        numvcpus: 1
+                    parallels:
+                        use_linked_clone: 0
+                        check_guest_tools: 0
+                        update_guest_tools: 0
+                machines:
+                    vflm_v9fbidt67atv:
+                        id: iepe
+                        network:
+                            private_network: 192.168.56.152
+                            forwarded_port:
+                                vflmnfp_u5yvkol6fk65:
+                                    host: '6997'
+                                    guest: '22'
+                        hostname: iepe.dev
+                        memory: '512'
+                        cpus: '1'
         provision:
             puppet:
                 manifests_path: puphpet/puppet/manifests
@@ -34,7 +38,7 @@ vagrantfile:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
         synced_folder:
-            vflsf_z0h3x9jrb01u:
+            vflsf_vt75v6t5rbyy:
                 source: ./www
                 target: /var/www
                 sync_type: default
@@ -60,17 +64,18 @@ vagrantfile:
         usable_port_range:
             start: 10200
             stop: 10500
+        post_up_message: ''
     ssh:
-        host: null
-        port: null
-        private_key_path: null
+        host: 'false'
+        port: 'false'
+        private_key_path: 'false'
         username: vagrant
-        guest_port: null
-        keep_alive: true
-        forward_agent: false
-        forward_x11: false
+        guest_port: 'false'
+        keep_alive: '1'
+        forward_agent: 'false'
+        forward_x11: 'false'
         shell: 'bash -l'
-        insert_key: false
+        insert_key: 'false'
     vagrant:
         host: detect
     proxy:
@@ -90,11 +95,11 @@ users_groups:
 locale:
     install: '1'
     settings:
-        default_locale: en_US.UTF-8
+        default_locale: es_GT.UTF-8
         locales:
             - en_GB.UTF-8
             - en_US.UTF-8
-        timezone: UTC
+        timezone: America/Guatemala
 firewall:
     install: '1'
     rules: {  }
@@ -113,7 +118,7 @@ nginx:
         names_hash_bucket_size: 128
     upstreams: {  }
     vhosts:
-        nxv_zuiiug237sel:
+        nxv_v0slu7irla6d:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
@@ -133,7 +138,7 @@ nginx:
             rewrite_to_https: '1'
             spdy: '1'
             locations:
-                nxvl_fxrnparcldmf:
+                nxvl_cxd3b1x8qw7y:
                     location: /
                     autoindex: 'off'
                     internal: 'false'
@@ -146,7 +151,7 @@ nginx:
                     fastcgi_split_path: ''
                     proxy: ''
                     proxy_redirect: ''
-                nxvl_p5xhr4lp9oio:
+                nxvl_pidoo2r07lqm:
                     location: '~ \.php$'
                     autoindex: 'off'
                     internal: 'false'
@@ -179,7 +184,7 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_2zem5xmobb04:
+        av_irae2baji9n0:
             servername: iepe.dev
             serveraliases:
                 - www.iepe.dev
@@ -198,7 +203,7 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_u6n06d285w1f:
+                avd_yih156odx7c2:
                     path: /var/www/public_html
                     options:
                         - Indexes
@@ -210,7 +215,7 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        avdfm_o3ebvvobjyho:
+                        avdfm_lopk5i3c94vt:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
@@ -240,7 +245,7 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_69zzz928wvtt:
+        phpfp_qho762bv4yhb:
             ini:
                 prefix: www
                 listen: '127.0.0.1:9000'
@@ -283,7 +288,7 @@ drush:
 ruby:
     install: '1'
     versions:
-        rv_jwca6z2hsu0b:
+        rv_33qiehyvkv7k:
             default: '1'
             bundler: '1'
             version: 1.9.3
@@ -319,15 +324,15 @@ mariadb:
         override_options: {  }
     adminer: 0
     users:
-        mariadbnu_njds8yqopfw8:
+        mariadbnu_j2lgs8ybtf4k:
             name: dbuser
             password: '123'
     databases:
-        mariadbnd_lql9hch1c216:
+        mariadbnd_te32kdqklh9y:
             name: dbname
             sql: ''
     grants:
-        mariadbng_202a8srnj88i:
+        mariadbng_3i62tfm6fqq9:
             user: dbuser
             table: '*.*'
             privileges:
@@ -340,15 +345,15 @@ mysql:
         override_options: {  }
     adminer: '1'
     users:
-        mysqlnu_dvf8gjb2e0sb:
+        mysqlnu_fr1lxbp2uska:
             name: dbApp
             password: '123'
     databases:
-        mysqlnd_1579yprkjh0p:
+        mysqlnd_m9cehzf3qitt:
             name: dbiepe
             sql: ''
     grants:
-        mysqlng_n42vofwjw4s4:
+        mysqlng_2pa32jx2j29u:
             user: dbApp
             table: '*.*'
             privileges:
@@ -413,7 +418,7 @@ elastic_search:
         version: 2.1.0
         java_install: true
     instances:
-        esi_vok5ot8o84h0:
+        esi_i09cwqlagltr:
             name: es-01
 solr:
     install: '0'
