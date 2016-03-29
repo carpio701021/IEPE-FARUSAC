@@ -15,6 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/admin', function () {
+    return view('admin.index');
+});
+
+
+Route::get('/admin/usuarios', function () {
+    return view('admin.usuarios');
+});
+
+Route::get('/admin/oportunidades', function () {
+    return view('admin.oportunidades');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
