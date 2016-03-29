@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/aspirante', function () {
+    return view('aspirante.index');
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
