@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/admin', function () {
     return view('admin.index');
 });
@@ -27,6 +28,11 @@ Route::get('/admin/usuarios', function () {
 Route::get('/admin/oportunidades', function () {
     return view('admin.oportunidades');
 });
+
+Route::get('/aspirante', function () {
+    return view('aspirante.index');
+});
+
 
 /*
 |--------------------------------------------------------------------------
