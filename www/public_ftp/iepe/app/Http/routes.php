@@ -15,6 +15,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/admin', function () {
+    return view('admin.index');
+});
+
+
+Route::get('/admin/usuarios', function () {
+    return view('admin.usuarios');
+});
+
+Route::get('/admin/oportunidades', function () {
+    return view('admin.oportunidades');
+});
+
 Route::get('/aspirante', function () {
     return view('aspirante.aspirante');
 });
@@ -42,4 +56,10 @@ Route::get('/aspirante/ResultadosSatisfactorios', function () {
 
 Route::group(['middleware' => ['web']], function () {
     //
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
 });
