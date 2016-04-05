@@ -33,6 +33,11 @@ Route::get('/aspirante', function () {
     return view('aspirante.aspirante');
 });
 
+Route::get('/aspirante/formulario', function () {
+    return view('aspirante.index');
+});
+
+
 Route::get('/aspirante/PruebaEspecifica', function () {
     return View::make('aspirante.PruebaEspecifica');
 });
