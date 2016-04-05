@@ -30,6 +30,16 @@ Route::get('/admin/oportunidades', function () {
 });
 
 
+Route::get('/aspirante/PruebaEspecifica', function () {
+    return View::make('aspirante.PruebaEspecifica');
+});
+
+Route::get('/aspirante/ResultadosSatisfactorios', function () {
+    return View::make('aspirante.satisfactorio');
+});
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes

@@ -68,7 +68,7 @@
 </nav>
 
 
-<form id="msform">
+<form id="msform" class="control-form">
 	<!-- progressbar -->
 	<ul id="progressbar">
         <li class="active">Ińformación Personal</li>
@@ -80,31 +80,31 @@
 		<h2 class="fs-title">Información Personal</h2>
 		<h3 class="fs-subtitle">Requisito para asignación de prueba especifica</h3>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
               <label for "txt_nombre" >Nombres: </label>
             </div>
-            <div class="col-sm-8" >
+            <div class="col-sm-9" >
               <input type="text" name="txt_nombre" id="txt_nombre" placeholder="Nombres" />
             </div>
         </div>		
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
               <label for "txt_apellido">Apellidos:</label>
             </div>
-            <div class="col-sm-8" >
+            <div class="col-sm-9" >
               <input type="text" name="txt_apellido" id="txt_apellido" placeholder="Apellidos" />
             </div>
         </div>   
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
               <label for "txt_ubicacion">Residencia:</label>
             </div>
-            <div class="col-sm-8" >
+            <div class="col-sm-9" >
               <input type="text" name="txt_ubicacion" id="txt_ubicacion" placeholder="Dirección de vivienda actual" />
             </div>
         </div>      
         <div class="row">
-            <div class="col-sm-4" align="rigth">
+            <div class="col-sm-3" align="rigth">
                 <label for "select_departamento" >Departamento: </label>                
             </div>            
             <div class="col-sm-4">                    
@@ -120,7 +120,7 @@
             </div>            
         </div> 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label for "select_genero" >Genero: </label>                
             </div>            
             <div class="col-sm-4">                    
@@ -133,10 +133,10 @@
             </div>            
         </div>      
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label for "date_nacimiento" >Fecha de nacimiento: </label>                
             </div>            
-            <div class="col-sm-8">                                    
+            <div class="col-sm-9">                                    
                 <div class="input-group date">
                 <input id="date_nacimiento" name="date_nacimiento">
                 <span class="input-group-addon">
@@ -151,7 +151,7 @@
             </div>            
         </div>      		
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label for "select_estadoCivil" >Estado civil: </label>                
             </div>            
             <div class="col-sm-4">                    
@@ -164,7 +164,7 @@
             </div>            
         </div>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label for "select_laboral" >Situación laboral: </label>                
             </div>            
             <div class="col-sm-4">                                                 
