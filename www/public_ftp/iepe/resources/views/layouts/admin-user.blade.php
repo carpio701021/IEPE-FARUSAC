@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>SAPE - FARUSAC</title>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <script src="/js/jquery-2.2.2.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+
+
+    <!-- Fonts -->
+
+    <link href="/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <link href="/css/googlefonts-css-latio.css" rel='stylesheet' type='text/css'>
+
+    <!-- Styles -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+
+    <style>
+        body {
+            font-family: 'Lato';
+        }
+
+        .fa-btn {
+            margin-right: 6px;
+        }
+    </style>
+    <title>SAPE - FARUSAC</title>
 </head>
 <body>
 
@@ -80,6 +98,12 @@
 </nav>
 @section('cuerpo')
 @show
+
+
+
+        <!-- JavaScripts -->
+<script src="/js/jquery-2.2.2.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 
 </body>
 </html>

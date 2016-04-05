@@ -76,10 +76,10 @@ del proyecto.
 
 ## ¿Donde veo los cambios realizados en el backend?
 Todos los cambios se pueden revisar desde su navegador en [www.iepe.dev](http://www.iepe.dev)
-Si el servidor no responde revisar en la maquina fisica (en linux) el archivo /etc/hosts y agregar la entrada(192.168.56.52 iepe.dev www.iepe.dev) o su equivalente en windows. Tambien pruebe correr el comando: sudo vagrant plugin install vagrant-hostmanager
+Si el servidor no responde revisar en la maquina fisica (en linux) el archivo /etc/hosts y agregar la entrada(192.168.56.152 iepe.dev www.iepe.dev) o su equivalente en windows. Tambien pruebe correr el comando: sudo vagrant plugin install vagrant-hostmanager
 
 ## Paquetes adicionales
-- MySql Adminer, para la administracion de las bases de datos. Se puede acceder a éste desde [192.168.56.52/adminer](http://192.168.56.52/adminer)
+- MySql Adminer, para la administracion de las bases de datos. Se puede acceder a éste desde [192.168.56.52/adminer](http://192.168.56.152/adminer)
 - Xdebug, para integrar con PhpStorm, Notepad++, Sublime Text o cual quier otro IDE que lo permita. Para mayor información 
 visitar [How to configure PHPStorm with Xdebug on vagrant box](http://www.sitepoint.com/install-xdebug-phpstorm-vagrant/), 
 [Xdebug and You: Why You Should be Using a Real Debugger](https://jtreminio.com/2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger), 

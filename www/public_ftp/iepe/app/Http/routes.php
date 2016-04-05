@@ -29,10 +29,6 @@ Route::get('/admin/oportunidades', function () {
     return view('admin.oportunidades');
 });
 
-Route::get('/aspirante', function () {
-    return view('aspirante.index');
-});
-
 
 /*
 |--------------------------------------------------------------------------
@@ -53,4 +49,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
+
+    Route::get('/aspirante', function () {
+        return view('aspirante.index');
+    });
+
 });
