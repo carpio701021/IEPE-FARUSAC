@@ -16,8 +16,17 @@ Route::get('/', function () {
 });
 
 Route::get('/aspirante', function () {
-    return view('aspirante.index');
+    return view('aspirante.aspirante');
 });
+
+Route::get('/aspirante/PruebaEspecifica', function () {
+    return View::make('aspirante.PruebaEspecifica');
+});
+
+Route::get('/aspirante/ResultadosSatisfactorios', function () {
+    return View::make('aspirante.satisfactorio');
+});
+
 
 
 /*
