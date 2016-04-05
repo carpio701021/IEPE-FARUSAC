@@ -317,28 +317,28 @@ hhvm:
         error_reporting: '-1'
         date.timezone: UTC
 mariadb:
-    install: '0'
+    install: '1'
     settings:
         version: '10.1'
         root_password: '123'
         override_options: {  }
-    adminer: 0
+    adminer: '1'
     users:
         mariadbnu_j2lgs8ybtf4k:
-            name: dbuser
+            name: dbApp
             password: '123'
     databases:
         mariadbnd_te32kdqklh9y:
-            name: dbname
+            name: dbiepe
             sql: ''
     grants:
         mariadbng_3i62tfm6fqq9:
-            user: dbuser
+            user: dbApp
             table: '*.*'
             privileges:
                 - ALL
 mysql:
-    install: '1'
+    install: '0'
     settings:
         version: '5.5'
         root_password: '123'
