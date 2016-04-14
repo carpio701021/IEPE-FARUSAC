@@ -7,24 +7,41 @@ class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * Esta migración crea los dos usuarios principales que son los aspirantes
+     * y los administradores. Los administradores tienen diferentes asignaciones
+     * a permisos.
      * @return void
      */
     public function up()
     {
-        Schema::create('usuarios_admins', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('NOV')->unique();
+        Schema::create('admins', function (Blueprint $table) {
+            $table->integer('registro_personal')->primary();
+            //$table->increments('id');
             $table->string('email')->unique();
-            $table->string('name');
+            $table->string('nombre');
+            $table->string('apellido');
             $table->string('password', 60);
             $table->rememberToken();
             $table->timestamps();
         });
 
-        Schema::create('usuarios_aspirantes', function (Blueprint $table) {
+        Schema::create('adminRol', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->enum('rol',[
+                'superadmin', //persona que puede editar todo
+                'jefe_bienestar',
+                'secretario',
+                'decano'
+            ]);
+            $table->integer('admin_registro_personal')->unsigned();
+            $table->foreign('admin_registro_personal')->references('registro_personal')->on('admins');
+            $table->timestamps();
+        });
+
+        Schema::create('aspirantes', function (Blueprint $table) {
+            $table->integer('NOV')->primary();
+            $table->string('nombre');
+            $table->string('apellido');
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->rememberToken();
@@ -39,6 +56,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::drop('aspirantes');
+        Schema::drop('adminRol');
+        Schema::drop('admins');
     }
 }

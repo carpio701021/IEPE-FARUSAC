@@ -65,3 +65,7 @@ Route::group(['middleware' => 'web'], function () {
     });
 
 });
+// RA APE RV APN Percentiles que ingresan
+// aplicación -> oportunidad
+// subir archivo de notas
+// registro de personal
