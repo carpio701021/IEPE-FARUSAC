@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->integer('registro_personal')->primary();
+            $table->integer('registro_personal')->unsigned()->primary();
             //$table->increments('id');
             $table->string('email')->unique();
             $table->string('nombre');
@@ -39,7 +39,7 @@ class CreateUsersTable extends Migration
         });
 
         Schema::create('aspirantes', function (Blueprint $table) {
-            $table->integer('NOV')->primary();
+            $table->integer('NOV')->unsigned()->primary();
             $table->string('nombre');
             $table->string('apellido');
             $table->string('email')->unique();

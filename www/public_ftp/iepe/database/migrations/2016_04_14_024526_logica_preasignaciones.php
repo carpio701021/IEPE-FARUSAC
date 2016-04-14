@@ -42,7 +42,8 @@ class LogicaPreasignaciones extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('preasignaciones_secciones_aspirantes', function (Blueprint $table) {
+        Schema::create('pre_secciones_aspirantes', function (Blueprint $table) {
+            //preasignaciones de los estudiantes a las secciones
             $table->integer('aspirante_id')->unsigned();
             $table->foreign('aspirante_id')->references('NOV')->on('aspirantes');
 
@@ -65,7 +66,7 @@ class LogicaPreasignaciones extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('preasignaciones_secciones_aspirantes');
+        Schema::dropIfExists('pre_secciones_aspirantes');
         Schema::dropIfExists('secciones');
         Schema::dropIfExists('ciclos');
         Schema::dropIfExists('jornadas');
