@@ -33,14 +33,6 @@ class LogicaIepe extends Migration
 
         });
 
-        /*
-        Schema::create('horaios', function (Blueprint $table){
-            $table->increments('id');
-            $table->time('hora_inicio');
-            $table->time('hora_fin');
-            $table->softDeletes();
-        });*/
-
         Schema::create('pruebas_especificas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
@@ -54,8 +46,8 @@ class LogicaIepe extends Migration
             $table->string('path_arte');
 
             $table->date('fecha_aplicacion');
-            $table->time('hora_inicio');
-            $table->time('hora_fin');
+            //$table->time('hora_inicio');
+            //$table->time('hora_fin');
             $table->date('fecha_publicacion_resultados');
 
             $table->integer('percentil_RA');
@@ -69,6 +61,16 @@ class LogicaIepe extends Migration
             $table->foreign('prueba_especifica_id')->references('id')->on('pruebas_especificas');
 
             $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('horarios', function (Blueprint $table){
+            $table->increments('id');
+            $table->time('hora_inicio');
+            $table->time('hora_fin');
+            $table->integer('oportunidad_id')->unsigned();
+            $table->foreign('oportunidad_id')->references('id')->on('oportunidades');
+
             $table->softDeletes();
         });
 
@@ -101,6 +103,7 @@ class LogicaIepe extends Migration
     {
         //
         Schema::dropIfExists('aspirantes_oportunidades');
+        Schema::dropIfExists('horarios');
         Schema::dropIfExists('oportunidades');
         Schema::dropIfExists('pruebas_especificas');
         Schema::dropIfExists('salones');

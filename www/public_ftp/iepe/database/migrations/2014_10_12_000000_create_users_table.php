@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('adminRol', function (Blueprint $table) {
+        Schema::create('admin_rols', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('rol',[
                 'superadmin', //persona que puede editar todo
