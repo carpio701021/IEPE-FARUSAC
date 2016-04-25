@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Aspirante;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -49,8 +49,9 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'NOV' => 'required|numeric',
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:aspirantes',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -63,7 +64,8 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return Aspirante::create([
+            'NOV' => $data['NOV'],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
