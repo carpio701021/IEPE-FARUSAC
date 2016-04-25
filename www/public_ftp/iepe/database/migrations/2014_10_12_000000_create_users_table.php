@@ -47,6 +47,29 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('formularios', function (Blueprint $table) {
+            $table->increments('id_formulario');
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->string('residencia');
+            $table->string('departamento');
+            $table->boolean('genero');
+            $table->date('fecha_nacimiento');
+            $table->enum('estado_civil',['soltero', 'casado']);
+            $table->enum('estado_laboral',['trabaja', 'no_trabaja']);
+            $table->string('titulo');
+            $table->integer('anio_titulo');
+            $table->integer('dependientes');
+            $table->string('centro_educativo');
+            $table->string('direccion_centro_educativo');
+            $table->enum('sector',['privado', 'publico']);
+            $table->enum('carrera',['arquitectura', 'diseño']);
+            $table->enum('jornada',['matutina', 'vespertina']);
+            $table->integer('NOV')->unsigned();
+            $table->foreign('NOV')->references('NOV')->on('aspirantes');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -56,8 +79,9 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('formularios');
         Schema::drop('aspirantes');
-        Schema::drop('adminRol');
+        Schema::drop('admin_rols');
         Schema::drop('admins');
     }
 }
