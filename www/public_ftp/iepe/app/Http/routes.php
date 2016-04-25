@@ -30,14 +30,15 @@ Route::get('/admin/oportunidades', function () {
 });
 
 
-Route::get('/aspirante/PruebaEspecifica', function () {
+/*Route::get('/aspirante/PruebaEspecifica', function () {
     return View::make('aspirante.PruebaEspecifica');
 });
 
 Route::get('/aspirante/ResultadosSatisfactorios', function () {
     return View::make('aspirante.satisfactorio');
-});
+});*/
 
+Route::resource('aspirante', 'AspiranteController');
 
 
 /*
@@ -60,9 +61,9 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
 
-    Route::get('/aspirante', function () {
+    /*Route::get('/aspirante', function () {
         return view('aspirante.index');
-    });
+    });*/
 
 });
 // RA APE RV APN Percentiles que ingresan

@@ -1,0 +1,10 @@
+#192949 Azul oscuro
+#375596 Azul 
+#5075B9 Azul claro
+
+#E6B120 Amarillo oscuro
+#EBC14D Amarillo
+#F9d574 Amarillo Claro
+
+#8c8c8c Gris Oscuro	
+#a8a8a8 Gris Claro
