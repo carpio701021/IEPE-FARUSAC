@@ -15,7 +15,7 @@ class AspiranteController extends Controller
      */
     public function index()
     {
-        return view("aspirante.index");
+        return view("aspirante.aspirante");
     }
 
     /**
