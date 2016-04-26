@@ -176,6 +176,14 @@
                 </div>
             </div>                        
         </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <label for "txt_dependientes" >Cuantos dependen de usted: </label>
+            </div>
+            <div class="col-sm-4">
+                <input type="number" name="txt_dependientes" id="txt_dependientes" placeholder="Cantidad de personas que dependen de usted" />
+            </div>
+        </div>
 		<input type="button" name="next" class="next action-button" value="Siguiente" />
 	</fieldset>
 	<fieldset>
