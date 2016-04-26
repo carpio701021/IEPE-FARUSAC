@@ -52,11 +52,11 @@ Route::resource('aspirante', 'AspiranteController');
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['aspirante_web']], function () {
     //
 });
 
-Route::group(['middleware' => 'web'], function () {
+Route::group(['middleware' => 'aspirante_web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
