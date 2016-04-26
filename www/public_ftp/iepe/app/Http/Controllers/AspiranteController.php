@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Aspirante;
 
 class AspiranteController extends Controller
 {
@@ -15,7 +16,11 @@ class AspiranteController extends Controller
      */
     public function index()
     {
-        return view("aspirante.aspirante");
+        $aspirante = Aspirante::where('NOV',17551402)->first();
+        if(count($aspirante->Formulario)>0)
+            return view("aspirante.aspirante");
+        else            
+            return view("aspirante.index");
     }
 
     /**
