@@ -10,24 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::get('/admin', function () {
-    return view('admin.index');
-});
-
-
-Route::get('/admin/usuarios', function () {
-    return view('admin.usuarios');
-});
-
-Route::get('/admin/oportunidades', function () {
-    return view('admin.oportunidades');
-});
+Route::get('/home', 'HomeController@index');
 
 
 /*Route::get('/aspirante/PruebaEspecifica', function () {
@@ -37,8 +20,6 @@ Route::get('/admin/oportunidades', function () {
 Route::get('/aspirante/ResultadosSatisfactorios', function () {
     return View::make('aspirante.satisfactorio');
 });*/
-
-Route::resource('aspirante', 'AspiranteController');
 
 
 /*
@@ -52,21 +33,52 @@ Route::resource('aspirante', 'AspiranteController');
 |
 */
 
-Route::group(['middleware' => ['aspirante_web']], function () {
-    //
-});
+
 
 Route::group(['middleware' => 'aspirante_web'], function () {
     Route::auth();
 
-    Route::get('/home', 'HomeController@index');
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
     /*Route::get('/aspirante', function () {
         return view('aspirante.index');
     });*/
 
+    Route::group(['middleware' => ['auth','aspirante_web']], function () {
+        Route::resource('aspirante', 'AspiranteController');
+
+    });
+
 });
-// RA APE RV APN Percentiles que ingresan
-// aplicación -> oportunidad
-// subir archivo de notas
-// registro de personal
+
+
+Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+
+    //Authentication Routes...
+    $this->get('login', 'AuthAdmin\AuthController@showLoginForm');
+    $this->post('login', 'AuthAdmin\AuthController@login');
+    $this->get('logout', 'AuthAdmin\AuthController@logout');
+
+
+    Route::group(['middleware' => ['auth','admin']], function () {
+        Route::resource('admin', 'AdminController');
+
+        Route::get('/', function () {
+            return view('admin.index');
+        });
+
+
+        Route::get('oportunidades', function () {
+            return view('admin.oportunidades');
+        });
+    });
+
+
+});
+
+Route::get('usuarios', function () {
+    return view('admin.usuarios');
+});

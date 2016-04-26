@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\AuthAdmin;
 
 use App\Aspirante;
 use Auth;
@@ -30,10 +30,11 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'aspirante';
-    protected $redirectAfterLogout = '/';
-    protected $guard = 'aspirante_web';
-    protected $username = 'NOV';
+    protected $redirectTo = '/admin';
+    protected $redirectAfterLogout = '/admin/login';
+    protected $guard = 'admin';
+    protected $username = 'registro_personal';
+    protected $loginView = 'admin.auth.login';
 
     /**
      * Create a new authentication controller instance.
@@ -42,20 +43,8 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('aspirante_web', ['except' => 'logout']);
+        $this->middleware('admin', ['except' => 'logout']);
     }
-
-    /**
-     * Get the login lockout error message.
-     *
-     * @param  int  $seconds
-     * @return string
-     */
-    protected function getLockoutErrorMessage($seconds)
-    {
-        return 'Muchos intentos de ingreso. Vuelva a intentarlo en '.$seconds.' segundos.';
-    }
-
 
     /**
      * Get a validator for an incoming registration request.
@@ -66,10 +55,10 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'NOV' => 'required|numeric|unique:aspirantes',
+            'registro_personal' => 'required|numeric|unique:admins',
             //'nombre' => 'required|max:255',
             //'apelido' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:aspirantes',
+            'email' => 'required|email|max:255|unique:admins',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -83,7 +72,7 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return Aspirante::create([
-            'NOV' => $data['NOV'],
+            'registro_personal' => $data['registro_personal'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
@@ -107,7 +96,7 @@ class AuthController extends Controller
      */
     public function loginUsername()
     {
-        return property_exists($this, 'username') ? $this->username : 'NOV';
+        return property_exists($this, 'username') ? $this->username : 'registro_personal';
     }
 
     /**
@@ -135,11 +124,9 @@ class AuthController extends Controller
 
         $credentials = $this->getCredentials($request);
 
-        if ( Auth::guard('aspirante_web')->attempt($credentials) )
+        if ( Auth::guard('admin')->attempt($credentials) )
         {
-            //dd(Auth::user());
             return redirect($this->redirectTo);
-            //return redirect('hola');
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -166,6 +153,17 @@ class AuthController extends Controller
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
 
+    /**
+     * Get the login lockout error message.
+     *
+     * @param  int  $seconds
+     * @return string
+     */
+    protected function getLockoutErrorMessage($seconds)
+    {
+        return 'Muchos intentos de ingreso. Vuelva a intentarlo en '.$seconds.' segundos.';
+    }
+
 
     /**
      * Get the guard to be used during authentication.
@@ -174,7 +172,7 @@ class AuthController extends Controller
      */
     protected function getGuard()
     {
-        return $this->guard;
+        return 'admin';
     }
 
 }

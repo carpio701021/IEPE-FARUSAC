@@ -2,17 +2,27 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Aspirante extends Model
+class Aspirante extends Authenticatable
 {
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    protected $primaryKey = 'NOV';
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'NOV';
+    }
     protected $fillable = [
-        'NOV','name', 'email', 'password',
+        'NOV','nombre','apellido', 'email', 'password',
     ];
 
     /**
@@ -23,4 +33,5 @@ class Aspirante extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
 }

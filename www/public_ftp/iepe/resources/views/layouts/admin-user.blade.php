@@ -24,7 +24,7 @@
             margin-right: 6px;
         }
     </style>
-    <title>SAPE - FARUSAC</title>
+    <title>IEPE - FARUSAC</title>
 </head>
 <body>
 
@@ -83,16 +83,27 @@
                     </ul>
                 </li>
             </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Angel Caal <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Cambiar contraseña</a></li>
-                        <li><a href="#">Mis roles</a></li>
-                    </ul>
-                </li>
-            </ul>
+            @if( Auth::check() )
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user"></span>  {{ Auth::user()->nombre }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Cambiar contraseña</a></li>
+                            <li><a href="#">Mis roles</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            @else
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            nada
+                        </a>
+                    </li>
+                </ul>
+            @endif
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

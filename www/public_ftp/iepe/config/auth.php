@@ -14,8 +14,9 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'aspirantes',
+        'guard' => 'aspirante_web',
+        //'passwords' => 'users',
+        'passwords' => 'aspirante_web',
     ],
 
     /*
@@ -36,14 +37,19 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'aspirante_web' => [
             'driver' => 'session',
             'provider' => 'aspirantes',
         ],
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'aspirantes',
+            'provider' => 'users',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
     ],
 
@@ -68,6 +74,11 @@ return [
         'aspirantes' => [
             'driver' => 'eloquent',
             'model' => App\Aspirante::class,
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
         ],
 
         // 'users' => [

@@ -5,20 +5,20 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Ingreso</div>
+                <div class="panel-heading">Ingreso Administrativo</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/login') }}">
                         {!! csrf_field() !!}
 
-                        <div class="form-group{{ $errors->has('NOV') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Número de Orientación Vocacional</label>
+                        <div class="form-group{{ $errors->has('registro_personal') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Registro de Personal</label>
 
                             <div class="col-md-6">
-                                <input type="number" min="10000000" max="9999999999"  class="form-control" name="NOV" value="{{ old('NOV') }}">
+                                <input type="number" min="10000000" max="9999999999"  class="form-control" name="registro_personal" value="{{ old('registro_personal') }}">
 
-                                @if ($errors->has('NOV'))
+                                @if ($errors->has('registro_personal'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('NOV') }}</strong>
+                                        <strong>{{ $errors->first('registro_personal') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -53,8 +53,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-sign-in"></i>Ingresar
                                 </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">¿Olvidaste tu contraseña?</a>
                             </div>
                         </div>
                     </form>
