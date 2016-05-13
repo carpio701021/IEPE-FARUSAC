@@ -16,12 +16,12 @@ class AspiranteController extends Controller
      */
     public function index()
     {
-        $aspirante = Aspirante::where('NOV',17551402)->first();
+        //$aspirante = Aspirante::where('NOV',17551402)->first();
         
-        if(count($aspirante->Formulario)>0)
+        //if(count($aspirante->Formulario)>0)
             return view("aspirante.aspirante");
-        else            
-            return view("aspirante.index");
+        //else
+        //    return view("aspirante.index");
     }
 
     /**

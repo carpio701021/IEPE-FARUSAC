@@ -139,7 +139,6 @@ class AuthController extends Controller
         {
             //dd(Auth::user());
             return redirect($this->redirectTo);
-            //return redirect('hola');
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

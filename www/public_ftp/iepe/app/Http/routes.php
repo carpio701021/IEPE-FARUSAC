@@ -14,22 +14,6 @@ Route::get('/home', 'HomeController@index');
 
 
 
-Route::get('/aspirante', function () {
-    return View::make('aspirante.aspirante');
-});
-
-Route::get('/aspirante/formulario', function () {
-    return View::make('aspirante.index');
-});
-
-Route::get('/aspirante/PruebaEspecifica', function () {
-    return View::make('aspirante.PruebaEspecifica');
-});
-
-Route::get('/aspirante/ResultadosSatisfactorios', function () {
-    return View::make('aspirante.satisfactorio');
-});
-
 
 //Route::resource('aspirante', 'AspiranteController');
 
@@ -46,9 +30,38 @@ Route::get('/aspirante/ResultadosSatisfactorios', function () {
 */
 
 
+Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+
+    //Authentication Routes...
+    $this->get('login', 'AuthAdmin\AuthController@showLoginForm');
+    $this->post('login', 'AuthAdmin\AuthController@login');
+    $this->get('logout', 'AuthAdmin\AuthController@logout');
+
+
+    Route::group(['middleware' => ['auth:admin']], function () {
+        Route::resource('admin', 'AdminController');
+
+        Route::get('/', function () {
+            return view('admin.index');
+        });
+
+        Route::get('oportunidades', function () {
+            return view('admin.oportunidades');
+        });
+
+        Route::get('usuarios', function () {
+            return view('admin.usuarios');
+        });
+    });
+
+
+});
+
+
 
 Route::group(['middleware' => 'aspirante_web'], function () {
     Route::auth();
+
 
 
     Route::get('/', function () {
@@ -59,38 +72,32 @@ Route::group(['middleware' => 'aspirante_web'], function () {
         return view('aspirante.index');
     });*/
 
-    Route::group(['middleware' => ['auth','aspirante_web']], function () {
+    Route::group(['middleware' => ['auth:aspirante_web']], function () {
         Route::resource('aspirante', 'AspiranteController');
 
-    });
 
-});
-
-
-Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
-
-    //Authentication Routes...
-    $this->get('login', 'AuthAdmin\AuthController@showLoginForm');
-    $this->post('login', 'AuthAdmin\AuthController@login');
-    $this->get('logout', 'AuthAdmin\AuthController@logout');
-
-
-    Route::group(['middleware' => ['auth','admin']], function () {
-        Route::resource('admin', 'AdminController');
-
-        Route::get('/', function () {
-            return view('admin.index');
+        Route::get('/aspirante', function () {
+            return View::make('aspirante.aspirante');
         });
 
-
-        Route::get('oportunidades', function () {
-            return view('admin.oportunidades');
+        Route::get('/aspirante/formulario', function () {
+            return View::make('aspirante.index');
         });
+
+        Route::get('/aspirante/PruebaEspecifica', function () {
+            return View::make('aspirante.PruebaEspecifica');
+        });
+
+        Route::get('/aspirante/ResultadosSatisfactorios', function () {
+            return View::make('aspirante.satisfactorio');
+        });
+
     });
 
 
+
+
+
 });
 
-Route::get('usuarios', function () {
-    return view('admin.usuarios');
-});
+

@@ -18,17 +18,6 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the unique identifier for the user.
-     *
-     * @return mixed
-     */
-    public function getAuthIdentifier()
-    {
-        return 'registro_personal';
-    }
-
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
