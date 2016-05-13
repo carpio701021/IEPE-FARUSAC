@@ -24,4 +24,7 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function AdminRol(){
+    	return $this->hasMany('App\AdminRol','admin_registro_personal','registro_personal');
+    }
 }

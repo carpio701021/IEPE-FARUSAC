@@ -19,3 +19,31 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Aspirante::class, function (Faker\Generator $faker) {
+    return [
+    	'NOV' => $faker->numberBetween(0,201699999),
+        'nombre' => $faker->name,
+        'apellido' => $faker->lastname,
+        'email' => $faker->email,
+        'password' => bcrypt(str_random(60)),
+        'remember_token' => str_random(10),   
+    ];
+});
+
+$factory->define(App\Admin::class, function (Faker\Generator $faker) {
+    return [
+    	'registro_personal' => $faker->unique()->numberBetween(0,1000000),        
+        'email' => $faker->email,
+        'nombre' => $faker->name,
+        'apellido' => $faker->lastname,
+        'password' => bcrypt(str_random(60)),
+        'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\AdminRol::class, function (Faker\Generator $faker) {
+    return [
+    	'rol' => $faker->numberBetween(1,4)               
+    ];
+});

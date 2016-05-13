@@ -6,6 +6,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Aspirante extends Authenticatable
 {
+class Aspirante extends Model
+{
+    public function Formulario(){
+    	return $this->hasMany('App\Formulario','NOV','NOV');
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -33,5 +38,4 @@ class Aspirante extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
 }
