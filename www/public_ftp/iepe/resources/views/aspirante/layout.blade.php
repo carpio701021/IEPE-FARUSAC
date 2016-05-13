@@ -19,13 +19,13 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#"> FARUSAC</a>
+                    <img src="/img/logotipoFARUSAC_Amarillo.png"  style="width:210px;height:70px;">
                 </li>
-                <li>
+                <li id="item_aspirante">
                     <a href="/aspirante">Aspirante</a>
                 </li>
-                <li class="active" id="li_pruebaEspecifica">
-                    <a href="/aspirante/PruebaEspecifica">Prueba Específica</a>
+                <li id="li_pruebaEspecifica">
+                    <a href="/aspirante/PruebaEspecifica">Prueba Especifica</a>
                 </li>                
                 <li>
                     <a href="/aspirante/ResultadosSatisfactorios">Resultados satisfactorios</a>
@@ -50,7 +50,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        @yield('content')                        
+                        @yield('content')
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     </div>
                 </div>

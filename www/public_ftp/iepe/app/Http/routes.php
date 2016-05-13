@@ -13,13 +13,25 @@
 Route::get('/home', 'HomeController@index');
 
 
-/*Route::get('/aspirante/PruebaEspecifica', function () {
+
+Route::get('/aspirante', function () {
+    return View::make('aspirante.aspirante');
+});
+
+Route::get('/aspirante/formulario', function () {
+    return View::make('aspirante.index');
+});
+
+Route::get('/aspirante/PruebaEspecifica', function () {
     return View::make('aspirante.PruebaEspecifica');
 });
 
 Route::get('/aspirante/ResultadosSatisfactorios', function () {
     return View::make('aspirante.satisfactorio');
-});*/
+});
+
+
+//Route::resource('aspirante', 'AspiranteController');
 
 
 /*
