@@ -19,7 +19,9 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#"> FARUSAC</a>
+
+                    <img src="img/logotipoFARUSAC_Amarillo.png"  style="width:210px;height:70px;">
+
                 </li>
                 <li>
                     <a href="/aspirante">Aspirante</a>
