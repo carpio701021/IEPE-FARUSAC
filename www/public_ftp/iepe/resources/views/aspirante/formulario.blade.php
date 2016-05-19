@@ -68,7 +68,7 @@
 </nav>
 
 
-<form id="msform" class="control-form">
+<form id="msform" class="control-form" action="formulario" method="POST">
 	<!-- progressbar -->
 	<ul id="progressbar">
         <li class="active">Ińformación Personal</li>
@@ -81,7 +81,7 @@
 		<h3 class="fs-subtitle">Requisito para asignación de prueba especifica</h3>
         <div class="row">
             <div class="col-sm-3">
-              <label for "txt_nombre" >Nombres: </label>
+              <label >Nombres: </label>
             </div>
             <div class="col-sm-9" >
               <input type="text" name="txt_nombre" id="txt_nombre" placeholder="Nombres" />
@@ -121,7 +121,7 @@
         </div> 
         <div class="row">
             <div class="col-sm-3">
-                <label for "select_genero" >Genero: </label>                
+                <label>Genero: </label>
             </div>            
             <div class="col-sm-4">                    
             <div class="form-group">
@@ -178,7 +178,7 @@
         </div>
         <div class="row">
             <div class="col-sm-3">
-                <label for "txt_dependientes" >Cuantos dependen de usted: </label>
+                <label  >Cuantos dependen de usted: </label>
             </div>
             <div class="col-sm-4">
                 <input type="number" name="txt_dependientes" id="txt_dependientes" placeholder="Cantidad de personas que dependen de usted" />
@@ -199,7 +199,7 @@
         </div>   
         <div class="row">
             <div class="col-sm-3">
-                <label for "date_titulo" >Año de graduación: </label>                
+                <label >Año de graduación: </label>
             </div>            
             <div class="col-sm-3">                                    
                 <div class="input-group date">
@@ -283,7 +283,7 @@
             </div>
         </div>                      
         <input type="button" name="previous" class="previous action-button" value="Anterior" />
-        <input type="button" name="next" class="next action-button" value="Finalizar" />
+        <input type="submit" name="finalizar" class="next action-button" value="Finalizar" />
     </fieldset>
 </form>
 

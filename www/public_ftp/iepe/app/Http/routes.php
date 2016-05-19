@@ -13,7 +13,7 @@
 Route::get('/home', 'HomeController@index');
 
 
-
+/*
 Route::get('/aspirante', function () {
     return View::make('aspirante.aspirante');
 });
@@ -28,11 +28,12 @@ Route::get('/aspirante/PruebaEspecifica', function () {
 
 Route::get('/aspirante/ResultadosSatisfactorios', function () {
     return View::make('aspirante.satisfactorio');
-});
+});*/
 
 
-//Route::resource('aspirante', 'AspiranteController');
+Route::resource('aspirante', 'AspiranteController');
 
+Route::resource('formulario', 'formularioController');
 
 /*
 |--------------------------------------------------------------------------

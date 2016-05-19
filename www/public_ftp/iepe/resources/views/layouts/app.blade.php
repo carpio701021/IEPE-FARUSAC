@@ -40,9 +40,9 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    FARUSAC
-                </a>
+                <div class="navbar-brand">
+                    <img src="/img/logotipoFARUSAC_Amarillo.png"  style="width:150px;height:40px;">
+                </div>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">

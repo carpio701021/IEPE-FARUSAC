@@ -17,3 +17,4 @@ success #34BA6C verde
 info #C6D8EB celeste
 danger #AF3838 rojo
 warning #EBC14D Amarillo
+

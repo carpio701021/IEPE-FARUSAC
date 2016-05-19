@@ -6,8 +6,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Aspirante extends Authenticatable
 {
-class Aspirante extends Model
-{
     public function Formulario(){
     	return $this->hasMany('App\Formulario','NOV','NOV');
     }
