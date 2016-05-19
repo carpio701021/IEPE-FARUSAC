@@ -1,6 +1,6 @@
 @extends('layouts.admin-user')
 
-@section('cuerpo')
+@section('content')
 <div class="container">
     <div class="jumbotron">
         <h1>SAPE - FARUSAC</h1>

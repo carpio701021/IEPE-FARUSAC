@@ -1,6 +1,6 @@
 @extends('layouts.admin-user')
 
-@section('cuerpo')
+@section('content')
 <div class="container">
     <h3>Administración de usuarios</h3>
 

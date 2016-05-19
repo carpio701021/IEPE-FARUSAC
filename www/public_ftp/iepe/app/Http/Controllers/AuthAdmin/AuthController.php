@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\AuthAdmin;
 
-use App\Aspirante;
+use App\Admin;
 use Auth;
 use Validator;
 use Illuminate\Http\Request;
@@ -30,7 +30,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected $redirectTo = 'admin';
     protected $redirectAfterLogout = '/admin/login';
     protected $guard = 'admin';
     protected $username = 'registro_personal';
@@ -43,7 +43,19 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin', ['except' => 'logout']);
+        $this->middleware('guest:admin', ['except' => 'logout']);
+    }
+
+
+    /**
+     * Get the login lockout error message.
+     *
+     * @param  int  $seconds
+     * @return string
+     */
+    protected function getLockoutErrorMessage($seconds)
+    {
+        return 'Muchos intentos de ingreso. Vuelva a intentarlo en '.$seconds.' segundos.';
     }
 
     /**
@@ -71,7 +83,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return Aspirante::create([
+        return Admin::create([
             'registro_personal' => $data['registro_personal'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -126,6 +138,8 @@ class AuthController extends Controller
 
         if ( Auth::guard('admin')->attempt($credentials) )
         {
+            //Auth::login(Auth::user(), true);
+            //dd(Auth::guard('admin')->check());
             return redirect($this->redirectTo);
         }
 
@@ -153,26 +167,7 @@ class AuthController extends Controller
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
 
-    /**
-     * Get the login lockout error message.
-     *
-     * @param  int  $seconds
-     * @return string
-     */
-    protected function getLockoutErrorMessage($seconds)
-    {
-        return 'Muchos intentos de ingreso. Vuelva a intentarlo en '.$seconds.' segundos.';
-    }
 
 
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return string|null
-     */
-    protected function getGuard()
-    {
-        return 'admin';
-    }
 
 }

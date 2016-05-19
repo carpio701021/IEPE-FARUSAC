@@ -17,7 +17,6 @@ class AspiranteController extends Controller
      */
     public function index()
     {
-
         $u=Auth::user();
         //dd($u->NOV);
         $aspirante = Aspirante::where('NOV',$u->NOV)->first();
