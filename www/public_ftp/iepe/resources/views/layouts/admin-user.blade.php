@@ -14,6 +14,9 @@
     <!-- Styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
+
+
 
     <style>
         body {
@@ -61,7 +64,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Desarrollo estudiantil <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/oportunidades">Oportunidades</a></li>
+                            <li><a href="/admin/oportunidad">Oportunidades</a></li>
                             <li><a href="#">Estadística</a></li>
                             <li><a href="#">Resultados de básicos</a></li>
                             <li><a href="#">Ingreso de resultados básicos</a></li>
@@ -91,6 +94,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="#">Cambiar contraseña</a></li>
                             <li><a href="#">Mis roles</a></li>
+                            <li><a href="{{ url('/admin/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Cerrar Sesión</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -108,6 +112,13 @@
         <!-- JavaScripts -->
 <script src="/js/jquery-2.2.2.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+<script src="/js/bootstrap-datepicker.es.min.js" type="text/javascript"></script>
+
+@section('scripts')
+    @show
 
 </body>
 </html>
