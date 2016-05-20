@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/aspirante.css">
-    <link href="/css/simple-sidebar.css" rel="stylesheet">    
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
     <script src="/js/jquery-2.2.2.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>    
-    <script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>       
+    <script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>
+    <script src="/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap-datepicker.es.min.js" type="text/javascript"></script>
 
     
 </head>
@@ -41,6 +44,7 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Cerrar Sesión</a></li>
+                            <li><a href="/aspirante/{{Auth::user()->NOV}}/edit"><i class="fa fa-btn fa-sign-out"></i>Configuración de cuenta</a></li>
                         </ul>
                     </li>
                 @endif

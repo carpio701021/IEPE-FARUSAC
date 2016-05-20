@@ -9,6 +9,10 @@ class Aspirante extends Authenticatable
     public function Formulario(){
     	return $this->hasMany('App\Formulario','NOV','NOV');
     }
+
+    public function getFormulario(){
+        return $this->hasMany('App\Formulario','NOV','NOV')->first();
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -24,6 +28,7 @@ class Aspirante extends Authenticatable
     {
         return 'NOV';
     }
+    
     protected $fillable = [
         'NOV','nombre','apellido', 'email', 'password',
     ];

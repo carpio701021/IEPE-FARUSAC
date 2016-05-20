@@ -20,9 +20,9 @@ class AspiranteController extends Controller
         $u=Auth::user();
         //dd($u->NOV);
         $aspirante = Aspirante::where('NOV',$u->NOV)->first();
-        
-        if(count($aspirante->Formulario)>0)
-            return view("aspirante.aspirante");
+        $form=$aspirante->getFormulario();
+        if($form)
+            return view("aspirante.aspirante")->with("formulario",$form);
         else            
             return view("aspirante.formulario");
     }
@@ -34,7 +34,6 @@ class AspiranteController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -67,7 +66,7 @@ class AspiranteController extends Controller
      */
     public function edit($id)
     {
-        //
+        return "edit";
     }
 
     /**

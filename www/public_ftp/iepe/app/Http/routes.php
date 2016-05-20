@@ -13,31 +13,6 @@
 Route::get('/home', 'HomeController@index');
 
 
-<<<<<<< HEAD
-/*
-Route::get('/aspirante', function () {
-    return View::make('aspirante.aspirante');
-});
-
-Route::get('/aspirante/formulario', function () {
-    return View::make('aspirante.index');
-});
-
-Route::get('/aspirante/PruebaEspecifica', function () {
-    return View::make('aspirante.PruebaEspecifica');
-});
-
-Route::get('/aspirante/ResultadosSatisfactorios', function () {
-    return View::make('aspirante.satisfactorio');
-});*/
-=======
->>>>>>> ae1d984fb1f9865fa4ebe6f4e67bf1da432e7ff1
-
-
-Route::resource('aspirante', 'AspiranteController');
-
-Route::resource('formulario', 'formularioController');
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -92,11 +67,12 @@ Route::group(['middleware' => 'aspirante_web'], function () {
         return view('aspirante.index');
     });*/
 
-    Route::group(['middleware' => ['auth:aspirante_web']], function () {
-        Route::resource('aspirante', 'AspiranteController');
+    Route::group(['middleware' => ['auth:aspirante_web'],'prefix' => 'aspirante'], function () {
+        Route::resource('/', 'AspiranteController');
+        Route::resource('formulario', 'formularioController');
+        Route::resource('PruebaEspecifica', 'AspirantesOportunidadesController');
 
-
-        Route::get('/aspirante', function () {
+        /*Route::get('/aspirante', function () {
             return View::make('aspirante.aspirante');
         });
 
@@ -110,7 +86,7 @@ Route::group(['middleware' => 'aspirante_web'], function () {
 
         Route::get('/aspirante/ResultadosSatisfactorios', function () {
             return View::make('aspirante.satisfactorio');
-        });
+        });*/
 
     });
 

@@ -68,7 +68,7 @@
 </nav>
 
 
-<form id="msform" class="control-form" action="formulario" method="POST">
+<form id="msform" class="control-form" action="aspirante/formulario" method="POST">
 	<!-- progressbar -->
 	<ul id="progressbar">
         <li class="active">Ińformación Personal</li>
@@ -89,7 +89,7 @@
         </div>		
         <div class="row">
             <div class="col-sm-3">
-              <label for "txt_apellido">Apellidos:</label>
+              <label for="txt_apellido">Apellidos:</label>
             </div>
             <div class="col-sm-9" >
               <input type="text" name="txt_apellido" id="txt_apellido" placeholder="Apellidos" />
@@ -105,17 +105,24 @@
         </div>      
         <div class="row">
             <div class="col-sm-3" align="rigth">
-                <label for "select_departamento" >Departamento: </label>                
+                <label>Departamento: </label>
             </div>            
             <div class="col-sm-4">                    
             <div class="form-group">
-                 <select class="form-control" id="select_departamento">
-                    <option>Departamento 1</option>
-                    <option>Departamento 2</option>                    
-                    <option>Departamento 3</option>                    
-                    <option>Departamento 4</option>                    
-                    <option>Departamento 5</option>                    
-                  </select>
+                <select class="form-control" name="select_departamento" id="select_departamento" >
+                    <option selected>{{$formulario->departamento}}</option>
+                    <option>Alta Verapaz</option><option>Baja Verapaz</option>
+                    <option>Chimaltenango</option><option>Chiquimula</option>
+                    <option>Petén</option><option>El Progreso</option>
+                    <option>Quiché</option><option>Escuintla</option>
+                    <option>Guatemala</option><option>Huehuetenango</option>
+                    <option>Izabal</option><option>Jalapa</option>
+                    <option>Jutiapa</option><option>Quetzaltenango</option>
+                    <option>Retalhuleu</option><option>Sacatepéquez</option>
+                    <option>San Marcos</option><option>Santa Rosa</option>
+                    <option>Sololá</option><option>Suchitepéquez</option>
+                    <option>Totonicapán</option><option>Zacapa</option>
+                </select>
               </div>
             </div>            
         </div> 
@@ -125,16 +132,16 @@
             </div>            
             <div class="col-sm-4">                    
             <div class="form-group">
-                 <select class="form-control" id="select_genero" >
-                    <option>Masculino</option>
-                    <option>Femenino</option>                    
+                 <select class="form-control" name="select_genero" >
+                    <option value="1">Masculino</option>
+                    <option value="0">Femenino</option>
                   </select>
               </div>
             </div>            
         </div>      
         <div class="row">
             <div class="col-sm-3">
-                <label for "date_nacimiento" >Fecha de nacimiento: </label>                
+                <label>Fecha de nacimiento: </label>
             </div>            
             <div class="col-sm-9">                                    
                 <div class="input-group date">
@@ -144,7 +151,8 @@
                 </span>                
                 <script>
                         $('.input-group.date').datepicker({
-                            language: 'es'
+                            language: 'es',
+                            format: "yyyy-mm-dd"
                         });                
                 </script>
                 </div>                               
@@ -152,13 +160,13 @@
         </div>      		
         <div class="row">
             <div class="col-sm-3">
-                <label for "select_estadoCivil" >Estado civil: </label>                
+                <label for="select_estadoCivil" >Estado civil: </label>
             </div>            
             <div class="col-sm-4">                    
             <div class="form-group">
-                 <select class="form-control" id="select_estadoCivil" >
-                    <option>Soltero</option>
-                    <option>Casado</option>                    
+                 <select class="form-control" name="select_estadoCivil" >
+                    <option value="soltero">Soltero</option>
+                    <option value="casado">Casado</option>
                   </select>
               </div>
             </div>            
@@ -169,9 +177,9 @@
             </div>            
             <div class="col-sm-4">                                                 
                 <div class="form-group">
-                    <select class="form-control" id="select_laboral" >
-                        <option>Trabajo</option>
-                        <option>No trabajo</option>                    
+                    <select class="form-control" name="select_laboral" >
+                        <option value="trabaja">Trabajo</option>
+                        <option value="no_trabaja">No trabajo</option>
                     </select>
                 </div>
             </div>                        
@@ -191,7 +199,7 @@
         <h3 class="fs-subtitle">Requisito para asignación de prueba especifica</h3>
         <div class="row">
             <div class="col-sm-3">
-              <label for "txt_titulo" >Titulo de nivel medio: </label>
+              <label>Titulo de nivel medio: </label>
             </div>
             <div class="col-sm-9" >
               <input type="text" name="txt_titulo" id="txt_titulo" placeholder="Titulo" />
@@ -210,7 +218,7 @@
                 <script>                        
                         $('.input-group.date').datepicker({
                             language: 'es',
-                            format: " yyyy", // Notice the Extra space at the beginning
+                            format: "yyyy", // Notice the Extra space at the beginning
                             viewMode: "years", 
                             minViewMode: "years",
                             endDate: " " + new Date().getFullYear()
@@ -221,7 +229,7 @@
         </div> 
         <div class="row">
             <div class="col-sm-3">
-              <label for "txt_centroEducativo" >Centro Educativo: </label>
+              <label>Centro Educativo: </label>
             </div>
             <div class="col-sm-9" >
               <input type="text" name="txt_centroEducativo" id="txt_centroEducativo" placeholder="Nombre completo del centro educativo" />
@@ -281,7 +289,8 @@
               </div>
             </div>  
             </div>
-        </div>                      
+        </div>
+        <input type="hidden" name="_token" value= "{{{ csrf_token() }}}" />
         <input type="button" name="previous" class="previous action-button" value="Anterior" />
         <input type="submit" name="finalizar" class="next action-button" value="Finalizar" />
     </fieldset>

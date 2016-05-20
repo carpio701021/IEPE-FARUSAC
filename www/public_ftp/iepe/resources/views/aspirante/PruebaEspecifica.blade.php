@@ -22,42 +22,26 @@
                     </h4>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
-                    <div class="panel-body">
-                    	<div class="panel panel-default">
-                    		<div class="panel-heading" >
-			                    <h5 class="panel-title">
-			                        <a data-toggle="collapse" href="#collapse2">Evaluación 1</a>
-			                    </h5>
-			                </div>
-			                <div class="panel-body">
-			                <div class="col-sm-3">
-			                	<div class="row">
-			                		<div class="col-xs-4"><strong>Fecha:</strong> </div>
-			                		<div class="col-xs-5"> - </div>
-			                	</div>			                	
-			                	<div class="row">
-			                		<div class="col-sm-4"><strong>Horario: </strong></div>
-			                		<div class="col-sm-4"> - </div>
-			                	</div>
-			                	<div class="row">
-			                		<div class="col-sm-4"><strong>Salon:</strong> </div>
-			                		<div class="col-sm-4"> - </div>
-			                	</div>
-			                	<div class="row">
-			                		<div class="col-sm-4"><strong>Nota:</strong> </div>
-			                		<div class="col-sm-4"> - </div>
-			                	</div>
-			                	<div class="row">
-			                		<div class="col-sm-4"><strong>Resultado:</strong> </div>
-			                		<div class="col-sm-4"> - </div>
-			                	</div>
-			                </div>
-			                </div>
-                    	</div>
-                        <div class="alert alert-success">
-						  <strong>Evaluación 2 </strong> - resultado satisfactorio
+					<div class="panel-body">
+						<div class="col-sm-3">
+							<div class="row">
+								<div class="col-xs-4"><strong>Fecha:</strong> </div>
+								<div class="col-xs-5"> - </div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4"><strong>Horario: </strong></div>
+								<div class="col-sm-4"> - </div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4"><strong>Salon:</strong> </div>
+								<div class="col-sm-4"> - </div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4"><strong>Resultado:</strong> </div>
+								<div class="col-sm-4"> - </div>
+							</div>
 						</div>
-                    </div>
+					</div>
                     <div class="panel-footer">
                         <button class="btn btn-xs btn-primary" id="btn_asignar2"onClick="asignar_segunda();">
                         	Asignar oportunidad
@@ -70,7 +54,7 @@
 
 
         <div class="panel-group">
-            <div class="panel panel-default">
+            <div class="panel panel-danger">
                 <div class="panel-heading" >
                     <h4 class="panel-title">
                         <a data-toggle="collapse" href="#collapse2">Primera oportunidad 2016</a>
@@ -78,71 +62,26 @@
                     </h4>
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
-                    <div class="panel-body">                    	
-                    	<div class="panel panel-danger">
-                    		<div class="panel-heading" >
-			                    <h5 class="panel-title">
-			                        <a data-toggle="collapse" href="#collapse2">Evaluación 1</a>
-			                    </h5>
-			                </div>
-			                <div class="panel-body">			                	
-			                	<table>		                        	
-		                        	<tr>
-		                        		<th width="60%">Fecha:</th>
-		                        		<td>10-03-2016</td>
-		                        	</tr>
-		                        	<tr>
-		                        		<th>Horario:</th>
-		                        		<td>9:00 - 11:00 </td>
-		                        	</tr>
-		                        	<tr>
-		                        		<th >Salón:</th>
-		                        		<td>201 - T1</td>
-		                        	</tr>
-		                        	<tr>
-		                        		<th>Nota:</th>
-		                        		<td>40/100</td>
-		                        	</tr>
-		                        	<tr>
-		                        		<th>Resultado:</th>
-		                        		<td>No satisfactorio</td>
-		                        	</tr>
-		                        </table>
-			                </div>
-                    	</div>
-                        <div class="panel panel-success">
-                    		<div class="panel-heading" >
-			                    <h5 class="panel-title">
-			                        <a data-toggle="collapse" href="#collapse2">Evaluación 2</a>
-			                    </h5>
-			                </div>
-			                <div class="panel-body">
-			                	<table>		                        	
-		                        	<tr>
-		                        		<th width="60%">Fecha:</th>
-		                        		<td>10-03-2016</td>
-		                        	</tr>
-		                        	<tr>
-		                        		<th width="60%">Horario:</th>
-		                        		<td>9:00 - 11:00 </td>
-		                        	</tr>
-		                        	<tr>
-		                        		<th width="60%">Salón:</th>
-		                        		<td>201 - T1</td>
-		                        	</tr>
-		                        	<tr>
-		                        		<th>Nota:</th>
-		                        		<td>90/100</td>
-		                        	</tr>
-		                        	<tr>
-		                        		<th>Resultado:</th>
-		                        		<td>Satisfactorio</td>
-		                        	</tr>
-		                        </table>
-			                </div>
-                    	</div>
-
-                    </div>
+					<div class="panel-body">
+						<table>
+							<tr>
+								<th width="60%">Fecha:</th>
+								<td>10-03-2016</td>
+							</tr>
+							<tr>
+								<th width="60%">Horario:</th>
+								<td>9:00 - 11:00 </td>
+							</tr>
+							<tr>
+								<th width="60%">Salón:</th>
+								<td>201 - T1</td>
+							</tr>
+							<tr>
+								<th>Resultado:</th>
+								<td>No satisfactorio</td>
+							</tr>
+						</table>
+					</div>
                     <div class="panel-footer">
                         <button class="btn btn-xs btn-primary" disabled="disabled">Asignar oportunidad</button>
                         <button class="btn btn-xs btn-primary">Ver constancia de asignación</button>

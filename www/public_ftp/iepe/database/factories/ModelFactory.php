@@ -26,7 +26,7 @@ $factory->define(App\Aspirante::class, function (Faker\Generator $faker) {
         'nombre' => $faker->name,
         'apellido' => $faker->lastname,
         'email' => $faker->email,
-        'password' => bcrypt(str_random(60)),
+        'password' => 123456,
         'remember_token' => str_random(10),   
     ];
 });
