@@ -13,11 +13,6 @@
 Route::get('/home', 'HomeController@index');
 
 
-
-
-//Route::resource('aspirante', 'AspiranteController');
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -56,46 +51,46 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             return view('admin.usuarios');
         });
     });
-
-
-});
-
-
-
-Route::group(['middleware' => 'aspirante_web'], function () {
-    Route::auth();
-
-
-
-    Route::get('/', function () {
-        return view('welcome');
     });
 
-    /*Route::get('/aspirante', function () {
-        return view('aspirante.index');
-    });*/
-
-    Route::group(['middleware' => ['auth:aspirante_web']], function () {
-        Route::resource('aspirante', 'AspiranteController');
 
 
-        Route::get('/aspirante', function () {
-            return View::make('aspirante.aspirante');
+    Route::group(['middleware' => 'aspirante_web'], function () {
+        Route::auth();
+
+
+        Route::get('/', function () {
+            return view('welcome');
         });
 
-        Route::get('/aspirante/formulario', function () {
-            return View::make('aspirante.index');
+        Route::get('/configuracion', function () {
+            return view('aspirante.configurarCuenta');
         });
 
-        Route::get('/aspirante/PruebaEspecifica', function () {
-            return View::make('aspirante.PruebaEspecifica');
-        });
+        Route::post('/configuracion/guardar', "AspiranteController@actualizarCuenta");
 
-        Route::get('/aspirante/ResultadosSatisfactorios', function () {
-            return View::make('aspirante.satisfactorio');
-        });
+        Route::group(['middleware' => ['auth:aspirante_web'],'prefix' => 'aspirante'], function () {
+            Route::resource('/', 'AspiranteController');
+            Route::resource('formulario', 'formularioController');
+            Route::resource('PruebaEspecifica', 'AspirantesOportunidadesController');
 
-    });
+            /*Route::get('/aspirante', function () {
+                return View::make('aspirante.aspirante');
+            });
+
+            Route::get('/aspirante/formulario', function () {
+                return View::make('aspirante.index');
+            });
+
+            Route::get('/aspirante/PruebaEspecifica', function () {
+                return View::make('aspirante.PruebaEspecifica');
+            });
+
+            Route::get('/aspirante/ResultadosSatisfactorios', function () {
+                return View::make('aspirante.satisfactorio');
+            });*/
+
+        });
 
 
 

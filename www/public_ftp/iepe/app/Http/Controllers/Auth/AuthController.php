@@ -135,7 +135,7 @@ class AuthController extends Controller
 
         $credentials = $this->getCredentials($request);
 
-        if ( Auth::guard('aspirante_web')->attempt($credentials) )
+        if (Auth::guard('aspirante_web')->attempt($credentials) )
         {
             //dd(Auth::user());
             return redirect($this->redirectTo);
