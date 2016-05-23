@@ -13,8 +13,12 @@
 							</div>
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-sm-6" align="right">Nombre:</div>
+									<div class="col-sm-6" align="right">Nombres:</div>
 									<div class="col-sm-6" align="left">{{$formulario->nombre}}</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6" align="right">Apellidos:</div>
+									<div class="col-sm-6" align="left">{{$formulario->apellido}}</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-6" align="right">Género:</div>

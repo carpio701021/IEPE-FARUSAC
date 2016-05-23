@@ -11,7 +11,7 @@ class Aspirante extends Authenticatable
     }
 
     public function getFormulario(){
-        return $this->hasMany('App\Formulario','NOV','NOV')->first();
+        return $this->hasMany('App\Formulario','NOV','NOV')->orderby("created_at","desc")->first();
     }
     /**
      * The attributes that are mass assignable.

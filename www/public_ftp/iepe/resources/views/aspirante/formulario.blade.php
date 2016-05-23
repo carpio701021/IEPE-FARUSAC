@@ -110,7 +110,7 @@
             <div class="col-sm-4">                    
             <div class="form-group">
                 <select class="form-control" name="select_departamento" id="select_departamento" >
-                    <option selected>{{$formulario->departamento}}</option>
+
                     <option>Alta Verapaz</option><option>Baja Verapaz</option>
                     <option>Chimaltenango</option><option>Chiquimula</option>
                     <option>Petén</option><option>El Progreso</option>

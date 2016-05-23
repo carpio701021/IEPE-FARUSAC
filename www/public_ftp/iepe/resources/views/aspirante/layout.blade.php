@@ -43,8 +43,9 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+                            <!--<li><a href="/aspirante/{{Auth::user()->NOV}}/edit"><i class="fa fa-btn fa-sign-out"></i>Configuración de cuenta</a></li>-->
+                            <li><a href="/configuracion"><i class="fa fa-btn fa-sign-out"></i>Configuración de cuenta</a></li>
                             <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Cerrar Sesión</a></li>
-                            <li><a href="/aspirante/{{Auth::user()->NOV}}/edit"><i class="fa fa-btn fa-sign-out"></i>Configuración de cuenta</a></li>
                         </ul>
                     </li>
                 @endif
