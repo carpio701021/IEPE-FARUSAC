@@ -7,11 +7,9 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/aspirante.css">
     <link href="/css/simple-sidebar.css" rel="stylesheet">    
-    <script src="/js/jquery-2.2.2.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>    
     <script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>       
-
-    
 </head>
 <body>
     <div id="wrapper">

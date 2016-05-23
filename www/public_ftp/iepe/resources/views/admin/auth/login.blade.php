@@ -14,7 +14,7 @@
                             <label class="col-md-4 control-label">Registro de Personal</label>
 
                             <div class="col-md-6">
-                                <input type="number" min="10000000" max="9999999999"  class="form-control" name="registro_personal" value="{{ old('registro_personal') }}">
+                                <input type="number" min="10000" max="9999999999"  class="form-control" name="registro_personal" value="{{ old('registro_personal') }}">
 
                                 @if ($errors->has('registro_personal'))
                                     <span class="help-block">

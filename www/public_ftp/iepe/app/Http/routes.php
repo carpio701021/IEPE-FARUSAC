@@ -39,15 +39,18 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
 
     Route::group(['middleware' => ['auth:admin']], function () {
-        Route::resource('admin', 'AdminController');
+        Route::resource('/conf', 'AdminController');
+
+        Route::resource('oportunidad', 'OportunidadController');
+
 
         Route::get('/', function () {
             return view('admin.index');
         });
 
-        Route::get('oportunidades', function () {
+        /*Route::get('oportunidades', function () {
             return view('admin.oportunidades');
-        });
+        });*/
 
         Route::get('usuarios', function () {
             return view('admin.usuarios');

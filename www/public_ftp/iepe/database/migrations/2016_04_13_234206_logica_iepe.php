@@ -46,22 +46,29 @@ class LogicaIepe extends Migration
             $table->string('path_arte');
 
             $table->date('fecha_aplicacion');
-            //$table->time('hora_inicio');
-            //$table->time('hora_fin');
             $table->date('fecha_publicacion_resultados');
+            $table->date('fecha_inicio_asignaiones');
+            $table->date('fecha_fin_asignaciones');
 
             $table->integer('percentil_RA');
             $table->integer('percentil_APE');
             $table->integer('percentil_RV');
             $table->integer('percentil_APN');
 
-            $table->integer('salon_id')->unsigned();
-            $table->foreign('salon_id')->references('id')->on('salones');
             $table->integer('prueba_especifica_id')->unsigned();
             $table->foreign('prueba_especifica_id')->references('id')->on('pruebas_especificas');
 
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::create('oportunidades_salones', function (Blueprint $table){
+            $table->integer('oportunidad_id')->unsigned();
+            $table->foreign('oportunidad_id')->references('id')->on('oportunidades');
+            $table->integer('salon_id')->unsigned();
+            $table->foreign('salon_id')->references('id')->on('salones');
+
+            $table->primary(['oportunidad_id', 'salon_id']);
         });
 
         Schema::create('horarios', function (Blueprint $table){
@@ -75,11 +82,15 @@ class LogicaIepe extends Migration
         });
 
         Schema::create('aspirantes_oportunidades', function (Blueprint $table){
-            $table->integer('oportunidad_id')->unsigned();
-            $table->foreign('oportunidad_id')->references('id')->on('oportunidades');
+            $table->integer('horario_id')->unsigned();
+            $table->foreign('horario_id')->references('id')->on('horarios');
             $table->integer('aspirante_id')->unsigned();
             $table->foreign('aspirante_id')->references('NOV')->on('aspirantes');
-            $table->primary(['oportunidad_id', 'aspirante_id']);
+            $table->integer('oportunidad_id')->unsigned();
+            $table->foreign('oportunidad_id')->references('oportunidad_id')->on('oportunidades_salones');
+            $table->integer('salon_id')->unsigned();
+            $table->foreign('salon_id')->references('salon_id')->on('oportunidades_salones');
+            $table->primary(['horario_id', 'aspirante_id','oportunidad_id','salon_id'],'aspirantes_oportunidades_primary');
 
             $table->integer('nota_RA');
             $table->integer('nota_APE');
@@ -104,6 +115,7 @@ class LogicaIepe extends Migration
         //
         Schema::dropIfExists('aspirantes_oportunidades');
         Schema::dropIfExists('horarios');
+        Schema::dropIfExists('oportunidades_salones');
         Schema::dropIfExists('oportunidades');
         Schema::dropIfExists('pruebas_especificas');
         Schema::dropIfExists('salones');

@@ -26,7 +26,7 @@ $factory->define(App\Aspirante::class, function (Faker\Generator $faker) {
         'nombre' => $faker->name,
         'apellido' => $faker->lastname,
         'email' => $faker->email,
-        'password' => bcrypt(str_random(60)),
+        'password' => bcrypt('123123'),
         'remember_token' => str_random(10),   
     ];
 });
@@ -37,7 +37,7 @@ $factory->define(App\Admin::class, function (Faker\Generator $faker) {
         'email' => $faker->email,
         'nombre' => $faker->name,
         'apellido' => $faker->lastname,
-        'password' => bcrypt(str_random(60)),
+        'password' => bcrypt('123123'),
         'remember_token' => str_random(10),
     ];
 });

@@ -77,7 +77,7 @@
 
     <!-- JavaScripts -->
 
-    <script src="/js/jquery-2.2.2.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>

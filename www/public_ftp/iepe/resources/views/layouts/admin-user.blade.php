@@ -14,7 +14,7 @@
     <!-- Styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-    <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
 
 
 
@@ -27,6 +27,7 @@
             margin-right: 6px;
         }
     </style>
+
     <title>IEPE - FARUSAC</title>
 </head>
 <body>
@@ -110,15 +111,16 @@
 
 
         <!-- JavaScripts -->
-<script src="/js/jquery-2.2.2.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/moment.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
-<script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>
-<script src="/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-<script src="/js/bootstrap-datepicker.es.min.js" type="text/javascript"></script>
+<!--script src="/js/jquery.easing.1.3.js" type="text/javascript"></script-->
+<script src="/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/js/locale/es.js" type="text/javascript"></script>
 
 @section('scripts')
-    @show
+@show
 
 </body>
 </html>
