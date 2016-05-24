@@ -1,11 +1,12 @@
 @extends('layouts.admin-user')
 
 @section('content')
+
     <div class="container">
         <h2>Nueva Oportunidad</h2>
 
         @foreach ($errors as $error)
-                <span class="help-block">
+            <span class="help-block">
                     <strong>{{ $error }}</strong>
                 </span>
         @endforeach
@@ -22,12 +23,9 @@
                     >
                 </div>
                 <div class="col-md-2">
-
-                    <a href="#" class="btn btn-primary"
-                       data-toggle="popover"
-                       title="Popover Header"
-                       data-content="Some content inside the popover">?</a>
+                    ?
                 </div>
+
 
             </div>
             <div class="form-group{{ $errors->has('arte') ? ' has-error' : '' }}">
@@ -50,7 +48,9 @@
                 <label class="col-md-4 control-label">Fecha de inicio de asignaciones</label>
                 <div class="col-md-6">
                     <div class='input-group date fecha' id='datetimepicker_fecha_inicio_asignaiones'>
-                        <input type='text' class="form-control"  id="fecha_inicio_asignaiones" name="fecha_inicio_asignaiones" value="{{ old('fecha_inicio_asignaiones') }}" placeholder="día/mes/año"/>
+                        <input type='text' class="form-control" id="fecha_inicio_asignaiones"
+                               name="fecha_inicio_asignaiones" value="{{ old('fecha_inicio_asignaiones') }}"
+                               placeholder="día/mes/año"/>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -62,7 +62,9 @@
                 <label class="col-md-4 control-label">Fecha de cierre de asignaciones</label>
                 <div class="col-md-6">
                     <div class='input-group date fecha' id='datetimepicker_fecha_fin_asignaciones'>
-                        <input type='text' class="form-control"  id="fecha_fin_asignaciones" name="fecha_fin_asignaciones" value="{{ old('fecha_fin_asignaciones') }}" placeholder="día/mes/año"/>
+                        <input type='text' class="form-control" id="fecha_fin_asignaciones"
+                               name="fecha_fin_asignaciones" value="{{ old('fecha_fin_asignaciones') }}"
+                               placeholder="día/mes/año"/>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -75,7 +77,8 @@
                 <label class="col-md-4 control-label">Fecha de la aplicación</label>
                 <div class="col-md-6">
                     <div class='input-group date fecha' id='datetimepicker_fecha_aplicacion'>
-                        <input type='text' class="form-control"  id="fecha_aplicacion" name="fecha_aplicacion" value="{{ old('fecha_aplicacion') }}" placeholder="día/mes/año"/>
+                        <input type='text' class="form-control" id="fecha_aplicacion" name="fecha_aplicacion"
+                               value="{{ old('fecha_aplicacion') }}" placeholder="día/mes/año"/>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -87,7 +90,9 @@
                 <label class="col-md-4 control-label">Fecha de publicación de resultados</label>
                 <div class="col-md-6">
                     <div class='input-group date fecha' id='datetimepicker_fecha_publicacion_resultados'>
-                        <input type='text' class="form-control"  id="fecha_publicacion_resultados" name="fecha_publicacion_resultados" value="{{ old('fecha_publicacion_resultados') }}" placeholder="día/mes/año"/>
+                        <input type='text' class="form-control" id="fecha_publicacion_resultados"
+                               name="fecha_publicacion_resultados" value="{{ old('fecha_publicacion_resultados') }}"
+                               placeholder="día/mes/año"/>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -102,7 +107,8 @@
                 <div class="list-group col-md-6" id="divHorarios">
 
 
-                    <a href="" id="btnAH"  data-toggle="modal" data-target="#modal_horarios" class="list-group-item {{ $errors->has('horarios') ? '  list-group-item-danger' : ' active' }}">
+                    <a href="" id="btnAH" data-toggle="modal" data-target="#modal_horarios"
+                       class="list-group-item {{ $errors->has('horarios') ? '  list-group-item-danger' : ' active' }}">
                         <span class="glyphicon glyphicon-plus"></span> Agregar horario
                     </a>
                 </div>
@@ -112,17 +118,19 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title" id="myModalLabel">Nuevo horario</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="form-horizontal" >
+                                <div class="form-horizontal">
                                     <div class="form-group">
                                         <p align="center">*Usar sistema horario de 24hrs*</p>
                                         <label class="col-md-4 control-label">Hora de inicio</label>
                                         <div class="col-md-6">
                                             <div class='input-group date hora' id='datetimepicker_hora_inicio'>
-                                                <input type='text' class="form-control"  id="hora_inicio" placeholder="23:59"/>
+                                                <input type='text' class="form-control" id="hora_inicio"
+                                                       placeholder="23:59"/>
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-time"></span>
                                                     </span>
@@ -133,19 +141,21 @@
                                         <label class="col-md-4 control-label">Hora de finalización</label>
                                         <div class="col-md-6">
                                             <div class='input-group date hora' id='datetimepicker_hora_fin'>
-                                                <input type='text' class="form-control"  id="hora_fin" placeholder="23:59" />
+                                                <input type='text' class="form-control" id="hora_fin"
+                                                       placeholder="23:59"/>
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-time"></span>
                                                     </span>
                                             </div>
                                         </div>
-                                </div>
+                                    </div>
                                 </div>
 
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary" id="btnAddHorario">Agregar horario</button>
+                                <button type="button" class="btn btn-primary" id="btnAddHorario">Agregar horario
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -157,13 +167,53 @@
                 <label class="col-md-4 control-label">Salones</label>
                 <div class="list-group col-md-6">
 
-                    <a href=""  data-toggle="modal" data-target="#modal_horarios" class="list-group-item {{ $errors->has('horarios') ? '  list-group-item-danger' : ' active' }}">
-                        <span class="glyphicon glyphicon-plus"></span> Agregar salon
+                    <a href="" id="btnAS" data-toggle="modal" data-target="#modal_salon"
+                       class="list-group-item {{ $errors->has('salones') ? '  list-group-item-danger' : ' active' }}">
+                        <span class="glyphicon glyphicon-plus"></span> Agregar salón
                     </a>
+                </div>
+
+                <!-- Modal agregar salon -->
+                <div class="modal fade" id="modal_salon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Nuevo horario</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Descripción del salon</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtSalon" placeholder="Salón L-II 3, Edificio T1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" id="btnAddSalon">Agregar salon</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
+
+            <div class="form-group{{ $errors->has('cupo') ? ' has-error' : '' }}">
+                <label class="col-md-4 control-label">Cupo por salon</label>
+                <div class="col-md-6">
+                    <input type='number' class="form-control" id="cupo"
+                           name="cupo" value="{{ old('cupo') }}"
+                           placeholder="40"/>
+
+                </div>
+
+            </div>
 
 
             <!--
@@ -217,14 +267,11 @@
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-4">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-btn fa-save"></i>Guardar
+                        <i class="fa fa-btn fa-save"></i> Guardar
                     </button>
                 </div>
             </div>
         </form>
-
-
-
 
 
     </div>
@@ -247,30 +294,48 @@
 
         });
 
-        contHorarios=0;
+        contHorarios = 0;
 
-        $( "#btnAddHorario" ).click(function(){
+        $("#btnAddHorario").click(function () {
             hi = $('#hora_inicio').val();
             hf = $('#hora_fin').val();
-            if(!hi || !hf) return;
             a =
                     '<button type="button" onclick="quitarHorario(this);" ' +
                     'class="list-group-item horario-item" ' +
                     '>' +
-                        'De '+hi+' a '+hf+' hrs' +
-                        '<input type="text" style="display:none"' +
-                        'name="horario[]" ' +
-                        'value="'+hi+'-'+hf+'">' +
+                    'De ' + hi + ' a ' + hf + ' hrs' +
+                    '<input type="text" style="display:none"' +
+                    'name="horarios[]" ' +
+                    'value="' + hi + '-' + hf + '">' +
                     '</button>';
-            $( "#btnAH").before(a);
-            $( "#msgNH").attr({
-                style : 'display:none;'
-            });
+            $("#btnAH").before(a);
+
             $('#modal_horarios').modal('hide');
         });
 
-        function quitarHorario(boton){
-            $( boton ).remove();
+        function quitarHorario(boton) {
+            $(boton).remove();
+        }
+
+
+        $("#btnAddSalon").click(function () {
+            salon = $('#txtSalon').val();
+
+            a =
+                    '<button type="button" onclick="quitarSalon(this);" ' +
+                    'class="list-group-item salon-item" ' +
+                    '>' + salon +
+                    '<input type="text" style="display:none"' +
+                    'name="salones[]" ' +
+                    'value="' + salon + '">' +
+                    '</button>';
+            $("#btnAS").before(a);
+
+            $('#modal_salon').modal('hide');
+        });
+
+        function quitarSalon(boton) {
+            $(boton).remove();
         }
 
 
@@ -280,11 +345,11 @@
             trigger: "focus",
             title: "Nombre de la oportunidad. Ejemplo: Segunda oportunidad 2016"
         });
-        $("#arte").tooltip({
+         $("#arte").tooltip({
             placement: "right",
             trigger: "focus",
             title: "Esta imagen es única por aplicación, lleva parámetros que impiden su falsificación, dentro de los cuales esta generar uno por fecha de aplicación "
         });
-        **/
+         **/
     </script>
 @endsection

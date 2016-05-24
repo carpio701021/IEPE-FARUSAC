@@ -1,4 +1,4 @@
-@extends('aspirante.layout')
+@extends('layouts.aspirante-layout')
 
 @section('content')	
 	<h1>Aspirante</h1>
@@ -11,6 +11,10 @@
 							<div class="panel-heading">
 								<strong>Información Personal</strong>
 							</div>
+							<!--
+							//todo:
+								agregar datos de cuenta (correo, NOV)
+                    		-->
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-sm-6" align="right">Nombres:</div>
@@ -160,18 +164,13 @@
 										<div class="form-group">
 											<label class="control-label col-sm-2" for="fecha_nacimiento">Fecha de Nacimiento:</label>
 											<div class="col-sm-10">
-												<div class="input-group date">
-													<input id="fecha_nacimiento" name="fecha_nacimiento" value="{{$formulario->fecha_nacimiento}}">
+												<div class='input-group date'>
+													<input type='text' class="form-control"  id="fecha_nacimiento" name="fecha_nacimiento" value="{{$formulario->fecha_nacimiento}}" placeholder="año/mes/día"/>
 													<span class="input-group-addon">
-														<i class="glyphicon glyphicon-th"></i>
+														<span class="glyphicon glyphicon-calendar"></span>
 													</span>
-													<script>
-														$('.input-group.date').datepicker({
-															language: 'es',
-															format: "yyyy-mm-dd"
-														});
-													</script>
 												</div>
+
 											</div>
 										</div>
 										<div class="form-group">
@@ -255,7 +254,7 @@
 												<button type="submit" class="btn btn-default">Guardar</button>
 											</div>
 										</div>
-										<input type="hidden" name="_token" value="{{ csrf_token() }}">
+										<input type="hidden" name="_token" value="{!! csrf_token() !!}">
 									</form>
 								</div>
 								<div class="modal-footer">
@@ -269,3 +268,19 @@
 		</div>
 	</ul>
 @stop
+
+@section('scripts')
+
+	<script type="text/javascript">
+		$(function () {
+			$('.input-group.date').datetimepicker({
+				locale: 'es',
+				format: 'L'
+			});
+
+		});
+	</script>
+
+
+
+@endsection

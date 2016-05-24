@@ -11,6 +11,7 @@
 	margin: 50px auto;
 	text-align: center;	
 }
+
 #msform fieldset {
 	background: #192949;
 	border: 0 none;
@@ -22,20 +23,17 @@
 	width: 80%;
 	margin: 0 10%;
 	
-	/*stacking fieldsets above each other*/	
+	/*stacking fieldsets above each other*/
 }
+
 /*Hide all except first fieldset*/
 #msform fieldset:not(:first-of-type) {
 	display: none;
 }
 /*inputs*/
+
 #msform label{
-	padding: 15px;	
-	margin-bottom: 15px;
-	text-align: right;
-	width: 100%;
 	box-sizing: border-box;
-	font-family: montserrat;
 	color: white;
 	font-size: 13px;
 }
@@ -50,6 +48,7 @@
 	color: #2C3E50;
 	font-size: 13px;
 }
+
 /*buttons*/
 #msform .action-button {
 	width: 100px;
