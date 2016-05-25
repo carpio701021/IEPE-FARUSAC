@@ -16,7 +16,7 @@
                             <label class="col-md-4 control-label">Numero de orientación vocacional</label>
 
                             <div class="col-md-6">
-                                <input type="number" min="10000000" max="9999999999" class="form-control" name="NOV" value="{{ old('orientacionV') }}">
+                                <input type="number" min="1000000000" max="9999999999" class="form-control" name="NOV" value="{{ old('orientacionV') }}">
 
                                 @if ($errors->has('NOV'))
                                     <span class="help-block">
@@ -71,7 +71,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i>Registrarme
+                                    <i class="glyphicon glyphicon-user"></i> Registrarme
                                 </button>
                             </div>
                         </div>

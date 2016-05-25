@@ -5,35 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
     <!-- Fonts -->
-
-    <link href="/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <!--link href="/css/font-awesome.min.css" rel='stylesheet' type='text/css'-->
     <link href="/css/googlefonts-css-latio.css" rel='stylesheet' type='text/css'>
-
     <!-- Styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
-
-
-
     <style>
         body {
             font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
         }
     </style>
 
     <title>IEPE - FARUSAC</title>
 </head>
-<body>
+<body id="app-layout">
 
-<nav class="navbar navbar-inverse" >
-    <div class="container-fluid">
+<nav class="navbar navbar-inverse navbar-static-top" >
+    <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -65,7 +55,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Desarrollo estudiantil <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/oportunidad">Oportunidades</a></li>
+                            <li><a href="/admin/aplicacion">Aplicaciones</a></li>
                             <li><a href="#">Estadística</a></li>
                             <li><a href="#">Resultados de básicos</a></li>
                             <li><a href="#">Ingreso de resultados básicos</a></li>
@@ -95,7 +85,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="#">Cambiar contraseña</a></li>
                             <li><a href="#">Mis roles</a></li>
-                            <li><a href="{{ url('/admin/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Cerrar Sesión</a></li>
+                            <li><a href="{{ url('/admin/logout') }}"><i class="glyphicon glyphicon-logout"></i>Cerrar Sesión</a></li>
                         </ul>
                     </li>
                 </ul>

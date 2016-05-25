@@ -33,14 +33,7 @@ class LogicaIepe extends Migration
 
         });
 
-        Schema::create('pruebas_especificas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre');
-            $table->string('descripcion');
-            $table->softDeletes();
-        });
-
-        Schema::create('oportunidades', function (Blueprint $table) {
+        Schema::create('aplicaciones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
             $table->string('path_arte');
@@ -55,42 +48,42 @@ class LogicaIepe extends Migration
             $table->integer('percentil_RV');
             $table->integer('percentil_APN');
 
-            $table->integer('prueba_especifica_id')->unsigned();
-            $table->foreign('prueba_especifica_id')->references('id')->on('pruebas_especificas');
+            //$table->integer('prueba_especifica_id')->unsigned();
+            //$table->foreign('prueba_especifica_id')->references('id')->on('pruebas_especificas');
 
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::create('oportunidades_salones', function (Blueprint $table){
-            $table->integer('oportunidad_id')->unsigned();
-            $table->foreign('oportunidad_id')->references('id')->on('oportunidades');
+        Schema::create('aplicaciones_salones', function (Blueprint $table){
+            $table->integer('aplicacion_id')->unsigned();
+            $table->foreign('aplicacion_id')->references('id')->on('aplicaciones');
             $table->integer('salon_id')->unsigned();
             $table->foreign('salon_id')->references('id')->on('salones');
 
-            $table->primary(['oportunidad_id', 'salon_id']);
+            $table->primary(['aplicacion_id', 'salon_id']);
         });
 
         Schema::create('horarios', function (Blueprint $table){
             $table->increments('id');
             $table->time('hora_inicio');
             $table->time('hora_fin');
-            $table->integer('oportunidad_id')->unsigned();
-            $table->foreign('oportunidad_id')->references('id')->on('oportunidades');
+            $table->integer('aplicacion_id')->unsigned();
+            $table->foreign('aplicacion_id')->references('id')->on('aplicaciones');
 
             $table->softDeletes();
         });
 
-        Schema::create('aspirantes_oportunidades', function (Blueprint $table){
+        Schema::create('aspirantes_aplicaciones', function (Blueprint $table){
             $table->integer('horario_id')->unsigned();
             $table->foreign('horario_id')->references('id')->on('horarios');
             $table->integer('aspirante_id')->unsigned();
             $table->foreign('aspirante_id')->references('NOV')->on('aspirantes');
-            $table->integer('oportunidad_id')->unsigned();
-            $table->foreign('oportunidad_id')->references('oportunidad_id')->on('oportunidades_salones');
+            $table->integer('aplicacion_id')->unsigned();
+            $table->foreign('aplicacion_id')->references('aplicacion_id')->on('aplicaciones_salones');
             $table->integer('salon_id')->unsigned();
-            $table->foreign('salon_id')->references('salon_id')->on('oportunidades_salones');
-            $table->primary(['horario_id', 'aspirante_id','oportunidad_id','salon_id'],'aspirantes_oportunidades_primary');
+            $table->foreign('salon_id')->references('salon_id')->on('aplicaciones_salones');
+            $table->primary(['horario_id', 'aspirante_id','aplicacion_id','salon_id'],'aspirantes_aplicaciones_primary');
 
             $table->integer('nota_RA');
             $table->integer('nota_APE');
@@ -113,11 +106,10 @@ class LogicaIepe extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('aspirantes_oportunidades');
+        Schema::dropIfExists('aspirantes_aplicaciones');
         Schema::dropIfExists('horarios');
-        Schema::dropIfExists('oportunidades_salones');
-        Schema::dropIfExists('oportunidades');
-        Schema::dropIfExists('pruebas_especificas');
+        Schema::dropIfExists('aplicaciones_salones');
+        Schema::dropIfExists('aplicaciones');
         Schema::dropIfExists('salones');
     }
 }

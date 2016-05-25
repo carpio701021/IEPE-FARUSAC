@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,7 @@
 
     <!-- Fonts -->
 
-    <link href="/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <!--link href="/css/font-awesome.min.css" rel='stylesheet' type='text/css'-->
     <link href="/css/googlefonts-css-latio.css" rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
@@ -18,10 +18,6 @@
     <style>
         body {
             font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
         }
     </style>
     <title>FARUSAC - Primer ingreso</title>

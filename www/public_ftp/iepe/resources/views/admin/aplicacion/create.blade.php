@@ -3,14 +3,15 @@
 @section('content')
 
     <div class="container">
-        <h2>Nueva Oportunidad</h2>
+        <h2>Nueva Aplicación</h2>
 
         @foreach ($errors as $error)
             <span class="help-block">
                     <strong>{{ $error }}</strong>
                 </span>
         @endforeach
-        <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/oportunidad') }}">
+
+        <form class="form-horizontal" role="form" method="POST" action="{{ url('aplicacion') }}">
             {!! csrf_field() !!}
 
             <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
@@ -19,14 +20,14 @@
                     <input
                             type="text" class="form-control"
                             name="nombre" id="nombre" value="{{ old('nombre') }}"
-                            placeholder="Ejemplo: Primera oportunidad 2016"
+                            placeholder="Ejemplo: Primera aplicación 2016"
+                            title="Nombre"
+                            data-placement="left"
+                            data-toggle="popover"
+                            data-trigger="focus"
+                            data-content="Nombre de la aplicación que le aparecerá al aspirante"
                     >
                 </div>
-                <div class="col-md-2">
-                    ?
-                </div>
-
-
             </div>
             <div class="form-group{{ $errors->has('arte') ? ' has-error' : '' }}">
                 <label class="col-md-4 control-label">Arte</label>
@@ -37,9 +38,10 @@
                 <div class="col-md-2">
 
                     <a href="#" class="btn btn-primary"
+                       title="Arte"
                        data-toggle="popover"
-                       title="Popover Header"
-                       data-content="Some content inside the popover">?</a>
+                       data-trigger="focus"
+                       data-content="Imagen única que se imprime en la constancia de asignación del aspirante.">?</a>
                 </div>
             </div>
 
@@ -47,7 +49,12 @@
             <div class="form-group{{ $errors->has('fecha_inicio_asignaiones') ? ' has-error' : '' }}">
                 <label class="col-md-4 control-label">Fecha de inicio de asignaciones</label>
                 <div class="col-md-6">
-                    <div class='input-group date fecha' id='datetimepicker_fecha_inicio_asignaiones'>
+                    <div class='input-group date fecha' id='datetimepicker_fecha_inicio_asignaiones'
+                         title="Fecha de inicio de asignaciones"
+                         data-toggle="popover"
+                         data-placement="left"
+                         data-trigger="focus"
+                         data-content="Día en el que al usuario aspirante le aparecerá ésta aplicación para asignarse.">
                         <input type='text' class="form-control" id="fecha_inicio_asignaiones"
                                name="fecha_inicio_asignaiones" value="{{ old('fecha_inicio_asignaiones') }}"
                                placeholder="día/mes/año"/>
@@ -61,7 +68,12 @@
             <div class="form-group{{ $errors->has('fecha_fin_asignaciones') ? ' has-error' : '' }}">
                 <label class="col-md-4 control-label">Fecha de cierre de asignaciones</label>
                 <div class="col-md-6">
-                    <div class='input-group date fecha' id='datetimepicker_fecha_fin_asignaciones'>
+                    <div class='input-group date fecha' id='datetimepicker_fecha_fin_asignaciones'
+                         title="Fecha de cierre de asignaciones"
+                         data-toggle="popover"
+                         data-placement="left"
+                         data-trigger="focus"
+                         data-content="Día en el que se deshabilitará la opción de asignarce a ésta aplicación.">
                         <input type='text' class="form-control" id="fecha_fin_asignaciones"
                                name="fecha_fin_asignaciones" value="{{ old('fecha_fin_asignaciones') }}"
                                placeholder="día/mes/año"/>
@@ -76,7 +88,12 @@
             <div class="form-group{{ $errors->has('fecha_aplicacion') ? ' has-error' : '' }}">
                 <label class="col-md-4 control-label">Fecha de la aplicación</label>
                 <div class="col-md-6">
-                    <div class='input-group date fecha' id='datetimepicker_fecha_aplicacion'>
+                    <div class='input-group date fecha' id='datetimepicker_fecha_aplicacion'
+                         title="Fecha de la aplicación"
+                         data-toggle="popover"
+                         data-placement="left"
+                         data-trigger="focus"
+                         data-content="Día en el que los aspirantes deben presentarse a la evaluación en el horario y salón establecido.">
                         <input type='text' class="form-control" id="fecha_aplicacion" name="fecha_aplicacion"
                                value="{{ old('fecha_aplicacion') }}" placeholder="día/mes/año"/>
                         <span class="input-group-addon">
@@ -89,7 +106,12 @@
             <div class="form-group{{ $errors->has('fecha_publicacion_resultados') ? ' has-error' : '' }}">
                 <label class="col-md-4 control-label">Fecha de publicación de resultados</label>
                 <div class="col-md-6">
-                    <div class='input-group date fecha' id='datetimepicker_fecha_publicacion_resultados'>
+                    <div class='input-group date fecha' id='datetimepicker_fecha_publicacion_resultados'
+                         title="Fecha de publicación de resultados"
+                         data-toggle="popover"
+                         data-placement="left"
+                         data-trigger="focus"
+                         data-content="Día en el que los aspirantes podrán ver sus resultados. Las notas ya deben estar ingresadas.">
                         <input type='text' class="form-control" id="fecha_publicacion_resultados"
                                name="fecha_publicacion_resultados" value="{{ old('fecha_publicacion_resultados') }}"
                                placeholder="día/mes/año"/>
@@ -185,7 +207,7 @@
                             <div class="modal-body">
                                 <div class="form-horizontal">
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label">Descripción del salon</label>
+                                        <label class="col-md-4 control-label">Descripción del salón</label>
                                         <div class="col-md-6">
                                             <input type="text" id="txtSalon" placeholder="Salón L-II 3, Edificio T1">
                                         </div>
@@ -195,7 +217,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary" id="btnAddSalon">Agregar salon</button>
+                                <button type="button" class="btn btn-primary" id="btnAddSalon">Agregar salón</button>
                             </div>
                         </div>
                     </div>
@@ -281,6 +303,7 @@
 
     <script type="text/javascript">
         $(function () {
+            $('[data-toggle="popover"]').popover()
 
             $('.input-group.date.hora').datetimepicker({
                 locale: 'es',
@@ -343,7 +366,7 @@
          * $("#nombre").tooltip({
             placement: "right",
             trigger: "focus",
-            title: "Nombre de la oportunidad. Ejemplo: Segunda oportunidad 2016"
+            title: "Nombre de la aplicacion. Ejemplo: Segunda aplicacion 2016"
         });
          $("#arte").tooltip({
             placement: "right",

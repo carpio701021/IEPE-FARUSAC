@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Oportunidad;
+use App\Aplicacion;
 
-class OportunidadController extends Controller
+class AplicacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class OportunidadController extends Controller
     public function index()
     {
         //
-        return view('admin.oportunidad.index');
+        return view('admin.aplicacion.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class OportunidadController extends Controller
     public function create()
     {
         //
-        return view('admin.oportunidad.create');
+        return view('admin.aplicacion.create');
     }
 
     /**
@@ -41,8 +41,8 @@ class OportunidadController extends Controller
     {
         //
         dd($request->all());
-        $oportunidad = new Oportunidad($request->all());
-        dd($oportunidad);
+        $aplicacion = new Aplicacion($request->all());
+        dd($aplicacion);
     }
 
     /**

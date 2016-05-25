@@ -36,15 +36,15 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::group(['middleware' => ['auth:admin']], function () {
         Route::resource('/conf', 'AdminController');
 
-        Route::resource('oportunidad', 'OportunidadController');
+        Route::resource('aplicacion', 'AplicacionController');
 
 
         Route::get('/', function () {
             return view('admin.index');
         });
 
-        /*Route::get('oportunidades', function () {
-            return view('admin.oportunidades');
+        /*Route::get('aplicaciones', function () {
+            return view('admin.aplicaciones');
         });*/
 
         Route::get('usuarios', function () {
@@ -72,7 +72,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::group(['middleware' => ['auth:aspirante_web'],'prefix' => 'aspirante'], function () {
             Route::resource('/', 'AspiranteController');
             Route::resource('formulario', 'formularioController');
-            Route::resource('PruebaEspecifica', 'AspirantesOportunidadesController');
+            Route::resource('PruebaEspecifica', 'AspiranteAplicacionController');
 
             /*Route::get('/aspirante', function () {
                 return View::make('aspirante.aspirante');

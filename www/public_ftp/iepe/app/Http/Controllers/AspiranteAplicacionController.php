@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class AspirantesOportunidadesController extends Controller
+class AspiranteAplicacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class AspirantesOportunidadesController extends Controller
      */
     public function create()
     {
-        return "create AspirnatesOportunidadesController";
+        return "create AspirnateAplicacionController";
     }
 
     /**
