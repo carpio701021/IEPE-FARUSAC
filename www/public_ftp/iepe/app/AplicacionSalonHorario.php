@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AplicacionSalon extends Model
+class AplicacionSalonHorario extends Model
 {
     //
 
-    protected $table = 'aplicaciones_salones';
+    protected $table = 'aplicaciones_salones_horarios';
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +16,7 @@ class AplicacionSalon extends Model
      * @var array
      */
     protected $fillable = [
-        'aplicacion_id','salon_id',
+        'aplicacion_id','salon_id','horario_id',
     ];
 
 }

@@ -32,7 +32,9 @@ class AplicacionController extends Controller
     public function create()
     {
         //
-        return view('admin.aplicacion.create');
+        //$aplicacion = Aplicacion::first();
+        $aplicacion = new Aplicacion();
+        return view('admin.aplicacion.create',compact('aplicacion'));
     }
 
     /**
@@ -67,15 +69,19 @@ class AplicacionController extends Controller
 
         //meter salones
         $rsalones = $request->salones;
+        $ids_salones = Array();
         foreach($rsalones as $salon){
-            $aplicacion->addSalon($salon,$request->cupo);
+            $ids_salones[] = $aplicacion->addSalon($salon,$request->cupo);
         }
         //meter horarios
         $rhorarios = $request->horarios;
+        $ids_horarios = Array();
         foreach($rhorarios as $horario){
             $hs =  explode("-", $horario,2);
-            $aplicacion->addHorario($hs[0],$hs[1]);
+            $ids_horarios[] = $aplicacion->addHorario($hs[0],$hs[1]);
         }
+
+        $aplicacion->generarSalonesHorarios($ids_salones, $ids_horarios);
 
         $request->session()->flash('mensaje_exito','Aplicación creada exitosamente.');
         return redirect('/admin/aplicacion');
@@ -101,6 +107,8 @@ class AplicacionController extends Controller
     public function edit($id)
     {
         //
+        $aplicacion = Aplicacion::findOrFail($id);
+        return view('admin.aplicacion.create',compact('aplicacion'));
     }
 
     /**
