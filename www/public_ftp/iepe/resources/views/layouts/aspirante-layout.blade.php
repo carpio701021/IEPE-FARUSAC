@@ -31,7 +31,7 @@
                 <a href="/aspirante">Aspirante</a>
             </li>
             <li id="li_pruebaEspecifica">
-                <a href="/aspirante/PruebaEspecifica">Prueba Especifica</a>
+                <a href="/aspirante/PruebaEspecifica/create">Prueba Especifica</a>
             </li>
             <li>
                 <a href="/aspirante/ResultadosSatisfactorios">Resultados satisfactorios</a>

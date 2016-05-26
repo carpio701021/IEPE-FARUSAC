@@ -157,8 +157,8 @@
                 <label class="col-md-4 control-label" >Sector: </label>
                 <div class="col-md-6">
                         <select class="form-control" id="select_sectorEducativo" name="sector">
-                            <option>Público</option>
-                            <option>Privado</option>
+                            <option value="publico">Público</option>
+                            <option value="privado">Privado</option>
                         </select>
                 </div>
             </div>
@@ -173,8 +173,8 @@
                 <label class="col-md-4 control-label" >Carrera: </label>
                 <div class="col-md-6">
                     <select class="form-control" id="select_carrera" name="carrera">
-                        <option>Arquitectura</option>
-                        <option>Diseño Gráfico</option>
+                        <option value="arquitectura">Arquitectura</option>
+                        <option value="diseño">Diseño Gráfico</option>
                     </select>
                 </div>
             </div>
@@ -182,8 +182,8 @@
                 <label class="col-md-4 control-label">Jornada: </label>
                 <div class="col-md-6">
                     <select class="form-control" id="select_jornada" name="jornada">
-                        <option>Matutina</option>
-                        <option>Vespertina</option>
+                        <option value="matutina">Matutina</option>
+                        <option value="vespertina">Vespertina</option>
                     </select>
                 </div>
             </div>

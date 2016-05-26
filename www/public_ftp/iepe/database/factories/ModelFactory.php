@@ -14,7 +14,7 @@
 
 $factory->define(App\Aspirante::class, function (Faker\Generator $faker) {
     return [
-    	'NOV' => $faker->numberBetween(0,201699999),
+    	'NOV' => $faker->numberBetween(1000000000,2016999999),
         'nombre' => $faker->name,
         'apellido' => $faker->lastname,
         'email' => $faker->email,

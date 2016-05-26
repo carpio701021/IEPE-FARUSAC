@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\AspiranteAplicacion;
+use App\Aplicacion;
 use App\Http\Requests;
 
 class AspiranteAplicacionController extends Controller
@@ -15,7 +16,7 @@ class AspiranteAplicacionController extends Controller
      */
     public function index()
     {
-        return view("aspirante.PruebaEspecifica");
+        
     }
 
     /**
@@ -25,7 +26,13 @@ class AspiranteAplicacionController extends Controller
      */
     public function create()
     {
-        return "create AspirnateAplicacionController";
+        //buscar todas las aplicaciones y restringir las actuales
+        $aplicaciones = Aplicacion::where("fecha_inicio_asignaiones","<=",date("Y-m-d"))
+            ->where("fecha_fin_asignaciones",">=",date("Y-m-d"))
+            ->get();
+        //dd($aplicaciones);
+        $aplicaciones =Aplicacion::all();
+        return view("aspirante.PruebaEspecifica")->with("aplicaciones",$aplicaciones);
     }
 
     /**
