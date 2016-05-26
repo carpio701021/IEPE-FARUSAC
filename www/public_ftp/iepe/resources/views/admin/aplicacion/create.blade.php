@@ -62,17 +62,17 @@
             </div>
 
 
-            <div class="form-group{{ $errors->has('fecha_inicio_asignaiones') ? ' has-error' : '' }}">
+            <div class="form-group{{ $errors->has('fecha_inicio_asignaciones') ? ' has-error' : '' }}">
                 <label class="col-md-4 control-label">Fecha de inicio de asignaciones</label>
                 <div class="col-md-6">
-                    <div class='input-group date fecha' id='datetimepicker_fecha_inicio_asignaiones'
+                    <div class='input-group date fecha' id='datetimepicker_fecha_inicio_asignaciones'
                          title="Fecha de inicio de asignaciones"
                          data-toggle="popover"
                          data-placement="left"
                          data-trigger="focus"
                          data-content="Día en el que al usuario aspirante le aparecerá ésta aplicación para asignarse.">
-                        <input type='text' class="form-control" id="fecha_inicio_asignaiones" required
-                               name="fecha_inicio_asignaiones" value="{{ old('fecha_inicio_asignaiones') }}"
+                        <input type='text' class="form-control" id="fecha_inicio_asignaciones" required
+                               name="fecha_inicio_asignaciones" value="{{ old('fecha_inicio_asignaciones') }}"
                                placeholder="día/mes/año"/>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
