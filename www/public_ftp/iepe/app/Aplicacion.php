@@ -20,7 +20,7 @@ class Aplicacion extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre','fecha_inicio_asignaiones',
+        'nombre','fecha_inicio_asignaciones',
         'fecha_fin_asignaciones', 'fecha_aplicacion',
         'fecha_publicacion_resultados',
     ];
@@ -44,11 +44,11 @@ class Aplicacion extends Model
     function generarSalonesHorarios($ids_salones, $ids_horarios){
         foreach($ids_horarios as $h){
             foreach($ids_salones as $s){
-                new AplicacionSalonHorarion([
+                (new AplicacionSalonHorario([
                     'aplicacion_id'     =>  $this->id,
                     'salon_id'          =>  $s,
                     'horario_id'        =>  $h,
-                ]);
+                ]))->save();
             }
         }
 
