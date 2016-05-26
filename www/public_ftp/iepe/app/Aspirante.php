@@ -41,4 +41,19 @@ class Aspirante extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    /*
+     * 
+     * @return las aplicaciones asignadas en toda la historia y las disponibles para asignarse
+     */
+    public function getAplicaciones(){
+        return Aplicacion::
+        where("fecha_inicio_asignaciones","<=",date("Y-m-d"))
+            ->leftJoin('aspirantes_aplicaciones',function($join) {
+                $join->on('id',"=","aplicacion_id")
+                    ->where('aspirante_id','=',$this->NOV);
+            })
+            ->get();
+        
+    }
 }

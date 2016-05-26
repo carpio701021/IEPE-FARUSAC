@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\AspiranteAplicacion;
 use App\Aplicacion;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class AspiranteAplicacionController extends Controller
 {
@@ -27,12 +28,17 @@ class AspiranteAplicacionController extends Controller
     public function create()
     {
         //buscar todas las aplicaciones y restringir las actuales
-        $aplicaciones = Aplicacion::where("fecha_inicio_asignaciones","<=",date("Y-m-d"))
+        $asignadas =AspiranteAplicacion::where('aspirante_id','=',Auth::user()->NOV)->get();
+        $proximas = Aplicacion::where("fecha_inicio_asignaciones","<=",date("Y-m-d"))
             ->where("fecha_fin_asignaciones",">=",date("Y-m-d"))
+            ->whereNotIn('id',[1,2,3])
             ->get();
         //dd($aplicaciones);
-        $aplicaciones =Aplicacion::all();
-        return view("aspirante.PruebaEspecifica")->with("aplicaciones",$aplicaciones);
+
+        
+        //$asignadas = Auth::user()->getAplicaciones();
+        //dd($aplicaciones);
+        return view("aspirante.PruebaEspecifica")->with("proximas",$proximas)->with("asignadas",$asignadas);
     }
 
     /**
