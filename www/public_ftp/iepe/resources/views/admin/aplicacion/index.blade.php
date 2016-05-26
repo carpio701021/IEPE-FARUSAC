@@ -3,6 +3,9 @@
 @section('content')
     <div class="container">
         <h2>Aplicaciones</h2>
+
+        @include('layouts.mensajes')
+
         <p><a href="/admin/aplicacion/create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Nueva</a></p>
 
         <div class="panel-group">
@@ -13,23 +16,22 @@
                     </h4>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
-                    <div class="panel-body">Opciones:
+                    <div class="panel-body">
                         <ul>
-                            <li><a href="#">Examinar</a></li>
-                            <li><a href="#">Guardar</a></li>
-                            <li><a href="#">Descargar Listado</a></li>
-                            <li><a href="#">Aprobar</a></li>
-                            <li><a href="#">Subir Arte</a></li>
-                            <li><a href="#">Generar Constancias</a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
                         </ul>
 
                     </div>
-                    <div class="panel-footer">
-                        <button class="btn btn-xs btn-primary">Asignar salones</button>
-                        <button class="btn btn-xs btn-primary">Información</button>
-                        <button class="btn btn-xs btn-primary">Asignación manual del aspirante</button>
-                        <button class="btn btn-xs btn-primary">Resultado</button>
-
+                    <div class="panel-footer">Opciones:
+                        <button class="btn btn-xs btn-primary">Editar</button>
+                        <button class="btn btn-xs btn-primary">Descargar Listado</button>
+                        <button class="btn btn-xs btn-primary">Subir resultados</button>
+                        <button class="btn btn-xs btn-primary">Ajustar percentiles</button>
+                        <button class="btn btn-xs btn-primary">Asignación manual de aspirante</button>
+                        <button class="btn btn-xs btn-primary">Generar Constancias</button>
                     </div>
                 </div>
             </div>
@@ -68,4 +70,5 @@
 
 
     </div>
+
 @endsection
