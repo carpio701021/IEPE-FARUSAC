@@ -27,7 +27,7 @@ class AspiranteAplicacionController extends Controller
     public function create()
     {
         //buscar todas las aplicaciones y restringir las actuales
-        $aplicaciones = Aplicacion::where("fecha_inicio_asignaiones","<=",date("Y-m-d"))
+        $aplicaciones = Aplicacion::where("fecha_inicio_asignaciones","<=",date("Y-m-d"))
             ->where("fecha_fin_asignaciones",">=",date("Y-m-d"))
             ->get();
         //dd($aplicaciones);

@@ -13,6 +13,7 @@
 	<div class="container">
         <h2>Aplicaciones</h2>
 
+		@if(count($aplicaciones)>0)
 		@foreach($aplicaciones as $aplicacion)
 			<div class="panel-group">
 				<div class="panel panel-default">
@@ -53,6 +54,11 @@
 				</div>
 			</div>
 		@endforeach
-
+		@else
+			<div class="panel panel-default">
+				<div class="panel-body">En esta area podrá ver las aplicaciones de pruebas especificas
+				disponibles, cuando exista alguna</div>
+			</div>
+		@endif
     </div>
 @stop
