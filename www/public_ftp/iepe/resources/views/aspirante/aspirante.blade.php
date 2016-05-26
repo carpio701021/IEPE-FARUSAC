@@ -105,7 +105,6 @@
 					<!-- Modal -->
 					<div id="ModalActualizar" class="modal fade" role="dialog" align="left">
 						<div class="modal-dialog">
-
 							<!-- Modal content-->
 							<div class="modal-content">
 								<div class="modal-header bg-primary">
@@ -165,7 +164,7 @@
 											<label class="control-label col-sm-2" for="fecha_nacimiento">Fecha de Nacimiento:</label>
 											<div class="col-sm-10">
 												<div class='input-group date'>
-													<input type='text' class="form-control"  id="fecha_nacimiento" name="fecha_nacimiento" value="{{$formulario->fecha_nacimiento}}" placeholder="año/mes/día"/>
+													<input type='text' class="form-control"  id="fecha_nacimiento" value="{{$formulario->fecha_nacimiento}}" name="fecha_nacimiento"/>
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
 													</span>
@@ -194,13 +193,13 @@
 										<div class="form-group">
 											<label class="control-label col-sm-2" for="dependientes">Dependientes:</label>
 											<div class="col-sm-10">
-												<input type="number" class="form-control" id="dependientes" name="dependientes" value="{{$formulario->dependientes}}">
+												<input type="number" class="form-control" min="0" id="dependientes" name="dependientes" value="{{$formulario->dependientes}}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="control-label col-sm-2" for="titulo">Titulo:</label>
 											<div class="col-sm-10">
-												<input type="text" class="form-control" id="titulo" value="{{$formulario->titulo}}">
+												<input type="text" class="form-control" name="titulo" value="{{$formulario->titulo}}">
 											</div>
 										</div>
 										<div class="form-group">
@@ -212,13 +211,13 @@
 										<div class="form-group">
 											<label class="control-label col-sm-2" for="centro_educativo">Centro Educativo:</label>
 											<div class="col-sm-10">
-												<input type="text" class="form-control" id="centro_educativo" value="{{$formulario->centro_educativo}}">
+												<input type="text" class="form-control" name="centro_educativo" value="{{$formulario->centro_educativo}}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="control-label col-sm-2" for="direccion_centro_educativo">Dirección:</label>
 											<div class="col-sm-10">
-												<input type="text" class="form-control" id="direccion_centro_educativo" value="{{$formulario->direccion_centro_educativo}}">
+												<input type="text" class="form-control" name="direccion_centro_educativo" value="{{$formulario->direccion_centro_educativo}}">
 											</div>
 										</div>
 										<div class="form-group">
@@ -275,7 +274,8 @@
 		$(function () {
 			$('.input-group.date').datetimepicker({
 				locale: 'es',
-				format: 'L'
+				format: 'L',
+				format: 'YYYY-MM-DD'
 			});
 
 		});

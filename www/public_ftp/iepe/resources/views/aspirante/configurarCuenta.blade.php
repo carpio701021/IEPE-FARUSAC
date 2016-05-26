@@ -1,5 +1,5 @@
 
-@extends('aspirante.layout')
+@extends('layouts.aspirante-layout')
 
 @section('content')
     @if (Session::has('mensaje_exito'))
@@ -17,11 +17,6 @@
         </script>
     @endif
     <h1>Configurar cuenta</h1>
-    @if ($errors->has('password'))
-        <span class="help-block">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-    @endif
     <form class="form-horizontal" role="form" action="/configuracion/guardar" method="POST">
         <div class="well well-sm" style="padding-top: 30px">
             <div class="form-group">
@@ -79,11 +74,6 @@
                     <input type="password" class="form-control" id="password2" name="newPassword2">
                 </div>
             </div>
-            @if ($errors->has('newPassword'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('newPassword') }}</strong>
-                </span>
-            @endif
             <div class="form-group" align="right">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">

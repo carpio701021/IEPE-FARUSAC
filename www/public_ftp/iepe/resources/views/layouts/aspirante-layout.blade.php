@@ -59,6 +59,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
+                    @if($errors->any())
+                        <div class="alert alert-danger fade in">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            @foreach ($errors->all() as $error)
+                                <strong>Error: </strong> {{$error}}<br/>
+                            @endforeach
+                        </div>
+                    @endif
                     @yield('content')
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                 </div>

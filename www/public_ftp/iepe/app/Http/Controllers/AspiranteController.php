@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use App\Http\Requests\AspiranteRequest;
 use App\Aspirante;
 use Auth;
 
@@ -92,7 +92,7 @@ class AspiranteController extends Controller
         //
     }
 
-    public function actualizarCuenta(Request $request){
+    public function actualizarCuenta(AspiranteRequest $request){
         $credenciales=["email"=>Auth::user()->email,"password"=>$request->password];
         if(Auth::guard("aspirante_web")->attempt($credenciales)){
             $u=Aspirante::find(Auth::user()->NOV);
@@ -102,14 +102,10 @@ class AspiranteController extends Controller
                 $request->session()->flash('mensaje_exito', 'Correo Actualizado');
                 return back();
             }else{
-                if($request->newPassword==$request->newPassword2){
-                       $u->password= bcrypt($request->newPassword);
-                        $u->save();
-                        $request->session()->flash('mensaje_exito', 'Contraseña actualizada');
-                        return back();
-                }else{
-                    return back()->withErrors(["newPassword"=>"No coinciden"]);
-                }
+                $u->password= bcrypt($request->newPassword);
+                $u->save();
+                $request->session()->flash('mensaje_exito', 'Contraseña actualizada');
+                return back();
             }
         }else
             return back()->withErrors(["password"=>"Contraseña incorrecta"]);

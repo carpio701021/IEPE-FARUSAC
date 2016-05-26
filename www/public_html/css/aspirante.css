@@ -32,22 +32,18 @@
 }
 /*inputs*/
 
+#msform .has-error label{
+	box-sizing: border-box;
+	color: #a94442;
+	font-size: 14px;
+}
+
 #msform label{
 	box-sizing: border-box;
 	color: white;
-	font-size: 13px;
+	font-size: 14px;
 }
-#msform input, #msform textarea{
-	padding: 15px;
-	border: 1px solid #ccc;	
-	border-radius: 3px;
-	margin-bottom: 10px;
-	width: 100%;
-	box-sizing: border-box;
-	font-family: montserrat;
-	color: #2C3E50;
-	font-size: 13px;
-}
+
 
 /*buttons*/
 #msform .action-button {

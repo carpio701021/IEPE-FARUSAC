@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
+use App\Http\Requests\FormularioRequest;
 use App\Formulario;
 use Auth;
 
@@ -35,25 +35,9 @@ class formularioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormularioRequest $request)
     {
-        $form = new Formulario;
-        $form->nombre=$request->txt_nombre;
-        $form->apellido=$request->txt_apellido;
-        $form->residencia=$request->txt_ubicacion;
-        $form->departamento=$request->select_departamento;
-        $form->genero=$request->select_genero;
-        $form->fecha_nacimiento=$request->date_nacimiento;
-        $form->estado_civil=$request->select_estadoCivil;
-        $form->estado_laboral=$request->select_laboral;
-        $form->dependientes=$request->txt_dependientes;
-        $form->titulo=$request->txt_titulo;
-        $form->anio_titulo=$request->date_titulo;
-        $form->centro_educativo=$request->txt_centroEducativo;
-        $form->direccion_centro_educativo=$request->txt_direccion;
-        $form->sector=$request->select_sectorEducativo;
-        $form->carrera=$request->select_carrera;
-        $form->jornada=$request->select_jornada;
+        $form = new Formulario($request->all());
         $form->NOV=Auth::user()->NOV;
         $form->save();
         return view("aspirante.aspirante")->with('formulario',$form);
@@ -88,7 +72,7 @@ class formularioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FormularioRequest $request, $id)
     {
         Formulario::find($id)->update($request->all());
         $form=Formulario::find($id);
