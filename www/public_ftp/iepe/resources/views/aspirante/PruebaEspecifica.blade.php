@@ -13,7 +13,8 @@
 	<div class="container">
         <h2>Aplicaciones</h2>
 
-		@foreach($aplicaciones as $aplicacion)
+		@if(count($proximas)>0 || count($asignadas)>0)
+		@foreach($proximas as $aplicacion)
 			<div class="panel-group">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -27,19 +28,19 @@
 							<div class="col-sm-3">
 								<div class="row">
 									<div class="col-xs-4"><strong>Fecha:</strong> </div>
-									<div class="col-xs-5"> {{$aplicacion->fecha_aplicacion}} </div>
+									<div class="col-xs-6"> {{$aplicacion->fecha_aplicacion}} </div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4"><strong>Horario: </strong></div>
-									<div class="col-sm-4"> sin asignar* </div>
+									<div class="col-sm-6"> - </div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4"><strong>Salon:</strong> </div>
-									<div class="col-sm-4"> sin asignar* </div>
+									<div class="col-sm-6"> - </div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4"><strong>Resultado:</strong> </div>
-									<div class="col-sm-4"> sin calificar* </div>
+									<div class="col-sm-6"> - </div>
 								</div>
 							</div>
 						</div>
@@ -53,6 +54,48 @@
 				</div>
 			</div>
 		@endforeach
-
+		@foreach($asignadas as $asignada)
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" href="#colaps{{$asignada->aplicacion_id}}">{{$asignada->getAplicacion()->nombre}}</a>
+						</h4>
+					</div>
+					<div id="colaps{{$asignada->aplicacion_id}}" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="col-sm-3">
+								<div class="row">
+									<div class="col-xs-4"><strong>Fecha:</strong> </div>
+									<div class="col-xs-6"> {{$asignada->getAplicacion()->fecha_aplicacion}} </div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4"><strong>Horario: </strong></div>
+									<div class="col-sm-6">
+										{{date("g:ia",strtotime($asignada->getHorario()->hora_inicio))."-".date("g:ia",strtotime($asignada->getHorario()->hora_fin))}} </div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4"><strong>Salon:</strong> </div>
+									<div class="col-sm-6"> {{$asignada->getSalon()->nombre}} </div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4"><strong>Resultado:</strong> </div>
+									<div class="col-sm-6"> {{$asignada->getResultado()}} </div>
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<button class="btn btn-xs btn-primary" id="btn_verConstancia" >Ver constancia de asignación</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		@endforeach
+		@else
+			<div class="panel panel-default">
+				<div class="panel-body">En esta area podrá ver las aplicaciones de pruebas especificas
+				disponibles, cuando exista alguna</div>
+			</div>
+		@endif
     </div>
 @stop
