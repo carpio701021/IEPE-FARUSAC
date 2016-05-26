@@ -30,6 +30,7 @@ class LogicaIepe extends Migration
             $table->integer('capacidad');
             $table->string('ubicacion');
             $table->softDeletes();
+            $table->timestamps();
 
         });
 
@@ -62,6 +63,7 @@ class LogicaIepe extends Migration
             $table->foreign('salon_id')->references('id')->on('salones');
 
             $table->primary(['aplicacion_id', 'salon_id']);
+            $table->timestamps();
         });
 
         Schema::create('horarios', function (Blueprint $table){
@@ -70,7 +72,7 @@ class LogicaIepe extends Migration
             $table->time('hora_fin');
             $table->integer('aplicacion_id')->unsigned();
             $table->foreign('aplicacion_id')->references('id')->on('aplicaciones');
-
+            $table->timestamps();
             $table->softDeletes();
         });
 

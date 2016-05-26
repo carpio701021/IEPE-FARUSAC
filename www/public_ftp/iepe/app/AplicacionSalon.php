@@ -3,15 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Salon extends Model
+class AplicacionSalon extends Model
 {
     //
-    use SoftDeletes;
-    protected $dates = ['deleted_at'];
-    protected $table = 'salones';
 
+    protected $table = 'aplicaciones_salones';
 
     /**
      * The attributes that are mass assignable.
@@ -19,8 +16,7 @@ class Salon extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre','capacidad',
+        'aplicacion_id','salon_id',
     ];
-
 
 }
