@@ -41,17 +41,46 @@ class Aplicacion extends Model
         return $horario->id;
     }
 
-    function generarSalonesHorarios($ids_salones, $ids_horarios){
+    private function generarSalonesHorarios($ids_salones, $ids_horarios){
         foreach($ids_horarios as $h){
             foreach($ids_salones as $s){
-                (new AplicacionSalonHorario([
+                (AplicacionSalonHorario::firstOrCreate([
                     'aplicacion_id'     =>  $this->id,
                     'salon_id'          =>  $s,
                     'horario_id'        =>  $h,
-                ]))->save();
+                ]));
             }
         }
+    }
 
+    function asignarSalonesHorarios($salones,$horarios){
+        $ids_salones = Array();
+        $ids_horarios = Array();
+
+        foreach($salones as $salon){
+            $ids_salones[] = $salon->id;
+        }
+        foreach($horarios as $horario){
+            $ids_horarios[] = $horario->id;
+        }
+        $this->generarSalonesHorarios($ids_salones, $ids_horarios);
+    }
+
+    function agregarSalonesHorarios($rsalones,$rhorarios){
+
+        //meter salones
+        $ids_salones = Array();
+        foreach($rsalones as $salon){
+            $sals =  explode(":==:", $salon,2);
+            $ids_salones[] = $this->addSalon($sals[0],$sals[1]);
+        }
+        //meter horarios
+        $ids_horarios = Array();
+        foreach($rhorarios as $horario){
+            $hs =  explode("-", $horario,2);
+            $ids_horarios[] = $this->addHorario($hs[0],$hs[1]);
+        }
+        $this->generarSalonesHorarios($ids_salones, $ids_horarios);
     }
 
 
