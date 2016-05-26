@@ -7,7 +7,15 @@
 
         @include('layouts.mensajes')
 
-        {!! Form::model($aplicacion, array('route' => array('admin.aplicacion.update', $aplicacion->id), 'files' => true , 'class' => 'form-horizontal', 'role' => 'form') ) !!}
+        {!! Form::model(
+            $aplicacion,
+            array('route' => array('admin.aplicacion.update', $aplicacion->id),
+            'files' => true , 'class' => 'form-horizontal', 'role' => 'form'
+        ) ) !!}
+        @if($put)
+        <input type="hidden" name="_method" value="PUT">
+        @endif
+
         <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
             {!! Form::label('nombre', 'Nombre*', array('class' => 'col-md-4 control-label')) !!}
             <div class="col-md-6">
@@ -26,11 +34,9 @@
 
 
         <div class="form-group{{ $errors->has('arte') ? ' has-error' : '' }}">
-            {!! Form::label('arte', 'Arte*', array('class' => 'col-md-4 control-label')) !!}
+            {!! Form::label('arte', 'Arte', array('class' => 'col-md-4 control-label')) !!}
             <div class="col-md-6">
-                {!! Form::file('arte' , null , array(
-                'class' => 'form-control',
-                'required' => 'true',
+                {!! Form::file('arte' , array(
                 'accept' =>'image/*'
                 )) !!}
             </div>
@@ -234,7 +240,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Cupo por salón</label>
                                     <div class="col-md-6">
-                                        <input type='number' class="form-control" id="cupo" required
+                                        <input type='number' class="form-control" id="cupo"
                                                name="cupo"
                                                placeholder="40"
                                                title="Cupo por salón"
@@ -372,7 +378,7 @@
         $("#btnAddSalon").click(function () {
             salon = $('#txtSalon').val();
             cupo = $('#cupo').val();
-            if(cupo="")cupo =40;
+            if(cupo=="") cupo =40;
             if(salon=="") {
                 $('#modal_salon').modal('hide');
                 return;

@@ -67,7 +67,6 @@ class Aplicacion extends Model
     }
 
     function agregarSalonesHorarios($rsalones,$rhorarios){
-
         //meter salones
         $ids_salones = Array();
         foreach($rsalones as $salon){
@@ -82,6 +81,8 @@ class Aplicacion extends Model
         }
         $this->generarSalonesHorarios($ids_salones, $ids_horarios);
     }
+
+
 
 
 }

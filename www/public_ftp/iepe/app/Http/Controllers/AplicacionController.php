@@ -19,9 +19,9 @@ class AplicacionController extends Controller
     public function index()
     {
         //
-        //$aplicacion = new Aplicacion;
+        $aplicaciones = Aplicacion::orderBy('fecha_aplicacion', 'desc')->paginate(3);
         //return view('admin.aplicacion.index',['aplicacion'=> $aplicacion]);
-        return view('admin.aplicacion.index');
+        return view('admin.aplicacion.index',compact('aplicaciones'));
     }
 
     /**
@@ -52,17 +52,18 @@ class AplicacionController extends Controller
         $aplicacion->percentil_RV	= 80;
         $aplicacion->percentil_APN	= 80;
 
-        $destinationPath ='/arte_aplicaciones'; // upload path
-        $extension = $request->file('arte')->getClientOriginalExtension(); // getting file extension
-        $fileName = 'arte'. '['.Carbon::now().']'. rand(10000,99999).'.'.$extension; // rename file
-        $request->file('arte')->move( storage_path().$destinationPath,$fileName);
-        $aplicacion->path_arte = $destinationPath . '/' . $fileName;
-        $aplicacion->save();
+        if($request->hasFile('arte')){
+            $destinationPath ='/arte_aplicaciones'; // upload path
+            $extension = $request->file('arte')->getClientOriginalExtension(); // getting file extension
+            $fileName = 'arte'. '['.Carbon::now().']'. rand(10000,99999).'.'.$extension; // rename file
+            $request->file('arte')->move( storage_path().$destinationPath,$fileName);
+            $aplicacion->path_arte = $destinationPath . '/' . $fileName;
+        }
 
+        $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
 
-
-        $request->session()->flash('mensaje_exito','Aplicación creada exitosamente.');
+        $request->session()->flash('mensaje_exito','Aplicación <i>'+$aplicacion->nombre+'</i> creada exitosamente.');
         return redirect('/admin/aplicacion');
     }
 
@@ -87,8 +88,9 @@ class AplicacionController extends Controller
     {
         //
         $aplicacion = Aplicacion::findOrFail($id);
-        $titulo = 'Editar aplicacion';
-        return view('admin.aplicacion.create',compact('aplicacion'));
+        $titulo = 'Editar aplicación';
+        $put = true;
+        return view('admin.aplicacion.create',compact('aplicacion','titulo','put'));
     }
 
     /**
@@ -98,9 +100,25 @@ class AplicacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AplicacionRequest $request, $id)
     {
         //
+        $aplicacion = Aplicacion::where('id',$id)->first();
+        //dd($aplicacion);
+        $aplicacion->update( $request->all() );
+        if($request->hasFile('arte')){
+            $destinationPath ='/arte_aplicaciones'; // upload path
+            $extension = $request->file('arte')->getClientOriginalExtension(); // getting file extension
+            $fileName = 'arte'. '['.Carbon::now().']'. rand(10000,99999).'.'.$extension; // rename file
+            $request->file('arte')->move( storage_path().$destinationPath,$fileName);
+            $aplicacion->path_arte = $destinationPath . '/' . $fileName;
+        }
+
+        $aplicacion->save();
+        $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
+
+        $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'+$aplicacion->nombre+'</i> guardados.');
+        return redirect('/admin/aplicacion');
     }
 
     /**
