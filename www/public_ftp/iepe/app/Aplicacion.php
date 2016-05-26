@@ -26,25 +26,32 @@ class Aplicacion extends Model
     ];
 
     function addSalon($nombre,$capacidad){
-        $salon = new Salon([
+        $salon = Salon::firstOrCreate([
             'nombre' => $nombre,
             'capacidad' => $capacidad,
         ]);
-        $salon->save();
-        $aplicacion_salon = new AplicacionSalon([
-            'salon_id'=>$salon->id,
-            'aplicacion_id'=>$this->id,
-        ]);
-        $aplicacion_salon->save();
+        return $salon->id;
     }
 
     function addHorario($inicio,$fin){
-        $horario = new Horario([
+        $horario = Horario::firstOrCreate([
             'hora_inicio' => $inicio,
             'hora_fin' => $fin,
-            'aplicacion_id'=>$this->id,
         ]);
-        $horario->save();
+        return $horario->id;
+    }
+
+    function generarSalonesHorarios($ids_salones, $ids_horarios){
+        foreach($ids_horarios as $h){
+            foreach($ids_salones as $s){
+                new AplicacionSalonHorarion([
+                    'aplicacion_id'     =>  $this->id,
+                    'salon_id'          =>  $s,
+                    'horario_id'        =>  $h,
+                ]);
+            }
+        }
+
     }
 
 

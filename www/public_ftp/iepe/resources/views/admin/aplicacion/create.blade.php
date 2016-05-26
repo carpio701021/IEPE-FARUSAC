@@ -7,6 +7,24 @@
 
         @include('layouts.mensajes')
 
+        {!! Form::model($aplicacion, array('route' => array('admin.aplicacion.update', $aplicacion->id), 'files' => true , 'class' => 'form-horizontal', 'role' => 'form') ) !!}
+        <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
+            {!! Form::label('nombre', 'Nombre*', array('class' => 'col-md-4 control-label')) !!}
+            <div class="col-md-6">
+                {!! Form::text('nombre' , null , array(
+                'class' => 'form-control',
+                'placeholder' => 'Ejemplo: Primera aplicación 2016',
+                'required' => 'true',
+                'title' => 'Nombre',
+                'data-placement' => 'left',
+                'data-toggle' => 'popover',
+                'data-trigger' => 'focus',
+                'data-content' => 'Nombre de la aplicación que le aparecerá al aspirante',
+                )) !!}
+            </div>
+        </div>
+        {!! Form::close() !!}
+        <br><br>
 
         <form id="form_create" class="form-horizontal" role="form" method="POST"
               action="{{ url('/admin/aplicacion') }}" accept-charset="UTF-8" enctype="multipart/form-data">

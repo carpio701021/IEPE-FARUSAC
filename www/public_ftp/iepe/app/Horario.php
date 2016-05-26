@@ -17,6 +17,6 @@ class Horario extends Model
      * @var array
      */
     protected $fillable = [
-        'hora_inicio','hora_fin', 'aplicacion_id',
+        'hora_inicio','hora_fin',
     ];
 }

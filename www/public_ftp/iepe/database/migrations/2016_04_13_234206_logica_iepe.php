@@ -56,35 +56,38 @@ class LogicaIepe extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('aplicaciones_salones', function (Blueprint $table){
-            $table->integer('aplicacion_id')->unsigned();
-            $table->foreign('aplicacion_id')->references('id')->on('aplicaciones');
-            $table->integer('salon_id')->unsigned();
-            $table->foreign('salon_id')->references('id')->on('salones');
-
-            $table->primary(['aplicacion_id', 'salon_id']);
-            $table->timestamps();
-        });
-
         Schema::create('horarios', function (Blueprint $table){
             $table->increments('id');
             $table->time('hora_inicio');
             $table->time('hora_fin');
-            $table->integer('aplicacion_id')->unsigned();
-            $table->foreign('aplicacion_id')->references('id')->on('aplicaciones');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::create('aspirantes_aplicaciones', function (Blueprint $table){
+        Schema::create('aplicaciones_salones_horarios', function (Blueprint $table){
+            $table->integer('aplicacion_id')->unsigned();
+            $table->foreign('aplicacion_id')->references('id')->on('aplicaciones');
+            $table->integer('salon_id')->unsigned();
+            $table->foreign('salon_id')->references('id')->on('salones');
             $table->integer('horario_id')->unsigned();
             $table->foreign('horario_id')->references('id')->on('horarios');
+
+            $table->primary(['aplicacion_id', 'salon_id','horario_id'],'aplicacion_salon_horario_primary');
+            $table->timestamps();
+        });
+
+
+        Schema::create('aspirantes_aplicaciones', function (Blueprint $table){
+            $table->integer('aplicacion_id')->unsigned();
+            $table->foreign('aplicacion_id')->references('aplicacion_id')->on('aplicaciones_salones_horarios');
+            $table->integer('horario_id')->unsigned();
+            $table->foreign('horario_id')->references('horario_id')->on('aplicaciones_salones_horarios');
+            $table->integer('salon_id')->unsigned();
+            $table->foreign('salon_id')->references('salon_id')->on('aplicaciones_salones_horarios');
+
             $table->integer('aspirante_id')->unsigned();
             $table->foreign('aspirante_id')->references('NOV')->on('aspirantes');
-            $table->integer('aplicacion_id')->unsigned();
-            $table->foreign('aplicacion_id')->references('aplicacion_id')->on('aplicaciones_salones');
-            $table->integer('salon_id')->unsigned();
-            $table->foreign('salon_id')->references('salon_id')->on('aplicaciones_salones');
+
             $table->primary(['horario_id', 'aspirante_id','aplicacion_id','salon_id'],'aspirantes_aplicaciones_primary');
 
             $table->integer('nota_RA');
@@ -109,8 +112,8 @@ class LogicaIepe extends Migration
     {
         //
         Schema::dropIfExists('aspirantes_aplicaciones');
+        Schema::dropIfExists('aplicaciones_salones_horarios');
         Schema::dropIfExists('horarios');
-        Schema::dropIfExists('aplicaciones_salones');
         Schema::dropIfExists('aplicaciones');
         Schema::dropIfExists('salones');
     }
