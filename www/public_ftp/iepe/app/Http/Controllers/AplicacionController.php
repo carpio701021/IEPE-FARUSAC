@@ -43,11 +43,9 @@ class AplicacionController extends Controller
      * @param aplicacionRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(aplicacionRequest $request)
+    public function store(AplicacionRequest $request)
     {
         //Guarda una nueva aplicación
-        //dd($request->all());
-
         $aplicacion = new Aplicacion( $request->all() );
         $aplicacion->percentil_RA	= 80;
         $aplicacion->percentil_APE	= 80;
@@ -58,30 +56,11 @@ class AplicacionController extends Controller
         $extension = $request->file('arte')->getClientOriginalExtension(); // getting file extension
         $fileName = 'arte'. '['.Carbon::now().']'. rand(10000,99999).'.'.$extension; // rename file
         $request->file('arte')->move( storage_path().$destinationPath,$fileName);
-        //$aplicacion->arte = $request->file('arte')->getClientOriginalName();
         $aplicacion->path_arte = $destinationPath . '/' . $fileName;
-
         $aplicacion->save();
 
+        $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
 
-
-
-
-        //meter salones
-        $rsalones = $request->salones;
-        $ids_salones = Array();
-        foreach($rsalones as $salon){
-            $ids_salones[] = $aplicacion->addSalon($salon,$request->cupo);
-        }
-        //meter horarios
-        $rhorarios = $request->horarios;
-        $ids_horarios = Array();
-        foreach($rhorarios as $horario){
-            $hs =  explode("-", $horario,2);
-            $ids_horarios[] = $aplicacion->addHorario($hs[0],$hs[1]);
-        }
-
-        $aplicacion->generarSalonesHorarios($ids_salones, $ids_horarios);
 
         $request->session()->flash('mensaje_exito','Aplicación creada exitosamente.');
         return redirect('/admin/aplicacion');
@@ -108,6 +87,7 @@ class AplicacionController extends Controller
     {
         //
         $aplicacion = Aplicacion::findOrFail($id);
+        $titulo = 'Editar aplicacion';
         return view('admin.aplicacion.create',compact('aplicacion'));
     }
 

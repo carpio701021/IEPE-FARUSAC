@@ -37,6 +37,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
             @if (!Auth::guard('admin')->check())
                 <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{ url('/admin/login') }}">Iniciar Sesión</a></li>
@@ -45,6 +46,14 @@
                 <ul class="nav navbar-nav">
                     <!--li class="active"><a href="#">Usuarios <span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Notificaciones</a></li-->
+                    <style>
+                        li.dropdown ul.dropdown-menu li a{
+                            color: white;
+                        }
+                        li.dropdown ul.dropdown-menu li a:hover{
+                            color: #192949;
+                        }
+                    </style>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -53,7 +62,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Desarrollo estudiantil <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Desarrollo estudiantíl <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/admin/aplicacion">Aplicaciones</a></li>
                             <li><a href="#">Estadística</a></li>
