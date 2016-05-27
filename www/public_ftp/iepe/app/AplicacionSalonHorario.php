@@ -21,16 +21,16 @@ class AplicacionSalonHorario extends Model
     ];
 
     public function getSalon(){
-        return $this->belongsTo('App\Salon','salon_id')->get();
+        return $this->belongsTo('App\Salon','salon_id')->first();
     }
 
     function getAplicacion(){
-        return $this->belongsTo('App\Aplicacion','aplicacion_id')->get();
+        return $this->belongsTo('App\Aplicacion','aplicacion_id')->first();
     }
 
 
     function getHorario(){
-        return $this->belongsTo('App\Horario','horario_id')->get();
+        return $this->belongsTo('App\Horario','horario_id')->first();
     }
     
 

@@ -60,10 +60,10 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" href="#colaps{{$asignada->aplicacion_id}}">{{$asignada->getAplicacion()->nombre}}</a>
+							<a data-toggle="collapse" href="#colaps{{$asignada->id}}">{{$asignada->getAplicacion()->nombre}}</a>
 						</h4>
 					</div>
-					<div id="colaps{{$asignada->aplicacion_id}}" class="panel-collapse collapse">
+					<div id="colaps{{$asignada->id}}" class="panel-collapse collapse">
 						<div class="panel-body">
 							<div class="col-sm-3">
 								<div class="row">

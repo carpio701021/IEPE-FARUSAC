@@ -13,15 +13,15 @@ class AspiranteAplicacion extends Model
     protected $dates = ['deleted_at'];
 
     public function getHorario(){
-        return $this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->getHorario();
+        return $this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->first()->getHorario();
     }
 
     public function getSalon(){
-        return $this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->getSalon();
+        return $this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->first()->getSalon();
     }
 
     public function getAplicacion(){
-        return $this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->getAplicacion();
+        return $this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->first()->getAplicacion();
     }
 
     public function getResultado(){

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\AspiranteAplicacion;
+use App\AplicacionSalonHorario;
 use App\Aplicacion;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
@@ -28,14 +29,13 @@ class AspiranteAplicacionController extends Controller
     public function create()
     {
         $asignadas =AspiranteAplicacion::where('aspirante_id','=',Auth::user()->NOV)
-            ->orderby("aplicacion_id","asc")
+            ->orderby("created_at","desc")
             ->get();
 
         $ids = [];
         foreach ($asignadas as $a){
-            $ids[] = $a->aplicacion_id;
+            $ids[] = $a->getAplicacion()->id;
         }
-
         $proximas = Aplicacion::where("fecha_inicio_asignaciones","<=",date("Y-m-d"))
             ->where("fecha_fin_asignaciones",">=",date("Y-m-d"))
             ->whereNotIn('id',$ids)
