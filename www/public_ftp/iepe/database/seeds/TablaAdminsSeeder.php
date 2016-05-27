@@ -12,7 +12,7 @@ class TablaAdminsSeeder extends Seeder
     public function run()
     {
         factory(App\Admin::class, 10)->create()->each(function($u) {
-        	$u->AdminRol()->save(factory(App\AdminRol::class)->make());
+        	//$u->AdminRol()->save(factory(App\AdminRol::class)->make());
     	});
     }
 }

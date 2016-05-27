@@ -98,7 +98,22 @@ class Aplicacion extends Model
             ;
     }
 
+    function getCapacidadMaxima(){
+        return
+            $this->belongsToMany(
+                'App\Horario','aplicaciones_salones_horarios','aplicacion_id','horario_id'
+            )->distinct()->count() *
+            $this->belongsToMany(
+                'App\Salon','aplicaciones_salones_horarios','aplicacion_id','salon_id'
+            )->distinct()->sum('capacidad')
+            ;
+    }
 
+    function getCountAsignados(){
+        return
+            $this->hasMany('App\AplicacionSalonHorario','aplicacion_id')->sum('asignados')
+            ;
+    }
 
 
 }
