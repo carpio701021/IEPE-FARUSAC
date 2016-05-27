@@ -24,10 +24,15 @@ class AplicacionSalonHorario extends Model
         return Salon::where('id','=',$this->salon_id)->first();
     }
 
+    function getAplicacion(){
+        return $this->belongsTo('App\Aplicacion','aplicacion_id')->get();
+    }
+
 
     function getHorario(){
         return $this->belongsTo('App\Horario','horario_id')->get();
     }
+    
 
     /*
     public static function find($primaryOne, $primaryTwo, $primaryThree) {
