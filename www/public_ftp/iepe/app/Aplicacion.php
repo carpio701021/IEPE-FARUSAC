@@ -82,6 +82,22 @@ class Aplicacion extends Model
         $this->generarSalonesHorarios($ids_salones, $ids_horarios);
     }
 
+    function getHorarios(){
+        return
+            $this->belongsToMany(
+                'App\Horario','aplicaciones_salones_horarios','aplicacion_id','horario_id'
+            )->distinct()->get()
+            ;
+    }
+
+    function getSalones(){
+        return
+            $this->belongsToMany(
+                'App\Salon','aplicaciones_salones_horarios','aplicacion_id','salon_id'
+            )->distinct()->get()
+            ;
+    }
+
 
 
 
