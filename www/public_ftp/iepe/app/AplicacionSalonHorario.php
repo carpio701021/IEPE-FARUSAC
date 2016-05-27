@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AplicacionSalonHorario extends Model
 {
     //
-
+    
     protected $table = 'aplicaciones_salones_horarios';
 
     /**
@@ -16,7 +16,12 @@ class AplicacionSalonHorario extends Model
      * @var array
      */
     protected $fillable = [
-        'aplicacion_id','salon_id','horario_id',
+        'aplicacion_id','salon_id','horario_id'
     ];
+
+    public function getSalon(){
+        return Salon::where('id','=',$this->salon_id)->first();
+    }
+
 
 }
