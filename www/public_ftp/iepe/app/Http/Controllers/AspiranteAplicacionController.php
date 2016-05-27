@@ -27,17 +27,19 @@ class AspiranteAplicacionController extends Controller
      */
     public function create()
     {
-        //buscar todas las aplicaciones y restringir las actuales
-        $asignadas =AspiranteAplicacion::where('aspirante_id','=',Auth::user()->NOV)->get();
+        $asignadas =AspiranteAplicacion::where('aspirante_id','=',Auth::user()->NOV)
+            ->orderby("aplicacion_id","asc")
+            ->get();
+
+        $ids = [];
+        foreach ($asignadas as $a){
+            $ids[] = $a->aplicacion_id;
+        }
+
         $proximas = Aplicacion::where("fecha_inicio_asignaciones","<=",date("Y-m-d"))
             ->where("fecha_fin_asignaciones",">=",date("Y-m-d"))
-            ->whereNotIn('id',[1,2,3])
+            ->whereNotIn('id',$ids)
             ->get();
-        //dd($aplicaciones);
-
-        
-        //$asignadas = Auth::user()->getAplicaciones();
-        //dd($aplicaciones);
         return view("aspirante.PruebaEspecifica")->with("proximas",$proximas)->with("asignadas",$asignadas);
     }
 
@@ -49,7 +51,10 @@ class AspiranteAplicacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $asignacion = new AspiranteAplicacion();
+        $asignacion->asignar(Auth::user()->NOV,$request->aplicacion_id);
+        $asignacion->save();
+        return back()->withErrors(["calida"=>'calida']);
     }
 
     /**

@@ -71,6 +71,7 @@ class LogicaIepe extends Migration
             $table->foreign('salon_id')->references('id')->on('salones');
             $table->integer('horario_id')->unsigned();
             $table->foreign('horario_id')->references('id')->on('horarios');
+            $table->integer('asignados');
 
             $table->primary(['aplicacion_id', 'salon_id','horario_id'],'aplicacion_salon_horario_primary');
             $table->timestamps();

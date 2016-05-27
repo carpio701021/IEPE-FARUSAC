@@ -45,10 +45,11 @@
 							</div>
 						</div>
 						<div class="panel-footer">
-							<button class="btn btn-xs btn-primary" id="btn_asignar"onClick="asignar_segunda();">
-								Asignar oportunidad
-							</button>
-							<button class="btn btn-xs btn-primary" id="btn_verConstancia" disabled="disabled">Ver constancia de asignación</button>
+							<form class="form-group" method="POST" action="/aspirante/PruebaEspecifica">
+								<input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
+								<input type="hidden" value="{{$aplicacion->id}}"  name="aplicacion_id"/>
+							<input type="submit"  value="Asignar oportunidad"/>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -71,7 +72,7 @@
 								</div>
 								<div class="row">
 									<div class="col-sm-4"><strong>Horario: </strong></div>
-									<div class="col-sm-6">
+									<div class="col-sm-7">
 										{{date("g:ia",strtotime($asignada->getHorario()->hora_inicio))."-".date("g:ia",strtotime($asignada->getHorario()->hora_fin))}} </div>
 								</div>
 								<div class="row">
