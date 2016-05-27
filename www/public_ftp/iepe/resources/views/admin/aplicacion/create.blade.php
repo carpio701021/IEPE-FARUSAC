@@ -7,7 +7,15 @@
 
         @include('layouts.mensajes')
 
-        {!! Form::model($aplicacion, array('route' => array('admin.aplicacion.update', $aplicacion->id), 'files' => true , 'class' => 'form-horizontal', 'role' => 'form') ) !!}
+        {!! Form::model(
+            $aplicacion,
+            array('route' => array('admin.aplicacion.update', $aplicacion->id),
+            'files' => true , 'class' => 'form-horizontal', 'role' => 'form'
+        ) ) !!}
+        @if( isset($put))
+        <input type="hidden" name="_method" value="PUT">
+        @endif
+
         <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
             {!! Form::label('nombre', 'Nombre*', array('class' => 'col-md-4 control-label')) !!}
             <div class="col-md-6">
@@ -26,11 +34,9 @@
 
 
         <div class="form-group{{ $errors->has('arte') ? ' has-error' : '' }}">
-            {!! Form::label('arte', 'Arte*', array('class' => 'col-md-4 control-label')) !!}
+            {!! Form::label('arte', 'Arte', array('class' => 'col-md-4 control-label')) !!}
             <div class="col-md-6">
-                {!! Form::file('arte' , null , array(
-                'class' => 'form-control',
-                'required' => 'true',
+                {!! Form::file('arte' , array(
                 'accept' =>'image/*'
                 )) !!}
             </div>
@@ -131,7 +137,21 @@
         <div class="form-group{{ $errors->has('horarios') ? ' has-error' : '' }}">
             <label class="col-md-4 control-label">Horarios</label>
             <div class="list-group col-md-6" id="divHorarios">
-
+                @if(old('horarios'))
+                    @foreach( old('horarios') as $horario )
+                        <button type="button" onclick="quitarHorario(this);" class="list-group-item{{ $errors->has('fecha_inicio_asignaciones') ? ' has-error' : '' }} horario-item">
+                            <span class="glyphicon glyphicon-minus"></span> De {{ str_replace('-',' a ',$horario) }} hrs old
+                            <input style="display:none" name="horarios[]" value="{{ $horario }}" type="text">
+                        </button>
+                    @endforeach
+                @elseif(isset($aplicacion))
+                    @foreach( $aplicacion->getHorarios() as $horario )
+                        <button type="button" onclick="quitarHorario(this);" class="list-group-item{{ $errors->has('fecha_inicio_asignaciones') ? ' has-error' : '' }} horario-item">
+                            <span class="glyphicon glyphicon-minus"></span> De {{ substr($horario->hora_inicio, 0, 6)  }} a {{ substr($horario->hora_fin, 0, 6) }} hrs model
+                            <input style="display:none" name="horarios[]" value="{{ $horario->hora_inicio.'-'.$horario->hora_fin  }}" type="text">
+                        </button>
+                    @endforeach
+                @endif
 
                 <a href="" id="btnAH" data-toggle="modal" data-target="#modal_horarios"
                    class="list-group-item {{ $errors->has('horarios') ? '  list-group-item-danger' : ' active' }}">
@@ -199,6 +219,21 @@
         <div class="form-group{{ $errors->has('salones') ? ' has-error' : '' }}">
             <label class="col-md-4 control-label">Salones</label>
             <div class="list-group col-md-6">
+                @if(old('salones'))
+                    @foreach( old('salones') as $salon )
+                        <button type="button" onclick="quitarSalon(this);" class="list-group-item salon-item">
+                            <span class="glyphicon glyphicon-minus"></span> {{ str_replace(':==:',' para ' , $salon )}} aspirantes old
+                            <input style="display:none" name="salones[]" value="{{ $salon }}" type="text">
+                        </button>
+                    @endforeach
+                @elseif(isset($aplicacion))
+                    @foreach( $aplicacion->getSalones() as $salon )
+                        <button type="button" onclick="quitarSalon(this);" class="list-group-item salon-item">
+                            <span class="glyphicon glyphicon-minus"></span> {{ $salon->nombre }} para {{ $salon->capacidad }} aspirantes model
+                            <input style="display:none" name="salones[]" value="{{ $salon->nombre }}:==:{{ $salon->capacidad }}" type="text">
+                        </button>
+                    @endforeach
+                @endif
 
                 <a href="" id="btnAS" data-toggle="modal" data-target="#modal_salon"
                    class="list-group-item {{ $errors->has('salones') ? '  list-group-item-danger' : ' active' }}">
@@ -234,7 +269,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Cupo por salón</label>
                                     <div class="col-md-6">
-                                        <input type='number' class="form-control" id="cupo" required
+                                        <input type='number' class="form-control" id="cupo"
                                                name="cupo"
                                                placeholder="40"
                                                title="Cupo por salón"
@@ -372,7 +407,7 @@
         $("#btnAddSalon").click(function () {
             salon = $('#txtSalon').val();
             cupo = $('#cupo').val();
-            if(cupo="")cupo =40;
+            if(cupo=="") cupo =40;
             if(salon=="") {
                 $('#modal_salon').modal('hide');
                 return;

@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class AplicacionSalonHorario extends Model
 {
-    //
+
+
+
     protected $table = 'aplicaciones_salones_horarios';
 
     /**
@@ -23,4 +25,16 @@ class AplicacionSalonHorario extends Model
     }
 
 
+    function getHorario(){
+        return $this->belongsTo('App\Horario','horario_id')->get();
+    }
+
+    /*
+    public static function find($primaryOne, $primaryTwo, $primaryThree) {
+        return Widget::where('aplicacion_id', '=', $primaryOne)
+            ->where('salon_id', '=', $primaryTwo)
+            ->where('horario_id', '=', $primaryThree)
+            ->first();
+    }
+    //*/
 }
