@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class AplicacionSalonHorario extends Model
 {
     //
-    
     protected $table = 'aplicaciones_salones_horarios';
 
     /**
