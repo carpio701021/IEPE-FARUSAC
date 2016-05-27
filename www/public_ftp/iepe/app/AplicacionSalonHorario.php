@@ -21,7 +21,7 @@ class AplicacionSalonHorario extends Model
     ];
 
     public function getSalon(){
-        return Salon::where('id','=',$this->salon_id)->first();
+        return $this->belongsTo('App\Salon','salon_id')->get();
     }
 
     function getAplicacion(){
@@ -34,12 +34,4 @@ class AplicacionSalonHorario extends Model
     }
     
 
-    /*
-    public static function find($primaryOne, $primaryTwo, $primaryThree) {
-        return Widget::where('aplicacion_id', '=', $primaryOne)
-            ->where('salon_id', '=', $primaryTwo)
-            ->where('horario_id', '=', $primaryThree)
-            ->first();
-    }
-    //*/
 }

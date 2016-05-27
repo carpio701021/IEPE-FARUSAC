@@ -49,9 +49,6 @@ class LogicaIepe extends Migration
             $table->integer('percentil_RV');
             $table->integer('percentil_APN');
 
-            //$table->integer('prueba_especifica_id')->unsigned();
-            //$table->foreign('prueba_especifica_id')->references('id')->on('pruebas_especificas');
-
             $table->timestamps();
             $table->softDeletes();
         });
@@ -81,17 +78,13 @@ class LogicaIepe extends Migration
 
         Schema::create('aspirantes_aplicaciones', function (Blueprint $table){
             $table->increments('id');
-            $table->integer('aplicacion_id')->unsigned();
-            $table->foreign('aplicacion_id')->references('aplicacion_id')->on('aplicaciones_salones_horarios');
-            $table->integer('horario_id')->unsigned();
-            $table->foreign('horario_id')->references('horario_id')->on('aplicaciones_salones_horarios');
-            $table->integer('salon_id')->unsigned();
-            $table->foreign('salon_id')->references('salon_id')->on('aplicaciones_salones_horarios');
+            $table->integer('aplicacion_salon_horario_id')->unsigned();
+            $table->foreign('aplicacion_salon_horario_id')->references('salon_id')->on('aplicaciones_salones_horarios');
 
             $table->integer('aspirante_id')->unsigned();
             $table->foreign('aspirante_id')->references('NOV')->on('aspirantes');
 
-            $table->unique(['horario_id', 'aspirante_id','aplicacion_id','salon_id'],'aspirantes_aplicaciones_primary');
+            $table->unique(['aplicacion_salon_horario_id', 'aspirante_id'],'aspirantes_aplicaciones_primary');
 
             $table->integer('nota_RA');
             $table->integer('nota_APE');
