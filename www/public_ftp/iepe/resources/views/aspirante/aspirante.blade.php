@@ -16,46 +16,65 @@
 								agregar datos de cuenta (correo, NOV)
                     		-->
 							<div class="panel-body">
-								<div class="row">
-									<div class="col-sm-6" align="right">Nombres:</div>
-									<div class="col-sm-6" align="left">{{$formulario->nombre}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right">Apellidos:</div>
-									<div class="col-sm-6" align="left">{{$formulario->apellido}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right">Género:</div>
-									<div class="col-sm-6" align="left">@if($formulario->genero==1) Masculino
-																		@else Femenino @endif</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right">Residencia</div>
-									<div class="col-sm-6" align="left">{{$formulario->residencia}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right"> Departamento:</div>
-									<div class="col-sm-6" align="left">{{$formulario->departamento}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right">Edad:</div>
-									<div class="col-sm-6" align="left">
-										{{\Carbon\Carbon::createFromFormat('Y-m-d',$formulario->fecha_nacimiento)->age}}
+								<div class="form-horizontal">
+									<div class="row">
+										<label class="control-label col-xs-6">Nombres:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->nombre}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6" >Apellidos:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->apellido}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6" >Género:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">@if($formulario->genero==1) Masculino
+												@else Femenino @endif</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6" >Residencia:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->residencia}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6" >Departamento:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->departamento}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6" >Edad:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">
+												{{\Carbon\Carbon::createFromFormat('Y-m-d',$formulario->fecha_nacimiento)->age}}
+											</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6" >Estado civil:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->estado_civil}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6" >Situación laboral:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->estado_laboral}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6" >Dependientes:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->dependientes}}</p>
+										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right">Estado civil:</div>
-									<div class="col-sm-6" align="left">{{$formulario->estado_civil}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right">Situación laboral:</div>
-									<div class="col-sm-6" align="left">{{$formulario->estado_laboral}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right">Dependientes:</div>
-									<div class="col-sm-6" align="left">{{$formulario->dependientes}}</div>
-								</div>
-
 							</div>
 						</div>
 					</div>
@@ -65,38 +84,55 @@
 								<strong>Información Académica</strong>
 							</div>
 							<div class="panel-body">
-								<div class="row">
-									<div class="col-sm-6" align="right">Título:</div>
-									<div class="col-sm-6" align="left">{{$formulario->titulo}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right"> Año de graduación:</div>
-									<div class="col-sm-6" align="left">{{$formulario->anio_titulo}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right"> Centro educativo:</div>
-									<div class="col-sm-6" align="left">{{$formulario->centro_educativo}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right"> Dirección:</div>
-									<div class="col-sm-6" align="left">{{$formulario->direccion_centro_educativo}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right"> Sector:</div>
-									<div class="col-sm-6" align="left">{{$formulario->sector}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right"> Aspirante a:</div>
-									<div class="col-sm-6" align="left">{{$formulario->carrera}}</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6" align="right">Jornada:</div>
-									<div class="col-sm-6" align="left">{{$formulario->jornada}}</div>
+								<div class="form-horizontal">
+									<div class="row">
+										<label class="control-label col-xs-6">Título:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->titulo}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6">Año de graduación:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->anio_titulo}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6">Centro educativo:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->centro_educativo}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6">Dirección:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->direccion_centro_educativo}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6">Sector:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->sector}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6">Aspirante a:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->carrera}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6">Jornada:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->jornada}}</p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+
 
 				<div class="panel-footer" align="right" style="padding-right: 3%">
 					<!-- Trigger the modal with a button -->
@@ -260,6 +296,23 @@
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<strong>Información de cuenta</strong>
+				</div>
+				<div class="panel-body">
+					<div class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="control-label col-xs-6" for="NOV">No. Orientación Vocacional:</label>
+							<p class="form-control-static col-xs-6" id="NOV">{{Auth::user()->NOV}}</p>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-xs-6">Correo:</label>
+							<p class="form-control-static col-xs-6" id="email">{{Auth::user()->email}}</p>
 						</div>
 					</div>
 				</div>

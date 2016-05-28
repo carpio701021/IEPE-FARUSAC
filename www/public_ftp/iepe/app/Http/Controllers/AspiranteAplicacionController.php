@@ -65,7 +65,13 @@ class AspiranteAplicacionController extends Controller
      */
     public function show($id)
     {
-        //
+        $asignacion = AspiranteAplicacion::find($id);
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML('<h1>Constancia de asignación</h1><h2>Prueba Especifica</h2>
+        <p>'.$asignacion->getAplicacion()->nombre.' código:'.(20160000+$id).'</p>');
+        return $pdf->stream();
+
+        //return "hola show generar constancia".$id;
     }
 
     /**
@@ -101,4 +107,5 @@ class AspiranteAplicacionController extends Controller
     {
         //
     }
+
 }

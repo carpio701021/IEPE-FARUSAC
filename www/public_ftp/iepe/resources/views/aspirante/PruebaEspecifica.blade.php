@@ -86,7 +86,10 @@
 							</div>
 						</div>
 						<div class="panel-footer">
-							<button class="btn btn-xs btn-primary" id="btn_verConstancia" >Ver constancia de asignación</button>
+							<form class="form-group" method="GET" action="/aspirante/PruebaEspecifica/{{$asignada->id}}">
+								<input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
+								<input class="btn btn-primary "type="submit"  value="Ver constancia de asignación"/>
+							</form>
 						</div>
 					</div>
 				</div>
