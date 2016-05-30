@@ -38,7 +38,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
         Route::resource('aplicacion', 'AplicacionController');
 
-
+        Route::resource('datos','DatosController');
+        
         Route::get('/', function () {
             return view('admin.index');
         });

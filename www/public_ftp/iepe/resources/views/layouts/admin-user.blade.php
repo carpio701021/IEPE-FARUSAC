@@ -72,7 +72,7 @@
                             <li><a href="#">Información</a></li>
                             <li><a href="#">Asignación manual de aspirante</a></li>
                             <li><a href="#">Resultado</a></li-->
-                            <li><a href="#">Cargar datos</a></li>
+                            <li><a href="/admin/datos">Cargar datos</a></li>
                         </ul>
                     </li>
 

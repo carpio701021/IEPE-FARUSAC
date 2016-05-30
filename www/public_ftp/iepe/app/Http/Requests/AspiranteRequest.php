@@ -25,7 +25,6 @@ class AspiranteRequest extends Request
     {
         return [
             "email"=>"email",
-            "password"=>"min:6",
             "newPassword"=>"min:6|different:password",
             "newPassword2"=>"same:"."newPassword"
         ];
