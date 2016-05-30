@@ -140,14 +140,14 @@
                 @if(old('horarios'))
                     @foreach( old('horarios') as $horario )
                         <button type="button" onclick="quitarHorario(this);" class="list-group-item{{ $errors->has('fecha_inicio_asignaciones') ? ' has-error' : '' }} horario-item">
-                            <span class="glyphicon glyphicon-minus"></span> De {{ str_replace('-',' a ',$horario) }} hrs old
+                            <span class="glyphicon glyphicon-minus"></span> De {{ str_replace('-',' a ',$horario) }} hrs
                             <input style="display:none" name="horarios[]" value="{{ $horario }}" type="text">
                         </button>
                     @endforeach
                 @elseif(isset($aplicacion))
                     @foreach( $aplicacion->getHorarios() as $horario )
                         <button type="button" onclick="quitarHorario(this);" class="list-group-item{{ $errors->has('fecha_inicio_asignaciones') ? ' has-error' : '' }} horario-item">
-                            <span class="glyphicon glyphicon-minus"></span> De {{ substr($horario->hora_inicio, 0, 6)  }} a {{ substr($horario->hora_fin, 0, 6) }} hrs model
+                            <span class="glyphicon glyphicon-minus"></span> De {{ substr($horario->hora_inicio, 0, 6)  }} a {{ substr($horario->hora_fin, 0, 6) }} hrs
                             <input style="display:none" name="horarios[]" value="{{ $horario->hora_inicio.'-'.$horario->hora_fin  }}" type="text">
                         </button>
                     @endforeach
@@ -222,14 +222,14 @@
                 @if(old('salones'))
                     @foreach( old('salones') as $salon )
                         <button type="button" onclick="quitarSalon(this);" class="list-group-item salon-item">
-                            <span class="glyphicon glyphicon-minus"></span> {{ str_replace(':==:',' para ' , $salon )}} aspirantes old
+                            <span class="glyphicon glyphicon-minus"></span> {{ str_replace(':==:',' para ' , $salon )}} aspirantes
                             <input style="display:none" name="salones[]" value="{{ $salon }}" type="text">
                         </button>
                     @endforeach
                 @elseif(isset($aplicacion))
                     @foreach( $aplicacion->getSalones() as $salon )
                         <button type="button" onclick="quitarSalon(this);" class="list-group-item salon-item">
-                            <span class="glyphicon glyphicon-minus"></span> {{ $salon->nombre }} para {{ $salon->capacidad }} aspirantes model
+                            <span class="glyphicon glyphicon-minus"></span> {{ $salon->nombre }} para {{ $salon->capacidad }} aspirantes
                             <input style="display:none" name="salones[]" value="{{ $salon->nombre }}:==:{{ $salon->capacidad }}" type="text">
                         </button>
                     @endforeach
