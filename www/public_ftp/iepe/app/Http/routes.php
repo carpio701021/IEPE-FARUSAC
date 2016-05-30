@@ -71,9 +71,11 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::post('/configuracion/guardar', "AspiranteController@actualizarCuenta");
 
         Route::group(['middleware' => ['auth:aspirante_web'],'prefix' => 'aspirante'], function () {
+
             Route::resource('/', 'AspiranteController');
             Route::resource('formulario', 'formularioController');
             Route::resource('PruebaEspecifica', 'AspiranteAplicacionController');
+
 
             /*Route::get('/aspirante', function () {
                 return View::make('aspirante.aspirante');

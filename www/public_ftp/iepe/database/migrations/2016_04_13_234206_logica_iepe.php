@@ -79,7 +79,7 @@ class LogicaIepe extends Migration
         Schema::create('aspirantes_aplicaciones', function (Blueprint $table){
             $table->increments('id');
             $table->integer('aplicacion_salon_horario_id')->unsigned();
-            $table->foreign('aplicacion_salon_horario_id')->references('salon_id')->on('aplicaciones_salones_horarios');
+            $table->foreign('aplicacion_salon_horario_id')->references('id')->on('aplicaciones_salones_horarios');
 
             $table->integer('aspirante_id')->unsigned();
             $table->foreign('aspirante_id')->references('NOV')->on('aspirantes');
