@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Requests\aplicacionRequest;
+use App\Http\Requests\AplicacionRequest;
 use App\Aplicacion;
 use Carbon\Carbon ;
+use File;
 
 class AplicacionController extends Controller
 {
@@ -40,7 +41,7 @@ class AplicacionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param aplicacionRequest $request
+     * @param AplicacionRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(AplicacionRequest $request)
@@ -119,6 +120,22 @@ class AplicacionController extends Controller
 
         $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'+$aplicacion->nombre+'</i> guardados.');
         return redirect('/admin/aplicacion');
+    }
+
+    public function getArte($aplicacion_id){
+        $aplicacion = Aplicacion::where('id',$aplicacion_id)->firstOrFail();
+        //dd($aplicacion);
+        if(isset($aplicacion->path_arte)){
+            $file = File::get(storage_path().$aplicacion->path_arte);
+        }else{
+            abort(403, 'Imagen no encontrada.');
+            dd("nanai");
+        }
+
+        $response = \Response::make($file, 200);
+        // using this will allow you to do some checks on it (if pdf/docx/doc/xls/xlsx)
+        $response->header('Content-Type', 'image/*');
+        return $response;
     }
 
     /**

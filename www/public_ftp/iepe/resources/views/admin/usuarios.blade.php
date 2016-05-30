@@ -14,6 +14,8 @@
             <th>Bienestar estudiantil</th>
             <th>Secretario</th>
             <th>Decano</th>
+            <th>Director de escuela de Arquitectura</th>
+            <th>Director de escuela de Diseño Gráfico</th>
             <th>Administrador general</th>
             <th>Opciones</th>
         </tr>
@@ -22,6 +24,8 @@
         <tr>
             <td>Oscar Enriquez</td>
             <td><input type="checkbox" checked></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
             <td><input type="checkbox"></td>
             <td><input type="checkbox"></td>
             <td><input type="checkbox"></td>
@@ -35,6 +39,8 @@
             <td><input type="checkbox"></td>
             <td><input type="checkbox"></td>
             <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
             <td><input type="checkbox" checked></td>
             <td>
                 <button class="btn btn-xs btn-primary">Editar</button>
@@ -42,30 +48,10 @@
             </td>
         </tr>
         <tr>
-            <td>Actual Secretario</td>
+            <td>*Nombre de Actual Secretario*</td>
             <td><input type="checkbox"></td>
             <td><input type="checkbox" checked></td>
             <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td>
-                <button class="btn btn-xs btn-primary">Editar</button>
-                <button class="btn btn-xs btn-danger">Borrar</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Actual Decano</td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox" checked></td>
-            <td><input type="checkbox"></td>
-            <td>
-                <button class="btn btn-xs btn-primary">Editar</button>
-                <button class="btn btn-xs btn-danger">Borrar</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Usuario 1</td>
-            <td><input type="checkbox" checked></td>
             <td><input type="checkbox"></td>
             <td><input type="checkbox"></td>
             <td><input type="checkbox"></td>
@@ -75,8 +61,36 @@
             </td>
         </tr>
         <tr>
-            <td>Usuario 2</td>
+            <td>*Nombre de Actual Decano*</td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
             <td><input type="checkbox" checked></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
+            <td>
+                <button class="btn btn-xs btn-primary">Editar</button>
+                <button class="btn btn-xs btn-danger">Borrar</button>
+            </td>
+        </tr>
+        <tr>
+            <td>*Nombre de actual director de escuela de arquitectura*</td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox" checked></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
+            <td>
+                <button class="btn btn-xs btn-primary">Editar</button>
+                <button class="btn btn-xs btn-danger">Borrar</button>
+            </td>
+        </tr>
+        <tr>
+            <td>*Nombre de actual director de escuela de diseño gráfico*</td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
             <td><input type="checkbox"></td>
             <td><input type="checkbox" checked></td>
             <td><input type="checkbox"></td>
@@ -87,10 +101,12 @@
         </tr>
         <tr>
             <td>Usuario 3</td>
+            <td><input type="checkbox"></td>
             <td><input type="checkbox" checked></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
             <td><input type="checkbox" checked></td>
-            <td><input type="checkbox" checked></td>
-            <td><input type="checkbox" checked></td>
+            <td><input type="checkbox"></td>
             <td>
                 <button class="btn btn-xs btn-primary">Editar</button>
                 <button class="btn btn-xs btn-danger">Borrar</button>

@@ -37,6 +37,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::resource('/conf', 'AdminController');
 
         Route::resource('aplicacion', 'AplicacionController');
+        Route::get('aplicacion/{aplicacion_id}/arte', 'AplicacionController@getArte');
 
 
         Route::get('/', function () {
@@ -51,7 +52,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             return view('admin.usuarios');
         });
     });
-    });
+});
 
 
 
@@ -91,11 +92,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             });*/
 
         });
-
-
-
-
-
 });
 
 
