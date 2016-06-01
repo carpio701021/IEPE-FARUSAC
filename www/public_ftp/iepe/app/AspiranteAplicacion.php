@@ -36,9 +36,10 @@ class AspiranteAplicacion extends Model
                 $this->aspirante_id=$aspirante_id;
                 $this->aplicacion_salon_horario_id =$ash->id;
                 $ash->increment('asignados');
-                break;
+                return true;
             }
         }
+        return false;
 
     }
 }

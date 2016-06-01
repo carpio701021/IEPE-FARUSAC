@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "laravelcollective/html": "5.2.*",
         "laravelcollective/annotations": "5.2.*",
-        "barryvdh/laravel-dompdf": "0.6.*"
+        "barryvdh/laravel-dompdf": "0.6.*",
+        "phpmailer/phpmailer": "~5.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

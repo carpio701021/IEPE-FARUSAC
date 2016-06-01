@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Formulario;
+use App\Mail;
 use Illuminate\Http\Request;
 use App\AspiranteAplicacion;
 use App\AplicacionSalonHorario;
@@ -52,9 +54,29 @@ class AspiranteAplicacionController extends Controller
     public function store(Request $request)
     {
         $asignacion = new AspiranteAplicacion();
-        $asignacion->asignar(Auth::user()->NOV,$request->aplicacion_id);
-        $asignacion->save();
-        return back()->withErrors(["calida"=>'calida']);
+        if($asignacion->asignar(Auth::user()->NOV,$request->aplicacion_id)){//true si hay cupo, false ya no hay cupo
+            $asignacion->save();
+
+            $pdf=$this->generarConstanciaPDF($asignacion->id);
+
+            $mail = new Mail();
+            $request->session()->flash('mensaje_exito', 'Asignación realizada correctamente, puedes revisar tu salón y horario para la prueba');
+            if($mail->send(Auth::user()->email,
+                Auth::user()->getFormulario()->nombre." ".Auth::user()->getFormulario()->apellido,
+                'Constancia de asignación',
+                'Imprime esta constancia para resguardar tu asignación',
+                $pdf->output(),
+                'Constancia de asignación '.Auth::user()->NOV))
+            {
+                return back();
+            }else
+            {
+                return back()->withErrors(['mail'=>$mail->getError()]);
+            }
+        }else{
+            return back()->withErrors(['cupo'=>'No puede asignarse a esta aplicación porque el cupo está lleno. Abocarse a las oficinas de la facultad de arquitectura para solucionarlo']);
+        }
+
     }
 
     /**
@@ -65,13 +87,8 @@ class AspiranteAplicacionController extends Controller
      */
     public function show($id)
     {
-        $asignacion = AspiranteAplicacion::find($id);
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML('<h1>Constancia de asignación</h1><h2>Prueba Especifica</h2>
-        <p>'.$asignacion->getAplicacion()->nombre.' código:'.(20160000+$id).'</p>');
+        $pdf = $this->generarConstanciaPDF($id);
         return $pdf->stream();
-
-        //return "hola show generar constancia".$id;
     }
 
     /**
@@ -108,4 +125,11 @@ class AspiranteAplicacionController extends Controller
         //
     }
 
+    private function generarConstanciaPDF($id){
+        $asignacion = AspiranteAplicacion::find($id);
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML('<h1>Constancia de asignación</h1><h2>Prueba Especifica</h2>
+        <p>'.$asignacion->getAplicacion()->nombre.' código:'.(20160000+$id).'</p>');
+        return $pdf;
+    }
 }

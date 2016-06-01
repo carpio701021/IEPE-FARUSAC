@@ -9,7 +9,7 @@
 	}
 </script>
 @section('content')	
-	<h1>Prueba especifica</h1>
+	<h1>Prueba específica</h1>
 	<div class="container">
         <h2>Aplicaciones</h2>
 
@@ -48,7 +48,7 @@
 							<form class="form-group" method="POST" action="/aspirante/PruebaEspecifica">
 								<input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
 								<input type="hidden" value="{{$aplicacion->id}}"  name="aplicacion_id"/>
-							<input type="submit"  value="Asignar oportunidad"/>
+							<input class="btn btn-primary" type="submit"  value="Asignar oportunidad"/>
 							</form>
 						</div>
 					</div>
