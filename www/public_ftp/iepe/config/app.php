@@ -147,7 +147,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,//agregado
         
         App\Providers\AnnotationsServiceProvider::class, //proveedor de libreria collections
         Collective\Html\HtmlServiceProvider::class,
@@ -159,6 +159,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,//agregado
 
     ],
 
@@ -207,6 +208,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,//agregado
         'Html' => Collective\Html\HtmlFacade::class,//agregado
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,//agregado
+
     ],
 
 ];

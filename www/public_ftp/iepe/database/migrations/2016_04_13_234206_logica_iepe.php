@@ -97,6 +97,25 @@ class LogicaIepe extends Migration
             $table->softDeletes();
         });
 
+        Schema::create('datos_sun',function(Blueprint $table){
+            $table->increments('id');
+            $table->integer('orientacion');
+            $table->string('primer_apellido',35);
+            $table->string('segundo_apellido',35);
+            $table->string('primer_nombre',35);
+            $table->string('segundo_nombre',35);
+            $table->date('fecha_nacimiento');
+            $table->boolean('sexo');
+            $table->tinyInteger('id_materia');
+            $table->boolean('aprobacion');
+            $table->date('fecha_evaluacion');
+            $table->integer('anio_evaluacion');
+
+            $table->timestamps();
+            $table->softDeletes();
+
+        });
+
     }
 
     /**
@@ -112,5 +131,6 @@ class LogicaIepe extends Migration
         Schema::dropIfExists('horarios');
         Schema::dropIfExists('aplicaciones');
         Schema::dropIfExists('salones');
+        Schema::dropIfExists('datos_sun');
     }
 }
