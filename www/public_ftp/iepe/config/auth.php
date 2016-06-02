@@ -107,7 +107,7 @@ return [
     */
 
     'passwords' => [
-        'aspirantes' => [
+        'aspirante_web' => [
             'provider' => 'aspirantes',
             'email' => 'auth.emails.password',
             'table' => 'password_resets',

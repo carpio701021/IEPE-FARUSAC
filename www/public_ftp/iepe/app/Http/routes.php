@@ -58,8 +58,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
 
     Route::group(['middleware' => 'aspirante_web'], function () {
+        Route::post('/password/sendResetLink','Auth\PasswordController@sendResetLink');
         Route::auth();
-
 
         Route::get('/', function () {
             return view('welcome');
