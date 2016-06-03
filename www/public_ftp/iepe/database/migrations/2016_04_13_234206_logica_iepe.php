@@ -99,7 +99,7 @@ class LogicaIepe extends Migration
 
         Schema::create('datos_sun',function(Blueprint $table){
             $table->increments('id');
-            $table->integer('orientacion');
+            $table->bigInteger('orientacion');
             $table->string('primer_apellido',35);
             $table->string('segundo_apellido',35);
             $table->string('primer_nombre',35);
@@ -113,6 +113,8 @@ class LogicaIepe extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['orientacion', 'fecha_evaluacion','id_materia'],'datos_sun_primary');
 
         });
 
