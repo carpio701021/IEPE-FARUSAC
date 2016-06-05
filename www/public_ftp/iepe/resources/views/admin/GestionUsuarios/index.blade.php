@@ -1,49 +1,33 @@
 @extends('layouts.admin-user')
 
 @section('content')
+    <div id="msgExito" class="container" style="display:none">
+        <div class="alert alert-success fade in" id="msgExitoAlert">
+            <div id="txtMsgExito"></div>
+        </div>
+    </div>
+    @include('layouts.mensajes')
 <div class="container">
-    <h3>Administración de usuarios</h3>
-
-    <input type="submit" class="btn btn-primary" value="Guardar Cambios">
-    <input type="submit" class="btn btn-success" value="Nuevo Usuario">
-    <br><br>
     <ul class="list-group">
-        <li class="list-group-item active">Usuarios</li>
+        <li class="list-group-item active clearfix">
+            <h2 class="panel-title pull-left" style="padding-top: 7.5px;">Administración de usuarios</h2>
+            <div class="btn-group pull-right">
+                <a href="/admin/usuarios/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Nuevo usuario administrativo</a>
+            </div>
+        </li>
         @foreach($admins as $admin)
-                <li class="list-group-item">
+                <li id="li{{ $admin->registro_personal }}" class="list-group-item">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <b>Registro personal:</b> {{ $admin->registro_personal }} <br>
                             <b>Nombre:</b> {{ $admin->apellido }}, {{ $admin->nombre }} <br>
                             <b>Correo:</b> {{ $admin->email }} <br>
-                            <b>Rol:</b> {{ $admin->rol }}
+                            <b>Rol:</b> {{ $admin->getRol() }}
                         </div>
-                        <div class="col-md-4">
-                            <label>Rol</label>
-                            <select class="form-control">
-                                @foreach($rol_enum=[
-                                    'superadmin'                =>'Super admin',
-                                    'jefe_bienestar'            =>'Jefe de Bienestar',
-                                    'secretario'                =>'Secretario',
-                                    'decano'                    =>'Decano',
-                                    'director_arquitectura'     =>'Director de Arquitectura',
-                                    'director_disenio_grafico'  =>'Director de Diseño Gráfico'
-                                ] as $rol => $rol_name)
-                                    <option value="{{ $rol }}"{{ ($rol==$admin->rol)?' selected=true':'' }}>{{ $rol_name }}</option>
 
-                                @endforeach
-                                <!--option value="superadmin">Super admin</option>
-                                <option value="jefe_bienestar">Jefe de Bienestar</option>
-                                <option value="secretario">Secretario</option>
-                                <option value="decano">Decano</option>
-                                <option value="director_arquitectura">Director de Arquitectura</option>
-                                <option value="director_disenio_grafico">Director de Diseño Gráfico</option-->
-                            </select>
-                        </div>
-                        <div class="col-md-5">
-                            <input type="button" class="btn btn-success btn-sm" value="Editar datos" onclick="editarDatos({{ $admin->registro_personal }})">
-                            <input type="button" class="btn btn-success btn-sm" value="Cambiar contraseña" onclick="cambiarPass({{ $admin->registro_personal }})">
-                            <input type="button" class="btn btn-success btn-sm" value="Borrar" onclick="borrarAdmin({{ $admin->registro_personal }})">
+                        <div class="col-md-4">
+                            <a href="/admin/usuarios/{{ $admin->registro_personal }}/edit"><span class="glyphicon glyphicon-pencil"></span> Editar datos</a><br>
+                            <a href="javascript:void(0)" onclick="borrarAdmin({{ $admin->registro_personal }})"><span class="glyphicon glyphicon-trash"></span> Borrar</a><br>
                         </div>
                     </div>
 
@@ -51,115 +35,50 @@
         @endforeach
     </ul>
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Usuario</th>
-            <th>Bienestar estudiantil</th>
-            <th>Secretario</th>
-            <th>Decano</th>
-            <th>Director de escuela de Arquitectura</th>
-            <th>Director de escuela de Diseño Gráfico</th>
-            <th>Administrador general</th>
-            <th>Opciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Oscar Enriquez</td>
-            <td><input type="checkbox" checked></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td>
-                <button class="btn btn-xs btn-primary">Editar</button>
-                <button class="btn btn-xs btn-danger">Borrar</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Angel Caal</td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox" checked></td>
-            <td>
-                <button class="btn btn-xs btn-primary">Editar</button>
-                <button class="btn btn-xs btn-danger">Borrar</button>
-            </td>
-        </tr>
-        <tr>
-            <td>*Nombre de Actual Secretario*</td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox" checked></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td>
-                <button class="btn btn-xs btn-primary">Editar</button>
-                <button class="btn btn-xs btn-danger">Borrar</button>
-            </td>
-        </tr>
-        <tr>
-            <td>*Nombre de Actual Decano*</td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox" checked></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td>
-                <button class="btn btn-xs btn-primary">Editar</button>
-                <button class="btn btn-xs btn-danger">Borrar</button>
-            </td>
-        </tr>
-        <tr>
-            <td>*Nombre de actual director de escuela de arquitectura*</td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox" checked></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td>
-                <button class="btn btn-xs btn-primary">Editar</button>
-                <button class="btn btn-xs btn-danger">Borrar</button>
-            </td>
-        </tr>
-        <tr>
-            <td>*Nombre de actual director de escuela de diseño gráfico*</td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox" checked></td>
-            <td><input type="checkbox"></td>
-            <td>
-                <button class="btn btn-xs btn-primary">Editar</button>
-                <button class="btn btn-xs btn-danger">Borrar</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Usuario 3</td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox" checked></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox"></td>
-            <td><input type="checkbox" checked></td>
-            <td><input type="checkbox"></td>
-            <td>
-                <button class="btn btn-xs btn-primary">Editar</button>
-                <button class="btn btn-xs btn-danger">Borrar</button>
-            </td>
-        </tr>
-        </tbody>
-        <tfoot></tfoot>
-    </table>
 
+    <!-- Modal Confirmar eliminar -->
+    <div id="modalConfirmar" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Confirmar operación</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="txtConfirmar"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <a href="javascript:sendBorrarAdmin()" class="btn btn-danger btn">Eliminar</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Modal Cambiar pass -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Cambiar contraseña</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
 </div>
@@ -176,8 +95,39 @@
         alert('Pass: '+registro_personal);
     }
 
+    registro_personal_g = '';
+
     function borrarAdmin(registro_personal){
-        alert('Borrar: '+registro_personal);
+        registro_personal_g = registro_personal;
+        $('#modalConfirmar').modal('show');
+        txtConfirmar.innerHTML = '¿Desea eliminar al usuario ' + registro_personal + '?';
+
+    }
+
+    function sendBorrarAdmin(){
+        $('#modalConfirmar').modal('hide');
+        $.ajax({
+            url: '/admin/usuarios/' + registro_personal_g,
+            type: 'POST',  // user.destroy
+            data: {
+                '_token': "{{ csrf_token() }}",
+                '_method': 'DELETE'
+            },
+            success: function(data) {
+                document.getElementById('li'+registro_personal_g).style.display = 'none';
+                document.getElementById('msgExitoAlert').className = 'alert alert-success fade in';
+                document.getElementById('txtMsgExito').innerHTML = '<strong>Hecho: </strong> El usuario ' + registro_personal_g + ' ha sido eliminado.';
+                document.getElementById('msgExito').style.display = 'block';
+                window.setTimeout(function () { // hide alert message
+                    document.getElementById('msgExito').style.display = 'none';
+                }, 7000);//milisegundos
+            },
+            error: function(){
+                document.getElementById('msgExitoAlert').className = 'alert alert-succes fade in';
+                document.getElementById('txtMsgExito').innerHTML = '<strong>Error: </strong> no se pudo eliminar al usuario ' + registro_personal_g ;
+                document.getElementById('msgExito').style.display = 'block';
+            }
+        });
     }
 </script>
 @endsection

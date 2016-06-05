@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Admin;
+use App\Http\Requests\GestionUsuariosRequest;
 
 class GestionUsuariosController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +19,7 @@ class GestionUsuariosController extends Controller
     public function index()
     {
         $admins = Admin::all();
+        extract(get_object_vars($this));
         return view('admin.GestionUsuarios.index',compact('admins'));
     }
 
@@ -28,6 +31,10 @@ class GestionUsuariosController extends Controller
     public function create()
     {
         //
+
+        $admin = new Admin();
+        extract(get_object_vars($this));
+        return view('admin.GestionUsuarios.model',compact('admin'));
     }
 
     /**
@@ -36,9 +43,14 @@ class GestionUsuariosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GestionUsuariosRequest $request)
     {
         //
+        $request['password'] = bcrypt($request->password);
+        $admin = new Admin($request->all());
+        $admin->save();
+        $request->session()->flash('mensaje_exito','Usuario <i>'.$admin->registro_personal.'</i> creado.');
+        return redirect('/admin/usuarios');
     }
 
     /**
@@ -61,6 +73,11 @@ class GestionUsuariosController extends Controller
     public function edit($id)
     {
         //
+        $titulo = 'Editar usuario administrativo';
+        $admin = Admin::findOrFail($id);
+        $put = true;
+        extract(get_object_vars($this));
+        return view('admin.GestionUsuarios.model',compact('admin','titulo','put'));
     }
 
     /**
@@ -70,9 +87,22 @@ class GestionUsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GestionUsuariosRequest $request, $id)
     {
-        //
+
+        if($request->registro_personal != $id){
+            $admin = Admin::where('registro_personal',$request->registro_personal)->first();
+            if($admin != null) {
+                $errors = Array('El registro de personal <i>'.$request->registro_personal.'</i> ya está registrado con otro usuario.');
+                return redirect('/admin/usuarios/'.$id.'/edit')->withErrors($errors)->withInput();
+            }
+        }
+
+        $request['password'] = bcrypt($request->password);
+        $admin = Admin::findOrFail($id);
+        $admin->update($request->all());
+        $request->session()->flash('mensaje_exito','Cambios en usuario <i>'.$admin->registro_personal.'</i> guardados.');
+        return redirect('/admin/usuarios');
     }
 
     /**
@@ -81,8 +111,11 @@ class GestionUsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        Admin::destroy($id);
+
+        return 'Usuario <i>'.$id.'</i> eliminado.';
     }
 }
