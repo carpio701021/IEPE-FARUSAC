@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Admin;
 
 class TablaAdminsSeeder extends Seeder
 {
@@ -11,8 +12,76 @@ class TablaAdminsSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Admin::class, 10)->create()->each(function($u) {
+
+        (new Admin([
+            'registro_personal' =>  '10000',
+            'nombre'            =>  'Angel',
+            'apellido'          =>  'Caal',
+            'email'             =>  'angel.caal@farusac.edu.gt',
+            'password'          =>  bcrypt('123123'),
+            'rol'               =>  'superadmin',
+        ]))->save();
+
+
+        (new Admin([
+            'registro_personal' =>  '10001',
+            'nombre'            =>  'Oscar',
+            'apellido'          =>  'Enriquez',
+            'email'             =>  'oscar.enriquez@farusac.edu.gt',
+            'password'          =>  bcrypt('123123'),
+            'rol'               =>  'jefe_bienestar',
+        ]))->save();
+
+
+
+        (new Admin([
+            'registro_personal' =>  '10002',
+            'nombre'            =>  'Byron Alfredo',
+            'apellido'          =>  'Rabé Rendón',
+            'email'             =>  'o@farusac.com',
+            'password'          =>  bcrypt('123123'),
+            'rol'               =>  'decano',
+        ]))->save();
+
+
+
+        (new Admin([
+            'registro_personal' =>  '10003',
+            'nombre'            =>  'Publio',
+            'apellido'          =>  'Rodríguez',
+            'email'             =>  'secretaria.academica@farusac.com',
+            'password'          =>  bcrypt('123123'),
+            'rol'               =>  'secretario',
+        ]))->save();
+
+
+
+        (new Admin([
+            'registro_personal' =>  '10004',
+            'nombre'            =>  'Alexander',
+            'apellido'          =>  'Aguilar',
+            'email'             =>  'arquitectura.direccion@farusac.com',
+            'password'          =>  bcrypt('123123'),
+            'rol'               =>  'director_arquitectura',
+        ]))->save();
+
+
+
+        (new Admin([
+            'registro_personal' =>  '10005',
+            'nombre'            =>  'Luis',
+            'apellido'          =>  'Jurado',
+            'email'             =>  'disenografico.direccion@farusac.com',
+            'password'          =>  bcrypt('123123'),
+            'rol'               =>  'director_disenio_grafico',
+        ]))->save();
+
+
+
+
+        //factory(App\Admin::class, 10)->create()->each(function($u) {
         	//$u->AdminRol()->save(factory(App\AdminRol::class)->make());
-    	});
+    	//
+        //});
     }
 }

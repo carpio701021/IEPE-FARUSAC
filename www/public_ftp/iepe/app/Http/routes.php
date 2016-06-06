@@ -47,13 +47,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             return view('admin.index');
         });
 
-        /*Route::get('aplicaciones', function () {
-            return view('admin.aplicaciones');
-        });*/
+        Route::resource('usuarios','GestionUsuariosController');
 
-        Route::get('usuarios', function () {
-            return view('admin.usuarios');
-        });
+
     });
 });
 

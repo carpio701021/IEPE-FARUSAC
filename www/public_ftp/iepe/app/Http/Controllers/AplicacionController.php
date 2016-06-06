@@ -64,7 +64,7 @@ class AplicacionController extends Controller
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
 
-        $request->session()->flash('mensaje_exito','Aplicación <i>'+$aplicacion->nombre+'</i> creada exitosamente.');
+        $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre.'</i> creada exitosamente.');
         return redirect('/admin/aplicacion');
     }
 
@@ -118,7 +118,7 @@ class AplicacionController extends Controller
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
 
-        $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'+$aplicacion->nombre+'</i> guardados.');
+        $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'.$aplicacion->nombre.'</i> guardados.');
         return redirect('/admin/aplicacion');
     }
 

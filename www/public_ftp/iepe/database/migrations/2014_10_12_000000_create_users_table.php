@@ -21,20 +21,17 @@ class CreateUsersTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('password', 60);
-            $table->rememberToken();
-            $table->timestamps();
-        });
 
-        Schema::create('admin_rols', function (Blueprint $table) {
-            $table->increments('id');
             $table->enum('rol',[
                 'superadmin', //persona que puede editar todo
                 'jefe_bienestar',
                 'secretario',
-                'decano'
+                'decano',
+                'director_arquitectura',
+                'director_disenio_grafico'
             ]);
-            $table->integer('admin_registro_personal')->unsigned();
-            $table->foreign('admin_registro_personal')->references('registro_personal')->on('admins');
+
+            $table->rememberToken();
             $table->timestamps();
         });
 
@@ -81,7 +78,6 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('formularios');
         Schema::drop('aspirantes');
-        Schema::drop('admin_rols');
         Schema::drop('admins');
     }
 }

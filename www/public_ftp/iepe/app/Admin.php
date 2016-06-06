@@ -23,8 +23,9 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'registro_personal','nombre','apellido', 'email', 'password',
+        'registro_personal','nombre','apellido', 'email', 'password','rol'
     ];
+
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -35,7 +36,18 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function AdminRol(){
-    	return $this->hasMany('App\AdminRol','admin_registro_personal','registro_personal');
+    public function getRol(){
+    	return $this->posiblesRoles()[$this->rol];
+    }
+
+    public function posiblesRoles(){
+        return [
+            'superadmin'                =>  'Super admin',
+            'jefe_bienestar'            =>  'Jefe de Bienestar',
+            'secretario'                =>  'Secretario',
+            'decano'                    =>  'Decano',
+            'director_arquitectura'     =>  'Director de Arquitectura',
+            'director_disenio_grafico'  =>  'Director de Diseño Gráfico'
+        ];
     }
 }
