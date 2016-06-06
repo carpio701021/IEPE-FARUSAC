@@ -43,6 +43,7 @@ class DatosController extends Controller
         if($request->file('datos_sun')->isValid()){
             $destinationPath = '/datos_sun'; // upload path
             $extension = $request->file('datos_sun')->getClientOriginalExtension(); // getting file extension
+            
             $request->file('datos_sun')->move( storage_path().$destinationPath,'datos_sun.'.$extension);
             $resultados=$this->insertar_excel_enBD(storage_path().$destinationPath.'/datos_sun.'.$extension);
             $errores=$resultados['errors'];

@@ -39,6 +39,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::resource('aplicacion', 'AplicacionController');
         Route::get('aplicacion/{aplicacion_id}/arte', 'AplicacionController@getArte');
 
+        Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
+
         Route::resource('datos','DatosController');
         
         Route::get('/', function () {

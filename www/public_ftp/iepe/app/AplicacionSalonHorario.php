@@ -10,7 +10,7 @@ class AplicacionSalonHorario extends Model
 
 
     protected $table = 'aplicaciones_salones_horarios';
-
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *

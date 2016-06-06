@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aspirante;
 use App\Formulario;
 use App\Mail;
 use Illuminate\Http\Request;
@@ -10,6 +11,9 @@ use App\AplicacionSalonHorario;
 use App\Aplicacion;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Excel;
+use Illuminate\Support\Facades\DB;
 
 class AspiranteAplicacionController extends Controller
 {
@@ -99,7 +103,7 @@ class AspiranteAplicacionController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.aplicacion.subirResultados')->with('aplicacion',Aplicacion::find($id));
     }
 
     /**
@@ -110,10 +114,86 @@ class AspiranteAplicacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   $aplicacion = Aplicacion::find($id);
+        if($request->file('file')->isValid()){
+            $destinationPath = storage_path().'/Resultados'; // upload path
+            $extension = $request->file('file')->getClientOriginalExtension(); // getting file extension
+            $request->file('file')->move($destinationPath,$id.'-'.$aplicacion->nombre.'.'.$extension);
+            $path=$destinationPath.'/'.$id.'-'.$aplicacion->nombre.'.'.$extension;
+            $error=$this->insertarNotas($path,$id);
+            if($error){
+                return back()->withErrors($error);
+            }
+            $request->session()->flash('mensaje_exito', 'Se procesó todo el archivo con exito');
+            return back();
+        }
+        else{
+            return back()->withErrors('archivo','Error al subir el archivo');
+        }
     }
 
+    private function insertarNotas($path,$idAplicacion){
+        $this->borrar_notas_anteriores($idAplicacion);
+        $reader = Excel::load($path);
+        $reader->ignoreEmpty();//ignorar las celdas vacias
+        $conteo=0;
+        foreach($reader->get() as $row){
+                $conteo=$conteo+1;
+                //$a2=Aspirante::find($row->orientacion);
+                $validator=$this->validar_fila_excel($row,$conteo);
+                if($validator->fails()){
+                    return $validator;
+                }
+                $a=AspiranteAplicacion::where('aspirante_id',$row->orientacion)
+                    ->join('aplicaciones_salones_horarios',function($join) use($idAplicacion){
+                        $join->on('aplicacion_salon_horario_id','=','aplicaciones_salones_horarios.id')
+                        ->where('aplicaciones_salones_horarios.aplicacion_id','=',$idAplicacion);
+                    })
+                    ->first();
+                if($a){
+                    $a->nota_RA = $row->ra;
+                    $a->nota_APE = $row->ape;
+                    $a->nota_RV = $row->rv;
+                    $a->nota_APN = $row->apn;
+                    $a->save();
+                }
+        }
+        return null;
+
+    }
+
+    function borrar_notas_anteriores($idAplicacion){
+        $asignaciones=Db::table('aspirantes_aplicaciones as aa')
+            ->join('aplicaciones_salones_horarios as ash','ash.id','=','aa.aplicacion_salon_horario_id')
+            ->where('ash.aplicacion_id','=',$idAplicacion);
+        /*$asignaciones=AspiranteAplicacion::select('nota_RA','nota_APE','nota_RV','nota_APN',
+            'aspirantes_aplicaciones.updated_at as update')
+            ->leftjoin('aplicaciones_salones_horarios',function($join) use($idAplicacion){
+                $join->on('aplicacion_salon_horario_id','=','aplicaciones_salones_horarios.id')
+                    ->where('aplicaciones_salones_horarios.aplicacion_id','=',$idAplicacion);
+            });*/
+        $asignaciones->update(['nota_RA'=>0,
+                'nota_APE'=>0,
+                'nota_RV'=>0,
+                'nota_APN'=>0]);
+    }
+
+    function validar_fila_excel($row,$conteo){
+        $rules=['ra'=>'required|integer|max:100|min:0',
+            'ape'=>'required|integer|max:100|min:0',
+            'rv'=>'required|integer|max:100|min:0',
+            'apn'=>'required|integer|max:100|min:0',
+            'orientacion'=>'required'
+        ];
+        $messages=[
+            'required'      => 'Fila '.$conteo.': El campo :attribute es obligatorio',
+            'integer'       => 'Fila '.$conteo.': El campo :attribute debe ser un entero',
+            'max'           => 'Fila '.$conteo.': El campo :attribute no puede ser mayor a :max',
+            'min'           => 'Fila '.$conteo.': El campo :attribute no puede ser menor a :min',
+        ];
+        return Validator::make($row->toarray(), $rules,$messages);
+
+    }
     /**
      * Remove the specified resource from storage.
      *

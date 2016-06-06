@@ -11,6 +11,7 @@ class AspiranteAplicacion extends Model
     use SoftDeletes;
     protected  $table="aspirantes_aplicaciones";
     protected $dates = ['deleted_at'];
+    //protected $fillable =['nota_RA','nota_APE','nota_RV','nota_APN'];
 
     public function getHorario(){
         return $this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->first()->getHorario();
