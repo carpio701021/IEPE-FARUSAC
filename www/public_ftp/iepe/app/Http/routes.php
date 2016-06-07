@@ -49,7 +49,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             return view('admin.index');
         });
 
-        Route::resource('usuarios','GestionUsuariosController');
+        Route::group(['middleware' => ['adminRol:superadmin']], function () {
+            Route::resource('usuarios','GestionUsuariosController');
+        });
+
 
 
     });
@@ -78,21 +81,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::resource('PruebaEspecifica', 'AspiranteAplicacionController');
 
 
-            /*Route::get('/aspirante', function () {
-                return View::make('aspirante.aspirante');
-            });
-
-            Route::get('/aspirante/formulario', function () {
-                return View::make('aspirante.index');
-            });
-
-            Route::get('/aspirante/PruebaEspecifica', function () {
-                return View::make('aspirante.PruebaEspecifica');
-            });
-
-            Route::get('/aspirante/ResultadosSatisfactorios', function () {
-                return View::make('aspirante.satisfactorio');
-            });*/
 
         });
 });

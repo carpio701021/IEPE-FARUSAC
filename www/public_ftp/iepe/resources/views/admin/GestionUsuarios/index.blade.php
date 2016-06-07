@@ -22,7 +22,7 @@
                             <b>Registro personal:</b> {{ $admin->registro_personal }} <br>
                             <b>Nombre:</b> {{ $admin->apellido }}, {{ $admin->nombre }} <br>
                             <b>Correo:</b> {{ $admin->email }} <br>
-                            <b>Rol:</b> {{ $admin->getRol() }}
+                            <b>Rol:</b> {{ $admin->getRolName() }}
                         </div>
 
                         <div class="col-md-4">

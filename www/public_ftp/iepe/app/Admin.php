@@ -36,8 +36,12 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function getRol(){
-    	return $this->posiblesRoles()[$this->rol];
+    public function getRolName(){
+        return $this->posiblesRoles()[$this->rol];
+    }
+
+    public function tieneRol($xrol){
+        return $this->rol == $xrol;
     }
 
     public function posiblesRoles(){

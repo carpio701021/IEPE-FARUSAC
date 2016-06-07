@@ -55,6 +55,7 @@
                             color: #192949;
                         }
                     </style>
+                    @if(Auth::guard('admin')->user()->tieneRol('superadmin'))
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -62,6 +63,9 @@
                             <li><a href="#">Notificar a direcciones de escuela</a></li>
                         </ul>
                     </li>
+                    @endif
+                    @if(Auth::guard('admin')->user()->tieneRol('jefe_bienestar')
+                    || Auth::guard('admin')->user()->tieneRol('superadmin'))
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Desarrollo estudiantíl <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -76,6 +80,7 @@
                             <li><a href="/admin/datos/create">Cargar datos</a></li>
                         </ul>
                     </li>
+                    @endif
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
