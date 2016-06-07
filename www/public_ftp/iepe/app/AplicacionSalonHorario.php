@@ -10,7 +10,7 @@ class AplicacionSalonHorario extends Model
 
 
     protected $table = 'aplicaciones_salones_horarios';
-
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -33,5 +33,8 @@ class AplicacionSalonHorario extends Model
         return $this->belongsTo('App\Horario','horario_id')->first();
     }
     
+    public function getAsignaciones(){
+        return $this->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')->get();
+    }
 
 }
