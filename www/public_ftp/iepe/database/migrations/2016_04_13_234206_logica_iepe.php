@@ -81,7 +81,7 @@ class LogicaIepe extends Migration
             $table->integer('aplicacion_salon_horario_id')->unsigned();
             $table->foreign('aplicacion_salon_horario_id')->references('id')->on('aplicaciones_salones_horarios');
 
-            $table->integer('aspirante_id')->unsigned();
+            $table->bigInteger('aspirante_id')->unsigned();
             $table->foreign('aspirante_id')->references('NOV')->on('aspirantes');
 
             $table->unique(['aplicacion_salon_horario_id', 'aspirante_id'],'aspirantes_aplicaciones_primary');

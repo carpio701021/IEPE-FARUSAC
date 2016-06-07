@@ -14,12 +14,19 @@
 
 $factory->define(App\Aspirante::class, function (Faker\Generator $faker) {
     return [
-    	'NOV' => $faker->numberBetween(1000000000,2016999999),
-        'nombre' => $faker->name,
-        'apellido' => $faker->lastname,
-        'email' => $faker->email,
-        'password' => bcrypt('123123'),
-        'remember_token' => str_random(10),   
+        'NOV'           => $faker->unique()->numberBetween(1000000000,1000001200),
+        'nombre'        => $faker->name,
+        'apellido'      => $faker->lastname,
+        'email'         => $faker->unique()->email,
+        'password'      => bcrypt('123123'),
+        'remember_token'=> str_random(10),
+    ];
+});
+
+$factory->define(App\AspiranteAplicacion::class, function(Faker\Generator $faker){
+    return [
+        //'aspirante_id'                  =>  $faker->unique()->numberBetween(1000000000,1000001200),
+        'aplicacion_salon_horario_id'   =>  $faker->numberBetween(1,10),
     ];
 });
 

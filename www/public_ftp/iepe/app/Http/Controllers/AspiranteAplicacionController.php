@@ -135,7 +135,7 @@ class AspiranteAplicacionController extends Controller
     }
 
     private function insertarNotas($path,$idAplicacion){
-        $this->borrar_notas_anteriores($idAplicacion);
+        //$this->borrar_notas_anteriores($idAplicacion);
         $reader = Excel::load($path);
         $reader->ignoreEmpty();//ignorar las celdas vacias
         $conteo=0;
@@ -151,7 +151,8 @@ class AspiranteAplicacionController extends Controller
                         $join->on('aplicacion_salon_horario_id','=','aplicaciones_salones_horarios.id')
                         ->where('aplicaciones_salones_horarios.aplicacion_id','=',$idAplicacion);
                     })
-                    ->first();
+                    ->get();
+                dd($a);
                 if($a){
                     $a->nota_RA = $row->ra;
                     $a->nota_APE = $row->ape;

@@ -25,7 +25,7 @@ class AplicacionesSeeder extends Seeder
         $salon[] = new Salon(['nombre'=>'T1 L II 5','capacidad'=>'75']);end($salon)->save();
 
         $aplicacion[] =new Aplicacion(['fecha_inicio_asignaciones'=>'2016/05/24',
-            'fecha_fin_asignaciones'=>'2016/05/27',
+            'fecha_fin_asignaciones'=>'2016/10/27',
             'fecha_aplicacion'=>'2016/05/29',
             'fecha_publicacion_resultados'=>'2016/05/30',
             'nombre'=>'Primera Aplicacion 2016'
@@ -60,5 +60,7 @@ class AplicacionesSeeder extends Seeder
                 }
             }
         }
+        
+        //factory(App\AspiranteAplicacion::class,1200)->create();
     }
 }
