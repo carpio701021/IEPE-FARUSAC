@@ -12,6 +12,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+
     <style>
         body {
             font-family: 'Lato';

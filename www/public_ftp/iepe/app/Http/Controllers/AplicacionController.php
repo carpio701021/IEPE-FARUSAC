@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\AplicacionRequest;
+use App\Http\Requests\PercentilRequest;
 use App\Aplicacion;
 use Carbon\Carbon ;
 use File;
+use Illuminate\Support\Facades\DB;
 
 class AplicacionController extends Controller
 {
@@ -76,7 +78,13 @@ class AplicacionController extends Controller
      */
     public function show($id)
     {
-        //
+        $asignaciones=Db::table('aspirantes_aplicaciones as aa')
+            ->join('aplicaciones_salones_horarios as ash','ash.id','=','aa.aplicacion_salon_horario_id')
+            ->where('ash.aplicacion_id','=',$id)
+            ->orderby('aspirante_id','asc')->get();
+        $aplicacion = Aplicacion::find($id);
+        return view('admin.aplicacion.NotasAspirantes',
+            compact('asignaciones','aplicacion'));
     }
 
     /**
@@ -148,4 +156,17 @@ class AplicacionController extends Controller
     {
         //
     }
+
+    public function actualizarPercentiles(PercentilRequest $request,$id){
+        $aplicacion = Aplicacion::find($id);
+        $aplicacion->percentil_RA=$request->percentil_RA;
+        $aplicacion->percentil_APE=$request->percentil_APE;
+        $aplicacion->percentil_RV=$request->percentil_RV;
+        $aplicacion->percentil_APN=$request->percentil_APN;
+        $aplicacion->save();
+        $aplicacion->calificar();//actualizará la tabla aspirantes_aplicaciones
+        //dd($aplicacion->getResumen_Areas());
+        return back();//->with("resumen_areas",$aplicacion->getResumen_Areas());
+    }
+    
 }

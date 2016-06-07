@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 
 class Aplicacion extends Model
@@ -113,6 +114,60 @@ class Aplicacion extends Model
         return
             $this->hasMany('App\AplicacionSalonHorario','aplicacion_id')->sum('asignados')
             ;
+    }
+
+    public function calificar(){
+        $asignaciones=Db::table('aspirantes_aplicaciones as aa')
+            ->join('aplicaciones_salones_horarios as ash','ash.id','=','aa.aplicacion_salon_horario_id')
+            ->where('ash.aplicacion_id','=',$this->id)->get();
+        foreach ($asignaciones as $a){
+            $asignacion=AspiranteAplicacion::find($a->id);
+            if($a->nota_RA>=$this->percentil_RA
+            && $a->nota_APE>=$this->percentil_APE
+            && $a->nota_RV>=$this->percentil_RV
+            && $a->nota_APN>=$this->percentil_APN){
+                $asignacion->resultado='aprobado';
+            }else{
+                $asignacion->resultado='reprobado';
+            }
+            $asignacion->save();
+        }
+    }
+    
+    public function getSalonesHorarios(){
+        return $this->hasMany('App\AplicacionSalonHorario','aplicacion_id')->get();
+    }
+
+    public function getResumen_Areas(){
+        $aprobados_RA=0;$reprobados_RA=0;
+        $aprobados_APE=0;$reprobados_APE=0;
+        $aprobados_RV=0;$reprobados_RV=0;
+        $aprobados_APN=0;$reprobados_APN=0;
+
+
+        $horarios = $this->hasMany('App\AplicacionSalonHorario','aplicacion_id');
+        foreach($horarios->get() as $ash){
+            $aprobados_RA += $ash->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
+                ->where('nota_RA','>=',$this->percentil_RA)->where('resultado','<>','pendiente')->count();
+            $reprobados_RA += $ash->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
+                ->where('nota_RA','<',$this->percentil_RA)->where('resultado','<>','pendiente')->count();
+            $aprobados_APE += $ash->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
+                ->where('nota_APE','>=',$this->percentil_APE)->where('resultado','<>','pendiente')->count();
+            $reprobados_APE += $ash->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
+                ->where('nota_APE','<',$this->percentil_APE)->where('resultado','<>','pendiente')->count();
+            $aprobados_RV += $ash->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
+                ->where('nota_RV','>=',$this->percentil_RV)->where('resultado','<>','pendiente')->count();
+            $reprobados_RV += $ash->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
+                ->where('nota_RV','<',$this->percentil_RV)->where('resultado','<>','pendiente')->count();
+            $aprobados_APN += $ash->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
+                ->where('nota_APN','>=',$this->percentil_APN)->where('resultado','<>','pendiente')->count();
+            $reprobados_APN += $ash->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
+                ->where('nota_APN','<',$this->percentil_APN)->where('resultado','<>','pendiente')->count();
+        }
+        return ['aRA'=>$aprobados_RA,'rRA'=>$reprobados_RA,
+            'aAPE'=>$aprobados_APE,'rAPE'=>$reprobados_APE,
+            'aRV'=>$aprobados_RV,'rRV'=>$reprobados_RV,
+            'aAPN'=>$aprobados_APN,'rAPN'=>$reprobados_APN,];
     }
 
 

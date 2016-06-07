@@ -103,7 +103,9 @@ class AspiranteAplicacionController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.aplicacion.subirResultados')->with('aplicacion',Aplicacion::find($id));
+        $aplicacion=Aplicacion::find($id);
+        return view('admin.aplicacion.subirResultados')->with(['aplicacion'=>$aplicacion,
+        'resumen_areas'=>$aplicacion->getResumen_Areas()]);
     }
 
     /**
@@ -166,12 +168,6 @@ class AspiranteAplicacionController extends Controller
         $asignaciones=Db::table('aspirantes_aplicaciones as aa')
             ->join('aplicaciones_salones_horarios as ash','ash.id','=','aa.aplicacion_salon_horario_id')
             ->where('ash.aplicacion_id','=',$idAplicacion);
-        /*$asignaciones=AspiranteAplicacion::select('nota_RA','nota_APE','nota_RV','nota_APN',
-            'aspirantes_aplicaciones.updated_at as update')
-            ->leftjoin('aplicaciones_salones_horarios',function($join) use($idAplicacion){
-                $join->on('aplicacion_salon_horario_id','=','aplicaciones_salones_horarios.id')
-                    ->where('aplicaciones_salones_horarios.aplicacion_id','=',$idAplicacion);
-            });*/
         $asignaciones->update(['nota_RA'=>0,
                 'nota_APE'=>0,
                 'nota_RV'=>0,

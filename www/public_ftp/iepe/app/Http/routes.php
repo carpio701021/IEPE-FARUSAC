@@ -42,7 +42,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
 
         Route::resource('datos','DatosController');
-        
+
+        Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
+
         Route::get('/', function () {
             return view('admin.index');
         });

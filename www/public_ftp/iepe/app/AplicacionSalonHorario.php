@@ -33,5 +33,8 @@ class AplicacionSalonHorario extends Model
         return $this->belongsTo('App\Horario','horario_id')->first();
     }
     
+    public function getAsignaciones(){
+        return $this->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')->get();
+    }
 
 }
