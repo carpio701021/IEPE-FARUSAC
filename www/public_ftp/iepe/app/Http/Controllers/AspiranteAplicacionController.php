@@ -122,6 +122,7 @@ class AspiranteAplicacionController extends Controller
             $extension = $request->file('file')->getClientOriginalExtension(); // getting file extension
             $request->file('file')->move($destinationPath,$id.'-'.$aplicacion->nombre.'.'.$extension);
             $path=$destinationPath.'/'.$id.'-'.$aplicacion->nombre.'.'.$extension;
+            //$error=$this->insertarNotas($path,$id);
             $error=$this->insertarNotas($path,$id);
             if($error){
                 return back()->withErrors($error);
@@ -134,35 +135,34 @@ class AspiranteAplicacionController extends Controller
         }
     }
 
+
     private function insertarNotas($path,$idAplicacion){
-        //$this->borrar_notas_anteriores($idAplicacion);
+        $this->borrar_notas_anteriores($idAplicacion);
         $reader = Excel::load($path);
         $reader->ignoreEmpty();//ignorar las celdas vacias
-        $conteo=0;
+        $conteo=0; $insertados=0;
+        $salonesHorarios = Aplicacion::find($idAplicacion)->getSalonesHorarios();
         foreach($reader->get() as $row){
-                $conteo=$conteo+1;
-                //$a2=Aspirante::find($row->orientacion);
-                $validator=$this->validar_fila_excel($row,$conteo);
-                if($validator->fails()){
-                    return $validator;
+            $conteo=$conteo+1;
+            $validator=$this->validar_fila_excel($row,$conteo);
+            if($validator->fails()){
+                return $validator;
+            }
+            foreach($salonesHorarios as $sa){
+                $asignacion = $sa->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')->where('aspirante_id',$row->orientacion)->first();;
+                if($asignacion){
+                    $asignacion['nota_RA'] = $row->ra;
+                    $asignacion['nota_APE'] = $row->ape;
+                    $asignacion['nota_RV'] = $row->rv;
+                    $asignacion['nota_APN'] = $row->apn;
+                    $asignacion->save();
+                    $insertados++;
+                    break;
                 }
-                $a=AspiranteAplicacion::where('aspirante_id',$row->orientacion)
-                    ->join('aplicaciones_salones_horarios',function($join) use($idAplicacion){
-                        $join->on('aplicacion_salon_horario_id','=','aplicaciones_salones_horarios.id')
-                        ->where('aplicaciones_salones_horarios.aplicacion_id','=',$idAplicacion);
-                    })
-                    ->get();
-                dd($a);
-                if($a){
-                    $a->nota_RA = $row->ra;
-                    $a->nota_APE = $row->ape;
-                    $a->nota_RV = $row->rv;
-                    $a->nota_APN = $row->apn;
-                    $a->save();
-                }
+            }
         }
+        dd($insertados);
         return null;
-
     }
 
     function borrar_notas_anteriores($idAplicacion){

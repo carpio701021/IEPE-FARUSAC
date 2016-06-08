@@ -3,7 +3,7 @@
 @section('content')
     @include('layouts.mensajes')
     <div class="container">
-        <h3>Notas por aspirante - {{$aplicacion->nombre}}</h3>
+        <h3>Aspirante aprobados - {{$aplicacion->nombre}}</h3>
 
         <div class="container">
             <h3>Resultados</h3>

@@ -81,6 +81,7 @@ class AplicacionController extends Controller
         $asignaciones=Db::table('aspirantes_aplicaciones as aa')
             ->join('aplicaciones_salones_horarios as ash','ash.id','=','aa.aplicacion_salon_horario_id')
             ->where('ash.aplicacion_id','=',$id)
+            ->where('resultado','=','aprobado')
             ->orderby('aspirante_id','asc')->get();
         $aplicacion = Aplicacion::find($id);
         return view('admin.aplicacion.NotasAspirantes',
