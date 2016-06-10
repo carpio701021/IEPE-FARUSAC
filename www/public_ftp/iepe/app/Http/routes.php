@@ -38,6 +38,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
         Route::resource('aplicacion', 'AplicacionController');
         Route::get('aplicacion/{aplicacion_id}/arte', 'AplicacionController@getArte');
+        Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
+        Route::get('aplicacion/{aplicacion_id}/actas', 'AplicacionController@getActas');
 
         Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
 
@@ -45,7 +47,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
         Route::resource('aplicacion/acta','ActaController');
 
-        Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
+
         Route::post('aplicacion/acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');
 
 

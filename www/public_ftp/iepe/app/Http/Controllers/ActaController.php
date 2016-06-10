@@ -7,6 +7,8 @@ use App\Aplicacion;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use DOMPDF;
+use Illuminate\Support\Facades\Response;
 
 class ActaController extends Controller
 {
@@ -38,15 +40,22 @@ class ActaController extends Controller
      */
     public function store(Request $request)
     {
-        $asignaciones = Aplicacion::find($request->aplicacion_id)->getAsignaciones()
+        $aplicacion=Aplicacion::find($request->aplicacion_id);
+        $asignaciones = $aplicacion->getAsignaciones()
             ->where('resultado','aprobado')
             ->where('acta_id','0');
-        //dd($asignaciones->get());
         $acta= Actas::create($request->all());
-        dd($acta);
+
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHtmlFile('admin.pdf.acta');
-        $pdf->stream();
+        $pdf->loadView('admin.pdf.acta',compact('acta','asignaciones','aplicacion'));
+        
+        $asignaciones->update(['acta_id'=>$acta->id]);
+        $path=storage_path().'/actas/Acta'.$acta->id.'-'.$aplicacion->nombre;
+        $pdf->save($path);
+        $acta->path_pdf=$path;
+        $acta->save();
+        $request->session()->flash('mensaje_exito','El acta se generó correctamente, puede revisarla en la seccion de actas');
+        return back();
         //return "store";
     }
 
@@ -58,7 +67,11 @@ class ActaController extends Controller
      */
     public function show($id)
     {
-        return "show";
+        $acta=Actas::find($id);
+        return Response::make(file_get_contents($acta->path_pdf), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="Acta'.$acta->id.'"'
+        ]);
     }
 
     /**

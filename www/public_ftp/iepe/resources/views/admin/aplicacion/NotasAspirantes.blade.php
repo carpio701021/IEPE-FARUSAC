@@ -82,7 +82,7 @@
             </table>
             <div class="container">
                 <div class="col-sm-6">
-                    <h4> <strong> Total aprobados: {{$aplicacion->getCountAprobados()}} </strong></h4>
+                    <h4> <strong> Total aprobados: {{$aplicacion->getCountAprobadosNuevaActa()}} </strong></h4>
                 </div>
                 <div class="col-sm-6" align="right">
                     <a href="#" class="btn btn-warning">Exportar pdf con calificaciones irregulares</a>

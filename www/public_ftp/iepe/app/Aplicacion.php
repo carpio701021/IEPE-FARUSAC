@@ -180,11 +180,27 @@ class Aplicacion extends Model
         return $aprobados;
     }
 
+    public function getCountAprobadosNuevaActa(){
+        $horarios = $this->getSalonesHorarios();
+        $aprobados=0;
+        foreach($horarios as $ash){
+            $aprobados+= $ash->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
+                ->where('resultado','aprobado')
+                ->where('acta_id','0')
+                ->count();
+        }
+        return $aprobados;
+    }
+
     public function getAsignaciones(){
         return Db::table('aspirantes_aplicaciones as aa')
             ->join('aplicaciones_salones_horarios as ash','ash.id','=','aa.aplicacion_salon_horario_id')
             ->where('ash.aplicacion_id','=',$this->id)
             ->selectRaw('aa.*');
+    }
+
+    public function getActas(){
+        return $this->hasMany('App\Actas','aplicacion_id')->get();
     }
 
 }

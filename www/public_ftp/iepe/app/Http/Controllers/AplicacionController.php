@@ -101,9 +101,9 @@ class AplicacionController extends Controller
 
 
         $asignaciones=Aplicacion::find($id)->getAsignaciones()
+            ->where('acta_id','=',0)
             ->where('resultado','=','aprobado')
             ->orwhere('resultado','=','irregular')
-            ->where('acta_id','0')
             //, (nota_RA+nota_RV+nota_APN+nota_APE) as suma')
             //->orderby('suma','desc')
             ->orderby($orderby,$orden)
@@ -195,5 +195,13 @@ class AplicacionController extends Controller
         //dd($aplicacion->getResumen_Areas());
         return back();//->with("resumen_areas",$aplicacion->getResumen_Areas());
     }
+    
+    public function getActas($id){
+        $aplicacion=Aplicacion::find($id);
+        $actas = $aplicacion->getActas();
+        return view('admin.aplicacion.Actas',compact('actas','aplicacion'));
+    }
+    
+    
     
 }
