@@ -43,7 +43,13 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
         Route::resource('datos','DatosController');
 
+        Route::resource('aplicacion/acta','ActaController');
+
         Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
+        Route::post('aplicacion/acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');
+
+
+
 
         Route::get('/', function () {
             return view('admin.index');

@@ -117,6 +117,7 @@
             </table>
             <form role="form" method="get" action="/admin/aplicacion/{{$aplicacion->id}}">
                 {{csrf_field()}}
+                <input type="hidden" name="orden" value="0">
                 <button class="btn btn-primary" type="submit">Ver notas aspirantes aprobados</button>
             </form>
         </div>

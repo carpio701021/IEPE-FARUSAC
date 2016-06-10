@@ -161,7 +161,7 @@ class AspiranteAplicacionController extends Controller
                 }
             }
         }
-        dd($insertados);
+        //dd($insertados);
         return null;
     }
 
@@ -208,5 +208,11 @@ class AspiranteAplicacionController extends Controller
         $pdf->loadHTML('<h1>Constancia de asignación</h1><h2>Prueba Especifica</h2>
         <p>'.$asignacion->getAplicacion()->nombre.' código:'.(20160000+$id).'</p>');
         return $pdf;
+    }
+
+    public function cambiarIrregularAprobado(Request $request, $id){
+        $a=AspiranteAplicacion::find($id);
+        $a->update($request->all());
+        return back();
     }
 }

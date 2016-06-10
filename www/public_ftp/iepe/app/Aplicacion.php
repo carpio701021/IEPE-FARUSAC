@@ -170,5 +170,21 @@ class Aplicacion extends Model
             'aAPN'=>$aprobados_APN,'rAPN'=>$reprobados_APN,];
     }
 
+    public function getCountAprobados(){
+        $horarios = $this->getSalonesHorarios();
+        $aprobados=0;
+        foreach($horarios as $ash){
+            $aprobados+= $ash->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
+                ->where('resultado','aprobado')->count();
+        }
+        return $aprobados;
+    }
+
+    public function getAsignaciones(){
+        return Db::table('aspirantes_aplicaciones as aa')
+            ->join('aplicaciones_salones_horarios as ash','ash.id','=','aa.aplicacion_salon_horario_id')
+            ->where('ash.aplicacion_id','=',$this->id)
+            ->selectRaw('aa.*');
+    }
 
 }
