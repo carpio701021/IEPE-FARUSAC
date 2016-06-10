@@ -61,11 +61,11 @@
                         <ul class="dropdown-menu">
                             <li><a href="/admin/usuarios">Usuarios</a></li>
                             <li><a href="#">Notificar a direcciones de escuela</a></li>
+                            <li><a href="/admin/datos/create">Cargar datos del SUN</a></li>
                         </ul>
                     </li>
                     @endif
-                    @if(Auth::guard('admin')->user()->tieneRol('jefe_bienestar')
-                    || Auth::guard('admin')->user()->tieneRol('superadmin'))
+                    @if(Auth::guard('admin')->user()->tieneRol('jefe_bienestar'))
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Desarrollo estudiantíl <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -77,11 +77,13 @@
                             <li><a href="#">Información</a></li>
                             <li><a href="#">Asignación manual de aspirante</a></li>
                             <li><a href="#">Resultado</a></li-->
-                            <li><a href="/admin/datos/create">Cargar datos</a></li>
+
                         </ul>
                     </li>
                     @endif
-
+                    @if(Auth::guard('admin')->user()->tieneRol('jefe_bienestar')
+                    ||Auth::guard('admin')->user()->tieneRol('secretario')
+                    ||Auth::guard('admin')->user()->tieneRol('decano'))
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             Resultados<span class="caret"></span>
@@ -91,15 +93,18 @@
                             <li><a href="#"></a></li>
                         </ul>
                     </li>
+                    @endif
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a>{{ Auth::guard('admin')->user()->getRolName() }}:</a>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-user"></span>  {{ Auth::guard('admin')->user()->email }} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Cambiar contraseña</a></li>
-                            <li><a href="#">Mis roles</a></li>
                             <li><a href="{{ url('/admin/logout') }}"><i class="glyphicon glyphicon-logout"></i>Cerrar Sesión</a></li>
                         </ul>
                     </li>

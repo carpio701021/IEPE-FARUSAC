@@ -34,27 +34,23 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
 
     Route::group(['middleware' => ['auth:admin']], function () {
-        Route::resource('/conf', 'AdminController');
-
-        Route::resource('aplicacion', 'AplicacionController');
-        Route::get('aplicacion/{aplicacion_id}/arte', 'AplicacionController@getArte');
-
-        Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
-
-        Route::resource('datos','DatosController');
-
-        Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
-
         Route::get('/', function () {
             return view('admin.index');
+        });
+        Route::resource('/conf', 'AdminController');
+
+        Route::group(['middleware' => ['adminRol:jefe_bienestar']], function () {
+            Route::resource('aplicacion', 'AplicacionController');
+            Route::get('aplicacion/{aplicacion_id}/arte', 'AplicacionController@getArte');
+            Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
+            Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
+
         });
 
         Route::group(['middleware' => ['adminRol:superadmin']], function () {
             Route::resource('usuarios','GestionUsuariosController');
+            Route::resource('datos','DatosController');
         });
-
-
-
     });
 });
 
