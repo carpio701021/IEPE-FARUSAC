@@ -107,4 +107,15 @@ class ActaController extends Controller
     {
         //
     }
+    
+    public function getReporteIrregular($id){ //id de aplicación
+        $aplicacion=Aplicacion::find($id);
+        $asignaciones = $aplicacion->getAsignaciones()
+            ->where('resultado','irregular');
+        
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadView('admin.pdf.reporteIrregular',compact('asignaciones','aplicacion'));
+
+        return $pdf->stream();
+    }
 }

@@ -85,7 +85,9 @@
                     <h4> <strong> Total aprobados: {{$aplicacion->getCountAprobadosNuevaActa()}} </strong></h4>
                 </div>
                 <div class="col-sm-6" align="right">
-                    <a href="#" class="btn btn-warning">Exportar pdf con calificaciones irregulares</a>
+                    <a href="/admin/aplicacion/acta/{{$aplicacion->id}}/irregular" class="btn btn-warning" target="_blank">
+                        Exportar pdf con calificaciones irregulares
+                    </a>
                     <form role="form" action="/admin/aplicacion/acta" method="post">
                         {{csrf_field()}}
                         <input type="hidden" name="aplicacion_id" value="{{$aplicacion->id}}"/>

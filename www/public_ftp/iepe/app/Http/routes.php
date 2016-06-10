@@ -46,6 +46,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::resource('datos','DatosController');
 
         Route::resource('aplicacion/acta','ActaController');
+        Route::get('aplicacion/acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
 
 
         Route::post('aplicacion/acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');
