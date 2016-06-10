@@ -8,6 +8,7 @@ use Excel;
 use App\Datos_sun;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\DatosSunRequest;
 
 class DatosController extends Controller
 {
@@ -18,7 +19,7 @@ class DatosController extends Controller
      */
     public function index()
     {
-        
+        return view("admin.sun.cargaDatos");
     }
 
     /**
@@ -28,9 +29,14 @@ class DatosController extends Controller
      */
     public function create()
     {
-        return view("admin.cargaDatos");
+        return view("admin.sun.ingresoManual");
     }
 
+    public function insert(DatosSunRequest $request){
+        Datos_sun::create($request->all());
+        $request->session()->flash('mensaje_exito','Agregado a base de datos de resultados básicos, ahora es posible crean un usuario con No. Orientación: '.$request->orientacion);
+        return back()->withErrors($request);
+    }
     /**
      * Store a newly created resource in storage.
      *

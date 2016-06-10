@@ -72,12 +72,12 @@
                             <li><a href="/admin/aplicacion">Aplicaciones</a></li>
                             <li><a href="#">Estadística</a></li>
                             <li><a href="#">Resultados de básicos</a></li>
-                            <li><a href="#">Ingreso de resultados básicos</a></li>
+                            <li><a href="/admin/datos/create">Ingresar manualmente resultados básicos</a></li>
                             <!--li><a href="#">Asignación de salones</a></li>
                             <li><a href="#">Información</a></li>
-                            <li><a href="#">Asignación manual de aspirante</a></li>
+                            <li><a href="#">Ingreso de resultados básicos</a></li>
                             <li><a href="#">Resultado</a></li-->
-                            <li><a href="/admin/datos/create">Cargar datos</a></li>
+                            <li><a href="/admin/datos">Cargar datos</a></li>
                         </ul>
                     </li>
                     @endif
