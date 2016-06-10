@@ -119,7 +119,8 @@ class Aplicacion extends Model
     public function calificar(){
         $salonesHorarios = $this->getSalonesHorarios();
         foreach ($salonesHorarios as $salonhorario){
-            $asignaciones = $salonhorario->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id');
+            $asignaciones = $salonhorario->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
+            ->where('resultado','<>','irregular');
             foreach ($asignaciones->get() as $asignacion){
                 if($asignacion->nota_RA>=$this->percentil_RA
                     && $asignacion->nota_APE>=$this->percentil_APE
