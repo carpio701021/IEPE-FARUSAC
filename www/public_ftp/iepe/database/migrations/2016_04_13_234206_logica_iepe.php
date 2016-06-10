@@ -75,14 +75,29 @@ class LogicaIepe extends Migration
             $table->timestamps();
         });
 
+        Schema::create('actas',function(Blueprint $table){
+            $table->increments('id');
+            $table->string('path_pdf');
+
+            $table->integer('aplicacion_id')->unsigned();
+            $table->foreign('aplicacion_id')->references('id')->on('aplicaciones');
+
+            $table->timestamps();
+            $table->softDeletes();
+
+
+        });
+
 
         Schema::create('aspirantes_aplicaciones', function (Blueprint $table){
             $table->increments('id');
             $table->integer('aplicacion_salon_horario_id')->unsigned();
             $table->foreign('aplicacion_salon_horario_id')->references('id')->on('aplicaciones_salones_horarios');
 
-            $table->integer('aspirante_id')->unsigned();
+            $table->bigInteger('aspirante_id')->unsigned();
             $table->foreign('aspirante_id')->references('NOV')->on('aspirantes');
+
+            $table->integer('acta_id');
 
             $table->unique(['aplicacion_salon_horario_id', 'aspirante_id'],'aspirantes_aplicaciones_primary');
 
@@ -91,7 +106,7 @@ class LogicaIepe extends Migration
             $table->integer('nota_RV');
             $table->integer('nota_APN');
 
-            $table->enum('resultado',['pendiente','aprobado','reprobado']);
+            $table->enum('resultado',['pendiente','aprobado','reprobado','irregular']);
 
             $table->timestamps();
             $table->softDeletes();
@@ -118,6 +133,7 @@ class LogicaIepe extends Migration
 
         });
 
+
     }
 
     /**
@@ -131,6 +147,7 @@ class LogicaIepe extends Migration
         Schema::dropIfExists('aspirantes_aplicaciones');
         Schema::dropIfExists('aplicaciones_salones_horarios');
         Schema::dropIfExists('horarios');
+        Schema::dropIfExists('actas');
         Schema::dropIfExists('aplicaciones');
         Schema::dropIfExists('salones');
         Schema::dropIfExists('datos_sun');

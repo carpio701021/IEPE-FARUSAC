@@ -35,6 +35,10 @@ class Aspirante extends Authenticatable
         'NOV','nombre','apellido', 'email', 'password',
     ];
 
+
+    public function getNOV(){
+        return $this->NOV;
+    }
     /**
      * The attributes excluded from the model's JSON form.
      *

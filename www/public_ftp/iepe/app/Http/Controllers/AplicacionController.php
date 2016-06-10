@@ -76,15 +76,42 @@ class AplicacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
-        $asignaciones=Db::table('aspirantes_aplicaciones as aa')
-            ->join('aplicaciones_salones_horarios as ash','ash.id','=','aa.aplicacion_salon_horario_id')
-            ->where('ash.aplicacion_id','=',$id)
-            ->orderby('aspirante_id','asc')->get();
+        $orden='desc';
+        $ob=$_GET['orden'];
+        //dd($orderby);
+        if($ob==0) {
+            $orderby = 'id';
+            $orden='asc';
+        }
+        elseif ($ob==1) {
+            $orderby = 'aspirante_id';
+            $orden = 'asc';
+        }
+        elseif ($ob==2)
+            $orderby='nota_RA';
+        elseif ($ob==3)
+            $orderby='nota_APE';
+        elseif ($ob==4)
+            $orderby='nota_RV';
+        elseif ($ob==5)
+            $orderby='nota_APN';
+
+
+        $asignaciones=Aplicacion::find($id)->getAsignaciones()
+            ->where('acta_id','=',0)
+            ->where('resultado','=','aprobado')
+            ->orwhere('resultado','=','irregular')
+            //, (nota_RA+nota_RV+nota_APN+nota_APE) as suma')
+            //->orderby('suma','desc')
+            ->orderby($orderby,$orden)
+            ->paginate(15);
+
         $aplicacion = Aplicacion::find($id);
         return view('admin.aplicacion.NotasAspirantes',
-            compact('asignaciones','aplicacion'));
+            compact('asignaciones','aplicacion','ob'));
     }
 
     /**
@@ -168,5 +195,13 @@ class AplicacionController extends Controller
         //dd($aplicacion->getResumen_Areas());
         return back();//->with("resumen_areas",$aplicacion->getResumen_Areas());
     }
+    
+    public function getActas($id){
+        $aplicacion=Aplicacion::find($id);
+        $actas = $aplicacion->getActas();
+        return view('admin.aplicacion.Actas',compact('actas','aplicacion'));
+    }
+    
+    
     
 }

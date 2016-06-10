@@ -42,15 +42,30 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::group(['middleware' => ['adminRol:jefe_bienestar']], function () {
             Route::resource('aplicacion', 'AplicacionController');
             Route::get('aplicacion/{aplicacion_id}/arte', 'AplicacionController@getArte');
-            Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
             Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
+            Route::get('aplicacion/{aplicacion_id}/actas', 'AplicacionController@getActas');
 
+            Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
+
+            Route::resource('datos','DatosController');
+            Route::post('datos/insert','DatosController@insert');
+
+            Route::resource('aplicacion/acta','ActaController');
+            Route::get('aplicacion/acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
+
+
+            Route::post('aplicacion/acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');
         });
+
+
 
         Route::group(['middleware' => ['adminRol:superadmin']], function () {
             Route::resource('usuarios','GestionUsuariosController');
             Route::resource('datos','DatosController');
         });
+
+
+
     });
 });
 

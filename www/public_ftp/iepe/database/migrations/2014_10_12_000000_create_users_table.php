@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
         });
 
         Schema::create('aspirantes', function (Blueprint $table) {
-            $table->integer('NOV')->unsigned()->primary();
+            $table->bigInteger('NOV')->unsigned()->primary();
             $table->string('nombre');
             $table->string('apellido');
             $table->string('email')->unique();
@@ -63,7 +63,7 @@ class CreateUsersTable extends Migration
             $table->enum('sector',['privado', 'publico']);
             $table->enum('carrera',['arquitectura', 'diseño']);
             $table->enum('jornada',['matutina', 'vespertina']);
-            $table->integer('NOV')->unsigned();
+            $table->bigInteger('NOV')->unsigned();
             $table->foreign('NOV')->references('NOV')->on('aspirantes');
             $table->timestamps();
         });
