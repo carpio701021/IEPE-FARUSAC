@@ -40,6 +40,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::resource('/conf', 'AdminController');
 
         Route::group(['middleware' => ['adminRol:jefe_bienestar']], function () {
+
             Route::resource('aplicacion', 'AplicacionController');
             Route::get('aplicacion/{aplicacion_id}/arte', 'AplicacionController@getArte');
             Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
@@ -49,7 +50,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
             //Route::resource('datos','DatosController');
             Route::post('datos/insert','DatosController@insert');
-            Route::resource('datos','DatosController');
+            Route::get('datos/create','DatosController@create');
             Route::get('datos/insert/search','DatosController@search');
 
             Route::resource('aplicacion/acta','ActaController');
@@ -63,7 +64,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
         Route::group(['middleware' => ['adminRol:superadmin']], function () {
             Route::resource('usuarios','GestionUsuariosController');
-            Route::resource('datos','DatosController');
+            //Route::resource('datos','DatosController');
+            Route::post('datos','DatosController@store');
+            Route::get('datos','DatosController@index');
         });
 
 

@@ -18,6 +18,7 @@
 
         <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
             {!! Form::label('nombre', 'Nombre*', array('class' => 'col-md-4 control-label')) !!}
+            {{--!! Form::select('', array('L' => 'Large', 'S' => 'Small'), null, ['placeholder' => 'Pick a size...']) !!--}}
             <div class="col-md-6">
                 {!! Form::text('nombre' , null , array(
                 'class' => 'form-control',
@@ -32,8 +33,8 @@
             </div>
         </div>
 
-
-        <div class="form-group{{ $errors->has('arte') ? ' has-error' : '' }}">
+        {{--
+        <div class="form-group{{  $errors->has('arte') ? ' has-error' : '' }}">
             {!! Form::label('arte', 'Arte', array('class' => 'col-md-4 control-label')) !!}
             <div class="col-md-6">
                 {!! Form::file('arte' , array(
@@ -48,6 +49,7 @@
                         data-content="Imagen única que se imprime en la constancia de asignación del aspirante.">?</button>
             </div>
         </div>
+        --}}
 
         <div class="form-group{{ $errors->has('fecha_inicio_asignaciones') ? ' has-error' : '' }}">
             {!! Form::label('fecha_inicio_asignaciones', 'Fecha de inicio de asignaciones*', array('class' => 'col-md-4 control-label')) !!}
@@ -64,8 +66,8 @@
                     'required' => 'true',
                     )) !!}
                     <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
             </div>
         </div>

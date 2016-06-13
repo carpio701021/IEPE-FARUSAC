@@ -48,6 +48,7 @@ class AplicacionController extends Controller
      */
     public function store(AplicacionRequest $request)
     {
+
         //Guarda una nueva aplicación
         $aplicacion = new Aplicacion( $request->all() );
         $aplicacion->percentil_RA	= 80;
