@@ -19,7 +19,7 @@ class Salon extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre','capacidad',
+        'nombre','capacidad','edificio' ,
     ];
 
 

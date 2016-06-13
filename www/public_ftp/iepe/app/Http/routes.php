@@ -76,29 +76,29 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
 
 
-    Route::group(['middleware' => 'aspirante_web'], function () {
-        Route::post('/password/sendResetLink','Auth\PasswordController@sendResetLink');
-        Route::auth();
+Route::group(['middleware' => 'aspirante_web'], function () {
+    Route::post('/password/sendResetLink','Auth\PasswordController@sendResetLink');
+    Route::auth();
 
-        Route::get('/', function () {
-            return view('welcome');
-        });
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-        Route::get('/configuracion', function () {
-            return view('aspirante.configurarCuenta');
-        });
+    Route::get('/configuracion', function () {
+        return view('aspirante.configurarCuenta');
+    });
 
-        Route::post('/configuracion/guardar', "AspiranteController@actualizarCuenta");
+    Route::post('/configuracion/guardar', "AspiranteController@actualizarCuenta");
 
-        Route::group(['middleware' => ['auth:aspirante_web'],'prefix' => 'aspirante'], function () {
+    Route::group(['middleware' => ['auth:aspirante_web'],'prefix' => 'aspirante'], function () {
 
-            Route::resource('/', 'AspiranteController');
-            Route::resource('formulario', 'formularioController');
-            Route::resource('PruebaEspecifica', 'AspiranteAplicacionController');
+        Route::resource('/', 'AspiranteController');
+        Route::resource('formulario', 'formularioController');
+        Route::resource('PruebaEspecifica', 'AspiranteAplicacionController');
 
 
 
-        });
+    });
 });
 
 

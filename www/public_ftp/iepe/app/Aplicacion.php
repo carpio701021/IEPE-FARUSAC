@@ -21,14 +21,18 @@ class Aplicacion extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre','fecha_inicio_asignaciones',
+        'year','naplicacion','fecha_inicio_asignaciones',
         'fecha_fin_asignaciones', 'fecha_aplicacion',
-        'fecha_publicacion_resultados',
     ];
 
-    function addSalon($nombre,$capacidad){
+    function nombre(){
+        return 'Aplicación '.$this->naplicacion.' del '.$this->year;
+    }
+
+    function addSalon($edificio,$nombre,$capacidad){
         $salon = Salon::firstOrCreate([
             'nombre' => $nombre,
+            'edificio' => $edificio,
             'capacidad' => $capacidad,
         ]);
         return $salon->id;
@@ -71,8 +75,8 @@ class Aplicacion extends Model
         //meter salones
         $ids_salones = Array();
         foreach($rsalones as $salon){
-            $sals =  explode(":==:", $salon,2);
-            $ids_salones[] = $this->addSalon($sals[0],$sals[1]);
+            $sals =  explode(":==:", $salon,3);
+            $ids_salones[] = $this->addSalon($sals[0],$sals[1],$sals[2]);
         }
         //meter horarios
         $ids_horarios = Array();

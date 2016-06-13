@@ -17,18 +17,28 @@
         @endif
 
         <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
-            {!! Form::label('nombre', 'Nombre*', array('class' => 'col-md-4 control-label')) !!}
-            {{--!! Form::select('', array('L' => 'Large', 'S' => 'Small'), null, ['placeholder' => 'Pick a size...']) !!--}}
+            {!! Form::label('year', 'Año*', array('class' => 'col-md-4 control-label')) !!}
             <div class="col-md-6">
-                {!! Form::text('nombre' , null , array(
+                {!! Form::number('year' , null , array(
                 'class' => 'form-control',
-                'placeholder' => 'Ejemplo: Primera aplicación 2016',
+                'placeholder' => '2016',
                 'required' => 'true',
-                'title' => 'Nombre',
+                'title' => 'Año',
                 'data-placement' => 'left',
                 'data-toggle' => 'popover',
                 'data-trigger' => 'focus',
-                'data-content' => 'Nombre de la aplicación que le aparecerá al aspirante',
+                'data-content' => 'Año en que se llevará a cabo la aplicación',
+                )) !!}
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('naplicacion') ? ' has-error' : '' }}">
+            {!! Form::label('naplicacion', 'Número de aplicación*', array('class' => 'col-md-4 control-label')) !!}
+            <div class="col-md-6">
+            {!! Form::select('naplicacion' , [1=>'Primera',2=>'Segunda',3=>'Tercera',4=>'Cuarta',5=>'Quinta'] ,null, array(
+                'class' => 'form-control',
+                'placeholder' => 'Seleccione el número de aplicación',
+                'required' => 'true',
                 )) !!}
             </div>
         </div>
@@ -113,28 +123,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="form-group{{ $errors->has('fecha_publicacion_resultados') ? ' has-error' : '' }}">
-            {!! Form::label('fecha_publicacion_resultados', 'Fecha de publicación de resultados*', array('class' => 'col-md-4 control-label')) !!}
-            <div class="col-md-6">
-                <div class='input-group date fecha'
-                     data-toggle="popover"
-                     data-placement="left"
-                     data-trigger="focus"
-                     title="Fecha de publicación de resultados"
-                     data-content="Día en el que los aspirantes podrán ver sus resultados. Las notas ya deben estar ingresadas.">
-                    {!! Form::text('fecha_publicacion_resultados' , null , array(
-                    'class' => 'form-control',
-                    'placeholder' => 'año/mes/día',
-                    'required' => 'true',
-                    )) !!}
-                    <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                </div>
-            </div>
-        </div>
-
 
         <div class="form-group{{ $errors->has('horarios') ? ' has-error' : '' }}">
             <label class="col-md-4 control-label">Horarios</label>
@@ -224,15 +212,15 @@
                 @if(old('salones'))
                     @foreach( old('salones') as $salon )
                         <button type="button" onclick="quitarSalon(this);" class="list-group-item salon-item">
-                            <span class="glyphicon glyphicon-minus"></span> {{ str_replace(':==:',' para ' , $salon )}} aspirantes
+                            <span class="glyphicon glyphicon-minus"></span> Edificio: {{ str_replace([':==:' => ', salón: ' ,':==:' => ', para ' ], $salon )}} aspirantes
                             <input style="display:none" name="salones[]" value="{{ $salon }}" type="text">
                         </button>
                     @endforeach
                 @elseif(isset($aplicacion))
                     @foreach( $aplicacion->getSalones() as $salon )
                         <button type="button" onclick="quitarSalon(this);" class="list-group-item salon-item">
-                            <span class="glyphicon glyphicon-minus"></span> {{ $salon->nombre }} para {{ $salon->capacidad }} aspirantes
-                            <input style="display:none" name="salones[]" value="{{ $salon->nombre }}:==:{{ $salon->capacidad }}" type="text">
+                            <span class="glyphicon glyphicon-minus"></span> Edificio: {{ $salon->edificio }}, salón: {{ $salon->nombre }}, para {{ $salon->capacidad }} aspirantes
+                            <input style="display:none" name="salones[]" value="{{ $salon->edificio }}:==:{{ $salon->nombre }}:==:{{ $salon->capacidad }}" type="text">
                         </button>
                     @endforeach
                 @endif
@@ -263,13 +251,19 @@
 
                             <div class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">Descripción del salón</label>
+                                    <label class="col-md-4 control-label">Edificio</label>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="txtSalon" placeholder="Salón L-II 3, Edificio T1">
+                                        <input type="text" class="form-control" id="txtEdificio" placeholder="T1">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">Cupo por salón</label>
+                                    <label class="col-md-4 control-label">Salón</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="txtSalon" placeholder="L-II 3">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Cupo del salón</label>
                                     <div class="col-md-6">
                                         <input type='number' class="form-control" id="cupo"
                                                name="cupo"
@@ -407,10 +401,11 @@
 
 
         $("#btnAddSalon").click(function () {
+            edificio = $('#txtEdificio').val();
             salon = $('#txtSalon').val();
             cupo = $('#cupo').val();
             if(cupo=="") cupo =40;
-            if(salon=="") {
+            if(salon=="" || edificio=="") {
                 $('#modal_salon').modal('hide');
                 return;
             }
@@ -418,10 +413,10 @@
             a =
                     '<button type="button" onclick="quitarSalon(this);" ' +
                     'class="list-group-item salon-item">' +
-                    '<span class="glyphicon glyphicon-minus"></span> ' + salon + ' para ' + cupo + ' aspirantes' +
+                    '<span class="glyphicon glyphicon-minus"></span> Edificio: ' + edificio + ', salón: ' + salon + ', para ' + cupo + ' aspirantes' +
                     '<input type="text" style="display:none"' +
                     'name="salones[]" ' +
-                    'value="' + salon + ':==:' + cupo + '">' +
+                    'value="' + edificio + ':==:' + salon + ':==:' + cupo + '">' +
                     '</button>';
             $("#btnAS").before(a);
 

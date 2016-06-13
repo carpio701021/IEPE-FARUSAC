@@ -48,6 +48,10 @@ class AplicacionController extends Controller
      */
     public function store(AplicacionRequest $request)
     {
+        if(Aplicacion::where('year',$request->year)->where('naplicacion',$request->naplicacion)->first()){
+            $errors = Array('La combinacion de año y número de aplicación ya existe');
+            return redirect('/admin/aplicacion/create')->withErrors($errors)->withInput();
+        }
 
         //Guarda una nueva aplicación
         $aplicacion = new Aplicacion( $request->all() );
@@ -56,6 +60,7 @@ class AplicacionController extends Controller
         $aplicacion->percentil_RV	= 80;
         $aplicacion->percentil_APN	= 80;
 
+        /*
         if($request->hasFile('arte')){
             $destinationPath ='/arte_aplicaciones'; // upload path
             $extension = $request->file('arte')->getClientOriginalExtension(); // getting file extension
@@ -63,6 +68,7 @@ class AplicacionController extends Controller
             $request->file('arte')->move( storage_path().$destinationPath,$fileName);
             $aplicacion->path_arte = $destinationPath . '/' . $fileName;
         }
+        */
 
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
@@ -139,9 +145,12 @@ class AplicacionController extends Controller
      */
     public function update(AplicacionRequest $request, $id)
     {
-        //
+        if(Aplicacion::where('id','!=',$id)->where('year',$request->year)->where('naplicacion',$request->naplicacion)->first()){
+            $errors = Array('La combinacion de año y número de aplicación ya existe');
+            return redirect('/admin/aplicacion/' + $id + '/edit')->withErrors($errors)->withInput();
+        }
+
         $aplicacion = Aplicacion::where('id',$id)->first();
-        //dd($aplicacion);
         $aplicacion->update( $request->all() );
         if($request->hasFile('arte')){
             $destinationPath ='/arte_aplicaciones'; // upload path

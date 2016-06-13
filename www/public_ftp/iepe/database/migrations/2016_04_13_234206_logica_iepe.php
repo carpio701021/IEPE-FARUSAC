@@ -27,20 +27,24 @@ class LogicaIepe extends Migration
         Schema::create('salones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->string('edificio');
             $table->integer('capacidad');
-            $table->string('ubicacion');
             $table->softDeletes();
             $table->timestamps();
-
         });
 
         Schema::create('aplicaciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
+            //$table->string('nombre');
+            $table->integer('year')->unsigned();
+            $table->integer('naplicacion')->unsigned();
+            $table->unique(
+                ['year', 'naplicacion'],
+                'aplicacion_name_unique');
+
             $table->string('path_arte');
 
             $table->date('fecha_aplicacion');
-            $table->date('fecha_publicacion_resultados');
             $table->date('fecha_inicio_asignaciones');
             $table->date('fecha_fin_asignaciones');
 

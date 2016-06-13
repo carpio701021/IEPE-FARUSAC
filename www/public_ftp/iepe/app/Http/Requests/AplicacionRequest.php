@@ -25,12 +25,12 @@ class AplicacionRequest extends Request
     {
         //dd($this->messages);
         return [
-            'nombre'                        => 'required|max:50',
+            'year'                          => 'required|max:50',
+            'naplicacion'                   => 'required|max:50',
             'arte'                          => 'image',//path_arte
             'fecha_inicio_asignaciones'     => 'required|date|max:10',
             'fecha_fin_asignaciones'        => 'required|date|max:10|after:'.$this->fecha_inicio_asignaciones,
             'fecha_aplicacion'              => 'required|date|max:10|after:'.$this->fecha_fin_asignaciones,
-            'fecha_publicacion_resultados'  => 'required|date|max:10|after:'.$this->fecha_aplicacion,
             'horarios'                      => 'required',
             'salones'                       => 'required',
         ];
