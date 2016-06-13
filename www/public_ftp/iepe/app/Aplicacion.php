@@ -194,10 +194,11 @@ class Aplicacion extends Model
     }
 
     public function getAsignaciones(){
-        return Db::table('aspirantes_aplicaciones as aa')
+        $asig=Db::table('aspirantes_aplicaciones as aa')
             ->join('aplicaciones_salones_horarios as ash','ash.id','=','aa.aplicacion_salon_horario_id')
             ->where('ash.aplicacion_id','=',$this->id)
             ->selectRaw('aa.*');
+        return $asig;
     }
 
     public function getActas(){

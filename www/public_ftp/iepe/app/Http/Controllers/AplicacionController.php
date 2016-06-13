@@ -11,6 +11,7 @@ use App\Aplicacion;
 use Carbon\Carbon ;
 use File;
 use Illuminate\Support\Facades\DB;
+use App\AspiranteAplicacion;
 
 class AplicacionController extends Controller
 {
@@ -40,6 +41,14 @@ class AplicacionController extends Controller
         return view('admin.aplicacion.create',compact('aplicacion'));
     }
 
+    public function getCrearEspecial($id)
+    {
+        $aplicacion = new Aplicacion();
+        $titulo = 'Crear aplicación especial';
+        $especial =$id;
+        return view('admin.aplicacion.create',compact('aplicacion','titulo','put','especial'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -48,7 +57,7 @@ class AplicacionController extends Controller
      */
     public function store(AplicacionRequest $request)
     {
-
+        //$this->asignarIrregulares($request->_especial,Aplicacion::find(5));
         //Guarda una nueva aplicación
         $aplicacion = new Aplicacion( $request->all() );
         $aplicacion->percentil_RA	= 80;
@@ -66,9 +75,48 @@ class AplicacionController extends Controller
 
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
-
-        $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre.'</i> creada exitosamente.');
+        if($request->_especial){
+            if($this->asignarIrregulares($request->_especial,$aplicacion)){//se asignan automaticamente
+                $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre.'</i> creada exitosamente. Se asignaron los estudiantes irregulares');
+            }else{
+                $request->session()->flash('mensaje_exito','cagadales');
+            }
+        }else{
+            $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre.'</i> creada exitosamente.');
+        }
         return redirect('/admin/aplicacion');
+    }
+
+    function asignarIrregulares($id,$aplicacionEspecial){
+        $aplicacion=Aplicacion::find($id);
+        $irregulares = $aplicacion->getAsignaciones()
+        ->where('resultado','irregular')
+        ->select('aspirante_id')->get();
+        //dd($aplicacionEspecial->getSalonesHorarios());
+        foreach($irregulares as $irregular){
+            $asignacion = new AspiranteAplicacion();
+            if($asignacion->asignar($irregular->aspirante_id,$aplicacionEspecial->id)){//true si hay cupo, false ya no hay cupo
+                $asignacion->save();
+                //$pdf=$this->generarConstanciaPDF($asignacion->id);
+                //$mail = new Mail();
+                //$request->session()->flash('mensaje_exito', 'Asignación realizada correctamente, puedes revisar tu salón y horario para la prueba');
+                /*if($mail->send(Auth::user()->email,
+                    Auth::user()->getFormulario()->nombre." ".Auth::user()->getFormulario()->apellido,
+                    'Constancia de asignación',
+                    'Imprime esta constancia para resguardar tu asignación',
+                    $pdf->output(),
+                    'Constancia de asignación '.Auth::user()->NOV))
+                {
+                    return back();
+                }else
+                {
+                    return back()->withErrors(['mail'=>$mail->getError()]);
+                }*/
+            }else{
+                return false;// back()->withErrors(['cupo'=>'No puede asignarse a esta aplicación porque el cupo está lleno. Abocarse a las oficinas de la facultad de arquitectura para solucionarlo']);
+            }
+        }
+        return true;
     }
 
     /**
@@ -100,17 +148,13 @@ class AplicacionController extends Controller
         elseif ($ob==5)
             $orderby='nota_APN';
 
-
-        $asignaciones=Aplicacion::find($id)->getAsignaciones()
-            ->where('acta_id','=',0)
-            ->where('resultado','=','aprobado')
-            ->orwhere('resultado','=','irregular')
-            //, (nota_RA+nota_RV+nota_APN+nota_APE) as suma')
-            //->orderby('suma','desc')
+        $aplicacion=Aplicacion::find($id);
+        $asignaciones=$aplicacion->getAsignaciones()
+            ->where('acta_id',0)
+            ->whereIn('resultado',['aprobado','irregular'])
             ->orderby($orderby,$orden)
             ->paginate(15);
-
-        $aplicacion = Aplicacion::find($id);
+        //dd($asignaciones);///esta onda me está trayendo todo de todo
         return view('admin.aplicacion.NotasAspirantes',
             compact('asignaciones','aplicacion','ob'));
     }
@@ -139,7 +183,6 @@ class AplicacionController extends Controller
      */
     public function update(AplicacionRequest $request, $id)
     {
-        //
         $aplicacion = Aplicacion::where('id',$id)->first();
         //dd($aplicacion);
         $aplicacion->update( $request->all() );

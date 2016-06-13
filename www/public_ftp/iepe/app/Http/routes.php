@@ -43,6 +43,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
             Route::resource('aplicacion', 'AplicacionController');
             Route::get('aplicacion/{aplicacion_id}/arte', 'AplicacionController@getArte');
+            Route::get('aplicacion/{aplicacion_id}/especial', 'AplicacionController@getCrearEspecial');
             Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
             Route::get('aplicacion/{aplicacion_id}/actas', 'AplicacionController@getActas');
 

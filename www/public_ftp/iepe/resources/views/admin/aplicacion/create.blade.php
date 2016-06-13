@@ -13,7 +13,10 @@
             'files' => true , 'class' => 'form-horizontal', 'role' => 'form'
         ) ) !!}
         @if( isset($put))
-        <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="_method" value="PUT">
+        @endif
+        @if( isset($especial))
+            <input type="hidden" name="_especial" value="{{$especial}}">
         @endif
 
         <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
