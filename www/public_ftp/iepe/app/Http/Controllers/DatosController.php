@@ -29,11 +29,14 @@ class DatosController extends Controller
      */
     public function create()
     {
-        return view("admin.sun.ingresoManual");
+        return view("admin.sun.ingresoManual")->with(['datos'=>[]]);
     }
 
     public function insert(DatosSunRequest $request){
-        Datos_sun::create($request->all());
+        //dd($request->orientacion);
+        $dato_sun=Datos_sun::find($request->dato_sun);
+        $dato_sun['orientacion']=$request->orientacion;
+        Datos_sun::create($dato_sun->toarray());
         $request->session()->flash('mensaje_exito','Agregado a base de datos de resultados básicos, ahora es posible crean un usuario con No. Orientación: '.$request->orientacion);
         return back()->withErrors($request);
     }
@@ -123,6 +126,16 @@ class DatosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function search(Request $request){//buscar por numero de carne o vocacional
+        $datos=Datos_sun::where('orientacion',$_GET['carne'])->get();
+        //return response()->json(['response' => $_GET['carne']]);
+        return $datos->toJson();
+        //dd($datos);
+        //return view("admin.sun.ingresoManual", compact('datos'));
+        //return back()->with('datos',$datos);
+    }
+
     public function show($id)
     {
         //
