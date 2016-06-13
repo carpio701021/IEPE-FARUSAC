@@ -19,7 +19,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#collapse_{{ $aplicacion->id }}"><b>{{ $aplicacion->nombre }}</b></a>
+                            <a data-toggle="collapse" href="#collapse_{{ $aplicacion->id }}"><b>{{ $aplicacion->nombre() }}</b></a>
                         </h4>
                     </div>
                     <div id="collapse_{{ $aplicacion->id }}" class="panel-collapse collapse">
@@ -39,10 +39,6 @@
                                     <div class="col-md-12 form-group">
                                         <div class="col-md-6"><b>Día de la aplicación:</b></div>
                                         <div class="col-md-6 fecha">{{ $aplicacion->fecha_aplicacion }}</div>
-                                    </div>
-                                    <div class="col-md-12 form-group">
-                                        <div class="col-md-6"><b>Publicación de resultados:</b></div>
-                                        <div class="col-md-6 fecha">{{ $aplicacion->fecha_publicacion_resultados }}</div>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <div class="col-md-6"><b>Capacidad máxima de asignaciones:</b></div>

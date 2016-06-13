@@ -57,7 +57,13 @@ class AplicacionController extends Controller
      */
     public function store(AplicacionRequest $request)
     {
+
         //$this->asignarIrregulares($request->_especial,Aplicacion::find(5));
+        if(Aplicacion::where('year',$request->year)->where('naplicacion',$request->naplicacion)->first()){
+            $errors = Array('La combinacion de año y número de aplicación ya existe');
+            return redirect('/admin/aplicacion/create')->withErrors($errors)->withInput();
+        }
+
         //Guarda una nueva aplicación
         $aplicacion = new Aplicacion( $request->all() );
         $aplicacion->percentil_RA	= 80;
@@ -65,6 +71,7 @@ class AplicacionController extends Controller
         $aplicacion->percentil_RV	= 80;
         $aplicacion->percentil_APN	= 80;
 
+        /*
         if($request->hasFile('arte')){
             $destinationPath ='/arte_aplicaciones'; // upload path
             $extension = $request->file('arte')->getClientOriginalExtension(); // getting file extension
@@ -72,6 +79,7 @@ class AplicacionController extends Controller
             $request->file('arte')->move( storage_path().$destinationPath,$fileName);
             $aplicacion->path_arte = $destinationPath . '/' . $fileName;
         }
+        */
 
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
@@ -79,7 +87,7 @@ class AplicacionController extends Controller
             if($this->asignarIrregulares($request->_especial,$aplicacion)){//se asignan automaticamente
                 $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre.'</i> creada exitosamente. Se asignaron los estudiantes irregulares');
             }else{
-                $request->session()->flash('mensaje_exito','cagadales');
+                $request->session()->flash('mensaje_exito','ocurrió un error');
             }
         }else{
             $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre.'</i> creada exitosamente.');
@@ -183,8 +191,13 @@ class AplicacionController extends Controller
      */
     public function update(AplicacionRequest $request, $id)
     {
+
+        if(Aplicacion::where('id','!=',$id)->where('year',$request->year)->where('naplicacion',$request->naplicacion)->first()){
+            $errors = Array('La combinacion de año y número de aplicación ya existe');
+            return redirect('/admin/aplicacion/'.$id.'/edit')->withErrors($errors)->withInput();
+        }
+
         $aplicacion = Aplicacion::where('id',$id)->first();
-        //dd($aplicacion);
         $aplicacion->update( $request->all() );
         if($request->hasFile('arte')){
             $destinationPath ='/arte_aplicaciones'; // upload path
