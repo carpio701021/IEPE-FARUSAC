@@ -45,6 +45,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
         Route::resource('datos','DatosController');
         Route::post('datos/insert','DatosController@insert');
+        Route::get('datos/insert/search','DatosController@search');
 
         Route::resource('aplicacion/acta','ActaController');
         Route::get('aplicacion/acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
