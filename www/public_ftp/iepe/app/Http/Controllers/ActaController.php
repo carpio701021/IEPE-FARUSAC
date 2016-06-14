@@ -19,7 +19,8 @@ class ActaController extends Controller
      */
     public function index()
     {
-        //
+        $anios= Aplicacion::select('year')->distinct()->get();
+        return view('admin.resultados.flujoActas',compact('anios'));
     }
 
     /**

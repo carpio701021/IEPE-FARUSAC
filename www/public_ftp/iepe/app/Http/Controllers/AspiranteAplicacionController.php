@@ -113,13 +113,13 @@ class AspiranteAplicacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)//actualiza las notas de cada asignación con un excel
     {   $aplicacion = Aplicacion::find($id);
         if($request->file('file')->isValid()){
             $destinationPath = storage_path().'/Resultados'; // upload path
             $extension = $request->file('file')->getClientOriginalExtension(); // getting file extension
-            $request->file('file')->move($destinationPath,$id.'-'.$aplicacion->nombre.'.'.$extension);
-            $path=$destinationPath.'/'.$id.'-'.$aplicacion->nombre.'.'.$extension;
+            $request->file('file')->move($destinationPath,$id.'-'.$aplicacion->nombre().'.'.$extension);
+            $path=$destinationPath.'/'.$id.'-'.$aplicacion->nombre().'.'.$extension;
             //$error=$this->insertarNotas($path,$id);
             $error=$this->insertarNotas($path,$id);
             if($error){
@@ -204,7 +204,7 @@ class AspiranteAplicacionController extends Controller
         $asignacion = AspiranteAplicacion::find($id);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML('<h1>Constancia de asignación</h1><h2>Prueba Especifica</h2>
-        <p>'.$asignacion->getAplicacion()->nombre.' código:'.(20160000+$id).'</p>');
+        <p>'.$asignacion->getAplicacion()->nombre().' código:'.(20160000+$id).'</p>');
         return $pdf;
     }
 

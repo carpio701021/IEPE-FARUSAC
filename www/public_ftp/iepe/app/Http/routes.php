@@ -46,6 +46,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::get('aplicacion/{aplicacion_id}/especial', 'AplicacionController@getCrearEspecial');
             Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
             Route::get('aplicacion/{aplicacion_id}/actas', 'AplicacionController@getActas');
+            Route::get('acta/getAplicacionesAnio/{anio}','AplicacionController@getAplicacionesAnio');
 
             Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
 
@@ -54,8 +55,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::get('datos/create','DatosController@create');
             Route::get('datos/insert/search','DatosController@search');
 
-            Route::resource('aplicacion/acta','ActaController');
-            Route::get('aplicacion/acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
+            Route::resource('acta','ActaController');
+            Route::get('acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
 
 
             Route::post('aplicacion/acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');

@@ -85,12 +85,12 @@ class AplicacionController extends Controller
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
         if($request->_especial){
             if($this->asignarIrregulares($request->_especial,$aplicacion)){//se asignan automaticamente
-                $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre.'</i> creada exitosamente. Se asignaron los estudiantes irregulares');
+                $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente. Se asignaron los estudiantes irregulares');
             }else{
                 $request->session()->flash('mensaje_exito','ocurrió un error');
             }
         }else{
-            $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre.'</i> creada exitosamente.');
+            $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente.');
         }
         return redirect('/admin/aplicacion');
     }
@@ -210,7 +210,7 @@ class AplicacionController extends Controller
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
 
-        $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'.$aplicacion->nombre.'</i> guardados.');
+        $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'.$aplicacion->nombre().'</i> guardados.');
         return redirect('/admin/aplicacion');
     }
 
@@ -257,6 +257,10 @@ class AplicacionController extends Controller
         $aplicacion=Aplicacion::find($id);
         $actas = $aplicacion->getActas();
         return view('admin.aplicacion.Actas',compact('actas','aplicacion'));
+    }
+    
+    public function getAplicacionesAnio($anio){
+        return Aplicacion::where('year',$anio)->get()->toJson();
     }
     
     
