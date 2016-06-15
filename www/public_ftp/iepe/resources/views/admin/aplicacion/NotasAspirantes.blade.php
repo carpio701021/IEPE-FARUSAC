@@ -94,6 +94,7 @@
                     <form role="form" action="/admin/acta" method="post">
                         {{csrf_field()}}
                         <input type="hidden" name="aplicacion_id" value="{{$aplicacion->id}}"/>
+                        <input type="hidden" name="estado" value="propuesta"/>
                         <button type="submit" class="btn btn-primary">Generar propuesta de acta</button>
                     </form>
                 </div>

@@ -1,4 +1,4 @@
-<h1>Acta {{$acta->id}} {{$aplicacion->nombre}}</h1>
+<h1>Acta {{$acta->id}} {{$aplicacion->nombre()}}</h1>
 <table class="table">
     <thead>
         <tr>

@@ -45,15 +45,15 @@ class ActaController extends Controller
         $asignaciones = $aplicacion->getAsignaciones()
             ->where('resultado','aprobado')
             ->where('acta_id','0');
-        $acta= Actas::create($request->all());
+        $acta= Actas::create($request->all());//inserta aplicacion_id y estado='propuesta'
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadView('admin.pdf.acta',compact('acta','asignaciones','aplicacion'));
         
         $asignaciones->update(['acta_id'=>$acta->id]);
-        $path=storage_path().'/actas/Acta'.$acta->id.'-'.$aplicacion->nombre;
+        $path=storage_path().'/actas/Acta'.$acta->id.'-'.$aplicacion->nombre();
         $pdf->save($path);
-        $acta->path_pdf=$path;
+        $acta->path_pdf=$path;//pdf de propuesta
         $acta->save();
         $request->session()->flash('mensaje_exito','El acta se generó correctamente, puede revisarla en la seccion de actas');
         return back();
@@ -95,7 +95,8 @@ class ActaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Actas::find($id)->update($request->all());
+        return 'enviar correo electronico';
     }
 
     /**
@@ -106,7 +107,7 @@ class ActaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return 'hola aun no porque que hueva volver a generar actas';
     }
     
     public function getReporteIrregular($id){ //id de aplicación
@@ -118,5 +119,16 @@ class ActaController extends Controller
         $pdf->loadView('admin.pdf.reporteIrregular',compact('asignaciones','aplicacion'));
 
         return $pdf->stream();
+    }
+    
+    public function getQueryActas($aplicacion_id){
+        $actas = Actas:://where('estado','propuesta')
+        where('aplicacion_id',$aplicacion_id)->get();
+        return $actas->toJson();
+        
+    }
+
+    public function getInfoActa($acta_id){
+        return Actas::find($acta_id)->toJson();
     }
 }
