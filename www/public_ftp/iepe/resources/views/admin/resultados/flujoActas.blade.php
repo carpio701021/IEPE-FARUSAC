@@ -164,7 +164,6 @@
                     <div class="panel-heading"><h4>Propuestas reprobadas</h4></div>
                     <div class="panel-body">
                         <select class="input-group-lg form-control" name='' id="select_reprobadas" size="3" style="width: 100%">
-                            <option class="list-group-item">op1</option>
                         </select>
                     </div>
                 </div>
@@ -174,7 +173,6 @@
                     <div class="panel-heading"><h4>Actas aprobadas</h4></div>
                     <div class="panel-body">
                         <select class="input-group-lg form-control" name='' id="select_aprobadas" size="3" style="width: 100%">
-                            <option class="list-group-item">op1</option>
                         </select>
                     </div>
                 </div>
@@ -214,6 +212,8 @@
                     var actas =JSON.parse(xhttp.responseText);
                     select_propuestas.innerHTML="";
                     select_espera.innerHTML="";
+                    select_aprobadas.innerHTML="";
+                    select_reprobadas.innerHTML="";
                     for(var i =0; i<actas.length ; i++){
                         var nombre = actas[i]['path_pdf'].replace(/^.*[\\\/]/, '');
                         var option = document.createElement('option');
@@ -225,6 +225,12 @@
                         if(actas[i]['estado']=='enviada') {
                             option.className='list-group-item enviada_item';
                             select_espera.add(option);
+                        }
+                        if(actas[i]['estado']=='aprobada') {
+                            select_aprobadas.add(option);
+                        }
+                        if(actas[i]['estado']=='reprobada') {
+                            select_reprobadas.add(option);
                         }
                     }
                 }
@@ -247,7 +253,7 @@
                 this.href=href;
             });
 
-            $("#btn_eliminar_propuesta").click(function(){
+            $('#btn_eliminar_propuesta').click(function(){
                 $.post("/admin/acta/"+select_propuestas.value,
                         {_method: "DELETE",
                          _token:"{{csrf_token()}}"},
@@ -257,29 +263,39 @@
             });
 
             $(".btn_cambio_estado_acta").click(function(){
-                var estado,id ='';
+                var data={
+                    _method: "PUT",
+                    _token:"{{csrf_token()}}"
+                };
+                var id ='';
                 if(this.id=='btn_enviar_revision_confirm') {
-                    estado = 'enviada';
+                    data.estado = 'enviada';
                     id=select_propuestas.value;
                 }
                 else
                     id=select_espera.value;
                     if(this.id=='btn_reprobar_confirm'){
-                        estado='reprobada';
+                        alert("{{Auth::guard('admin')->user()->getRolName()}}");
+                        if("{{Auth::guard('admin')->user()->getRolName()}}"=='decano') data.aprobacion_decanato='-1';
+                        if("{{Auth::guard('admin')->user()->getRolName()}}"=='secretario') data.aprobacion_secretaria='-1';
                     }
                     else
                         if(this.id=='btn_aprobar_confirm') {
-                            estado = 'aprobada';
+                            if("{{Auth::guard('admin')->user()->getRolName()}}"=='decano') data.aprobacion_decanato='1';
+                            if("{{Auth::guard('admin')->user()->getRolName()}}"=='secretario') data.aprobacion_secretaria='1';
                         }
+
                 $.post("/admin/acta/"+id,
-                        {
-                            _method: "PUT",
-                            _token:"{{csrf_token()}}",
-                            estado: estado
-                        },
+                        data,
                         function(data){
-                            alert(data);
-                            $('.input-group-lg option[value="'+id+'"]').remove();
+                            if(data=='enviada')
+                                $('.input-group-lg option[value="'+id+'"]').remove().appendTo('#select_espera');
+                            else
+                                if(data=='reprobada')
+                                    $('.input-group-lg option[value="'+id+'"]').remove().appendTo('#select_reprobadas');
+                                else
+                                    if(data=='aprobada')
+                                        $('.input-group-lg option[value="'+id+'"]').remove().appendTo('#select_aprobadas');
                         }
                 );
             });
@@ -290,7 +306,7 @@
                     function(data){
                         var acta = jQuery.parseJSON(data);
                         var decanato = (acta['aprobacion_decanato']+"").replace('1','aprobado').replace('0','pendiente');
-                        var secretaria = (acta['aprobacion_decanato']+"").replace('1','aprobado').replace('0','pendiente');
+                        var secretaria = (acta['aprobacion_secretaria']+"").replace('1','aprobado').replace('0','pendiente');
                         enviada_info.innerHTML='<h4>Estado de aprobación</h4>' +
                                 '<p>Decanatura: '+decanato +'<br>'+
                                 'Secretaría: '+secretaria+ '</p>';

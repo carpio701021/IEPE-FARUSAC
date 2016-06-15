@@ -95,8 +95,10 @@ class ActaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Actas::find($id)->update($request->all());
-        return 'enviar correo electronico';
+        $acta=Actas::find($id);
+        $acta->update($request->all());
+        $acta->evaluarEstado();
+        return $acta->estado;
     }
 
     /**
