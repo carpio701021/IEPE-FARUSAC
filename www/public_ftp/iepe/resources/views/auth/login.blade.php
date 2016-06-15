@@ -14,7 +14,7 @@
                             <label class="col-md-4 control-label">Número de Orientación Vocacional</label>
 
                             <div class="col-md-6">
-                                <input type="number" min="1000000000" max="9999999999"  class="form-control" name="NOV" value="{{ old('NOV') }}">
+                                <input type="text"  class="form-control" name="NOV" value="{{ old('NOV') }}">
 
                                 @if ($errors->has('NOV'))
                                     <span class="help-block">

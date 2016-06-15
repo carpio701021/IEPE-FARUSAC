@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Aspirante;
+use App\Datos_sun;
 use Auth;
 use Validator;
 use Illuminate\Http\Request;
@@ -65,13 +66,51 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
+        $messages = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'unique'   => 'El campo :attribute ya existe. <br>Prueba recuperar<a class="btn btn-link" href="'+url('/password/reset')+'"></a>',
+            'numeric'  => 'El campo :attribute debe ser numérico',
+            'email'    => 'El campo :attribute debe ser un correo electrónico válido.',
+        ];
         return Validator::make($data, [
             'NOV' => 'required|numeric|unique:aspirantes',
-            //'nombre' => 'required|max:255',
-            //'apelido' => 'required|max:255',
             'email' => 'required|email|max:255|unique:aspirantes',
             'password' => 'required|confirmed|min:6',
-        ]);
+        ],$messages);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        /**Verificar si es carnet**/
+        if( $request->NOV > 100000000 && $request->NOV < 999999999 ){
+            $errors = Array('NOV'=>'Usted esta tratando de acceder con un número de carnet.<br>Favor pasar a la oficina de Orientación Estudiantil de la Facultad de Arquitectura para registrar su número de orientación vocacional.');
+            return redirect('/register')->withErrors($errors)->withInput();
+        }
+
+        /**Verificar si existe en la base de datos del SUN**/
+        $existente = Datos_sun::where('orientacion',$request->NOV)->first();
+        if($existente == null){
+            $errors = Array('NOV'=>'No se han encontrado registros válidos en nuestra base de datos.');
+            return redirect('/register')->withErrors($errors)->withInput();
+        }
+
+        Auth::guard($this->getGuard())->login($this->create($request->all()));
+
+        return redirect($this->redirectPath());
     }
 
     /**

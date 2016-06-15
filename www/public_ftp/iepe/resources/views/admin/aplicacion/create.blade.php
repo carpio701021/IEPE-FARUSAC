@@ -85,7 +85,7 @@
         <div class="form-group{{ $errors->has('fecha_fin_asignaciones') ? ' has-error' : '' }}">
             {!! Form::label('fecha_fin_asignaciones', 'Fecha de cierre de asignaciones*', array('class' => 'col-md-4 control-label')) !!}
             <div class="col-md-6">
-                <div class='input-group date fecha'
+                <div class='input-group date fechayhora'
                      data-toggle="popover"
                      data-placement="left"
                      data-trigger="focus"
@@ -212,7 +212,7 @@
                 @if(old('salones'))
                     @foreach( old('salones') as $salon )
                         <button type="button" onclick="quitarSalon(this);" class="list-group-item salon-item">
-                            <span class="glyphicon glyphicon-minus"></span> Edificio: {{ str_replace([':==:' => ', salón: ' ,':==:' => ', para ' ], $salon )}} aspirantes
+                            <span class="glyphicon glyphicon-minus"></span> Edificio: {{ str_replace([':==:',':==:'],[', salón: ' ,', para '] , $salon )}} aspirantes
                             <input style="display:none" name="salones[]" value="{{ $salon }}" type="text">
                         </button>
                     @endforeach
@@ -342,9 +342,10 @@
                 locale: 'es',
                 format: 'YYYY/MM/DD'
             });
-
-
-
+            $('.input-group.date.fechayhora').datetimepicker({
+                locale: 'es',
+                format: 'YYYY/MM/DD H:mm'
+            });
         });
 
         $("form").bind("keypress", function (e) {

@@ -46,7 +46,7 @@ class LogicaIepe extends Migration
 
             $table->date('fecha_aplicacion');
             $table->date('fecha_inicio_asignaciones');
-            $table->date('fecha_fin_asignaciones');
+            $table->datetime('fecha_fin_asignaciones');
 
             $table->integer('percentil_RA');
             $table->integer('percentil_APE');

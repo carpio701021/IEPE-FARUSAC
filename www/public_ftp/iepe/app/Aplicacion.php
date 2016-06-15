@@ -73,6 +73,7 @@ class Aplicacion extends Model
 
     function agregarSalonesHorarios($rsalones,$rhorarios){
         //meter salones
+        AplicacionSalonHorario::where('aplicacion_id',$this->id)->delete();
         $ids_salones = Array();
         foreach($rsalones as $salon){
             $sals =  explode(":==:", $salon,3);

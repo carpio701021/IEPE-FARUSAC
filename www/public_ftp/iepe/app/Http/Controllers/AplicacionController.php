@@ -60,20 +60,10 @@ class AplicacionController extends Controller
         $aplicacion->percentil_RV	= 80;
         $aplicacion->percentil_APN	= 80;
 
-        /*
-        if($request->hasFile('arte')){
-            $destinationPath ='/arte_aplicaciones'; // upload path
-            $extension = $request->file('arte')->getClientOriginalExtension(); // getting file extension
-            $fileName = 'arte'. '['.Carbon::now().']'. rand(10000,99999).'.'.$extension; // rename file
-            $request->file('arte')->move( storage_path().$destinationPath,$fileName);
-            $aplicacion->path_arte = $destinationPath . '/' . $fileName;
-        }
-        */
-
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
 
-        $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre.'</i> creada exitosamente.');
+        $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente.');
         return redirect('/admin/aplicacion');
     }
 
@@ -131,6 +121,11 @@ class AplicacionController extends Controller
     {
         //
         $aplicacion = Aplicacion::findOrFail($id);
+        //dd($aplicacion->fecha_inicio_asignaciones < date("Y-m-d"));
+        if($aplicacion->fecha_inicio_asignaciones<date("Y-m-d") && date("Y-m-d h:i")<$aplicacion->fecha_fin_asignaciones){
+            $errors = Array('No se puede editar la <i>'.$aplicacion->nombre().'</i> ya que está en tiempo de asignaciones');
+            return redirect('/admin/aplicacion')->withErrors($errors)->withInput();
+        }
         $titulo = 'Editar aplicación';
         $put = true;
         return view('admin.aplicacion.create',compact('aplicacion','titulo','put'));
@@ -147,7 +142,7 @@ class AplicacionController extends Controller
     {
         if(Aplicacion::where('id','!=',$id)->where('year',$request->year)->where('naplicacion',$request->naplicacion)->first()){
             $errors = Array('La combinacion de año y número de aplicación ya existe');
-            return redirect('/admin/aplicacion/' + $id + '/edit')->withErrors($errors)->withInput();
+            return redirect('/admin/aplicacion/'.$id.'/edit')->withErrors($errors)->withInput();
         }
 
         $aplicacion = Aplicacion::where('id',$id)->first();
@@ -163,7 +158,7 @@ class AplicacionController extends Controller
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
 
-        $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'.$aplicacion->nombre.'</i> guardados.');
+        $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'.$aplicacion->nombre().'</i> guardados.');
         return redirect('/admin/aplicacion');
     }
 
