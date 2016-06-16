@@ -75,7 +75,7 @@
 
 
                         <button type="button" id='btn_eliminar_propuesta' class="btn btn-danger">Eliminar propuesta</button>
-                        <a class="btn btn-default btn-verPDF" name='aprobada_pdf' target="_blank">Ver PDF</a>
+                        <a class="btn btn-default btn-verPDF" name='propuesta_pdf' target="_blank">Ver PDF</a>
                     </div>
                 </div>
             </div>
@@ -112,6 +112,14 @@
                                         </div>
                                         <div class="modal-body">
                                             <p style="font-size: 20px">¿Desea reprobar el acta seleccionada?</p>
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Justificación:</label>
+                                                    <div class="col-sm-10">
+                                                        <textarea rows="3" type="text" class="form-control" id="txt_justificacion"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger btn_cambio_estado_acta" id="btn_reprobar_confirm" data-dismiss="modal">Reprobar</button>
@@ -172,8 +180,14 @@
                 <div class="panel panel-success">
                     <div class="panel-heading"><h4>Actas aprobadas</h4></div>
                     <div class="panel-body">
-                        <select class="input-group-lg form-control" name='' id="select_aprobadas" size="3" style="width: 100%">
-                        </select>
+                        <div class="row form-group">
+                            <select class="input-group-lg form-control" name='' id="select_aprobadas" size="3" style="width: 100%">
+                            </select>
+                        </div>
+                        <button class="btn btn-default" type="button">Enviar notificación</button>
+                        <a class="btn btn-default btn-verPDF" name='aprobada_pdf' target="_blank">Ver PDF</a>
+                        <a class="btn btn-default" id='btn_constancias' target="_blank">Generar Constancias</a>
+
                     </div>
                 </div>
             </div>
@@ -245,20 +259,30 @@
 
             $(".btn-verPDF").click(function() {//agregar acta id para mostrar pdf
                 var href = '/admin/acta/';
-                if(this.name=='aprobada_pdf')
+                if(this.name=='propuesta_pdf')
                     href += select_propuestas.value;
                 else
                     if(this.name=='enviada_pdf')
-                            href += select_espera.value;
+                        href += select_espera.value;
+                    else
+                        if(this.name=='aprobada_pdf')
+                            href+=select_aprobadas.value;
                 this.href=href;
             });
+
+            $("#btn_constancias").click(function() {//agregar acta id para mostrar pdf
+                this.href = '/admin/acta/'+select_aprobadas.value+'/constanciasSatisfactorias';
+            });
+
+
 
             $('#btn_eliminar_propuesta').click(function(){
                 $.post("/admin/acta/"+select_propuestas.value,
                         {_method: "DELETE",
                          _token:"{{csrf_token()}}"},
                         function(data){
-                            alert(data);
+                            if(data=='true')
+                                $('.input-group-lg option[value="' + select_propuestas.value + '"]').remove();
                         });
             });
 
@@ -276,43 +300,53 @@
                     id=select_espera.value;
                     if(this.id=='btn_reprobar_confirm'){
                         alert("{{Auth::guard('admin')->user()->getRolName()}}");
-                        if("{{Auth::guard('admin')->user()->getRolName()}}"=='decano') data.aprobacion_decanato='-1';
-                        if("{{Auth::guard('admin')->user()->getRolName()}}"=='secretario') data.aprobacion_secretaria='-1';
+                        if("{{Auth::guard('admin')->user()->rol}}"=='decano') data.aprobacion_decanato=-1;
+                        if("{{Auth::guard('admin')->user()->rol}}"=='secretario') data.aprobacion_secretaria=-1;
                     }
                     else
                         if(this.id=='btn_aprobar_confirm') {
-                            if("{{Auth::guard('admin')->user()->getRolName()}}"=='decano') data.aprobacion_decanato='1';
-                            if("{{Auth::guard('admin')->user()->getRolName()}}"=='secretario') data.aprobacion_secretaria='1';
+                            if("{{Auth::guard('admin')->user()->rol}}"=='decano') data.aprobacion_decanato=1;
+                            if("{{Auth::guard('admin')->user()->rol}}"=='secretario') data.aprobacion_secretaria=1;
                         }
 
                 $.post("/admin/acta/"+id,
                         data,
                         function(data){
-                            if(data=='enviada')
-                                $('.input-group-lg option[value="'+id+'"]').remove().appendTo('#select_espera');
+                            if(data=='enviada') {
+                                $('.input-group-lg option[value="' + id + '"]').remove().appendTo('#select_espera');
+                                actualizarInfoActa(enviada_info,id);
+                            }
                             else
-                                if(data=='reprobada')
-                                    $('.input-group-lg option[value="'+id+'"]').remove().appendTo('#select_reprobadas');
+                                if(data=='reprobada') {
+                                    $('.input-group-lg option[value="' + id + '"]').remove().appendTo('#select_reprobadas');
+                                    enviada_info.innerHTML=''
+                                }
                                 else
-                                    if(data=='aprobada')
-                                        $('.input-group-lg option[value="'+id+'"]').remove().appendTo('#select_aprobadas');
+                                    if(data=='aprobada') {
+                                        $('.input-group-lg option[value="' + id + '"]').remove().appendTo('#select_aprobadas');
+                                        enviada_info.innerHTML=''
+                                    }
                         }
                 );
             });
 
         });
         $("#select_espera").on('click','option.enviada_item',function () {
-            $.get('/admin/acta/info/'+select_espera.value,
+            actualizarInfoActa(enviada_info,select_espera.value);
+        });
+
+        function actualizarInfoActa(area,acta_id){
+            $.get('/admin/acta/info/'+acta_id,
                     function(data){
                         var acta = jQuery.parseJSON(data);
                         var decanato = (acta['aprobacion_decanato']+"").replace('1','aprobado').replace('0','pendiente');
                         var secretaria = (acta['aprobacion_secretaria']+"").replace('1','aprobado').replace('0','pendiente');
-                        enviada_info.innerHTML='<h4>Estado de aprobación</h4>' +
+                        area.innerHTML='<h4>Estado de aprobación</h4>' +
                                 '<p>Decanatura: '+decanato +'<br>'+
                                 'Secretaría: '+secretaria+ '</p>';
                     }
             );
-        });
+        }
     </script>
 
 @stop

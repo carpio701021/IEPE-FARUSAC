@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Actas;
 use App\Aplicacion;
+use App\AspiranteAplicacion;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use DOMPDF;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Session;
 
 class ActaController extends Controller
 {
@@ -109,7 +111,9 @@ class ActaController extends Controller
      */
     public function destroy($id)
     {
-        return 'hola aun no porque que hueva volver a generar actas';
+        Actas::destroy($id);
+        AspiranteAplicacion::where('acta_id',$id)->update(['acta_id'=>0]);
+        return 'true';
     }
     
     public function getReporteIrregular($id){ //id de aplicación
@@ -132,5 +136,15 @@ class ActaController extends Controller
 
     public function getInfoActa($acta_id){
         return Actas::find($acta_id)->toJson();
+    }
+
+    public function getConstanciasSatisfactorias($acta_id){
+        set_time_limit(120);
+        $asignaciones= AspiranteAplicacion::where('acta_id',$acta_id)->get();
+        $aplicacion = Aplicacion::find(Actas::find($acta_id)->aplicacion_id);
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->setPaper(array(0,0,740,570), 'portrait');//740,570
+        $pdf->loadView('admin.pdf.constanciasSatisfactorias',compact('asignaciones','aplicacion'));
+        return $pdf->stream();
     }
 }

@@ -17,10 +17,17 @@ class AdminRoleMiddleware
     public function handle($request, Closure $next, $rol)
     {
         //dd(Auth::guard('admin')->user());
-        if (! Auth::guard('admin')->user()->tieneRol($rol)) {
-            // Redirect...
-            return Response('Error: La página que buscas no existe o no tienes acceso', 403);
-        }
+        if($rol=='secretario_decano_jefe_bienestar'){
+            $user=Auth::guard('admin')->user();
+            if (!$user->tieneRol('secretario') && !$user->tieneRol('decano') && !$user->tieneRol('jefe_bienestar')) {
+                // Redirect...
+                return Response('Error: La página que buscas no existe o no tienes acceso', 403);
+            }
+        }else
+            if (! Auth::guard('admin')->user()->tieneRol($rol)) {
+                // Redirect...
+                return Response('Error: La página que buscas no existe o no tienes acceso', 403);
+            }
 
         return $next($request);
     }

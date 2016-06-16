@@ -263,6 +263,28 @@ class AplicacionController extends Controller
         return Aplicacion::where('year',$anio)->get()->toJson();
     }
     
-    
+    public function getConstanciasSatisfactorias($id){
+        set_time_limit(120);
+        $asignaciones=Db::table('aspirantes_aplicaciones as aa')
+            ->join('aplicaciones_salones_horarios as ash','ash.id','=','aa.aplicacion_salon_horario_id')
+            ->where('ash.aplicacion_id','=',$id)
+            ->where('acta_id','>',0)
+            //->where('aspirante_id',1000000311)
+            ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
+            ->get();
+        /*$asignaciones=Aplicacion::find($id)
+            ->getAsignaciones()
+            ->where('acta_id','>',4)
+            //->where('aspirante_id',1000000311)
+            ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
+            ->get();*/
+        //dd($asignaciones);
+        $aplicacion = Aplicacion::find($id);
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->setPaper(array(0,0,740,570), 'portrait');//740,570
+        $pdf->loadView('admin.pdf.constanciasSatisfactorias',compact('asignaciones','aplicacion'));
+        return $pdf->stream();
+
+    }
     
 }
