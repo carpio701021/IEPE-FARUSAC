@@ -11,6 +11,7 @@ use App\Http\Requests;
 use DOMPDF;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 
 class ActaController extends Controller
 {
@@ -43,6 +44,7 @@ class ActaController extends Controller
      */
     public function store(Request $request)
     {
+        setlocale(LC_ALL,"es_ES");//para fechas en español
         $aplicacion=Aplicacion::find($request->aplicacion_id);
         $asignaciones = $aplicacion->getAsignaciones()
             ->where('resultado','aprobado')
@@ -50,9 +52,15 @@ class ActaController extends Controller
         $acta= Actas::create($request->all());//inserta aplicacion_id y estado='propuesta'
 
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadView('admin.pdf.acta',compact('acta','asignaciones','aplicacion'));
-        
+        $fecha=Carbon::parse($acta->created_at);
+
+        $aspirantes=$asignaciones->join('aspirantes','aspirante_id','=','aspirantes.NOV')
+            ->selectRaw('aa.*,aspirantes.nombre,aspirantes.apellido')
+            ->get();
+        $pdf->loadView('admin.pdf.acta',compact('acta','aspirantes','aplicacion','fecha'));
+
         $asignaciones->update(['acta_id'=>$acta->id]);
+        
         $path=storage_path().'/actas/Acta'.$acta->id.'-'.$aplicacion->nombre();
         $pdf->save($path);
         $acta->path_pdf=$path;//pdf de propuesta

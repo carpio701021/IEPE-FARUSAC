@@ -18,4 +18,5 @@ class Actas extends Model
         }
         $this->save();
     }
+    
 }
