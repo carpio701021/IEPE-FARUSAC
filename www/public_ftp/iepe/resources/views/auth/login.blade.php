@@ -1,7 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.aspirante-layout')
 
 @section('content')
 <div class="container">
+    @if (Session::has('status'))
+        <div class="alert alert-success">
+            {{ Session::get('status') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

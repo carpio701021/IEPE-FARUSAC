@@ -28,8 +28,8 @@ class ActivationService
 
         $token = $this->activationRepo->createActivation($user);
 
-        $link = route('user.activate', $token);
-        $message = sprintf('Activate account <a href="%s">%s</a>', $link, $link);
+        $link = route('aspirante.activate', $token);
+        $message = sprintf('Activa tu cuenta: %s', $link);
 
         $this->mailer->raw($message, function (Message $m) use ($user) {
             $m->to($user->email)->subject('Confirmación de correo');
@@ -46,7 +46,7 @@ class ActivationService
             return null;
         }
 
-        $user = User::find($activation->user_id);
+        $user = Aspirante::find($activation->user_id);
 
         $user->activated = true;
 

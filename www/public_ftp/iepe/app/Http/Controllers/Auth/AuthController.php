@@ -71,7 +71,7 @@ class AuthController extends Controller
     {
         $messages = [
             'required' => 'El campo :attribute es obligatorio.',
-            'unique'   => 'El :attribute proporcionado ya existe. <a class="btn btn-link" href="'.url('/password/reset').'">Recuperar contraseña</a><br>Si el problema persiste presentarse a la oficina de Orientacion Estudiantil de Arquitectura.',
+            'unique'   => 'El :attribute proporcionado ya esta registrado. <a class="btn btn-link" href="'.url('/password/reset').'">Recuperar contraseña</a><br>Si el problema persiste presentarse a la oficina de Orientacion Estudiantil de Arquitectura.',
             'numeric'  => 'El campo :attribute debe ser numérico',
             'email'    => 'El campo :attribute debe ser un correo electrónico válido.',
             'taken'    => 'El campo :attribute debe ser un correo electrónico válido.',
@@ -83,20 +83,10 @@ class AuthController extends Controller
         ],$messages);
     }
 
-    public function authenticated(Request $request, $user)
-    {
-        if (!$user->activated) {
-            $this->activationService->sendActivationMail($user);
-            auth()->logout();
-            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
-        }
-        return redirect()->intended($this->redirectPath());
-    }
-
     public function activateUser($token)
     {
-        if ($user = $this->activationService->activateUser($token)) {
-            auth()->login($user);
+        if ($aspirante = $this->activationService->activateUser($token)) {
+            auth()->login($aspirante);
             return redirect($this->redirectPath());
         }
         abort(404);
@@ -145,10 +135,14 @@ class AuthController extends Controller
 
         //Auth::guard($this->getGuard())->login($this->create($request->all()));
         $user = $this->create($request->all());
+        $user->NOV = $request->NOV;
+        Auth::guard($this->getGuard())->login($user);
         $this->activationService->sendActivationMail($user);
 
         //return redirect($this->redirectPath());
-        return redirect('/login')->with('status', 'We sent you an activation code. Check your email.');
+        $request->session()->flash('status','Te hemos enviado un código de verificación. Revisa tu correo.');
+        return redirect('/login');
+        //return redirect('/login')->with('status', 'Te hemos enviado un código de verificación. Revisa tu correo.');
     }
 
     /**
@@ -188,6 +182,18 @@ class AuthController extends Controller
     }
 
 
+    public function authenticated(Request $request, $user)
+    {
+        if (!$user->activated) {
+            $this->activationService->sendActivationMail($user);
+            auth()->logout();
+            $request->session()->flash('status','Necesitas confirmar tu correo. Se te ha enviado un código de verificación, por favor revisa tu correo.');
+            return redirect('/login');
+            //return back()->with('warning', 'Necesitas confirmar tu correo. Nosotros te enviamos un código de verificación, por favor revisa tu correo.');
+        }
+        return redirect()->intended($this->redirectPath());
+    }
+
 
     /**
      * Handle a login request to the application.
@@ -208,27 +214,22 @@ class AuthController extends Controller
         // the IP address of the client making these requests into this application.
         $throttles = $this->isUsingThrottlesLoginsTrait();
 
-        if ($throttles && $this->hasTooManyLoginAttempts($request)) {
+        if ($throttles && $lockedOut = $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
             return $this->sendLockoutResponse($request);
         }
 
         $credentials = $this->getCredentials($request);
 
-        if (Auth::guard('aspirante_web')->attempt($credentials) )
-        {
-            /*/if(!Auth::guard('aspirante_web')->user()->activated){
-                //error de que falta activar
-                $errors = Array('NOV'=>'Aun no ha confirmado su correo electrónico.');
-                return redirect('login')->withErrors($errors)->withInput();
-            }*/
-
-            return redirect($this->redirectTo);
+        if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
+            return $this->handleUserWasAuthenticated($request, $throttles);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
-        if ($throttles) {
+        if ($throttles && ! $lockedOut) {
             $this->incrementLoginAttempts($request);
         }
 

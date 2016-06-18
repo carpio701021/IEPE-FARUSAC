@@ -13,7 +13,7 @@ class CreateUserActivationsTable extends Migration
     public function up()
     {
         Schema::create('user_activations', function (Blueprint $table) {
-            $table->increments('user_id');
+            $table->bigInteger('user_id');
             $table->string('token')->index();
             $table->timestamps();
         });

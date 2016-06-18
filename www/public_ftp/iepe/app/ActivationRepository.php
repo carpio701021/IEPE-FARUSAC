@@ -38,7 +38,7 @@ class ActivationRepository
     {
 
         $token = $this->getToken();
-        $this->db->table($this->table)->where('user_id', $user->id)->update([
+        $this->db->table($this->table)->where('user_id', $user->NOV)->update([
             'token' => $token,
             'created_at' => new Carbon()
         ]);
@@ -58,7 +58,7 @@ class ActivationRepository
 
     public function getActivation($user)
     {
-        return $this->db->table($this->table)->where('user_id', $user->id)->first();
+        return $this->db->table($this->table)->where('user_id', $user->NOV)->first();
     }
 
 

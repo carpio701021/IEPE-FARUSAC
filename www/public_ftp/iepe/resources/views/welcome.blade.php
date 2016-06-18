@@ -1,23 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.aspirante-layout')
 
 @section('content')
 <div class="container">
+    <div class="jumbotron">
+        <h1>Aspirantes FARUSAC</h1>
+        <p>Sistema de Asignación de Pruebas Específicas</p>
+    </div>
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Primer ingreso</div>
-
-                <div class="panel-body">
-                    <p>Instrucciones de primer ingreso (aqui el flash):</p>
-                    <p>- Crear usuario</p>
-                    <p>- Verificar correo electrónico</p>
-                    <p>- Iniciar sesión</p>
-                    <p>- Llenar encuesta</p>
-                    <p>- Asignar examen</p>
-                    <p>- Ver resultados</p>
-
-                </div>
-            </div>
+        <div class="col-sm-4">
+            <h3>Reglamento</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+        </div>
+        <div class="col-sm-4">
+            <h3>Instructivo</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+        </div>
+        <div class="col-sm-4">
+            <h3>Simulador</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
         </div>
     </div>
 </div>
