@@ -22,5 +22,7 @@ class Salon extends Model
         'nombre','capacidad','edificio' ,
     ];
 
-
+    public function printNombre(){
+        return 'Salón: '.$this->nombre.' Edificio:'.$this->edificio;
+    }
 }

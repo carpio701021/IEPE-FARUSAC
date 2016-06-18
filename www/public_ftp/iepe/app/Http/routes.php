@@ -46,6 +46,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::get('aplicacion/{aplicacion_id}/especial', 'AplicacionController@getCrearEspecial');
             Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
             Route::get('aplicacion/{aplicacion_id}/actas', 'AplicacionController@getActas');
+            Route::get('aplicacion/{aplicacion_id}/listados', 'AplicacionController@getListados');
 
 
             Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');

@@ -25,6 +25,9 @@ class Aplicacion extends Model
         'fecha_fin_asignaciones', 'fecha_aplicacion',
     ];
 
+    function fecha_aplicacion(){
+        return $this->fecha_aplicacion;
+    }
     function nombre(){
         return 'Aplicación '.$this->naplicacion.' del '.$this->year;
     }
