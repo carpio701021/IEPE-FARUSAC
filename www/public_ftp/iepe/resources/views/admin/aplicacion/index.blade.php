@@ -61,7 +61,7 @@
                                         <li><a href="/admin/aplicacion/subirResultados/{{$aplicacion->id}}/edit"><span class="glyphicon glyphicon-upload"></span> Resultados</a></li>
                                         <li><a href="#"><span class="glyphicon glyphicon-align-left"></span> Ajustar percentiles</a></li>
                                         <li><a href="#"><span class="glyphicon glyphicon-plus"></span> Asignación manual de aspirante</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-tasks"></span> Generar Constancias</a></li>
+                                        <li><a href="/admin/aplicacion/{{$aplicacion->id}}/constanciasSatisfactorias" target="_blank"><span class="glyphicon glyphicon-tasks"></span> Generar Constancias</a></li>
                                         <li><a href="/admin/aplicacion/{{$aplicacion->id}}/actas"><span class="glyphicon glyphicon-tasks"></span> Actas</a></li>
                                     </ul>
                                 </div>

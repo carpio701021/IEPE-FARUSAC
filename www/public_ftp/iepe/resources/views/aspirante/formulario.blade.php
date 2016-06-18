@@ -168,7 +168,7 @@
 
         <fieldset>
             <h2 class="fs-title">Intereses universitarios</h2>
-            <h3 class="fs-subtitle">Requisito para asignación de prueba especifica</h3>
+            <h3 class="fs-subtitle">Los siguientes datos son para conocer su preferencia actual de carrera y jornada. <br>Si obtiene resultados satisfactorios, será considerada su preferencia para una futura asignación.</h3>
             <div class="form-group{{ $errors->has('carrera') ? ' has-error' : '' }}">
                 <label class="col-md-4 control-label" >Carrera: </label>
                 <div class="col-md-6">

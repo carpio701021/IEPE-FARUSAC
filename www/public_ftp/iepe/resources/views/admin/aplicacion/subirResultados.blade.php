@@ -3,7 +3,7 @@
 @section('content')
     @include('layouts.mensajes')
     <div class="container">
-        <h3>Subir Resultados - {{$aplicacion->nombre}}</h3>
+        <h3>Subir Resultados - {{$aplicacion->nombre()}}</h3>
         <div class="col-sm-6">
             <form class="form-horizontal" role="form" action="/admin/aplicacion/subirResultados/{{$aplicacion->id}}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
             {{csrf_field()}}

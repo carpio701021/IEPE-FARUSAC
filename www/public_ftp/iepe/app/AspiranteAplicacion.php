@@ -25,6 +25,10 @@ class AspiranteAplicacion extends Model
         return $this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->first()->getAplicacion();
     }
 
+    public function getAspirante(){
+        return $this->belongsTo('App\Aspirante','aspirante_id')->first();
+    }
+
     public function getResultado(){
         //validar si se puede o no retornar el resultado aún
         return $this->resultado;

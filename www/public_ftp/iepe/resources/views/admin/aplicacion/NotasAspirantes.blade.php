@@ -3,7 +3,7 @@
 @section('content')
     @include('layouts.mensajes')
     <div class="container">
-        <h3>Aspirante aprobados - {{$aplicacion->nombre}}</h3>
+        <h3>Aspirante aprobados - {{$aplicacion->nombre()}}</h3>
 
         <div class="container">
             <h3>Resultados</h3>
@@ -65,7 +65,7 @@
                         <td>{{$a->nota_APN}}</td>
                         <td>{{$a->resultado}}</td>
                          <td>
-                         <form class="form" action="/admin/aplicacion/acta/{{$a->id}}/resultado" method="post">
+                         <form class="form" action="/admin/acta/{{$a->id}}/resultado" method="post">
                              {{csrf_field()}}
                             @if($a->resultado=='aprobado')
                                 <input type="hidden" name="resultado" value="irregular">
@@ -85,13 +85,17 @@
                     <h4> <strong> Total aprobados: {{$aplicacion->getCountAprobadosNuevaActa()}} </strong></h4>
                 </div>
                 <div class="col-sm-6" align="right">
-                    <a href="/admin/aplicacion/acta/{{$aplicacion->id}}/irregular" class="btn btn-warning" target="_blank">
+                    <!--<a href="/admin/aplicacion/acta/{{$aplicacion->id}}/irregular" class="btn btn-warning" target="_blank">
                         Exportar pdf con calificaciones irregulares
+                    </a>-->
+                    <a href="/admin/aplicacion/{{$aplicacion->id}}/especial" class="btn btn-warning" target="_blank">
+                        Convocar aspirantes irregulares a una aplicación especial
                     </a>
-                    <form role="form" action="/admin/aplicacion/acta" method="post">
+                    <form role="form" action="/admin/acta" method="post">
                         {{csrf_field()}}
                         <input type="hidden" name="aplicacion_id" value="{{$aplicacion->id}}"/>
-                        <button type="submit" class="btn btn-primary">Generar Acta</button>
+                        <input type="hidden" name="estado" value="propuesta"/>
+                        <button type="submit" class="btn btn-primary">Generar propuesta de acta</button>
                     </form>
                 </div>
             </div>

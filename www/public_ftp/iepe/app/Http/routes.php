@@ -43,8 +43,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
             Route::resource('aplicacion', 'AplicacionController');
             Route::get('aplicacion/{aplicacion_id}/arte', 'AplicacionController@getArte');
+            Route::get('aplicacion/{aplicacion_id}/especial', 'AplicacionController@getCrearEspecial');
             Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
             Route::get('aplicacion/{aplicacion_id}/actas', 'AplicacionController@getActas');
+
 
             Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
 
@@ -53,14 +55,20 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::get('datos/create','DatosController@create');
             Route::get('datos/insert/search','DatosController@search');
 
-            Route::resource('aplicacion/acta','ActaController');
-            Route::get('aplicacion/acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
+            Route::get('acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
 
 
-            Route::post('aplicacion/acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');
+
+            Route::post('acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');
         });
 
-
+        Route::group(['middleware' => ['adminRol:secretario_decano_jefe_bienestar']], function () {
+            Route::resource('acta', 'ActaController');
+            Route::get('acta/search/{aplicacion_id}', 'ActaController@getQueryActas');
+            Route::get('acta/info/{acta_id}', 'ActaController@getInfoActa');
+            Route::get('acta/getAplicacionesAnio/{anio}','AplicacionController@getAplicacionesAnio');
+            Route::get('acta/{acta_id}/constanciasSatisfactorias', 'ActaController@getConstanciasSatisfactorias');
+        });
 
         Route::group(['middleware' => ['adminRol:superadmin']], function () {
             Route::resource('usuarios','GestionUsuariosController');

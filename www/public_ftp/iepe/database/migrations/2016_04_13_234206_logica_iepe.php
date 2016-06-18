@@ -82,6 +82,12 @@ class LogicaIepe extends Migration
         Schema::create('actas',function(Blueprint $table){
             $table->increments('id');
             $table->string('path_pdf');
+            $table->string('comentario');
+
+            $table->boolean('aprobacion_decanato');
+            $table->boolean('aprobacion_secretaria');
+
+            $table->enum('estado',['propuesta','enviada','aprobada','reprobada']);
 
             $table->integer('aplicacion_id')->unsigned();
             $table->foreign('aplicacion_id')->references('id')->on('aplicaciones');

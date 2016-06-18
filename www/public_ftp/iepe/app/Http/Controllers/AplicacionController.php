@@ -11,6 +11,7 @@ use App\Aplicacion;
 use Carbon\Carbon ;
 use File;
 use Illuminate\Support\Facades\DB;
+use App\AspiranteAplicacion;
 
 class AplicacionController extends Controller
 {
@@ -40,6 +41,14 @@ class AplicacionController extends Controller
         return view('admin.aplicacion.create',compact('aplicacion'));
     }
 
+    public function getCrearEspecial($id)
+    {
+        $aplicacion = new Aplicacion();
+        $titulo = 'Crear aplicación especial';
+        $especial =$id;
+        return view('admin.aplicacion.create',compact('aplicacion','titulo','put','especial'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -48,6 +57,8 @@ class AplicacionController extends Controller
      */
     public function store(AplicacionRequest $request)
     {
+
+        //$this->asignarIrregulares($request->_especial,Aplicacion::find(5));
         if(Aplicacion::where('year',$request->year)->where('naplicacion',$request->naplicacion)->first()){
             $errors = Array('La combinacion de año y número de aplicación ya existe');
             return redirect('/admin/aplicacion/create')->withErrors($errors)->withInput();
@@ -60,11 +71,60 @@ class AplicacionController extends Controller
         $aplicacion->percentil_RV	= 80;
         $aplicacion->percentil_APN	= 80;
 
+        /*
+        if($request->hasFile('arte')){
+            $destinationPath ='/arte_aplicaciones'; // upload path
+            $extension = $request->file('arte')->getClientOriginalExtension(); // getting file extension
+            $fileName = 'arte'. '['.Carbon::now().']'. rand(10000,99999).'.'.$extension; // rename file
+            $request->file('arte')->move( storage_path().$destinationPath,$fileName);
+            $aplicacion->path_arte = $destinationPath . '/' . $fileName;
+        }
+        */
+
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
-
-        $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente.');
+        if($request->_especial){
+            if($this->asignarIrregulares($request->_especial,$aplicacion)){//se asignan automaticamente
+                $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente. Se asignaron los estudiantes irregulares');
+            }else{
+                $request->session()->flash('mensaje_exito','ocurrió un error');
+            }
+        }else{
+            $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente.');
+        }
         return redirect('/admin/aplicacion');
+    }
+
+    function asignarIrregulares($id,$aplicacionEspecial){
+        $aplicacion=Aplicacion::find($id);
+        $irregulares = $aplicacion->getAsignaciones()
+        ->where('resultado','irregular')
+        ->select('aspirante_id')->get();
+        //dd($aplicacionEspecial->getSalonesHorarios());
+        foreach($irregulares as $irregular){
+            $asignacion = new AspiranteAplicacion();
+            if($asignacion->asignar($irregular->aspirante_id,$aplicacionEspecial->id)){//true si hay cupo, false ya no hay cupo
+                $asignacion->save();
+                //$pdf=$this->generarConstanciaPDF($asignacion->id);
+                //$mail = new Mail();
+                //$request->session()->flash('mensaje_exito', 'Asignación realizada correctamente, puedes revisar tu salón y horario para la prueba');
+                /*if($mail->send(Auth::user()->email,
+                    Auth::user()->getFormulario()->nombre." ".Auth::user()->getFormulario()->apellido,
+                    'Constancia de asignación',
+                    'Imprime esta constancia para resguardar tu asignación',
+                    $pdf->output(),
+                    'Constancia de asignación '.Auth::user()->NOV))
+                {
+                    return back();
+                }else
+                {
+                    return back()->withErrors(['mail'=>$mail->getError()]);
+                }*/
+            }else{
+                return false;// back()->withErrors(['cupo'=>'No puede asignarse a esta aplicación porque el cupo está lleno. Abocarse a las oficinas de la facultad de arquitectura para solucionarlo']);
+            }
+        }
+        return true;
     }
 
     /**
@@ -96,17 +156,13 @@ class AplicacionController extends Controller
         elseif ($ob==5)
             $orderby='nota_APN';
 
-
-        $asignaciones=Aplicacion::find($id)->getAsignaciones()
-            ->where('acta_id','=',0)
-            ->where('resultado','=','aprobado')
-            ->orwhere('resultado','=','irregular')
-            //, (nota_RA+nota_RV+nota_APN+nota_APE) as suma')
-            //->orderby('suma','desc')
+        $aplicacion=Aplicacion::find($id);
+        $asignaciones=$aplicacion->getAsignaciones()
+            ->where('acta_id',0)
+            ->whereIn('resultado',['aprobado','irregular'])
             ->orderby($orderby,$orden)
             ->paginate(15);
-
-        $aplicacion = Aplicacion::find($id);
+        //dd($asignaciones);///esta onda me está trayendo todo de todo
         return view('admin.aplicacion.NotasAspirantes',
             compact('asignaciones','aplicacion','ob'));
     }
@@ -140,6 +196,7 @@ class AplicacionController extends Controller
      */
     public function update(AplicacionRequest $request, $id)
     {
+
         if(Aplicacion::where('id','!=',$id)->where('year',$request->year)->where('naplicacion',$request->naplicacion)->first()){
             $errors = Array('La combinacion de año y número de aplicación ya existe');
             return redirect('/admin/aplicacion/'.$id.'/edit')->withErrors($errors)->withInput();
@@ -207,6 +264,32 @@ class AplicacionController extends Controller
         return view('admin.aplicacion.Actas',compact('actas','aplicacion'));
     }
     
-    
-    
+    public function getAplicacionesAnio($anio){
+        return Aplicacion::where('year',$anio)->get()->toJson();
+    }
+
+    public function getConstanciasSatisfactorias($id){
+        set_time_limit(120);
+        $asignaciones=Db::table('aspirantes_aplicaciones as aa')
+            ->join('aplicaciones_salones_horarios as ash','ash.id','=','aa.aplicacion_salon_horario_id')
+            ->where('ash.aplicacion_id','=',$id)
+            ->where('acta_id','>',0)
+            //->where('aspirante_id',1000000311)
+            ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
+            ->get();
+        /*$asignaciones=Aplicacion::find($id)
+            ->getAsignaciones()
+            ->where('acta_id','>',4)
+            //->where('aspirante_id',1000000311)
+            ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
+            ->get();*/
+        //dd($asignaciones);
+        $aplicacion = Aplicacion::find($id);
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->setPaper(array(0,0,740,570), 'portrait');//740,570
+        $pdf->loadView('admin.pdf.constanciasSatisfactorias',compact('asignaciones','aplicacion'));
+        return $pdf->stream();
+
+    }
+
 }

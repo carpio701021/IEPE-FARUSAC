@@ -62,4 +62,8 @@ class Aspirante extends Authenticatable
             ->get();
         
     }
+
+    public function getNombreCompleto(){
+        return $this->nombre.' '.$this->apellido;
+    }
 }

@@ -8,6 +8,7 @@ Este proyecto trae su propio ambiente de desarrollo, no es necesario trabajar co
 - PHP 5.5
 - Apache: 2.4.18
 - Laravel 5.2
+- instalar GD extension: yum install php-gd
 
 ### Requisitos
 Primero revise que tiene instalado:
@@ -83,3 +84,12 @@ Si el servidor no responde revisar en la maquina fisica (en linux) el archivo /e
 - Xdebug, para integrar con PhpStorm, Notepad++, Sublime Text o cual quier otro IDE que lo permita. Para mayor información 
 visitar [How to configure PHPStorm with Xdebug on vagrant box](http://www.sitepoint.com/install-xdebug-phpstorm-vagrant/), 
 [Xdebug and You: Why You Should be Using a Real Debugger](https://jtreminio.com/2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger), 
+
+## Ambiente de produccion
+Este proyecto trae su propio ambiente de desarrollo, no es necesario trabajar con WAMP, XAMP o semejantes. A continuación se describe las caracteristicas generales del ambiente:
+- Sistema Operativo: CentOS 6.7 x64
+- MariaDB 10.1
+- PHP 5.5
+- Apache: 2.4.18
+- Laravel 5.2
+- instalar GD extension: yum install php-gd

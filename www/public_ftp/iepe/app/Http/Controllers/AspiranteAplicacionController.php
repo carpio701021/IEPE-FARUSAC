@@ -60,9 +60,7 @@ class AspiranteAplicacionController extends Controller
         $asignacion = new AspiranteAplicacion();
         if($asignacion->asignar(Auth::user()->NOV,$request->aplicacion_id)){//true si hay cupo, false ya no hay cupo
             $asignacion->save();
-
             $pdf=$this->generarConstanciaPDF($asignacion->id);
-
             $mail = new Mail();
             $request->session()->flash('mensaje_exito', 'Asignación realizada correctamente, puedes revisar tu salón y horario para la prueba');
             if($mail->send(Auth::user()->email,
@@ -115,13 +113,13 @@ class AspiranteAplicacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)//actualiza las notas de cada asignación con un excel
     {   $aplicacion = Aplicacion::find($id);
         if($request->file('file')->isValid()){
             $destinationPath = storage_path().'/Resultados'; // upload path
             $extension = $request->file('file')->getClientOriginalExtension(); // getting file extension
-            $request->file('file')->move($destinationPath,$id.'-'.$aplicacion->nombre.'.'.$extension);
-            $path=$destinationPath.'/'.$id.'-'.$aplicacion->nombre.'.'.$extension;
+            $request->file('file')->move($destinationPath,$id.'-'.$aplicacion->nombre().'.'.$extension);
+            $path=$destinationPath.'/'.$id.'-'.$aplicacion->nombre().'.'.$extension;
             //$error=$this->insertarNotas($path,$id);
             $error=$this->insertarNotas($path,$id);
             if($error){
@@ -205,8 +203,9 @@ class AspiranteAplicacionController extends Controller
     private function generarConstanciaPDF($id){
         $asignacion = AspiranteAplicacion::find($id);
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML('<h1>Constancia de asignación</h1><h2>Prueba Especifica</h2>
-        <p>'.$asignacion->getAplicacion()->nombre.' código:'.(20160000+$id).'</p>');
+        $pdf->setPaper(array(0, 0, 740, 570), 'portrait');
+        $aspirante = Auth::user();
+        $pdf->loadView('aspirante.pdf.constanciaAsignacion',compact('asignacion','id','aspirante'));
         return $pdf;
     }
 

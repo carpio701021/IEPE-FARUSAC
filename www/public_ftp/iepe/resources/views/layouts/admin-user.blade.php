@@ -88,7 +88,7 @@
                             Resultados<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Aprobar resultados</a></li>
+                            <li><a href="/admin/acta">Aprobar resultados</a></li>
                             <li><a href="#"></a></li>
                         </ul>
                     </li>
