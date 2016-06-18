@@ -76,6 +76,7 @@ class Aplicacion extends Model
 
     function agregarSalonesHorarios($rsalones,$rhorarios){
         //meter salones
+        AplicacionSalonHorario::where('aplicacion_id',$this->id)->delete();
         $ids_salones = Array();
         foreach($rsalones as $salon){
             $sals =  explode(":==:", $salon,3);
@@ -109,11 +110,8 @@ class Aplicacion extends Model
     function getCapacidadMaxima(){
         return
             $this->belongsToMany(
-                'App\Horario','aplicaciones_salones_horarios','aplicacion_id','horario_id'
-            )->distinct()->count() *
-            $this->belongsToMany(
                 'App\Salon','aplicaciones_salones_horarios','aplicacion_id','salon_id'
-            )->distinct()->sum('capacidad')
+            )->sum('capacidad')
             ;
     }
 

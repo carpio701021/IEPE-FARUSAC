@@ -25,8 +25,8 @@ class Mail
         //encriptamiento tls
         $this->mail->SMTPSecure = 'tls';
         $this->mail->SMTPAuth = true;
-        $this->mail->Username = "aspirantes@farusac.edu.gt";
-        $this->mail->Password = "2015abc102015abc10";
+        $this->mail->Username = env('MAIL_USERNAME');
+        $this->mail->Password = env('MAIL_PASSWORD');
     }
 
     public function send($mail,$name, $subject, $msg,$pdf,$fileName){

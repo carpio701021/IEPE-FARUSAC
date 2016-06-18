@@ -27,23 +27,23 @@
             <li class="sidebar-brand">
                 <img src="/img/logotipoFARUSAC_Amarillo.png"  style="width:210px;height:70px;">
             </li>
-            <li id="item_aspirante">
-                <a href="/aspirante">Aspirante</a>
-            </li>
-            <li id="li_pruebaEspecifica">
-                <a href="/aspirante/PruebaEspecifica/create">Prueba Especifica</a>
-            </li>
-            <li>
-                <a href="/aspirante/ResultadosSatisfactorios">Resultados satisfactorios</a>
-            </li>
+
             @if  (Auth::guest())
                 <li><a href="{{ url('/login') }}">Iniciar Sesión</a></li>
                 <li><a href="{{ url('/register') }}">Registro</a></li>
             @else
-
+                <li id="item_aspirante">
+                    <a href="/aspirante">Aspirante</a>
+                </li>
+                <li id="li_pruebaEspecifica">
+                    <a href="/aspirante/PruebaEspecifica/create">Prueba Especifica</a>
+                </li>
+                <li>
+                    <a href="/aspirante/ResultadosSatisfactorios">Resultados satisfactorios</a>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        {{ Auth::user()->email }} <span class="caret"></span>
+                        {{ Auth::user()->NOV }} <span class="caret"></span>
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
@@ -59,27 +59,29 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    @if($errors->any())
-                        <div class="alert alert-danger fade in">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            @foreach ($errors->all() as $error)
-                                <strong>Error: </strong> {{$error}}<br/>
-                            @endforeach
-                        </div>
-                    @endif
-                    @if (Session::has('mensaje_exito'))
-                        <div class="container">
-                            <div class="alert alert-success fade in" id="alert_message">
+                    @if  (!Auth::guest())
+                        @if($errors->any())
+                            <div class="alert alert-danger fade in">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                {{ Session::get('mensaje_exito') }}
+                                @foreach ($errors->all() as $error)
+                                    <strong>Error: </strong> {!!$error !!}<br/>
+                                @endforeach
                             </div>
-                        </div>
+                        @endif
+                        @if (Session::has('mensaje_exito'))
+                            <div class="container">
+                                <div class="alert alert-success fade in" id="alert_message">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    {!! Session::get('mensaje_exito') !!}
+                                </div>
+                            </div>
 
-                        <script>
-                            window.setTimeout(function () { // hide alert message
-                                $("#alert_message").alert('close');
-                            }, 7000);//milisegundos
-                        </script>
+                            <script>
+                                window.setTimeout(function () { // hide alert message
+                                    $("#alert_message").alert('close');
+                                }, 7000);//milisegundos
+                            </script>
+                        @endif
                     @endif
                     @yield('content')
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>

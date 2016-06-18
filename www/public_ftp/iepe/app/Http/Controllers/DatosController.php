@@ -86,7 +86,7 @@ class DatosController extends Controller
             $validator=$this->validar($row,$conteo);
             if($validator->fails()){
                 array_push($errors,$validator);
-            }elseif(!(Datos_sun::where('fecha_evaluacion',$row->fecha_evaluacion)->where('orientacion',$row->orientacion)->count()>0)){
+            }elseif(!(Datos_sun::where('fecha_evaluacion',$row->fecha_evaluacion)->where('orientacion',$row->orientacion)->where('id_materia',$row->id_materia)->count()>0)){
                 Datos_sun::create($row->toarray());
                 $insertados=$insertados+1;
             }

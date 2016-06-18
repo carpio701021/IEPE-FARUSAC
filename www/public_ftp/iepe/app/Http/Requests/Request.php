@@ -20,6 +20,7 @@ abstract class Request extends FormRequest
             'after'         => 'La :attribute debe estar programada para después de :date',
             'min'           => 'El campo :attribute debe ser mayor o igual a :min',
             'max'           => 'El campo :attribute debe ser menor o igual a :max',
+            'unique'        => 'El campo :attribute ya existe',
         ];
     }
 }

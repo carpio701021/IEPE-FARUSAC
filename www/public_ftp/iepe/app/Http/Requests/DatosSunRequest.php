@@ -24,7 +24,7 @@ class DatosSunRequest extends Request
     public function rules()
     {
         return [
-            "orientacion"=>"required|integer|min:1000000000|max:9999999999",
+            "orientacion"=>"required|integer|min:100000000|max:9999999999",
             "dato_sun"=>"required",
         ];
     }

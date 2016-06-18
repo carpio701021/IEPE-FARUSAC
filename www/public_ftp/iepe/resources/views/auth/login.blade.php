@@ -1,7 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.aspirante-layout')
 
 @section('content')
 <div class="container">
+    @if (Session::has('status'))
+        <div class="alert alert-success">
+            {{ Session::get('status') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -14,7 +19,7 @@
                             <label class="col-md-4 control-label">Número de Orientación Vocacional</label>
 
                             <div class="col-md-6">
-                                <input type="number" min="1000000000" max="9999999999"  class="form-control" name="NOV" value="{{ old('NOV') }}">
+                                <input type="text"  class="form-control" name="NOV" value="{{ old('NOV') }}">
 
                                 @if ($errors->has('NOV'))
                                     <span class="help-block">

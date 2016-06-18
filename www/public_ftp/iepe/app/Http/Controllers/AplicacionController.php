@@ -180,6 +180,11 @@ class AplicacionController extends Controller
     {
         //
         $aplicacion = Aplicacion::findOrFail($id);
+        //dd($aplicacion->fecha_inicio_asignaciones < date("Y-m-d"));
+        if($aplicacion->fecha_inicio_asignaciones<date("Y-m-d") && date("Y-m-d h:i")<$aplicacion->fecha_fin_asignaciones){
+            $errors = Array('No se puede editar la <i>'.$aplicacion->nombre().'</i> ya que está en tiempo de asignaciones');
+            return redirect('/admin/aplicacion')->withErrors($errors)->withInput();
+        }
         $titulo = 'Editar aplicación';
         $put = true;
         return view('admin.aplicacion.create',compact('aplicacion','titulo','put'));
@@ -265,7 +270,7 @@ class AplicacionController extends Controller
     public function getAplicacionesAnio($anio){
         return Aplicacion::where('year',$anio)->get()->toJson();
     }
-    
+
     public function getConstanciasSatisfactorias($id){
         set_time_limit(120);
         $asignaciones=Db::table('aspirantes_aplicaciones as aa')
@@ -289,6 +294,7 @@ class AplicacionController extends Controller
         return $pdf->stream();
 
     }
+
 
     public function getListados($id){
         Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
