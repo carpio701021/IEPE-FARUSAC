@@ -20,7 +20,7 @@
 
                                 @if ($errors->has('NOV'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('NOV') }}</strong>
+                                        <strong>{!! $errors->first('NOV') !!}</strong>
                                     </span>
                                 @endif
                             </div>

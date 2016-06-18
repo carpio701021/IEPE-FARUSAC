@@ -3,8 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row">
-
-
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+        @if (session('warning'))
+            <div class="alert alert-warning">
+                {{ session('warning') }}
+            </div>
+        @endif
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Registro</div>
@@ -20,7 +28,7 @@
 
                                 @if ($errors->has('NOV'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('NOV') }}</strong>
+                                        <strong>{!! $errors->first('NOV') !!}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -34,7 +42,7 @@
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{!! $errors->first('email') !!}</strong>
                                     </span>
                                 @endif
                             </div>

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\ActivationService;
 
 class AuthController extends Controller
 {
@@ -35,15 +36,17 @@ class AuthController extends Controller
     protected $redirectAfterLogout = '/';
     protected $guard = 'aspirante_web';
     protected $username = 'NOV';
+    protected $activationService;
 
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ActivationService $activationService)
     {
         $this->middleware('aspirante_web', ['except' => 'logout']);
+        $this->activationService = $activationService;
     }
 
     /**
@@ -68,15 +71,35 @@ class AuthController extends Controller
     {
         $messages = [
             'required' => 'El campo :attribute es obligatorio.',
-            'unique'   => 'El campo :attribute ya existe. <br>Prueba recuperar<a class="btn btn-link" href="'+url('/password/reset')+'"></a>',
+            'unique'   => 'El :attribute proporcionado ya existe. <a class="btn btn-link" href="'.url('/password/reset').'">Recuperar contraseña</a><br>Si el problema persiste presentarse a la oficina de Orientacion Estudiantil de Arquitectura.',
             'numeric'  => 'El campo :attribute debe ser numérico',
             'email'    => 'El campo :attribute debe ser un correo electrónico válido.',
+            'taken'    => 'El campo :attribute debe ser un correo electrónico válido.',
         ];
         return Validator::make($data, [
             'NOV' => 'required|numeric|unique:aspirantes',
             'email' => 'required|email|max:255|unique:aspirantes',
             'password' => 'required|confirmed|min:6',
         ],$messages);
+    }
+
+    public function authenticated(Request $request, $user)
+    {
+        if (!$user->activated) {
+            $this->activationService->sendActivationMail($user);
+            auth()->logout();
+            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+        }
+        return redirect()->intended($this->redirectPath());
+    }
+
+    public function activateUser($token)
+    {
+        if ($user = $this->activationService->activateUser($token)) {
+            auth()->login($user);
+            return redirect($this->redirectPath());
+        }
+        abort(404);
     }
 
     /**
@@ -97,20 +120,35 @@ class AuthController extends Controller
 
         /**Verificar si es carnet**/
         if( $request->NOV > 100000000 && $request->NOV < 999999999 ){
-            $errors = Array('NOV'=>'Usted esta tratando de acceder con un número de carnet.<br>Favor pasar a la oficina de Orientación Estudiantil de la Facultad de Arquitectura para registrar su número de orientación vocacional.');
+            $errors = Array('NOV'=>'Usted esta tratando de acceder con un número de carnet. Favor intente con su número de orientación vocacional. Si continua el error, pasar a la oficina de Orientación Estudiantil de Arquitectura.');
             return redirect('/register')->withErrors($errors)->withInput();
         }
 
-        /**Verificar si existe en la base de datos del SUN**/
-        $existente = Datos_sun::where('orientacion',$request->NOV)->first();
-        if($existente == null){
+        //redirect('/register')->with('status', 'We sent you an activation code. Check your email.');
+
+        /**Verificar si existe en la base de datos del SUN (deben ganar lenguaje-> 3 y matematicas-> 4)**/
+        $lenguaje = Datos_sun::where('orientacion',$request->NOV)
+            ->where('id_materia','3')
+            ->where('aprobacion','1')
+            ->first();
+        $mate = Datos_sun::where('orientacion',$request->NOV)
+            ->where('id_materia','4')
+            ->where('aprobacion','1')
+            ->first();
+
+        //dd($mate);
+
+        if($lenguaje == null || $mate == null){
             $errors = Array('NOV'=>'No se han encontrado registros válidos en nuestra base de datos.');
             return redirect('/register')->withErrors($errors)->withInput();
         }
 
-        Auth::guard($this->getGuard())->login($this->create($request->all()));
+        //Auth::guard($this->getGuard())->login($this->create($request->all()));
+        $user = $this->create($request->all());
+        $this->activationService->sendActivationMail($user);
 
-        return redirect($this->redirectPath());
+        //return redirect($this->redirectPath());
+        return redirect('/login')->with('status', 'We sent you an activation code. Check your email.');
     }
 
     /**
@@ -149,6 +187,8 @@ class AuthController extends Controller
         return property_exists($this, 'username') ? $this->username : 'NOV';
     }
 
+
+
     /**
      * Handle a login request to the application.
      *
@@ -176,7 +216,12 @@ class AuthController extends Controller
 
         if (Auth::guard('aspirante_web')->attempt($credentials) )
         {
-            //dd(Auth::user());
+            /*/if(!Auth::guard('aspirante_web')->user()->activated){
+                //error de que falta activar
+                $errors = Array('NOV'=>'Aun no ha confirmado su correo electrónico.');
+                return redirect('login')->withErrors($errors)->withInput();
+            }*/
+
             return redirect($this->redirectTo);
         }
 
