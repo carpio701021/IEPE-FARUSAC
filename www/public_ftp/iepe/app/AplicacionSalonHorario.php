@@ -37,4 +37,8 @@ class AplicacionSalonHorario extends Model
         return $this->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')->get();
     }
 
+    public function printNombre(){
+        return $this->getSalon()->nombre.'_'.$this->getHorario()->id;
+    }
+
 }
