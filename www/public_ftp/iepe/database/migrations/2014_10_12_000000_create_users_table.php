@@ -46,6 +46,12 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('lista_negra_aspirantes', function (Blueprint $table) {
+            $table->increments('id_formulario');
+            $table->bigInteger('NOV')->unsigned();
+            $table->timestamps();
+        });
+
         Schema::create('formularios', function (Blueprint $table) {
             $table->increments('id_formulario');
             $table->string('nombre');
@@ -78,6 +84,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('formularios');
+        Schema::drop('lista_negra_aspirantes');
         Schema::drop('aspirantes');
         Schema::drop('admins');
     }
