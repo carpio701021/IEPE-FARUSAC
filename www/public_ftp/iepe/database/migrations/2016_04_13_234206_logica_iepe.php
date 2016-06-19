@@ -36,6 +36,7 @@ class LogicaIepe extends Migration
         Schema::create('aplicaciones', function (Blueprint $table) {
             $table->increments('id');
             //$table->string('nombre');
+            $table->integer('irregular')->unsigned()->default(0);
             $table->integer('year')->unsigned();
             $table->integer('naplicacion')->unsigned();
             $table->unique(
