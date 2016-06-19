@@ -349,9 +349,7 @@ class AplicacionController extends Controller
                         $sheet->setCellValue($c_ini.'7',$sh->getSalon()->printNombre());
                         $sheet->setCellValue($c_ini.'8',$sh->getHorario()->printHorario());
 
-                        $sheet->setFreeze('A9');/*$sheet->setFreeze('2');$sheet->setFreeze('3');
-                        $sheet->setFreeze('4');$sheet->setFreeze('5');$sheet->setFreeze('6');
-                        $sheet->setFreeze('7');$sheet->setFreeze('8');*/
+                        $sheet->setFreeze('A10');
                         for ($i = 1;$i<=count($asignaciones);$i++){
                             $sheet->setCellValue('A'.(9+$i),$i);
                         }
@@ -387,5 +385,5 @@ class AplicacionController extends Controller
 
         });
     }
-    
+
 }
