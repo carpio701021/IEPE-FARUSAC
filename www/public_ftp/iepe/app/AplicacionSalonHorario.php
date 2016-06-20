@@ -17,7 +17,7 @@ class AplicacionSalonHorario extends Model
      * @var array
      */
     protected $fillable = [
-        'aplicacion_id','salon_id','horario_id'
+        'aplicacion_id','salon_id','horario_id','fecha_aplicacion'
     ];
 
     public function getSalon(){

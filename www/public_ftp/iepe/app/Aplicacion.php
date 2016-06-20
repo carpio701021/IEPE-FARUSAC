@@ -22,14 +22,16 @@ class Aplicacion extends Model
      */
     protected $fillable = [
         'year','naplicacion','fecha_inicio_asignaciones',
-        'fecha_fin_asignaciones', 'fecha_aplicacion',
+        'fecha_fin_asignaciones', 'irregular'
     ];
-
+    /*
     function fecha_aplicacion(){
         return $this->fecha_aplicacion;
     }
+    */
     function nombre(){
-        return 'Aplicación '.$this->naplicacion.' del '.$this->year;
+        if($this->irregular>0) return 'Aplicación '.$this->naplicacion.'.'.$this->irregular.' del '.$this->year;
+        else return 'Aplicación '.$this->naplicacion.' del '.$this->year;
     }
 
     function addSalon($edificio,$nombre,$capacidad){
@@ -49,19 +51,22 @@ class Aplicacion extends Model
         return $horario->id;
     }
 
-    private function generarSalonesHorarios($ids_salones, $ids_horarios){
+    private function generarSalonesHorarios($ids_salones, $ids_horarios,$fechasA){
         foreach($ids_horarios as $h){
             foreach($ids_salones as $s){
-                (AplicacionSalonHorario::firstOrCreate([
-                    'aplicacion_id'     =>  $this->id,
-                    'salon_id'          =>  $s,
-                    'horario_id'        =>  $h,
-                ]));
+                foreach($fechasA as $f) {
+                    (AplicacionSalonHorario::firstOrCreate([
+                        'aplicacion_id' => $this->id,
+                        'salon_id' => $s,
+                        'horario_id' => $h,
+                        'fecha_aplicacion' => $f,
+                    ]));
+                }
             }
         }
     }
 
-    function asignarSalonesHorarios($salones,$horarios){
+    function asignarSalonesHorarios($salones,$horarios,$fechasA){
         $ids_salones = Array();
         $ids_horarios = Array();
 
@@ -71,10 +76,10 @@ class Aplicacion extends Model
         foreach($horarios as $horario){
             $ids_horarios[] = $horario->id;
         }
-        $this->generarSalonesHorarios($ids_salones, $ids_horarios);
+        $this->generarSalonesHorarios($ids_salones, $ids_horarios,$fechasA);
     }
 
-    function agregarSalonesHorarios($rsalones,$rhorarios){
+    function agregarSalonesHorarios($rsalones,$rhorarios,$fechasA){
         //meter salones
         AplicacionSalonHorario::where('aplicacion_id',$this->id)->delete();
         $ids_salones = Array();
@@ -88,7 +93,11 @@ class Aplicacion extends Model
             $hs =  explode("-", $horario,2);
             $ids_horarios[] = $this->addHorario($hs[0],$hs[1]);
         }
-        $this->generarSalonesHorarios($ids_salones, $ids_horarios);
+        $arr_fechas = Array();
+        foreach($fechasA as $fecha){
+            $arr_fechas[] = $fecha;
+        }
+        $this->generarSalonesHorarios($ids_salones, $ids_horarios,$fechasA);
     }
 
     function getHorarios(){
@@ -105,6 +114,11 @@ class Aplicacion extends Model
                 'App\Salon','aplicaciones_salones_horarios','aplicacion_id','salon_id'
             )->distinct()->get()
             ;
+    }
+
+    function getFechasA(){
+        return
+        AplicacionSalonHorario::where('aplicacion_id',$this->id)->distinct('fecha_aplicacion');
     }
 
     function getCapacidadMaxima(){

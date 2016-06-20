@@ -40,12 +40,11 @@ class LogicaIepe extends Migration
             $table->integer('year')->unsigned();
             $table->integer('naplicacion')->unsigned();
             $table->unique(
-                ['year', 'naplicacion'],
+                ['year', 'naplicacion','irregular'],
                 'aplicacion_name_unique');
 
             $table->string('path_arte');
 
-            $table->date('fecha_aplicacion');
             $table->date('fecha_inicio_asignaciones');
             $table->datetime('fecha_fin_asignaciones');
 
@@ -75,8 +74,9 @@ class LogicaIepe extends Migration
             $table->integer('horario_id')->unsigned();
             $table->foreign('horario_id')->references('id')->on('horarios');
             $table->integer('asignados')->unsigned()->default(0);
+            $table->date('fecha_aplicacion');
 
-            $table->unique(['aplicacion_id', 'salon_id','horario_id'],'aplicacion_salon_horario_primary');
+            $table->unique(['aplicacion_id', 'salon_id','horario_id','fecha_aplicacion'],'aplicacion_salon_horario_primary');
             $table->timestamps();
         });
 

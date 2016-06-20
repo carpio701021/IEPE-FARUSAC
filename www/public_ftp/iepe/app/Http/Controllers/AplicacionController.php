@@ -26,7 +26,7 @@ class AplicacionController extends Controller
     public function index()
     {
         //
-        $aplicaciones = Aplicacion::orderBy('fecha_aplicacion', 'desc')->paginate(3);
+        $aplicaciones = Aplicacion::orderBy('created_at', 'desc')->paginate(3);
         //return view('admin.aplicacion.index',['aplicacion'=> $aplicacion]);
         return view('admin.aplicacion.index',compact('aplicaciones'));
     }
@@ -46,7 +46,18 @@ class AplicacionController extends Controller
 
     public function getCrearEspecial($id)
     {
-        $aplicacion = new Aplicacion();
+        $aplicacionBase = Aplicacion::findOrFail($id);
+        $nextIrregular = Aplicacion::where('year',$aplicacionBase->year)
+            ->where('year',$aplicacionBase->year)
+            ->where('naplicacion',$aplicacionBase->naplicacion)
+            ->max('irregular') + 1
+            ;
+        //dd($nextIrregular);
+        $aplicacion = new Aplicacion([
+            'year'=>$aplicacionBase->year,
+            'naplicacion'=>$aplicacionBase->naplicacion,
+            'irregular'=>$nextIrregular
+        ]);
         $titulo = 'Crear aplicación especial';
         $especial =$id;
         return view('admin.aplicacion.create',compact('aplicacion','titulo','put','especial'));
@@ -62,7 +73,10 @@ class AplicacionController extends Controller
     {
 
         //$this->asignarIrregulares($request->_especial,Aplicacion::find(5));
-        if(Aplicacion::where('year',$request->year)->where('naplicacion',$request->naplicacion)->first()){
+        if(Aplicacion::where('year',$request->year)
+            ->where('naplicacion',$request->naplicacion)
+            ->where('irregular',(isset($request->_especial)?$request->_especial:0))
+            ->first()){
             $errors = Array('La combinacion de año y número de aplicación ya existe');
             return redirect('/admin/aplicacion/create')->withErrors($errors)->withInput();
         }
@@ -74,18 +88,8 @@ class AplicacionController extends Controller
         $aplicacion->percentil_RV	= 80;
         $aplicacion->percentil_APN	= 80;
 
-        /*
-        if($request->hasFile('arte')){
-            $destinationPath ='/arte_aplicaciones'; // upload path
-            $extension = $request->file('arte')->getClientOriginalExtension(); // getting file extension
-            $fileName = 'arte'. '['.Carbon::now().']'. rand(10000,99999).'.'.$extension; // rename file
-            $request->file('arte')->move( storage_path().$destinationPath,$fileName);
-            $aplicacion->path_arte = $destinationPath . '/' . $fileName;
-        }
-        */
-
         $aplicacion->save();
-        $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
+        $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios,$request->fechasA);
         if($request->_especial){
             if($this->asignarIrregulares($request->_especial,$aplicacion)){//se asignan automaticamente
                 $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente. Se asignaron los estudiantes irregulares');
