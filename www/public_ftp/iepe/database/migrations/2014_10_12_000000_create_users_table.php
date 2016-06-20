@@ -47,7 +47,7 @@ class CreateUsersTable extends Migration
         });
 
         Schema::create('lista_negra_aspirantes', function (Blueprint $table) {
-            $table->increments('id_formulario');
+            $table->increments('id');
             $table->bigInteger('NOV')->unsigned();
             $table->timestamps();
         });
