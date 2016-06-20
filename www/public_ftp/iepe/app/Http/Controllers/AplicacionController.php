@@ -297,15 +297,15 @@ class AplicacionController extends Controller
 
 
     public function getListados($id){
-        Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
+        //Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
 
-            Excel::create('Listados_'.Aplicacion::find($id)->nombre(),function($excel) use ($id,$file){
+            Excel::create('Listados_'.Aplicacion::find($id)->nombre(),function($excel) use ($id){
                 $aplicacion=Aplicacion::find($id);
                 $salones_horarios = $aplicacion->getSalonesHorarios();
                 foreach ($salones_horarios as $sh){
 
                     //obtener data
-                    $excel->sheet($sh->printNombre(), function($sheet) use ($sh,$file,$aplicacion) {
+                    $excel->sheet($sh->printNombre(), function($sheet) use ($sh,$aplicacion) {
                         $asignaciones=$sh->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
                             ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
                             ->selectRaw('NOV,nombre,apellido')
@@ -345,7 +345,7 @@ class AplicacionController extends Controller
                         $sheet->setCellValue($c_ini.'2','Facultad de Arquitectura');
                         $sheet->setCellValue($c_ini.'3','Unidad de Orientación Estudiantil');
                         $sheet->setCellValue($c_ini.'5', $aplicacion->nombre());
-                        $sheet->setCellValue($c_ini.'6',$aplicacion->fecha_aplicacion());
+                        $sheet->setCellValue($c_ini.'6',$aplicacion->fecha_aplicacion);
                         $sheet->setCellValue($c_ini.'7',$sh->getSalon()->printNombre());
                         $sheet->setCellValue($c_ini.'8',$sh->getHorario()->printHorario());
 
@@ -383,7 +383,7 @@ class AplicacionController extends Controller
                 }
             })->download('xlsx');
 
-        });
+        //});
     }
     
     

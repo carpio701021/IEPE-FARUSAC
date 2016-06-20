@@ -20,29 +20,14 @@
                         <div class="panel-body">
 
                             <div class="row">
-                                <div class="col-md-4 form-group">
-                                    <h4>Datos generales</h4>
-                                    <div class="col-md-12 form-group">
-                                        <div class="col-md-6"><b>Inicio de asignaciones:</b></div>
-                                        <div class="col-md-6 fecha">{{ $anio->year }}</div>
-                                    </div>
-                                    <div class="col-md-12 form-group">
-                                        <div class="col-md-6"><b>Cierre asignaciones:</b></div>
-                                        <div class="col-md-6 fecha">{{ $anio->year }}</div>
-                                    </div>
-                                    <div class="col-md-12 form-group">
-                                        <div class="col-md-6"><b>Día de la aplicación:</b></div>
-                                        <div class="col-md-6 fecha">{{ $anio->year }}</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <h4>Escuela de Arquitectura</h4>
                                     <ul>
                                         <li><a href="/admin/notificar/listado?anio={{$anio->year}}&escuela=arquitectura"><span class="glyphicon glyphicon-list"></span> Generar y ver listado</a></li>
                                         <li><a href="/admin/notificar/enviar?anio={{ $anio->year }}&escuela=arquitectura"><span class="glyphicon glyphicon-send"></span> Notificar a escuela</a></li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <h4>Escuela de Diseño Gráfico</h4>
                                     <ul>
                                         <li><a href="/admin/notificar/listado?anio={{$anio->year}}&escuela=diseño"><span class="glyphicon glyphicon-list"></span> Generar y ver listado</a></li>

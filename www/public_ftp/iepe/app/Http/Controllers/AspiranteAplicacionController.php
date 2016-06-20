@@ -63,8 +63,8 @@ class AspiranteAplicacionController extends Controller
             $pdf=$this->generarConstanciaPDF($asignacion->id);
             $mail = new Mail();
             $request->session()->flash('mensaje_exito', 'Asignación realizada correctamente, puedes revisar tu salón y horario para la prueba');
-            if($mail->send(Auth::user()->email,
-                Auth::user()->getFormulario()->nombre." ".Auth::user()->getFormulario()->apellido,
+            if($mail->send([Auth::user()->email =>
+                Auth::user()->getFormulario()->nombre." ".Auth::user()->getFormulario()->apellido],
                 'Constancia de asignación',
                 'Imprime esta constancia para resguardar tu asignación',
                 $pdf->output(),

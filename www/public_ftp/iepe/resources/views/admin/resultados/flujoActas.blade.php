@@ -13,7 +13,7 @@
                             <select id='select_anio' name="anio" class="form-control" onchange="onChange_anio(this.value)">
                                 <option> Selecciona un año</option>
                                 @foreach($anios as $anio)
-                                    <option value="{{ $anio->year }}" @if(old('anio')==$anio->year) selected="true" @endif>{{ $anio->year }}</option>
+                                    <option value="{{ $anio->year }}">{{ $anio->year }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -88,7 +88,7 @@
                         <div class="row form-group">
                             <div class="col-sm-8">
                                 <select class="input-group-lg form-control" name='' id="select_espera" size="3" style="width: 100%">
-                                        <option class="list-group-item enviada_item" value="4">Opcion de prueba</option>
+                                        <option class="list-group-item acta_item" value="4">Opcion de prueba</option>
                                 </select>
                             </div>
                             <div class="col-sm-4" id="enviada_info">
@@ -175,7 +175,7 @@
                                 <select class="input-group-lg form-control" name='' id="select_reprobadas" size="3" style="width: 100%">
                                 </select>
                             </div>
-                            <div class="col-sm-4" id="reporbada_info">
+                            <div class="col-sm-4" id="reprobada_info">
 
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                         </div>
                         <a class="btn btn-default btn-verPDF" name='aprobada_pdf' target="_blank">Ver PDF</a>
                         @if(Auth::guard('admin')->user()->tieneRol('jefe_bienestar'))
-                            <button class="btn btn-default" type="button">Enviar notificación</button>
+                            <button class="btn btn-default" id='btn_notificar' type="button">Enviar notificación</button>
                             <a class="btn btn-default" id='btn_constancias' target="_blank">Generar Constancias</a>
                         @endif
                     </div>
@@ -248,14 +248,14 @@
                             if(document.getElementById("select_propuestas"))
                                 select_propuestas.add(option);
                         if(actas[i]['estado']=='enviada') {
-                            option.className='list-group-item enviada_item';
+                            option.className='list-group-item acta_item';
                             select_espera.add(option);
                         }
                         if(actas[i]['estado']=='aprobada') {
                             select_aprobadas.add(option);
                         }
                         if(actas[i]['estado']=='reprobada') {
-                            option.className='list-group-item reprobada_item';
+                            option.className='list-group-item acta_item';
                             select_reprobadas.add(option);
                         }
                     }
@@ -314,7 +314,8 @@
                 else
                     id=select_espera.value;
                     if(this.id=='btn_reprobar_confirm'){
-                        alert("{{Auth::guard('admin')->user()->getRolName()}}");
+                        //alert("{{--Auth::guard('admin')->user()->getRolName()--}}");
+                        data.comentario=txt_justificacion.value;
                         if("{{Auth::guard('admin')->user()->rol}}"=='decano') data.aprobacion_decanato=-1;
                         if("{{Auth::guard('admin')->user()->rol}}"=='secretario') data.aprobacion_secretaria=-1;
                     }
@@ -327,6 +328,7 @@
                 $.post("/admin/acta/"+id,
                         data,
                         function(data){
+                            //alert(data);
                             if(data=='enviada') {
                                 $('.input-group-lg option[value="' + id + '"]').remove().appendTo('#select_espera');
                                 actualizarInfoActa(enviada_info,id);
@@ -334,6 +336,7 @@
                             else
                                 if(data=='reprobada') {
                                     $('.input-group-lg option[value="' + id + '"]').remove().appendTo('#select_reprobadas');
+                                    actualizarInfoActa(reprobada_info,id);
                                     enviada_info.innerHTML=''
                                 }
                                 else
@@ -346,23 +349,33 @@
             });
 
         });
-        $("#select_espera").on('click','option.enviada_item',function () {
+        $("#select_espera").on('click','option.acta_item',function () {
             actualizarInfoActa(enviada_info,select_espera.value);
         });
 
-        $("#select_reprobadas").on('click','option.reprobada_item',function () {
+        $("#select_reprobadas").on('click','option.acta_item',function () {
             actualizarInfoActa(reprobada_info,select_reprobadas.value);
         });
+
+        $('#btn_notificar').click(function(){
+            $.get('/admin/acta/'+select_aprobadas.value+'/notificar',function(data){
+                alert(data);
+            });
+        })
 
         function actualizarInfoActa(area,acta_id){
             $.get('/admin/acta/info/'+acta_id,
                     function(data){
                         var acta = jQuery.parseJSON(data);
-                        var decanato = (acta['aprobacion_decanato']+"").replace('1','aprobado').replace('0','pendiente');
-                        var secretaria = (acta['aprobacion_secretaria']+"").replace('1','aprobado').replace('0','pendiente');
-                        area.innerHTML='<h4>Estado de aprobación</h4>' +
-                                '<p>Decanatura: '+decanato +'<br>'+
-                                'Secretaría: '+secretaria+ '</p>';
+                        if(area.id=='reprobada_info'){
+                            area.innerHTML = '<h4>Motivo</h4><p>' +acta['comentario']+'</p>';
+                        }else {
+                            var decanato = (acta['aprobacion_decanato'] + "").replace('1', 'aprobado').replace('0', 'pendiente');
+                            var secretaria = (acta['aprobacion_secretaria'] + "").replace('1', 'aprobado').replace('0', 'pendiente');
+                            area.innerHTML = '<h4>Estado de aprobación</h4>' +
+                                    '<p>Decanatura: ' + decanato + '<br>' +
+                                    'Secretaría: ' + secretaria + '</p>';
+                        }
                     }
             );
         }

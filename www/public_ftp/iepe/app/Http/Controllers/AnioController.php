@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\AspiranteAplicacion;
+use App\Mail;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Aplicacion;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Admin;
 
 class AnioController extends Controller
 {
     public function index(){
-        $anios = Aplicacion::selectraw('year')->groupby('year')->paginate(3);
+        $anios = Aplicacion::selectraw('year')->groupby('year')->orderby('year','desc')->paginate(3);
         //return view('admin.aplicacion.index',['aplicacion'=> $aplicacion]);
         return view('admin.aplicacion.notificar_escuelas',compact('anios'));
     }
@@ -31,7 +33,7 @@ class AnioController extends Controller
         ->selectraw('f.NOV,f.nombre,f.apellido,email,carrera,jornada');
         //dd($aprobados->get());
 
-        $excel = Excel::create($request->anio.' Listado - '.$request->escuela, function($excel) use($aprobados){
+        $excel = Excel::create($request->anio.'_Listado-'.$request->escuela, function($excel) use($aprobados){
             $excel->sheet('Listado',function($sheet) use($aprobados){
                 $sheet->fromModel($aprobados->get());
             });
@@ -43,6 +45,24 @@ class AnioController extends Controller
     }
 
     public function enviarEscuela(Request $request){
-        return  "enviar".$request->escuela.$request->anio;
+        if($request->escuela=='arquitectura')
+            $rol = 'director_arquitectura';
+        else
+            $rol = 'director_disenio_gráfico';
+
+        $admin = Admin::where('rol',$rol)->first();
+        $filename=$request->anio.'_Listado-'.$request->escuela.'.xlsx';
+        if(!file_exists(storage_path().'/listados_escuelas/'.$filename))
+            return back()->withErrors(['file'=>'Por favor generar y revisar el listado antes de notificar a escuela']);
+        (new Mail())->sendExcel($admin->email,
+            $admin->nombre(),
+            'Listado de aspirantes aprobados '.$request->escuela,
+            'Saludos cordiales '.$admin->nombre().'.<br>El listado adjunto contiene los aspirantes aprobados en las pruebas específicas realizadas en el año '.$request->anio.'.',
+            storage_path().'/listados_escuelas/'.$filename,
+            $filename
+            );
+
+        return  back();
     }
+
 }

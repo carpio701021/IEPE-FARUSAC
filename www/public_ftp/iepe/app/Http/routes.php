@@ -57,8 +57,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::get('datos/insert/search','DatosController@search');
 
             Route::get('acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
-
-
+            Route::get('acta/{acta_id}/notificar','ActaController@notificar');
 
             Route::post('acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');
         });
@@ -80,8 +79,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::get('notificar/listado','AnioController@generarListado');
             Route::get('notificar/enviar','AnioController@enviarEscuela');
         });
-
-
 
     });
 });
