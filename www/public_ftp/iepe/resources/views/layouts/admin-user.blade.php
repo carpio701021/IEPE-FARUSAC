@@ -60,7 +60,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/admin/usuarios">Usuarios</a></li>
-                            <li><a href="#">Notificar a direcciones de escuela</a></li>
+                            <li><a href="/admin/notificar">Notificar a direcciones de escuela</a></li>
                             <li><a href="/admin/datos">Cargar datos del SUN</a></li>
                         </ul>
                     </li>

@@ -12,6 +12,28 @@
 */
 
 
+$factory->define(App\Formulario::class, function (Faker\Generator $faker) {
+    return [
+        'nombre'        => $faker->name,
+        'apellido'      => $faker->lastname,
+        'residencia'      => $faker->address,
+        'departamento'      => $faker->state,
+        'genero'        => $faker->boolean,
+        'fecha_nacimiento'=>$faker->date($format = 'Y-m-d'),
+        'estado_civil'  => 'soltero',
+        'estado_laboral'  => 'trabaja',
+        'titulo'  => $faker->jobTitle,
+        'anio_titulo'=> 2016,
+        'dependientes'=>1,
+        'centro_educativo'=>$faker->city,
+        'direccion_centro_educativo'=> $faker->address,
+        'sector'         => $faker->numberBetween(1,2),
+        'carrera'      => $faker->numberBetween(1,2),
+        'jornada'=> $faker->numberBetween(1,2),
+        'confirmacion_intereses'=>0,
+    ];
+});
+
 $factory->define(App\Aspirante::class, function (Faker\Generator $faker) {
     return [
         'NOV'           => $faker->unique()->numberBetween(1000000000,1000001200),

@@ -13,5 +13,6 @@ class TablaAspirantesSeeder extends Seeder
     {
         //factory(App\Aspirante::class, 1200)->create();
         factory(App\AspiranteAplicacion::class,1200)->create();
+        
     }
 }

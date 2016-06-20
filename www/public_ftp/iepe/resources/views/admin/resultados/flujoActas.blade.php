@@ -232,7 +232,6 @@
             xhttp.onreadystatechange = function(){
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                     var actas =JSON.parse(xhttp.responseText);
-                    alert(xhttp.responseText);
                     if(document.getElementById("select_propuestas"))
                         select_propuestas.innerHTML="";
                     select_espera.innerHTML="";

@@ -70,6 +70,7 @@ class CreateUsersTable extends Migration
             $table->enum('sector',['privado', 'publico']);
             $table->enum('carrera',['arquitectura', 'diseño']);
             $table->enum('jornada',['matutina', 'vespertina']);
+            $table->boolean('confirmacion_intereses');
             $table->bigInteger('NOV')->unsigned();
             $table->foreign('NOV')->references('NOV')->on('aspirantes');
             $table->timestamps();

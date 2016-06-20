@@ -155,4 +155,6 @@ class ActaController extends Controller
         $pdf->loadView('admin.pdf.constanciasSatisfactorias',compact('asignaciones','aplicacion'));
         return $pdf->stream();
     }
+
+    
 }

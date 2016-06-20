@@ -7,7 +7,7 @@
         </style>
     </head>
     <body>
-    <p align="justify">Universidad de San Carlos de Guatemala, Facultad de Arquitectura, Acta Ref. EA-00000 , por
+    <p align="justify">Universidad de San Carlos de Guatemala, Facultad de Arquitectura, Acta Ref. EA-{{$aplicacion->year*1000+$acta->id}} , por
         medio de la presente, el señor decano, Arquitecto Byron Rabe Rendón, el señor Secretario
         Académico Arquitecto Publio Rodríguez Lobos y el Jefe de la Unidad de Bienestar y Desarrollo
         Estudiantil Arquitecto Oscar Enríquez, hacen constar que se tuvo a la vista los resultados de la

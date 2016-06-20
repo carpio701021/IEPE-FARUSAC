@@ -76,6 +76,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             //Route::resource('datos','DatosController');
             Route::post('datos','DatosController@store');
             Route::get('datos','DatosController@index');
+            Route::get('notificar','AnioController@index');
+            Route::get('notificar/listado','AnioController@generarListado');
+            Route::get('notificar/enviar','AnioController@enviarEscuela');
         });
 
 
