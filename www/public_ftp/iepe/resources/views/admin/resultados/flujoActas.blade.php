@@ -31,58 +31,55 @@
                         </div>
                         <div class="col-sm-1">
                             <button type="button" onclick="btn_buscar(select_anio.value,select_aplicacion.value)" class="btn btn-default">Buscar</button>
-                            <form action="/admin/acta/1" method="post">
-                                {{csrf_field()}}
-                                <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit"> probador </button>
-                            </form>
                         </div>
                     </div>
                 </fieldset>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-offset-3 col-sm-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h4>Propuestas de acta</h4></div>
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            <select class="input-group-lg form-control" name='' id="select_propuestas" size="3" style="width: 100%">
+        @if(Auth::guard('admin')->user()->tieneRol('jefe_bienestar'))
+            <div class="row">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h4>Propuestas de acta</h4></div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <select class="input-group-lg form-control" name='' id="select_propuestas" size="3" style="width: 100%">
 
-                            </select>
-                        </ul>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmRevision">Enviar a revisión</button>
+                                </select>
+                            </ul>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmRevision">Enviar a revisión</button>
 
-                        <!-- Modal -->
-                        <div id="modalConfirmRevision" class="modal fade" role="dialog">
-                            <div class="modal-dialog ">
-                                <!-- Modal content-->
-                                <div class="modal-content panel-primary">
-                                    <div class="modal-header panel-heading">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Enviar a revisión</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p style="font-size: 20px">Esta acción no se puede deshacer. ¿Desea enviarla a secretaria y decanatura para su aprobación?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary btn_cambio_estado_acta" id="btn_enviar_revision_confirm" data-dismiss="modal">Enviar</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <!-- Modal -->
+                            <div id="modalConfirmRevision" class="modal fade" role="dialog">
+                                <div class="modal-dialog ">
+                                    <!-- Modal content-->
+                                    <div class="modal-content panel-primary">
+                                        <div class="modal-header panel-heading">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Enviar a revisión</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p style="font-size: 20px">Esta acción no se puede deshacer. ¿Desea enviarla a secretaria y decanatura para su aprobación?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary btn_cambio_estado_acta" id="btn_enviar_revision_confirm" data-dismiss="modal">Enviar</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
+                            <button type="button" id='btn_eliminar_propuesta' class="btn btn-danger">Eliminar propuesta</button>
+                            <a class="btn btn-default btn-verPDF" name='propuesta_pdf' target="_blank">Ver PDF</a>
                         </div>
-
-
-                        <button type="button" id='btn_eliminar_propuesta' class="btn btn-danger">Eliminar propuesta</button>
-                        <a class="btn btn-default btn-verPDF" name='propuesta_pdf' target="_blank">Ver PDF</a>
                     </div>
                 </div>
             </div>
-        </div>
-        <div align="center">
-            <span class="glyphicon glyphicon-arrow-down" style='font-size: 50px; color:steelblue' aria-hidden="true"></span>
-        </div>
+            <div align="center">
+                <span class="glyphicon glyphicon-arrow-down" style='font-size: 50px; color:steelblue' aria-hidden="true"></span>
+            </div>
+        @endif
         <div class="row">
             <div class="col-sm-offset-2 col-sm-8">
                 <div class="panel panel-info">
@@ -99,8 +96,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalConfirmReprobar">Reprobar</button>
+                            @if(Auth::guard('admin')->user()->tieneRol('secretario')||Auth::guard('admin')->user()->tieneRol('decano'))
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalConfirmReprobar">Reprobar</button>
+                            @endif
                             <!-- Modal -->
                             <div id="modalConfirmReprobar" class="modal fade" role="dialog">
                                 <div class="modal-dialog ">
@@ -129,8 +127,9 @@
                                 </div>
                             </div>
 
-
+                            @if(Auth::guard('admin')->user()->tieneRol('secretario')||Auth::guard('admin')->user()->tieneRol('decano'))
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalConfirmAprobar">Aprobar</button>
+                            @endif
                             <!-- Modal -->
                             <div id="modalConfirmAprobar" class="modal fade" role="dialog">
                                 <div class="modal-dialog ">
@@ -167,16 +166,24 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-7">
                 <div class="panel panel-danger">
                     <div class="panel-heading"><h4>Propuestas reprobadas</h4></div>
                     <div class="panel-body">
-                        <select class="input-group-lg form-control" name='' id="select_reprobadas" size="3" style="width: 100%">
-                        </select>
+                        <div class="row form-group">
+                            <div class="col-sm-8">
+                                <select class="input-group-lg form-control" name='' id="select_reprobadas" size="3" style="width: 100%">
+                                </select>
+                            </div>
+                            <div class="col-sm-4" id="reporbada_info">
+
+                            </div>
+                        </div>
+                        <a class="btn btn-default btn-verPDF" name='reprobada_pdf' target="_blank">Ver PDF</a>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-offset-2 col-sm-5">
+            <div class=" col-sm-5">
                 <div class="panel panel-success">
                     <div class="panel-heading"><h4>Actas aprobadas</h4></div>
                     <div class="panel-body">
@@ -184,10 +191,11 @@
                             <select class="input-group-lg form-control" name='' id="select_aprobadas" size="3" style="width: 100%">
                             </select>
                         </div>
-                        <button class="btn btn-default" type="button">Enviar notificación</button>
                         <a class="btn btn-default btn-verPDF" name='aprobada_pdf' target="_blank">Ver PDF</a>
-                        <a class="btn btn-default" id='btn_constancias' target="_blank">Generar Constancias</a>
-
+                        @if(Auth::guard('admin')->user()->tieneRol('jefe_bienestar'))
+                            <button class="btn btn-default" type="button">Enviar notificación</button>
+                            <a class="btn btn-default" id='btn_constancias' target="_blank">Generar Constancias</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -224,7 +232,9 @@
             xhttp.onreadystatechange = function(){
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                     var actas =JSON.parse(xhttp.responseText);
-                    select_propuestas.innerHTML="";
+                    alert(xhttp.responseText);
+                    if(document.getElementById("select_propuestas"))
+                        select_propuestas.innerHTML="";
                     select_espera.innerHTML="";
                     select_aprobadas.innerHTML="";
                     select_reprobadas.innerHTML="";
@@ -234,8 +244,10 @@
                         option.value=actas[i]['id'];
                         option.text=nombre;
                         option.className='list-group-item';
+
                         if(actas[i]['estado']=='propuesta')
-                            select_propuestas.add(option);
+                            if(document.getElementById("select_propuestas"))
+                                select_propuestas.add(option);
                         if(actas[i]['estado']=='enviada') {
                             option.className='list-group-item enviada_item';
                             select_espera.add(option);
@@ -244,6 +256,7 @@
                             select_aprobadas.add(option);
                         }
                         if(actas[i]['estado']=='reprobada') {
+                            option.className='list-group-item reprobada_item';
                             select_reprobadas.add(option);
                         }
                     }
@@ -267,6 +280,9 @@
                     else
                         if(this.name=='aprobada_pdf')
                             href+=select_aprobadas.value;
+                        else
+                            if(this.name=='reprobada_pdf')
+                                href+=select_reprobadas.value;
                 this.href=href;
             });
 
@@ -333,6 +349,10 @@
         });
         $("#select_espera").on('click','option.enviada_item',function () {
             actualizarInfoActa(enviada_info,select_espera.value);
+        });
+
+        $("#select_reprobadas").on('click','option.reprobada_item',function () {
+            actualizarInfoActa(reprobada_info,select_reprobadas.value);
         });
 
         function actualizarInfoActa(area,acta_id){
