@@ -47,6 +47,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
             Route::get('aplicacion/{aplicacion_id}/actas', 'AplicacionController@getActas');
             Route::get('aplicacion/{aplicacion_id}/listados', 'AplicacionController@getListados');
+            Route::post('aplicacion/notificar','AplicacionController@notificar');
 
 
             Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
@@ -57,7 +58,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::get('datos/insert/search','DatosController@search');
 
             Route::get('acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
-            Route::get('acta/{acta_id}/notificar','ActaController@notificar');
+            
 
             Route::post('acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');
         });

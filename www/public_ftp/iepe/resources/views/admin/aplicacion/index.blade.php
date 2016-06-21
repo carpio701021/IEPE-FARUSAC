@@ -60,13 +60,42 @@
                                         <li><a href="/admin/aplicacion/{{$aplicacion->id}}/listados"><span class="glyphicon glyphicon-list"></span> Descargar Listado</a></li>
                                         <li><a href="/admin/aplicacion/subirResultados/{{$aplicacion->id}}/edit"><span class="glyphicon glyphicon-upload"></span> Resultados</a></li>
                                         <li><a href="#"><span class="glyphicon glyphicon-align-left"></span> Ajustar percentiles</a></li>
+                                        <li><a data-toggle="modal" href="#modal{{$aplicacion->id}}"><span class="glyphicon glyphicon-send"></span> Enviar notificación de resulltados</a></li>
                                         <li><a href="#"><span class="glyphicon glyphicon-plus"></span> Asignación manual de aspirante</a></li>
                                         <li><a href="/admin/aplicacion/{{$aplicacion->id}}/constanciasSatisfactorias" target="_blank"><span class="glyphicon glyphicon-tasks"></span> Generar Constancias</a></li>
                                         <li><a href="/admin/aplicacion/{{$aplicacion->id}}/actas"><span class="glyphicon glyphicon-tasks"></span> Actas</a></li>
+
                                     </ul>
+
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div id="modal{{$aplicacion->id}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog ">
+                        <!-- Modal content-->
+                        <div class="modal-content panel-primary">
+                            <div class="modal-header panel-heading">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Enviar a notificación de resultados</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p style="font-size: 20px">¿Desea enviar un correo a todos los aspirantes asignados a la {{$aplicacion->nombre()}} para que revisen su resultado?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <form action="/admin/aplicacion/notificar" method="post" role="form">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            {{csrf_field()}}
+                                            <input type="hidden" value="{{$aplicacion->id}}" name="aplicacion_id">
+                                            <button type="'submit" class="btn btn-primary">Enviar</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

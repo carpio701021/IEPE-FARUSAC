@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aspirante;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,6 +16,8 @@ use App\AspiranteAplicacion;
 use Excel;
 use PHPExcel_Worksheet_Drawing;
 use PHPExcel_Style_Alignment;
+use Illuminate\Support\Facades\Mail;
+use Psy\Util\Json;
 
 class AplicacionController extends Controller
 {
@@ -385,8 +388,66 @@ class AplicacionController extends Controller
 
         //});
     }
-    
-    
+
+   /* public function notificar(Request $request){
+        $aplicacion=Aplicacion::find($request->aplicacion_id);
+        $asignaciones = $aplicacion
+            ->getAsignaciones()
+            ->get();
+        $emailArray=[];
+
+        foreach($asignaciones as $asig){
+            $aspirante = Aspirante::find($asig->aspirante_id);
+            $emailArray[$aspirante->email]=$aspirante->getNombreCompleto();
+        }
+        return back();
+        dd($emailArray);
+        (new Mail())->send($emailArray,'Resultado prueba especifica',
+            'Le informamos que ya se han publicado los resultados de la '.$aplicacion->nombre().'. Puede
+             revisar su resultado con su usuario en http://iepe.dev/aspirante/PruebaEspecifica/create.
+             De haber obtenido resultado satisfactorio debe confirmar su jornada y carerra para la futura 
+             asignación como estudiante universitario en http://iepe.dev/aspirante/ResultadosSatisfactorios.',
+            null,
+            null);
+
+        $request->session()->flash('mensaje_exito','Se enviaron las notificaciones');
+        return back();//$asignaciones->toJson();
+    }*/
+
+    public function notificar(Request $request){
+        $aplicacion=Aplicacion::find($request->aplicacion_id);
+        $asignaciones = $aplicacion
+            ->getAsignaciones()
+            ->get();
+        $emailArray=[];
+        foreach($asignaciones as $asig){
+            $aspirante = Aspirante::find($asig->aspirante_id);
+            $emailArray[$aspirante->email]=$aspirante->getNombreCompleto();
+        }
+        //$emailArray=['jodaches@gmail.com'=>'jose','ipc12016D@gmail.com'=>'ipc','201213058@ingenieria.usac.edu.gt'=>'carne'];
+
+        $msg='Le informamos que ya se han publicado los resultados de la '.$aplicacion->nombre().'. Puede '.
+             'revisar su resultado con su usuario en http://iepe.dev/aspirante/PruebaEspecifica/create. '.
+             'De haber obtenido resultado satisfactorio debe confirmar su jornada y carerra para la futura '.
+             'asignación como estudiante universitario en http://iepe.dev/aspirante/ResultadosSatisfactorios.';
+
+        Mail::raw($msg,function($message) use($emailArray){
+            $message->subject('Resultados prueba especifica');
+            $message->from(env('MAIL_USERNAME'),'FARUSAC');
+            $message->to(env('MAIL_USERNAME','FARUSAC'));
+            $count = 0;
+            foreach ($emailArray as $email => $name){
+                //$message->bcc($email,$name);
+                $message->cc($email,$name);
+                if($count==50)
+                    sleep(2);
+            }
+        });
+
+        $request->session()->flash('mensaje_exito','Se enviaron las notificaciones');
+        return back();//$asignaciones->toJson();
+    }
+
     
 
 }

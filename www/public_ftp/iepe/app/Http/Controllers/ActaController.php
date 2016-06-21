@@ -13,6 +13,7 @@ use DOMPDF;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
+use Psy\Util\Json;
 
 class ActaController extends Controller
 {
@@ -203,8 +204,19 @@ class ActaController extends Controller
     }
     
     public function notificar($id){
-        
-        return $id.'not';
+        $asignaciones=AspiranteAplicacion::where('acta_id',$id)->get();
+        $emailArray=[];
+        foreach ($asignaciones as $asig){
+            $aspirante = $asig->getAspirante();
+            $emailArray[$aspirante->email]=$aspirante->getNombreCompleto();
+        }
+        (new Mail())->send($emailArray,'Resultado Satisfactorio',
+            'Le informamos que ha obtenido resultado satisfactorio en la prueba específica de la facultad de Arquitectura
+             de la Universidad de San Carlos de Guatemala. Puede rectificar el resultado con su usuario en http://iepe.dev/aspirante/PruebaEspecifica/create
+             Debe confirmar su jornada y carerra para la futura asignación como estudiante universitario en http://iepe.dev/aspirante/ResultadosSatisfactorios',
+            null,null);
+        //return Json::encode($emailArray);
+        return 'nitido';//$asignaciones->toJson();
     }
 
     
