@@ -26,7 +26,6 @@ class AplicacionesSeeder extends Seeder
 
         $aplicacion[] =new Aplicacion(['fecha_inicio_asignaciones'=>'2016/05/24',
             'fecha_fin_asignaciones'=>'2016/10/27',
-            'fecha_aplicacion'=>'2016/05/29',
             'year'=>2016,
             'naplicacion'=>1,
         ]); end($aplicacion)->save();
@@ -34,21 +33,18 @@ class AplicacionesSeeder extends Seeder
 
         $aplicacion[] =new Aplicacion(['fecha_inicio_asignaciones'=>'2016/08/15',
             'fecha_fin_asignaciones'=>'2016/08/25',
-            'fecha_aplicacion'=>'2016/08/30',
             'year'=>2016,
             'naplicacion'=>2,
         ]); end($aplicacion)->save();
 
         $aplicacion[] =new Aplicacion(['fecha_inicio_asignaciones'=>'2015/10/10',
             'fecha_fin_asignaciones'=>'2015/10/20',
-            'fecha_aplicacion'=>'2015/10/23',
             'year'=>2015,
             'naplicacion'=>4,
         ]);end($aplicacion)->save();
 
         $aplicacion[] =new Aplicacion(['fecha_inicio_asignaciones'=>'2017/06/20',
             'fecha_fin_asignaciones'=>'2017/06/30',
-            'fecha_aplicacion'=>'2017/07/03',
             'year'=>2017,
             'naplicacion'=>1,
         ]); end($aplicacion)->save();
@@ -56,7 +52,8 @@ class AplicacionesSeeder extends Seeder
         foreach ($aplicacion as $a) {
             foreach ($horario as $h){
                 foreach ($salon as $s) {
-                    AplicacionSalonHorario::create(['aplicacion_id'=>$a->id,'salon_id'=>$s->id,'horario_id'=>$h->id]);
+                    AplicacionSalonHorario::create(['aplicacion_id'=>$a->id,'salon_id'=>$s->id,'horario_id'=>$h->id, 'fecha_aplicacion'=>'2015/10/23',
+                    ]);
                 }
             }
         }

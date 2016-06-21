@@ -11,7 +11,7 @@ class TablaAsignacionesSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Aspirante::class,1200)->create()->each(function ($a){
+        factory(App\Aspirante::class,800)->create()->each(function ($a){
             $aspirante=App\Aspirante::where('email',$a->email)->first();
             $asignacion=factory(App\AspiranteAplicacion::class)->make(['aspirante_id'=>$aspirante->NOV]);
             $asignacion->save();

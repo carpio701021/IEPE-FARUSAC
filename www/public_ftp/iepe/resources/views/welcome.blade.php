@@ -2,9 +2,11 @@
 
 @section('content')
 <div class="container">
-    <div class="jumbotron">
-        <h1>Aspirantes FARUSAC</h1>
-        <p>Sistema de Asignación de Pruebas Específicas</p>
+    <h1>Bienvenido a la facultad de Arquitectura - USAC</h1>
+    <div class="row">
+        <div class="col-lg-10">
+            <iframe width="100%" height="400px" src="https://www.youtube.com/embed/H8Qp38qT-xI" frameborder="0" allowfullscreen></iframe>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-4">

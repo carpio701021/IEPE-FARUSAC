@@ -24,32 +24,52 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="sidebar-brand">
+            <li class="sidebar-brand"><a href="/">
                 <img src="/img/logotipoFARUSAC_Amarillo.png"  style="width:210px;height:70px;">
-            </li>
-
+            </a></li>
+            <li>&nbsp;</li>
+            <li><a href="/reglamento"><span class="glyphicon glyphicon-file" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                    Reglamento</a></li>
+            <li><a href="/guia-asignacion"><span class="glyphicon glyphicon-facetime-video" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                    Guía de asignación</a></li>
+            <li><a href="/guia-aplicacion"><span class="glyphicon glyphicon-ok" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                    Guía de aplicación</a></li>
+            <li>&nbsp;</li>
             @if  (Auth::guest())
-                <li><a href="{{ url('/login') }}">Iniciar Sesión</a></li>
-                <li><a href="{{ url('/register') }}">Registro</a></li>
+                <li><a href="{{ url('/login') }}"><span class="glyphicon glyphicon-log-in" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                        Iniciar Sesión</a></li>
+                <li><a href="{{ url('/register') }}"><span class="glyphicon glyphicon-user" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                        Registro</a></li>
             @else
                 <li id="item_aspirante">
-                    <a href="/aspirante">Aspirante</a>
+                    <a href="/aspirante">
+                        <span class="glyphicon glyphicon-edit" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                        Datos</a>
                 </li>
                 <li id="li_pruebaEspecifica">
-                    <a href="/aspirante/PruebaEspecifica/create">Prueba Especifica</a>
+                    <a href="/aspirante/PruebaEspecifica/create">
+                        <span class="glyphicon glyphicon-align-justify" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                        Prueba Específica</a>
                 </li>
                 <li>
-                    <a href="/aspirante/ResultadosSatisfactorios">Resultados satisfactorios</a>
+                    <a href="/aspirante/ResultadosSatisfactorios">
+                        <span class="glyphicon glyphicon-check" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                        Aprobados</a>
                 </li>
+                <li>&nbsp;</li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        {{ Auth::user()->NOV }} <span class="caret"></span>
+                        <span class="glyphicon glyphicon-user" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                        NOV: {{ Auth::user()->NOV }} <span class="caret"></span>
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <!--<li><a href="/aspirante/{{Auth::user()->NOV}}/edit"><i class="fa fa-btn fa-sign-out"></i>Configuración de cuenta</a></li>-->
-                        <li><a href="/configuracion"><i class="fa fa-btn fa-sign-out"></i>Configuración de cuenta</a></li>
-                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Cerrar Sesión</a></li>
+                        <li><a href="/configuracion">
+                                <span class="glyphicon glyphicon-wrench" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                                Configurar cuenta</a></li>
+                        <li><a href="{{ url('/logout') }}">
+                                <span class="glyphicon glyphicon-log-out" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                                Cerrar Sesión</a></li>
                     </ul>
                 </li>
             @endif

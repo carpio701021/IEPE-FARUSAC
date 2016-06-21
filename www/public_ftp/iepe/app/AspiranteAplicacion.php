@@ -31,7 +31,10 @@ class AspiranteAplicacion extends Model
 
     public function getResultado(){
         //validar si se puede o no retornar el resultado aún
-        return $this->resultado;
+        if($this->resultado == 'irregular')
+            return '*Pasar a oficina de orientación estudiantil de Arquitectura para verificar su resultado.';
+        else
+            return $this->resultado;
     }
 
     public function asignar($aspirante_id, $aplicacion_id){

@@ -43,7 +43,8 @@ class AspiranteAplicacionController extends Controller
             $ids[] = $a->getAplicacion()->id;
         }
         $proximas = Aplicacion::where("fecha_inicio_asignaciones","<=",date("Y-m-d"))
-            ->where("fecha_fin_asignaciones",">=",date("Y-m-d"))
+            ->where("fecha_fin_asignaciones",">=",date("Y-m-d h:i"))
+            //->where("irregular",0)
             ->whereNotIn('id',$ids)
             ->get();
         return view("aspirante.PruebaEspecifica")->with("proximas",$proximas)->with("asignadas",$asignadas);
@@ -114,7 +115,9 @@ class AspiranteAplicacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)//actualiza las notas de cada asignación con un excel
-    {   $aplicacion = Aplicacion::find($id);
+    {
+        set_time_limit(500);
+        $aplicacion = Aplicacion::find($id);
         if($request->file('file')->isValid()){
             $destinationPath = storage_path().'/Resultados'; // upload path
             $extension = $request->file('file')->getClientOriginalExtension(); // getting file extension

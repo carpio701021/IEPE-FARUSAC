@@ -37,8 +37,12 @@
                                         <div class="col-md-6 fecha">{{ $aplicacion->fecha_fin_asignaciones }}</div>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <div class="col-md-6"><b>Día de la aplicación:</b></div>
-                                        <div class="col-md-6 fecha">{{ $aplicacion->fecha_aplicacion }}</div>
+                                        <div class="col-md-6"><b>Días de la aplicación:</b></div>
+                                        <div class="col-md-6">
+                                            @foreach($aplicacion->getFechasA() as $fa)
+                                                <div class="fecha">{{ $fa }} <br></div>
+                                            @endforeach
+                                        </div>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <div class="col-md-6"><b>Capacidad máxima de asignaciones:</b></div>
