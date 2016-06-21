@@ -79,6 +79,13 @@
                             <li><a href="#">Resultado</a></li-->
                         </ul>
                     </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aspirantes <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/aspirantes">Aspirantes</a></li>
+                                <li><a href="/admin/listaNegra">Lista negra</a></li>
+                            </ul>
+                        </li>
                     @endif
                     @if(Auth::guard('admin')->user()->tieneRol('jefe_bienestar')
                     ||Auth::guard('admin')->user()->tieneRol('secretario')

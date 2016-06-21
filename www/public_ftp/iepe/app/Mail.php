@@ -63,34 +63,9 @@ class Mail
         $this->mail->Subject = $subject;
         $this->mail->msgHTML('<p>'.$msg.'</p>');
         $this->mail->CharSet = 'UTF-8';
-        //return "hola";
         return $this->mail->send();
     }
-
-    public function multiSend($asignaciones, $subject, $msg){
-
-
-
-        $this->mail->setFrom($this->mail->Username, 'FARUSAC');
-        $this->mail->Subject = $subject;
-        $this->mail->msgHTML('<p>'.$msg.'</p>');
-        $this->mail->CharSet = 'UTF-8';
-        $msg=[];
-        foreach ($asignaciones as $asig) { //This iterator syntax only works in PHP 5.4+
-            $aspirante = Aspirante::find($asig->aspirante_id);
-            $this->mail->addAddress($aspirante->email, $aspirante->nombre);
-            if (!$this->mail->send()) {
-                $msg[]= "Mailer Error (" . str_replace("@", "&#64;", $aspirante->email). ') ' . $this->mail->ErrorInfo . '<br />';
-                //break; //Abandon sending
-            } else {
-                $msg[]="Message sent to :" . $aspirante->NOV . ' (' . str_replace("@", "&#64;", $aspirante->email) . ')<br />';
-                //Mark it as sent in the DB
-            }
-            // Clear all addresses and attachments for next loop
-            $this->mail->clearAddresses();
-        }
-        return $msg;
-    }
+    
 
     public function getError(){
         return $this->mail->ErrorInfo;

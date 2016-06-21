@@ -51,6 +51,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
 
             Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
+            Route::resource('aspirantes','ListaNegraController');
+            Route::get('listaNegra','ListaNegraController@getListaNegra');
+            Route::get('listaNegra/{search}','ListaNegraController@listaNegraShow');
 
             //Route::resource('datos','DatosController');
             Route::post('datos/insert','DatosController@insert');
@@ -59,7 +62,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
             Route::get('acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
             
-
+            
             Route::post('acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');
         });
 

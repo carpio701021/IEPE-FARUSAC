@@ -260,8 +260,8 @@ class AplicacionController extends Controller
         $aplicacion->percentil_APN=$request->percentil_APN;
         $aplicacion->save();
         $aplicacion->calificar();//actualizará la tabla aspirantes_aplicaciones
-        //dd($aplicacion->getResumen_Areas());
-        return back();//->with("resumen_areas",$aplicacion->getResumen_Areas());
+
+        return back();
     }
     
     public function getActas($id){
@@ -283,13 +283,7 @@ class AplicacionController extends Controller
             //->where('aspirante_id',1000000311)
             ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
             ->get();
-        /*$asignaciones=Aplicacion::find($id)
-            ->getAsignaciones()
-            ->where('acta_id','>',4)
-            //->where('aspirante_id',1000000311)
-            ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
-            ->get();*/
-        //dd($asignaciones);
+
         $aplicacion = Aplicacion::find($id);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setPaper(array(0,0,740,570), 'portrait');//740,570
@@ -389,31 +383,6 @@ class AplicacionController extends Controller
         //});
     }
 
-   /* public function notificar(Request $request){
-        $aplicacion=Aplicacion::find($request->aplicacion_id);
-        $asignaciones = $aplicacion
-            ->getAsignaciones()
-            ->get();
-        $emailArray=[];
-
-        foreach($asignaciones as $asig){
-            $aspirante = Aspirante::find($asig->aspirante_id);
-            $emailArray[$aspirante->email]=$aspirante->getNombreCompleto();
-        }
-        return back();
-        dd($emailArray);
-        (new Mail())->send($emailArray,'Resultado prueba especifica',
-            'Le informamos que ya se han publicado los resultados de la '.$aplicacion->nombre().'. Puede
-             revisar su resultado con su usuario en http://iepe.dev/aspirante/PruebaEspecifica/create.
-             De haber obtenido resultado satisfactorio debe confirmar su jornada y carerra para la futura 
-             asignación como estudiante universitario en http://iepe.dev/aspirante/ResultadosSatisfactorios.',
-            null,
-            null);
-
-        $request->session()->flash('mensaje_exito','Se enviaron las notificaciones');
-        return back();//$asignaciones->toJson();
-    }*/
-
     public function notificar(Request $request){
         $aplicacion=Aplicacion::find($request->aplicacion_id);
         $asignaciones = $aplicacion
@@ -437,17 +406,14 @@ class AplicacionController extends Controller
             $message->to(env('MAIL_USERNAME','FARUSAC'));
             $count = 0;
             foreach ($emailArray as $email => $name){
-                //$message->bcc($email,$name);
                 $message->cc($email,$name);
                 if($count==50)
-                    sleep(2);
+                    sleep(2);//para evitar abrir dos veces al mismo tiempo el servicio smtp
             }
         });
 
         $request->session()->flash('mensaje_exito','Se enviaron las notificaciones');
-        return back();//$asignaciones->toJson();
+        return back();
     }
-
-    
 
 }
