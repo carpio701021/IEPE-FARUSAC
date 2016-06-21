@@ -152,7 +152,7 @@
                             </button>
                         @endforeach
                     @elseif(isset($aplicacion))
-                        @foreach( $aplicacion->getfechasA() as $fechaA )
+                        @foreach( $aplicacion->getFechasA() as $fechaA )
                             <button type="button" onclick="quitarFechaA(this);" class="list-group-item{{ $errors->has('fecha_aplicacion') ? ' has-error' : '' }} fechaA-item">
                                 <span class="glyphicon glyphicon-minus"></span> {{ $fechaA }}
                                 <input style="display:none" name="fechasA[]" value="{{ $fechaA }}" type="text">
@@ -381,10 +381,15 @@
 
 
         <div class="form-group">
-            <div class="col-md-6 col-md-offset-4">
+            <div class="col-md-2 col-md-offset-4">
                 <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-btn fa-save"></i> Guardar
+                    <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
                 </button>
+            </div>
+            <div class="col-md-2">
+                <a href="/admin/aplicacion" class="btn btn-danger">
+                    <i class="glyphicon glyphicon-floppy-remove"></i> Cancelar
+                </a>
             </div>
         </div>
 

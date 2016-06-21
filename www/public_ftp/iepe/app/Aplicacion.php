@@ -52,9 +52,9 @@ class Aplicacion extends Model
     }
 
     private function generarSalonesHorarios($ids_salones, $ids_horarios,$fechasA){
-        foreach($ids_horarios as $h){
-            foreach($ids_salones as $s){
-                foreach($fechasA as $f) {
+        foreach($fechasA as $f) {
+            foreach($ids_horarios as $h){
+                foreach($ids_salones as $s){
                     (AplicacionSalonHorario::firstOrCreate([
                         'aplicacion_id' => $this->id,
                         'salon_id' => $s,
@@ -117,8 +117,14 @@ class Aplicacion extends Model
     }
 
     function getFechasA(){
-        return
-        AplicacionSalonHorario::where('aplicacion_id',$this->id)->distinct('fecha_aplicacion');
+        $f =AplicacionSalonHorario::where('aplicacion_id',$this->id)
+            ->get();
+        $fs = Array();
+        foreach($f as $fe){
+            $fs[$fe->fecha_aplicacion] = $fe->fecha_aplicacion;
+        }
+        //dd($fs);
+        return $fs;
     }
 
     function getCapacidadMaxima(){

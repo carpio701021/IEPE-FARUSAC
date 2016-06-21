@@ -220,7 +220,7 @@ class AplicacionController extends Controller
         }
 
         $aplicacion->save();
-        $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios);
+        $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios,$request->fechasA);
 
         $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'.$aplicacion->nombre().'</i> guardados.');
         return redirect('/admin/aplicacion');
