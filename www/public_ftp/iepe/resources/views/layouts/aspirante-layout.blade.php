@@ -52,7 +52,7 @@
                         Prueba Específica</a>
                 </li>
                 <li>
-                    <a href="/aspirante/ResultadosSatisfactorios">
+                    <a href="/aspirante/formulario/{{ Auth::user()->getFormulario()->id_formulario }}/edit">
                         <span class="glyphicon glyphicon-check" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Aprobados</a>
                 </li>

@@ -27,7 +27,7 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-4">
-                * Esta aplicación es para aquellos aspirantes tiene resultados que deben ser reevaluados.
+                * Esta aplicación es para aquellos aspirantes con resultados que deben ser reevaluados.
                 </div>
             </div>
         @else

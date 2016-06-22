@@ -66,4 +66,15 @@ class Aspirante extends Authenticatable
     public function getNombreCompleto(){
         return $this->nombre.' '.$this->apellido;
     }
+
+    public function aprobo(){
+        $asignacion = AspiranteAplicacion::where('aspirante_id',$this->NOV)
+            ->where('acta_id','>',0)->first();
+
+        if(count($asignacion)>0)
+            if($asignacion->getAplicacion()->mostrar_resultados)
+                return true;
+        else
+            return false;
+    }
 }

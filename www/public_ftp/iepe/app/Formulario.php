@@ -11,6 +11,7 @@ class Formulario extends Model
     protected $fillable=[
         'nombre','apellido','residencia','departamento','genero',
         'fecha_nacimiento','estado_civil','estado_laboral','titulo','anio_titulo',
-        'dependientes','centro_educativo','direccion_centro_educativo','sector','carrera', 'jornada'
+        'dependientes','centro_educativo','direccion_centro_educativo','sector','carrera', 'jornada',
+        'confirmacion_intereses'
     ];
 }

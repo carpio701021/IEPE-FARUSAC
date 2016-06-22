@@ -30,8 +30,8 @@ class AnioController extends Controller
         ->where('carrera',$request->escuela)
         ->where('acta_id','>','0')
         ->where('estado','aprobada')
-        ->selectraw('f.NOV,f.nombre,f.apellido,email,carrera,jornada');
-        //dd($aprobados->get());
+        ->selectraw('f.NOV,f.nombre,f.apellido,email,carrera,jornada,confirmacion_intereses as confirmacion');
+        //dd($aprobados->first());
 
         $excel = Excel::create($request->anio.'_Listado-'.$request->escuela, function($excel) use($aprobados){
             $excel->sheet('Listado',function($sheet) use($aprobados){
@@ -61,7 +61,7 @@ class AnioController extends Controller
             storage_path().'/listados_escuelas/'.$filename,
             $filename
             );
-
+        $request->session()->flash('mensaje_exito','Se ha enviado el listado a la siguiente dirección de correo electronico: '.$admin->email);
         return  back();
     }
 

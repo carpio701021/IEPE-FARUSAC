@@ -166,6 +166,7 @@ class ActaController extends Controller
      */
     public function destroy($id)
     {
+        unlink(Actas::find($id)->path_pdf);
         Actas::destroy($id);
         AspiranteAplicacion::where('acta_id',$id)->update(['acta_id'=>0]);
         return 'true';

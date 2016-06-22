@@ -108,6 +108,7 @@ Route::group(['middleware' => 'aspirante_web'], function () {
 
         Route::resource('/', 'AspiranteController');
         Route::resource('formulario', 'formularioController');
+        Route::post('formulario/{formulario_id}/confirmar', 'formularioController@confirmarIntereses');
         Route::resource('PruebaEspecifica', 'AspiranteAplicacionController');
 
 

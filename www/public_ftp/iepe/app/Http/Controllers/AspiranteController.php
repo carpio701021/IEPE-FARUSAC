@@ -97,10 +97,15 @@ class AspiranteController extends Controller
         if(Auth::guard("aspirante_web")->attempt($credenciales)){
             $u=Aspirante::find(Auth::user()->NOV);
             if($request->email){
-                $u->email=$request->email;
-                $u->save();
-                $request->session()->flash('mensaje_exito', 'Correo Actualizado');
-                return back();
+                try{
+                    $u->email=$request->email;
+                    $u->save();
+                    $request->session()->flash('mensaje_exito','Correo actualizado');
+                    return back();
+                }catch(\Illuminate\Database\QueryException $ex){
+                    $aspirante = Aspirante::where('email',$request->email)->first();
+                    return back()->withErrors(['email'=>'El correo '.$request->email.' ya está en uso por el aspirante '.$aspirante->NOV]);
+                }
             }else{
                 $u->password= bcrypt($request->newPassword);
                 $u->save();

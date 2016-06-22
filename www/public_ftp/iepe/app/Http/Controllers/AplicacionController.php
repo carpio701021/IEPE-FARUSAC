@@ -134,9 +134,35 @@ class AplicacionController extends Controller
                 return false;// back()->withErrors(['cupo'=>'No puede asignarse a esta aplicación porque el cupo está lleno. Abocarse a las oficinas de la facultad de arquitectura para solucionarlo']);
             }
         }
+        $this->notificarAsignacionIrregular($irregulares);
         return true;
     }
 
+    private function notificarAsignacionIrregular($irregulares){
+
+
+        $emailArray=[];
+        foreach ($irregulares as $irregular){
+            $aspirante = Aspirante::find($irregular->aspirante_id);
+            $emailArray[$aspirante->email]=$aspirante->getNombreCompleto();
+        }
+
+        $msg='Mensaje de estudiante convocado a aplicación irregular';
+
+        Mail::raw($msg,function($message) use($emailArray){
+            $message->subject('Solicitud reevaluacion');
+            $message->from(env('MAIL_USERNAME'),'FARUSAC');
+            $message->to(env('MAIL_USERNAME','FARUSAC'));
+            $count = 0;
+            foreach ($emailArray as $email => $name){
+                $message->cc($email,$name);
+                if($count==50)
+                    sleep(3);//para evitar abrir dos veces al mismo tiempo el servicio smtp
+            }
+        });
+
+
+    }
     /**
      * Display the specified resource.
      *
@@ -346,7 +372,7 @@ class AplicacionController extends Controller
                         $sheet->setCellValue($c_ini.'2','Facultad de Arquitectura');
                         $sheet->setCellValue($c_ini.'3','Unidad de Orientación Estudiantil');
                         $sheet->setCellValue($c_ini.'5', $aplicacion->nombre());
-                        $sheet->setCellValue($c_ini.'6',$aplicacion->fecha_aplicacion);
+                        $sheet->setCellValue($c_ini.'6',$sh->fecha_aplicacion);
                         $sheet->setCellValue($c_ini.'7',$sh->getSalon()->printNombre());
                         $sheet->setCellValue($c_ini.'8',$sh->getHorario()->printHorario());
 
@@ -411,7 +437,7 @@ class AplicacionController extends Controller
             $count = 0;
             foreach ($emailArray as $email => $name){
                 $message->cc($email,$name);
-                if($count==50)
+                if($count==40)
                     sleep(2);//para evitar abrir dos veces al mismo tiempo el servicio smtp
             }
         });
