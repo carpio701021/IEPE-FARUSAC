@@ -47,7 +47,7 @@ class AspiranteAplicacionController extends Controller
             //->where("irregular",0)
             ->whereNotIn('id',$ids)
             ->get();
-        return view("aspirante.PruebaEspecifica")->with("proximas",$proximas)->with("asignadas",$asignadas);
+        return view("aspirante.PruebaEspecifica",compact('proximas','asignadas'));
     }
 
     /**

@@ -47,6 +47,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
             Route::get('aplicacion/{aplicacion_id}/actas', 'AplicacionController@getActas');
             Route::get('aplicacion/{aplicacion_id}/listados', 'AplicacionController@getListados');
+            Route::get('aplicacion/{aplicacion_id}/habilitar', 'AplicacionController@habilitarResultados');
             Route::post('aplicacion/notificar','AplicacionController@notificar');
 
 

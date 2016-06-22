@@ -88,7 +88,7 @@
                         <div class="row form-group">
                             <div class="col-sm-8">
                                 <select class="input-group-lg form-control" name='' id="select_espera" size="3" style="width: 100%">
-                                        <option class="list-group-item acta_item" value="4">Opcion de prueba</option>
+
                                 </select>
                             </div>
                             <div class="col-sm-4" id="enviada_info">
@@ -193,7 +193,7 @@
                         </div>
                         <a class="btn btn-default btn-verPDF" name='aprobada_pdf' target="_blank">Ver PDF</a>
                         @if(Auth::guard('admin')->user()->tieneRol('jefe_bienestar'))
-                            <button class="btn btn-default" id='btn_notificar' type="button">Enviar notificación</button>
+
                             <a class="btn btn-default" id='btn_constancias' target="_blank">Generar Constancias</a>
                         @endif
                     </div>

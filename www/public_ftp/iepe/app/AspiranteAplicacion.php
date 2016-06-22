@@ -29,6 +29,10 @@ class AspiranteAplicacion extends Model
         return $this->belongsTo('App\Aspirante','aspirante_id')->first();
     }
 
+    public function getFechaAplicacion(){
+        return $this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->first()->fecha_aplicacion;
+    }
+
     public function getResultado(){
         //validar si se puede o no retornar el resultado aún
         if($this->resultado == 'irregular')
@@ -38,7 +42,9 @@ class AspiranteAplicacion extends Model
     }
 
     public function asignar($aspirante_id, $aplicacion_id){
-        $aplicaciones_salones_horarios = AplicacionSalonHorario::where("aplicacion_id",$aplicacion_id)->get();
+        $aplicaciones_salones_horarios = AplicacionSalonHorario::where("aplicacion_id",$aplicacion_id)
+            -orderby('fecha_aplicacion','asc')
+            ->get();
         foreach ($aplicaciones_salones_horarios as $ash){
             if($ash->getSalon()->capacidad>$ash->asignados){
                 $this->aspirante_id=$aspirante_id;

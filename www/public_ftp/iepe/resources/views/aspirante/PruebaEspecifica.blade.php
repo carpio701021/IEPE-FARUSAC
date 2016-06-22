@@ -68,7 +68,7 @@
 							<div class="col-sm-8">
 								<div class="row">
 									<div class="col-sm-2"><strong>Fecha:</strong> </div>
-									<div class="col-sm-6"> {{$asignada->getAplicacion()->fecha_aplicacion}} </div>
+									<div class="col-sm-6"> {{$asignada->getFechaAplicacion()}} </div>
 								</div>
 								<div class="row">
 									<div class="col-sm-2"><strong>Horario: </strong></div>
@@ -81,7 +81,11 @@
 								</div>
 								<div class="row">
 									<div class="col-sm-2"><strong>Resultado:</strong> </div>
-									<div class="col-sm-8"> {{$asignada->getResultado()}} </div>
+									@if($asignada->getAplicacion()->mostrar_resultados==1)
+										<div class="col-sm-8"> {{$asignada->getResultado()}} </div>
+									@else
+										<div class="col-sm-8"> - </div>
+									@endif
 								</div>
 							</div>
 						</div>

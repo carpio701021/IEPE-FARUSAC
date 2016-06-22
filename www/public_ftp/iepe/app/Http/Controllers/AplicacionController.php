@@ -420,4 +420,12 @@ class AplicacionController extends Controller
         return back();
     }
 
+    public function habilitarResultados($id,Request $request){
+        $aplicacion = Aplicacion::find($id);
+        $aplicacion->mostrar_resultados=!$aplicacion->mostrar_resultados;
+        $aplicacion->save();
+        $request->session()->flash('mensaje_exito','Se modificó la visualización de resultados');
+        return back();
+    }
+
 }

@@ -24,7 +24,7 @@ class ListaNegraController extends Controller
     }
     
     public function getListaNegra(){
-        $novs = ListaNegra::paginate(10);
+        $novs = ListaNegra::paginate(20);
         return view('admin.GestionUsuarios.listaNegra',compact('novs'));
     }
 

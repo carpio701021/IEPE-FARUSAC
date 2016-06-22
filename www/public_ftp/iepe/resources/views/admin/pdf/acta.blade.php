@@ -30,6 +30,7 @@
             @endforeach
             </tbody>
         </table>
+        <div style="page-break-before: always;"></div>
         <p align="justify">
         Dando como resultado el total de: {{count($aspirantes)}} personas con resultado satisfactorio, se extiende la
 

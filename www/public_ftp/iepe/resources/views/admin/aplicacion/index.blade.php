@@ -63,11 +63,19 @@
                                         <li><a href="/admin/aplicacion/{{ $aplicacion->id }}/edit"><span class="glyphicon glyphicon-edit"></span> Editar</a></li>
                                         <li><a href="/admin/aplicacion/{{$aplicacion->id}}/listados"><span class="glyphicon glyphicon-list"></span> Descargar Listado</a></li>
                                         <li><a href="/admin/aplicacion/subirResultados/{{$aplicacion->id}}/edit"><span class="glyphicon glyphicon-upload"></span> Resultados</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-align-left"></span> Ajustar percentiles</a></li>
-                                        <li><a data-toggle="modal" href="#modal{{$aplicacion->id}}"><span class="glyphicon glyphicon-send"></span> Enviar notificación de resulltados</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-plus"></span> Asignación manual de aspirante</a></li>
-                                        <li><a href="/admin/aplicacion/{{$aplicacion->id}}/constanciasSatisfactorias" target="_blank"><span class="glyphicon glyphicon-tasks"></span> Generar Constancias</a></li>
-                                        <li><a href="/admin/aplicacion/{{$aplicacion->id}}/actas"><span class="glyphicon glyphicon-tasks"></span> Actas</a></li>
+                                        <!--li><a href="#"><span class="glyphicon glyphicon-align-left"></span> Ajustar percentiles</a></li-->
+                                        <!--li><a href="#"><span class="glyphicon glyphicon-plus"></span> Asignación manual de aspirante</a></li-->
+                                        <!--li><a href="/admin/aplicacion/{{$aplicacion->id}}/constanciasSatisfactorias" target="_blank"><span class="glyphicon glyphicon-tasks"></span> Generar Constancias</a></li-->
+                                        <li>
+                                            <a href="/admin/aplicacion/{{$aplicacion->id}}/habilitar">
+                                                @if($aplicacion->mostrar_resultados==1)
+                                                <span class="glyphicon glyphicon-ban-circle"></span> Deshabilitar resultados a aspirantes
+                                                @else
+                                                <span class="glyphicon glyphicon-check"></span> Habilitar resultados a aspirantes
+                                                @endif
+                                            </a>
+                                        </li>
+                                        <li><a data-toggle="modal" href="#modal{{$aplicacion->id}}"><span class="glyphicon glyphicon-send"></span> Notificar resultado</a></li>
 
                                     </ul>
 

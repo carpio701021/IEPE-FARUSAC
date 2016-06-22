@@ -52,6 +52,7 @@ class LogicaIepe extends Migration
             $table->integer('percentil_APE');
             $table->integer('percentil_RV');
             $table->integer('percentil_APN');
+            $table->boolean('mostrar_resultados');
 
             $table->timestamps();
             $table->softDeletes();

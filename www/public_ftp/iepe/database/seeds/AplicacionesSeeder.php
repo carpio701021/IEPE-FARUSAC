@@ -52,7 +52,9 @@ class AplicacionesSeeder extends Seeder
         foreach ($aplicacion as $a) {
             foreach ($horario as $h){
                 foreach ($salon as $s) {
-                    AplicacionSalonHorario::create(['aplicacion_id'=>$a->id,'salon_id'=>$s->id,'horario_id'=>$h->id, 'fecha_aplicacion'=>'2015/10/23',
+                    AplicacionSalonHorario::create(['aplicacion_id'=>$a->id,'salon_id'=>$s->id,'horario_id'=>$h->id, 'fecha_aplicacion'=>'2016/10/23',
+                    ]);
+                    AplicacionSalonHorario::create(['aplicacion_id'=>$a->id,'salon_id'=>$s->id,'horario_id'=>$h->id, 'fecha_aplicacion'=>'2016/10/24',
                     ]);
                 }
             }
