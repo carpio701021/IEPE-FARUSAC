@@ -24,12 +24,13 @@ class Aplicacion extends Model
         'year','naplicacion','fecha_inicio_asignaciones',
         'fecha_fin_asignaciones', 'irregular'
     ];
-
     
 
     function nombre(){
-        if($this->irregular>0) return 'Aplicación '.$this->naplicacion.'.'.$this->irregular.' del '.$this->year;
-        else return 'Aplicación '.$this->naplicacion.' del '.$this->year;
+        if($this->irregular>0) 
+            return 'Aplicación '.$this->naplicacion.'.'.$this->irregular.' del '.$this->year;
+        else 
+            return 'Aplicación '.$this->naplicacion.' del '.$this->year;
     }
 
     function addSalon($edificio,$nombre,$capacidad){

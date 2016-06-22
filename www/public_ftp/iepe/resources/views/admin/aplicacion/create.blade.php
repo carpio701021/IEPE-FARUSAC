@@ -17,9 +17,21 @@
         @endif
         @if( isset($especial))
             <div class="form-group">
-                <input type="hidden" name="_especial" value="{{$aplicacion->irregular}}">
+                <input type="hidden" name="_id_base" value="{{$aplicacionBase->id}}">
+                <input type="hidden" name="irregular" value="{{$aplicacion->irregular}}">
                 <input type="hidden" name="year" value="{{$aplicacion->year}}">
                 <input type="hidden" name="naplicacion" value="{{$aplicacion->naplicacion}}">
+                <input type="hidden" name="fecha_inicio_asignaciones" value="{{$aplicacion->fecha_inicio_asignaciones}}">
+                <input type="hidden" name="fecha_fin_asignaciones" value="{{$aplicacion->fecha_fin_asignaciones}}">
+                @foreach( $aplicacionBase->getFechasA() as $fechaA )
+                    <input name="fechasA[]" value="{{ $fechaA }}" type="hidden">
+                @endforeach
+                @foreach( $aplicacionBase->getHorarios() as $horario )
+                    <input name="horarios[]" value="{{ $horario->hora_inicio.'-'.$horario->hora_fin  }}" type="hidden">
+                @endforeach
+                @foreach( $aplicacionBase->getSalones() as $salon )
+                    <input name="salones[]" value="{{ $salon->edificio }}:==:{{ $salon->nombre }}:==:{{ $salon->capacidad }}" type="hidden">
+                @endforeach
             </div>
             <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
                 <label class="col-md-4 control-label">Nombre:</label>

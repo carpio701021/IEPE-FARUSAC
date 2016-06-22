@@ -43,7 +43,7 @@ class AspiranteAplicacion extends Model
 
     public function asignar($aspirante_id, $aplicacion_id){
         $aplicaciones_salones_horarios = AplicacionSalonHorario::where("aplicacion_id",$aplicacion_id)
-            -orderby('fecha_aplicacion','asc')
+            ->orderby('fecha_aplicacion','asc')
             ->get();
         foreach ($aplicaciones_salones_horarios as $ash){
             if($ash->getSalon()->capacidad>$ash->asignados){

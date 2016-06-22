@@ -35,16 +35,21 @@ class AspiranteAplicacionController extends Controller
     public function create()
     {
         $asignadas =AspiranteAplicacion::where('aspirante_id','=',Auth::user()->NOV)
-            ->orderby("created_at","desc")
+            ->join('aplicaciones_salones_horarios as ash','aplicacion_salon_horario_id','=','ash.id')
+            ->join('aplicaciones','ash.aplicacion_id','=','aplicaciones.id')
+            ->orderby("year","desc")
+            ->orderBY('naplicacion','asc')
+            ->where('irregular',0)
             ->get();
 
+        //dd($asignadas);
         $ids = [];
         foreach ($asignadas as $a){
             $ids[] = $a->getAplicacion()->id;
         }
         $proximas = Aplicacion::where("fecha_inicio_asignaciones","<=",date("Y-m-d"))
             ->where("fecha_fin_asignaciones",">=",date("Y-m-d h:i"))
-            //->where("irregular",0)
+            ->where("irregular",0)
             ->whereNotIn('id',$ids)
             ->get();
         return view("aspirante.PruebaEspecifica",compact('proximas','asignadas'));

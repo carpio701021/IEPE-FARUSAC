@@ -55,6 +55,7 @@ class Aspirante extends Authenticatable
     public function getAplicaciones(){
         return Aplicacion::
         where("fecha_inicio_asignaciones","<=",date("Y-m-d"))
+            ->where('irregular',0)
             ->leftJoin('aspirantes_aplicaciones',function($join) {
                 $join->on('id',"=","aplicacion_id")
                     ->where('aspirante_id','=',$this->NOV);

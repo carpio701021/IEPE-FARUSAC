@@ -142,6 +142,19 @@ class LogicaIepe extends Migration
             $table->softDeletes();
 
             $table->unique(['orientacion', 'fecha_evaluacion','id_materia'],'datos_sun_primary');
+        });
+
+        Schema::create('cupos',function(Blueprint $table){
+            $table->increments('id');
+            $table->enum('carrera',['disenio','arquitectura']);
+            $table->enum('jornada',['matutina','vespertina']);
+            $table->integer('cantidad');
+            $table->integer('anio');
+
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->unique(['anio', 'carrera','jornada'],'cupos_primary');
 
         });
 
@@ -163,5 +176,6 @@ class LogicaIepe extends Migration
         Schema::dropIfExists('aplicaciones');
         Schema::dropIfExists('salones');
         Schema::dropIfExists('datos_sun');
+        Schema::dropIfExists('cupos');
     }
 }

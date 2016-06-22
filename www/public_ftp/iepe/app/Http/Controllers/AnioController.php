@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AspiranteAplicacion;
+use App\Cupo;
 use App\Mail;
 use Illuminate\Http\Request;
 
@@ -63,6 +64,18 @@ class AnioController extends Controller
             );
         $request->session()->flash('mensaje_exito','Se ha enviado el listado a la siguiente dirección de correo electronico: '.$admin->email);
         return  back();
+    }
+    
+    public function indexPrimerIngreso(){
+        $anios = Aplicacion::selectraw('year')->groupby('year')->orderby('year','desc')->paginate(3);
+        
+        return view('admin.escuela.cupos',compact('anios','carrera'));
+    }
+    
+    public function guardarCupo(Request $request){
+        $cupo= new Cupo($request->all());
+        $cupo->save();
+        return back();
     }
 
 }

@@ -29,8 +29,10 @@ class AplicacionController extends Controller
     public function index()
     {
         //
-        $aplicaciones = Aplicacion::orderBy('created_at', 'desc')->paginate(3);
+        $aplicaciones = Aplicacion::orderBy('year', 'desc')
+            ->orderBy('id','desc')->paginate(3);
         //return view('admin.aplicacion.index',['aplicacion'=> $aplicacion]);
+
         return view('admin.aplicacion.index',compact('aplicaciones'));
     }
 
@@ -59,11 +61,14 @@ class AplicacionController extends Controller
         $aplicacion = new Aplicacion([
             'year'=>$aplicacionBase->year,
             'naplicacion'=>$aplicacionBase->naplicacion,
-            'irregular'=>$nextIrregular
+            'irregular'=>$nextIrregular,
+            'fecha_inicio_asignaciones'=>$aplicacionBase->fecha_inicio_asignaciones,
+            'fecha_fin_asignaciones'=>$aplicacionBase->fecha_fin_asignaciones,
         ]);
         $titulo = 'Crear aplicación especial';
         $especial =$id;
-        return view('admin.aplicacion.create',compact('aplicacion','titulo','put','especial'));
+        //dd($aplicacionBase);
+        return view('admin.aplicacion.create',compact('aplicacion','titulo','put','especial','aplicacionBase'));
     }
 
     /**
@@ -74,11 +79,11 @@ class AplicacionController extends Controller
      */
     public function store(AplicacionRequest $request)
     {
-
+        //dd($request->all());
         //$this->asignarIrregulares($request->_especial,Aplicacion::find(5));
         if(Aplicacion::where('year',$request->year)
             ->where('naplicacion',$request->naplicacion)
-            ->where('irregular',(isset($request->_especial)?$request->_especial:0))
+            ->where('irregular',(isset($request->irregular)?$request->irregular:0))
             ->first()){
             $errors = Array('La combinacion de año y número de aplicación ya existe');
             return redirect('/admin/aplicacion/create')->withErrors($errors)->withInput();
@@ -93,10 +98,11 @@ class AplicacionController extends Controller
 
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios,$request->fechasA);
-        if($request->_especial){
-            if($this->asignarIrregulares($request->_especial,$aplicacion)){//se asignan automaticamente
+        if($request->irregular){
+            if($this->asignarIrregulares($request->_id_base,$aplicacion)){//se asignan automaticamente
                 $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente. Se asignaron los estudiantes irregulares');
             }else{
+                //return redirect('/admin/aplicacion')->withErrors(['irregular','Ocurrió un error']);
                 $request->session()->flash('mensaje_exito','ocurrió un error');
             }
         }else{
@@ -139,18 +145,16 @@ class AplicacionController extends Controller
     }
 
     private function notificarAsignacionIrregular($irregulares){
-
-
         $emailArray=[];
         foreach ($irregulares as $irregular){
             $aspirante = Aspirante::find($irregular->aspirante_id);
             $emailArray[$aspirante->email]=$aspirante->getNombreCompleto();
         }
 
-        $msg='Mensaje de estudiante convocado a aplicación irregular';
+        $msg='Buen día, por favor acercarse a la oficina de bienestar y desarrollo estudiantil de la facultad de Arquitectura, edificio T2 primer nivel.';
 
         Mail::raw($msg,function($message) use($emailArray){
-            $message->subject('Solicitud reevaluacion');
+            $message->subject('Prueba especifica');
             $message->from(env('MAIL_USERNAME'),'FARUSAC');
             $message->to(env('MAIL_USERNAME','FARUSAC'));
             $count = 0;

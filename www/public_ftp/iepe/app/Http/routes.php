@@ -34,6 +34,11 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
 
     Route::group(['middleware' => ['auth:admin']], function () {
+        //********** RUTAS DE DIRECTORES DE ESCUELA*************
+        Route::get('escuela/primerIngreso','AnioController@indexPrimerIngreso');
+        Route::post('escuela/primerIngreso/guardarCupo','AnioController@guardarCupo');
+         //******************************************************
+
         Route::get('/', function () {
             return view('admin.index');
         });

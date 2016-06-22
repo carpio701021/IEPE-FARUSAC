@@ -55,6 +55,12 @@
                             color: #192949;
                         }
                     </style>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Escuela <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/admin/escuela/primerIngreso">Primer ingreso</a></li>
+                        </ul>
+                    </li>
                     @if(Auth::guard('admin')->user()->tieneRol('superadmin'))
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador <span class="caret"></span></a>
