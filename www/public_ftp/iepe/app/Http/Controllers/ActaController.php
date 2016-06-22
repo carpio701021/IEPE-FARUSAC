@@ -195,7 +195,7 @@ class ActaController extends Controller
 
     public function getConstanciasSatisfactorias($acta_id){
         set_time_limit(120);
-        $asignaciones= AspiranteAplicacion::where('acta_id',$acta_id)->limit(2)->get();
+        $asignaciones= AspiranteAplicacion::where('acta_id',$acta_id)->get();
         $aplicacion = Aplicacion::find(Actas::find($acta_id)->aplicacion_id);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setPaper('letter', 'portrait');//740,570

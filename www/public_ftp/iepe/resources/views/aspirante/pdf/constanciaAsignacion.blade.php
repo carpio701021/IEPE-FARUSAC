@@ -1,24 +1,28 @@
 <html>
 <head>
     <style>
+        p{
+            font-family: Jester, "Comic Sans MS", sans-serif;
+        }
         @page {
-            margin-top: 0em;
-            margin-left: 0em;
-            margin-bottom: 0em;
-            margin-right: 0em;
+            margin-top: 3em;
+            margin-left: 5em;
+            margin-bottom: 2em;
+            margin-right: 2em;
         }
     </style>
 </head>
-<body background="/img/fondoBoletaAsignacion.png">
+<body>
+<img src="/var/www/public_ftp/iepe/public/img/fondoBoletaAsignacion.png"  style="width:650px;height:510px;" border="1"/>
 
-<p style="position: absolute; top: 285px; left: 315px; font-size: 30px"> {{$asignacion->getAplicacion()->nombre()}}</p>
-<p style="position: absolute; top: 330px; left: 185px; font-size: 25px"> {{$aspirante->getNombreCompleto()}}</p>
-<p style="position: absolute; top: 330px; left: 765px; font-size: 25px"> {{$aspirante->NOV}}</p>
+<p style="position: absolute; top: 195px; left: 210px; font-size: 17px"> {{$asignacion->getAplicacion()->nombre()}}</p>
+<p style="position: absolute; top: 224px; left: 125px; font-size: 15px"> {{$aspirante->getNombreCompleto()}}</p>
+<p style="position: absolute; top: 224px; left: 507px; font-size: 15px"> {{$aspirante->NOV}}</p>
 
-<p style="position: absolute; top: 405px; left: 180px; font-size: 25px"> {{$asignacion->getFechaAplicacion()}}</p>
-<p style="position: absolute; top: 405px; left: 675px; font-size: 25px"> {{$asignacion->getHorario()->printHorario()}}</p>
+<p style="position: absolute; top: 275px; left: 115px; font-size: 15px"> {{$asignacion->getFechaAplicacion()}}</p>
+<p style="position: absolute; top: 275px; left: 438px; font-size: 15px"> {{$asignacion->getHorario()->printHorario()}}</p>
 
-<p style="position: absolute; top: 478px; left: 180px; font-size: 25px"> {{$asignacion->getSalon()->edificio}}</p>
-<p style="position: absolute; top: 478px; left: 675px; font-size: 25px"> {{$asignacion->getSalon()->nombre}}</p>
+<p style="position: absolute; top: 320px; left: 115px; font-size: 15px"> {{$asignacion->getSalon()->edificio}}</p>
+<p style="position: absolute; top: 320px; left: 438px; font-size: 15px"> {{$asignacion->getSalon()->nombre}}</p>
 </body>
 </html> 

@@ -206,7 +206,7 @@ class AspiranteAplicacionController extends Controller
     private function generarConstanciaPDF($id){
         $asignacion = AspiranteAplicacion::find($id);
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->setPaper(array(0, 0, 740, 570), 'portrait');
+        $pdf->setPaper('letter', 'portrait');
         $aspirante = Auth::user();
         $pdf->loadView('aspirante.pdf.constanciaAsignacion',compact('asignacion','id','aspirante'));
         return $pdf;
