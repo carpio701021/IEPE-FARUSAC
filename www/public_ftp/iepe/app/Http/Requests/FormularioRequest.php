@@ -24,8 +24,6 @@ class FormularioRequest extends Request
     public function rules()
     {
         return [
-            "nombre"=>"required|string|max:255",
-            "apellido"=>"required|string|max:255",
             "residencia"=>"required|string|max:255",
             "departamento"=>"required|string|max:255",
             "genero"=>"required|boolean",

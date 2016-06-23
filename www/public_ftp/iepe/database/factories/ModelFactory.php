@@ -14,10 +14,9 @@
 
 $factory->define(App\Formulario::class, function (Faker\Generator $faker) {
     return [
-        'nombre'        => $faker->name,
-        'apellido'      => $faker->lastname,
         'residencia'      => $faker->address,
         'departamento'      => $faker->state,
+        'municipio'      => $faker->state,
         'genero'        => $faker->boolean,
         'fecha_nacimiento'=>$faker->date($format = 'Y-m-d'),
         'estado_civil'  => 'soltero',
