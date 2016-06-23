@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Aplicacion;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Admin;
+use Symfony\Component\Routing\Tests\Fixtures\RedirectableUrlMatcher;
 
 class AnioController extends Controller
 {
@@ -67,14 +68,44 @@ class AnioController extends Controller
     }
     
     public function indexPrimerIngreso(){
-        $anios = Aplicacion::selectraw('year')->groupby('year')->orderby('year','desc')->paginate(3);
-        
-        return view('admin.escuela.cupos',compact('anios','carrera'));
+        $anios = Cupo::selectraw('anio')->groupby('anio')->orderby('anio','desc')->paginate(3);
+        return view('admin.escuela.cupos',compact('anios'));
+
     }
     
     public function guardarCupo(Request $request){
-        $cupo= new Cupo($request->all());
-        $cupo->save();
+        $cupo =Cupo::where('carrera',$request->carrera)->where('jornada',$request->jornada)
+            ->where('anio',$request->anio)->first();
+        if($cupo){
+            $cupo->update($request->all());
+        }else{
+            $cupo= new Cupo($request->all());
+            $cupo->save();
+        }
+        $request->session()->flash('mensaje_exito','El cupo se ha actualizado para la jornada '.$request->jornada.
+    ' del año '.$request->anio);
+        return back();
+    }
+
+    public function nuevoAnio(Request $request){
+        if(count(Cupo::all())==0){
+            $ultimoAnio=date('Y');
+        }else{
+            $ultimoAnio = Cupo::groupby('anio')->orderby('anio','desc')->first()->anio;
+        }
+        Cupo::create(['anio'=>$ultimoAnio+1,'jornada'=>'matutina','carrera'=>'arquitectura']);
+        Cupo::create(['anio'=>$ultimoAnio+1,'jornada'=>'vespertina','carrera'=>'arquitectura']);
+        Cupo::create(['anio'=>$ultimoAnio+1,'jornada'=>'matutina','carrera'=>'disenio']);
+        Cupo::create(['anio'=>$ultimoAnio+1,'jornada'=>'vespertina','carrera'=>'disenio']);
+        return back();
+    }
+
+    public function getListado(Request $request){
+        $path =storage_path().'/listados_escuelas/'.$request->anio.'_Listado-'.$request->carrera.'.xlsx';
+        if(!file_exists($path)){
+            return back()->withErrors(['file'=>'El listado aún no se ha generado por el administrador del sistema']);
+        }
+        Excel::load($path)->download();
         return back();
     }
 
