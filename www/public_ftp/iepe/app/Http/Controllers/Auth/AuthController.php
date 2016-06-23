@@ -70,15 +70,15 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         $messages = [
-            'required' => 'El campo :attribute es obligatorio.',
-            'unique'   => 'El :attribute proporcionado ya esta registrado. <a class="btn btn-link" href="'.url('/password/reset').'">Recuperar contraseña</a><br>Si el problema persiste presentarse a la oficina de Orientacion Estudiantil de Arquitectura.',
-            'numeric'  => 'El campo :attribute debe ser numérico',
-            'email'    => 'El campo :attribute debe ser un correo electrónico válido.',
-            'taken'    => 'El campo :attribute debe ser un correo electrónico válido.',
+            'required'      => 'El campo :attribute es obligatorio.',
+            'unique'        => 'El :attribute proporcionado ya esta registrado. <a class="btn btn-link" href="'.url('/password/reset').'">Recuperar contraseña</a><br>Si el problema persiste presentarse a la oficina de Orientacion Estudiantil de Arquitectura.',
+            'numeric'       => 'El campo :attribute debe ser numérico',
+            'email'         => 'El campo :attribute debe ser un correo electrónico válido.',
+            'confirmed'     => 'El campo :attribute no concuerda con la confirmación.',
         ];
         return Validator::make($data, [
             'NOV' => 'required|numeric|unique:aspirantes',
-            'email' => 'required|email|max:255|unique:aspirantes',
+            'email' => 'required|confirmed|email|max:255|unique:aspirantes',
             'password' => 'required|confirmed|min:6',
         ],$messages);
     }
