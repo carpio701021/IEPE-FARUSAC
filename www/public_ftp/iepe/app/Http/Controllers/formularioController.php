@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\FormularioRequest;
 use App\Formulario;
 use Auth;
+use Symfony\Component\DomCrawler\Form;
 
 class formularioController extends Controller
 {
@@ -62,7 +63,14 @@ class formularioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $formulario = Formulario::find($id);
+        return view('aspirante.satisfactorio',compact('formulario'));
+    }
+    
+    public function confirmarIntereses($id,Request $request){
+        Formulario::find($id)->update($request->all());
+        $request->session()->flash('mensaje_exito','Se han confirmado tus intereses universitarios para una futura asignación como estudiante.');
+        return back()->withInput();
     }
 
     /**

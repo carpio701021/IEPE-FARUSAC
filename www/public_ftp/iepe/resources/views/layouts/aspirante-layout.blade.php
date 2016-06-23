@@ -52,7 +52,7 @@
                         Prueba Específica</a>
                 </li>
                 <li>
-                    <a href="/aspirante/ResultadosSatisfactorios">
+                    <a href="/aspirante/formulario/{{ Auth::user()->getFormulario()->id_formulario }}/edit">
                         <span class="glyphicon glyphicon-check" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Aprobados</a>
                 </li>
@@ -64,7 +64,7 @@
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="/configuracion">
+                        <li><a href="/aspirante/configuracion">
                                 <span class="glyphicon glyphicon-wrench" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                                 Configurar cuenta</a></li>
                         <li><a href="{{ url('/logout') }}">

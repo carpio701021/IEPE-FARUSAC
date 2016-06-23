@@ -54,4 +54,8 @@ class Admin extends Authenticatable
             'director_disenio_grafico'  =>  'Director de Diseño Gráfico'
         ];
     }
+    
+    public function nombre(){
+        return $this->nombre.' '.$this->apellido;
+    }
 }

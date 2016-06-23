@@ -100,28 +100,6 @@
                 </div>
             </div>
             {{$asignaciones->appends(['orden'=>$ob])->links()}}
-            <div class="container">
-
-                <div class="container">
-                    <h3>Historial de actas</h3>
-                    <p>Se muestra las actas generadas anteriormente para esta aplicacion</p>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>No. Acta</th>
-                            <th>Aprobados</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>John</td>
-                            <td>Doe</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
         </div>
 
     </div>

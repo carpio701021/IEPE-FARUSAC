@@ -34,6 +34,13 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
 
     Route::group(['middleware' => ['auth:admin']], function () {
+        //********** RUTAS DE DIRECTORES DE ESCUELA*************
+        Route::get('escuela/primerIngreso','AnioController@indexPrimerIngreso');
+        Route::post('escuela/primerIngreso/guardarCupo','AnioController@guardarCupo');
+        Route::get('escuela/primerIngreso/nuevo','AnioController@nuevoAnio');
+        Route::get('escuela/primerIngreso/listado','AnioController@getListado');
+         //******************************************************
+
         Route::get('/', function () {
             return view('admin.index');
         });
@@ -47,9 +54,14 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles');
             Route::get('aplicacion/{aplicacion_id}/actas', 'AplicacionController@getActas');
             Route::get('aplicacion/{aplicacion_id}/listados', 'AplicacionController@getListados');
+            Route::get('aplicacion/{aplicacion_id}/habilitar', 'AplicacionController@habilitarResultados');
+            Route::post('aplicacion/notificar','AplicacionController@notificar');
 
 
             Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
+            Route::resource('aspirantes','ListaNegraController');
+            Route::get('listaNegra','ListaNegraController@getListaNegra');
+            Route::get('listaNegra/{search}','ListaNegraController@listaNegraShow');
 
             //Route::resource('datos','DatosController');
             Route::post('datos/insert','DatosController@insert');
@@ -57,9 +69,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::get('datos/insert/search','DatosController@search');
 
             Route::get('acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
-
-
-
+            
+            
             Route::post('acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');
         });
 
@@ -80,8 +91,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::get('notificar/listado','AnioController@generarListado');
             Route::get('notificar/enviar','AnioController@enviarEscuela');
         });
-
-
 
     });
 });
@@ -106,6 +115,7 @@ Route::group(['middleware' => 'aspirante_web'], function () {
 
         Route::resource('/', 'AspiranteController');
         Route::resource('formulario', 'formularioController');
+        Route::post('formulario/{formulario_id}/confirmar', 'formularioController@confirmarIntereses');
         Route::resource('PruebaEspecifica', 'AspiranteAplicacionController');
 
 

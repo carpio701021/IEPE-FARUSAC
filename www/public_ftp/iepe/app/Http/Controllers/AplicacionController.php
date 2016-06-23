@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aspirante;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,6 +16,8 @@ use App\AspiranteAplicacion;
 use Excel;
 use PHPExcel_Worksheet_Drawing;
 use PHPExcel_Style_Alignment;
+use Illuminate\Support\Facades\Mail;
+use Psy\Util\Json;
 
 class AplicacionController extends Controller
 {
@@ -26,8 +29,10 @@ class AplicacionController extends Controller
     public function index()
     {
         //
-        $aplicaciones = Aplicacion::orderBy('created_at', 'desc')->paginate(3);
+        $aplicaciones = Aplicacion::orderBy('year', 'desc')
+            ->orderBy('id','desc')->paginate(3);
         //return view('admin.aplicacion.index',['aplicacion'=> $aplicacion]);
+
         return view('admin.aplicacion.index',compact('aplicaciones'));
     }
 
@@ -56,11 +61,14 @@ class AplicacionController extends Controller
         $aplicacion = new Aplicacion([
             'year'=>$aplicacionBase->year,
             'naplicacion'=>$aplicacionBase->naplicacion,
-            'irregular'=>$nextIrregular
+            'irregular'=>$nextIrregular,
+            'fecha_inicio_asignaciones'=>$aplicacionBase->fecha_inicio_asignaciones,
+            'fecha_fin_asignaciones'=>$aplicacionBase->fecha_fin_asignaciones,
         ]);
         $titulo = 'Crear aplicación especial';
         $especial =$id;
-        return view('admin.aplicacion.create',compact('aplicacion','titulo','put','especial'));
+        //dd($aplicacionBase);
+        return view('admin.aplicacion.create',compact('aplicacion','titulo','put','especial','aplicacionBase'));
     }
 
     /**
@@ -71,11 +79,11 @@ class AplicacionController extends Controller
      */
     public function store(AplicacionRequest $request)
     {
-
+        //dd($request->all());
         //$this->asignarIrregulares($request->_especial,Aplicacion::find(5));
         if(Aplicacion::where('year',$request->year)
             ->where('naplicacion',$request->naplicacion)
-            ->where('irregular',(isset($request->_especial)?$request->_especial:0))
+            ->where('irregular',(isset($request->irregular)?$request->irregular:0))
             ->first()){
             $errors = Array('La combinacion de año y número de aplicación ya existe');
             return redirect('/admin/aplicacion/create')->withErrors($errors)->withInput();
@@ -90,10 +98,11 @@ class AplicacionController extends Controller
 
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios,$request->fechasA);
-        if($request->_especial){
-            if($this->asignarIrregulares($request->_especial,$aplicacion)){//se asignan automaticamente
+        if($request->irregular){
+            if($this->asignarIrregulares($request->_id_base,$aplicacion)){//se asignan automaticamente
                 $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente. Se asignaron los estudiantes irregulares');
             }else{
+                //return redirect('/admin/aplicacion')->withErrors(['irregular','Ocurrió un error']);
                 $request->session()->flash('mensaje_exito','ocurrió un error');
             }
         }else{
@@ -131,9 +140,33 @@ class AplicacionController extends Controller
                 return false;// back()->withErrors(['cupo'=>'No puede asignarse a esta aplicación porque el cupo está lleno. Abocarse a las oficinas de la facultad de arquitectura para solucionarlo']);
             }
         }
+        $this->notificarAsignacionIrregular($irregulares);
         return true;
     }
 
+    private function notificarAsignacionIrregular($irregulares){
+        $emailArray=[];
+        foreach ($irregulares as $irregular){
+            $aspirante = Aspirante::find($irregular->aspirante_id);
+            $emailArray[$aspirante->email]=$aspirante->getNombreCompleto();
+        }
+
+        $msg='Buen día, por favor acercarse a la oficina de bienestar y desarrollo estudiantil de la facultad de Arquitectura, edificio T2 primer nivel.';
+
+        Mail::raw($msg,function($message) use($emailArray){
+            $message->subject('Prueba especifica');
+            $message->from(env('MAIL_USERNAME'),'FARUSAC');
+            $message->to(env('MAIL_USERNAME','FARUSAC'));
+            $count = 0;
+            foreach ($emailArray as $email => $name){
+                $message->cc($email,$name);
+                if($count==50)
+                    sleep(3);//para evitar abrir dos veces al mismo tiempo el servicio smtp
+            }
+        });
+
+
+    }
     /**
      * Display the specified resource.
      *
@@ -261,8 +294,8 @@ class AplicacionController extends Controller
         $aplicacion->percentil_APN=$request->percentil_APN;
         $aplicacion->save();
         $aplicacion->calificar();//actualizará la tabla aspirantes_aplicaciones
-        //dd($aplicacion->getResumen_Areas());
-        return back();//->with("resumen_areas",$aplicacion->getResumen_Areas());
+
+        return back();
     }
     
     public function getActas($id){
@@ -284,13 +317,7 @@ class AplicacionController extends Controller
             //->where('aspirante_id',1000000311)
             ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
             ->get();
-        /*$asignaciones=Aplicacion::find($id)
-            ->getAsignaciones()
-            ->where('acta_id','>',4)
-            //->where('aspirante_id',1000000311)
-            ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
-            ->get();*/
-        //dd($asignaciones);
+
         $aplicacion = Aplicacion::find($id);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setPaper(array(0,0,740,570), 'portrait');//740,570
@@ -301,15 +328,15 @@ class AplicacionController extends Controller
 
 
     public function getListados($id){
-        Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
+        //Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
 
-            Excel::create('Listados_'.Aplicacion::find($id)->nombre(),function($excel) use ($id,$file){
+            Excel::create('Listados_'.Aplicacion::find($id)->nombre(),function($excel) use ($id){
                 $aplicacion=Aplicacion::find($id);
                 $salones_horarios = $aplicacion->getSalonesHorarios();
                 foreach ($salones_horarios as $sh){
 
                     //obtener data
-                    $excel->sheet($sh->printNombre(), function($sheet) use ($sh,$file,$aplicacion) {
+                    $excel->sheet($sh->printNombre(), function($sheet) use ($sh,$aplicacion) {
                         $asignaciones=$sh->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
                             ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
                             ->selectRaw('NOV,nombre,apellido')
@@ -349,7 +376,7 @@ class AplicacionController extends Controller
                         $sheet->setCellValue($c_ini.'2','Facultad de Arquitectura');
                         $sheet->setCellValue($c_ini.'3','Unidad de Orientación Estudiantil');
                         $sheet->setCellValue($c_ini.'5', $aplicacion->nombre());
-                        $sheet->setCellValue($c_ini.'6',$aplicacion->fecha_aplicacion());
+                        $sheet->setCellValue($c_ini.'6',$sh->fecha_aplicacion);
                         $sheet->setCellValue($c_ini.'7',$sh->getSalon()->printNombre());
                         $sheet->setCellValue($c_ini.'8',$sh->getHorario()->printHorario());
 
@@ -387,10 +414,48 @@ class AplicacionController extends Controller
                 }
             })->download('xlsx');
 
-        });
+        //});
     }
-    
-    
-    
+
+    public function notificar(Request $request){
+        $aplicacion=Aplicacion::find($request->aplicacion_id);
+        $asignaciones = $aplicacion
+            ->getAsignaciones()
+            ->get();
+        $emailArray=[];
+        foreach($asignaciones as $asig){
+            $aspirante = Aspirante::find($asig->aspirante_id);
+            $emailArray[$aspirante->email]=$aspirante->getNombreCompleto();
+        }
+        //$emailArray=['jodaches@gmail.com'=>'jose','ipc12016D@gmail.com'=>'ipc','201213058@ingenieria.usac.edu.gt'=>'carne'];
+
+        $msg='Le informamos que ya se han publicado los resultados de la '.$aplicacion->nombre().'. Puede '.
+             'revisar su resultado con su usuario en http://iepe.dev/aspirante/PruebaEspecifica/create. '.
+             'De haber obtenido resultado satisfactorio debe confirmar su jornada y carerra para la futura '.
+             'asignación como estudiante universitario en http://iepe.dev/aspirante/ResultadosSatisfactorios.';
+
+        Mail::raw($msg,function($message) use($emailArray){
+            $message->subject('Resultados prueba especifica');
+            $message->from(env('MAIL_USERNAME'),'FARUSAC');
+            $message->to(env('MAIL_USERNAME','FARUSAC'));
+            $count = 0;
+            foreach ($emailArray as $email => $name){
+                $message->cc($email,$name);
+                if($count==40)
+                    sleep(2);//para evitar abrir dos veces al mismo tiempo el servicio smtp
+            }
+        });
+
+        $request->session()->flash('mensaje_exito','Se enviaron las notificaciones');
+        return back();
+    }
+
+    public function habilitarResultados($id,Request $request){
+        $aplicacion = Aplicacion::find($id);
+        $aplicacion->mostrar_resultados=!$aplicacion->mostrar_resultados;
+        $aplicacion->save();
+        $request->session()->flash('mensaje_exito','Se modificó la visualización de resultados');
+        return back();
+    }
 
 }

@@ -1,53 +1,80 @@
 <html>
 <head>
     <style type='text/css'>
-        @page{
-            margin-top: 0em;
-            margin-left: 0em;
-            margin-bottom: 0em;
-            margin-right: 0em;
+        p{
+            font-family: Jester, "Comic Sans MS", sans-serif;
         }
-
+        @page{
+            margin-bottom: 1em;
+            margin-top: 1em;
+            margin-left: 5em;
+            margin-right: 3em;
+        }
     </style>
 </head>
-<body background="/img/fondoConstanciaSatisfactorio.png">
+<body >
+{{--background="/img/fondoConstanciaSatisfactorio-min.png"--}}
 
+<?php $count=0; ?>
 @foreach($asignaciones as $asignacion)
+    <img src="/var/www/public_ftp/iepe/public/img/fondoConstanciaSatisfactorio.png"  style="width:650px;height:510px;" border="1"/>
+    @if($count%2==0)
+            <p style="position: absolute; top: 30px; left: 280px; font-size: 17px;  text-align: center ">
+                <strong>Universidad de San Carlos de Guatemala</strong><br>
+                Facultad de Arquitectura</p>
+            <p style="position: absolute; top: 110px; left: 248px; font-size: 12px;  text-align: center ">
+                Constancia de resultado <strong>SATISFACTORIO</strong> en la Prueba Específica <br>
+                realizada el {{$asignacion->getFechaAplicacion()}}
+            </p>
 
-    <div>
-        <!--h2 style="position: absolute; top: 50px; left: 410px; font-size: 28px"> Universidad de San Carlos de Guatemala</h2-->
-        <p style="position: absolute; top: 37px; left: 435px; font-size: 28px; text-align:center">
-            <strong>Universidad de San Carlos de Guatemala</strong><br>
-            Facultad de Arquitectura</p>
-        <p style="position: absolute; top: 160px; left: 380px; font-size: 21px;  text-align: center ">
-            Constancia de resultado <strong>SATISFACTORIO</strong> en la Prueba Específica <br>
-            realizada el {{$aplicacion->fecha_aplicacion}}
-        </p>
+            <p style="position: absolute; top: 165px; left: 310px; font-size: 13px;text-align:center" >
+                <strong>
+                {{$asignacion->getAspirante()->getNombreCompleto()}}<br>
+                {{$asignacion->aspirante_id}}<br>
+                {{md5($aplicacion->fecha_aplicacion.'-'.$asignacion->aspirante_id)}}
+                </strong>
+            </p>
 
-        <!--p-- style="position: absolute; top: 382px; left: 480px; font-size: 21px;  text-align: center ">
-            <strong>Éste resultado tiene validez únicamente <br>
-            para inscribirse en el año 2017
-            </strong>
-        </--p-->
+            <p style="position: absolute; top: 430px; left: 20px; font-size: 12px;  text-align: right ">
+                <strong>Msc. Arq. Publio Rodríguez</strong> <br>
+                Secretario<br>
+                Facultad de Arquitectura
+            </p>
+            <p style="position: absolute; top: 430px; left: 493px; font-size: 12px;  text-align: right ">
+                <strong>Arq. Oscar Enriquez</strong> <br>
+                Unidad Bienestar<br>
+                y Desarrollo Estudiantil
+            </p>
+    @else
+            <p style="position: absolute; top: 540px; left: 280px; font-size: 17px;  text-align: center ">
+                <strong>Universidad de San Carlos de Guatemala</strong><br>
+                Facultad de Arquitectura</p>
+            <p style="position: absolute; top: 620px; left: 248px; font-size: 12px;  text-align: center ">
+                Constancia de resultado <strong>SATISFACTORIO</strong> en la Prueba Específica <br>
+                realizada el {{$asignacion->getFechaAplicacion()}}
+            </p>
 
-        <p style="position: absolute; top: 634px; left: 33px; font-size: 20px;  text-align: right ">
-            <strong>Msc. Arq. Publio Rodríguez</strong> <br>
-            Secretario<br>
-            Facultad de Arquitectura
-        </p>
-        <p style="position: absolute; top: 634px; left: 744px; font-size: 20px;  text-align: right ">
-            <strong>Arq. Oscar Enriquez</strong> <br>
-            Unidad Bienestar<br>
-            y Desarrollo Estudiantil
-        </p>
+            <p style="position: absolute; top: 675px; left: 310px; font-size: 13px;text-align:center" >
+                <strong>
+                    {{$asignacion->getAspirante()->getNombreCompleto()}}<br>
+                    {{$asignacion->aspirante_id}}<br>
+                    {{md5($aplicacion->fecha_aplicacion.'-'.$asignacion->aspirante_id)}}
+                </strong>
+            </p>
 
-        <p style="position: absolute; top: 235px; left: 425px; font-size: 25px;text-align:center" >
-            {{$asignacion->getAspirante()->getNombreCompleto()}}<br>
-            {{$asignacion->aspirante_id}}<br>
-            {{md5($aplicacion->fecha_aplicacion.'-'.$asignacion->aspirante_id)}}
-        </p>
-    </div>
-    <div style="page-break-before: always;"></div>
+            <p style="position: absolute; top: 940px; left: 20px; font-size: 12px;  text-align: right ">
+                <strong>Msc. Arq. Publio Rodríguez</strong> <br>
+                Secretario<br>
+                Facultad de Arquitectura
+            </p>
+            <p style="position: absolute; top: 940px; left: 493px; font-size: 12px;  text-align: right ">
+                <strong>Arq. Oscar Enriquez</strong> <br>
+                Unidad Bienestar<br>
+                y Desarrollo Estudiantil
+            </p>
+    @endif
+
+    <?php $count++; ?>
 @endforeach
 </body>
 </html>

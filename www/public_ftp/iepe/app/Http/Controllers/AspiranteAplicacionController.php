@@ -35,19 +35,24 @@ class AspiranteAplicacionController extends Controller
     public function create()
     {
         $asignadas =AspiranteAplicacion::where('aspirante_id','=',Auth::user()->NOV)
-            ->orderby("created_at","desc")
+            ->join('aplicaciones_salones_horarios as ash','aplicacion_salon_horario_id','=','ash.id')
+            ->join('aplicaciones','ash.aplicacion_id','=','aplicaciones.id')
+            ->orderby("year","desc")
+            ->orderBY('naplicacion','asc')
+            ->where('irregular',0)
             ->get();
 
+        //dd($asignadas);
         $ids = [];
         foreach ($asignadas as $a){
             $ids[] = $a->getAplicacion()->id;
         }
         $proximas = Aplicacion::where("fecha_inicio_asignaciones","<=",date("Y-m-d"))
             ->where("fecha_fin_asignaciones",">=",date("Y-m-d h:i"))
-            //->where("irregular",0)
+            ->where("irregular",0)
             ->whereNotIn('id',$ids)
             ->get();
-        return view("aspirante.PruebaEspecifica")->with("proximas",$proximas)->with("asignadas",$asignadas);
+        return view("aspirante.PruebaEspecifica",compact('proximas','asignadas'));
     }
 
     /**
@@ -64,8 +69,8 @@ class AspiranteAplicacionController extends Controller
             $pdf=$this->generarConstanciaPDF($asignacion->id);
             $mail = new Mail();
             $request->session()->flash('mensaje_exito', 'Asignación realizada correctamente, puedes revisar tu salón y horario para la prueba');
-            if($mail->send(Auth::user()->email,
-                Auth::user()->getFormulario()->nombre." ".Auth::user()->getFormulario()->apellido,
+            if($mail->send([Auth::user()->email =>
+                Auth::user()->getFormulario()->nombre." ".Auth::user()->getFormulario()->apellido],
                 'Constancia de asignación',
                 'Imprime esta constancia para resguardar tu asignación',
                 $pdf->output(),
@@ -206,7 +211,7 @@ class AspiranteAplicacionController extends Controller
     private function generarConstanciaPDF($id){
         $asignacion = AspiranteAplicacion::find($id);
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->setPaper(array(0, 0, 740, 570), 'portrait');
+        $pdf->setPaper('letter', 'portrait');
         $aspirante = Auth::user();
         $pdf->loadView('aspirante.pdf.constanciaAsignacion',compact('asignacion','id','aspirante'));
         return $pdf;
