@@ -11,8 +11,8 @@
     <div class="row">
         <div class="col-sm-4">
             <h3>Reglamento</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+            <a href="/aspirante/recursos/reglamento" class="btn btn-primary" target="_blank"> <span class="glyphicon glyphicon-download-alt"></span> Ver reglamento</a>
+
         </div>
         <div class="col-sm-4">
             <h3>Instructivo</h3>

@@ -24,9 +24,14 @@ class RecursosController extends Controller
     }
 
     public function getReglamento(Request $request){
-        return Response::make(file_get_contents(public_path().'/files/pdf/reglamento/reglamento.pdf'), 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="Reglamento"'
-        ]);
+        $path=public_path().'/files/pdf/reglamento/reglamento.pdf';
+        if(file_exists($path)) {
+            return Response::make(file_get_contents(public_path() . '/files/pdf/reglamento/reglamento.pdf'), 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="Reglamento"'
+            ]);
+        }
+        else
+            return back()->withErrors(['file'=>'Recurso no disponible']);
     }
 }

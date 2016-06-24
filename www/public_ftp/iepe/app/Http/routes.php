@@ -108,14 +108,13 @@ Route::group(['middleware' => 'aspirante_web'], function () {
     Route::get('/', function () {
         return view('welcome');
     });
-
+    Route::get('/aspirante/recursos/reglamento', 'RecursosController@getReglamento');
 
     Route::group(['middleware' => ['auth:aspirante_web'],'prefix' => 'aspirante'], function () {
         Route::get('/configuracion', function () {
             return view('aspirante.configurarCuenta');
         });
         Route::post('/configuracion/guardar', "AspiranteController@actualizarCuenta");
-
         Route::resource('/', 'AspiranteController');
         Route::resource('formulario', 'formularioController');
         Route::post('formulario/{formulario_id}/confirmar', 'formularioController@confirmarIntereses');
