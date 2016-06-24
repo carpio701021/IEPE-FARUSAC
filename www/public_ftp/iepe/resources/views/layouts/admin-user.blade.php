@@ -93,6 +93,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/admin/aspirantes">Aspirantes</a></li>
                                 <li><a href="/admin/listaNegra">Lista negra</a></li>
+                                <li><a href="/admin/recursos">Recursos</a></li>
                             </ul>
                         </li>
                     @endif

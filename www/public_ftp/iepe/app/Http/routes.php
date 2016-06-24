@@ -69,9 +69,12 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
             Route::get('datos/insert/search','DatosController@search');
 
             Route::get('acta/{aplicacion_id}/irregular','ActaController@getReporteIrregular');
-            
-            
             Route::post('acta/{aspirante_aplicacion_id}/resultado','AspiranteAplicacionController@cambiarIrregularAprobado');
+
+            //recursos
+            Route::get('recursos','RecursosController@index');
+            Route::get('recursos/reglamento','RecursosController@getReglamento');
+            Route::post('recursos/reglamento','RecursosController@postReglamento');
         });
 
         Route::group(['middleware' => ['adminRol:secretario_decano_jefe_bienestar']], function () {
