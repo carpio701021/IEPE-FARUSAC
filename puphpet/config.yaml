@@ -224,7 +224,7 @@ apache:
 php:
     install: '1'
     settings:
-        version: '55'
+        version: '70'
     modules:
         php:
             - cli

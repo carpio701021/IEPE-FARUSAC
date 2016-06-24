@@ -116,12 +116,18 @@ class AuthController extends Controller
 
         //redirect('/register')->with('status', 'We sent you an activation code. Check your email.');
 
-        /**Verificar si existe en la base de datos del SUN (deben ganar lenguaje-> 3 y matematicas-> 4)**/
+        /**
+         * Verificar si existe en la base de datos
+         * del SUN (deben ganar lenguaje-> 3 y matematicas-> 4)
+         * y que su fecha de nacimeinto concuerde
+         **/
         $lenguaje = Datos_sun::where('orientacion',$request->NOV)
+            ->where('fecha_nacimiento',$request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0])
             ->where('id_materia','3')
             ->where('aprobacion','1')
             ->first();
         $mate = Datos_sun::where('orientacion',$request->NOV)
+            ->where('fecha_nacimiento',$request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0])
             ->where('id_materia','4')
             ->where('aprobacion','1')
             ->first();
@@ -136,7 +142,7 @@ class AuthController extends Controller
         //Auth::guard($this->getGuard())->login($this->create($request->all()));
         $user = $this->create($request->all());
         $user->NOV = $request->NOV;
-        Auth::guard($this->getGuard())->login($user);
+        //Auth::guard($this->getGuard())->login($user);
         $this->activationService->sendActivationMail($user);
 
         //return redirect($this->redirectPath());

@@ -5,7 +5,7 @@
     <h1>Bienvenido a la facultad de Arquitectura - USAC</h1>
     <div class="row">
         <div class="col-lg-10">
-            <iframe width="100%" height="400px" src="https://www.youtube.com/embed/H8Qp38qT-xI" frameborder="0" allowfullscreen></iframe>
+            <iframe width="100%" height="400px" src="https://www.youtube.com/embed/KhKiyDJ5b_M?version=3&autoplay=1&loop=1&controls=0&playlist=KhKiyDJ5b_M&showinfo=0&theme=light" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
     <div class="row">

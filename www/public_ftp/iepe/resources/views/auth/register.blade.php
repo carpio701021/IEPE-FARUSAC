@@ -53,7 +53,7 @@
                             <label class="col-md-4 control-label">Confirmar correo electrónico*</label>
 
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email_confirmation" value="{{ old('email_confirmation') }}">
+                                <input type="email" class="form-control" name="email_confirmation" value="{{ old('email_confirmation') }}"  autocomplete="off">
 
                                 @if ($errors->has('email_confirmation'))
                                     <span class="help-block">
@@ -68,15 +68,15 @@
 
                             <div class="col-md-6">
                                 <select name="fecha_nac[]" required>
-                                    <option>día</option>
+                                    <option disabled selected>día</option>
                                     @for($i=1;$i<=31;$i++)
-                                        <option>{{ $i }}</option>
+                                        <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>/
                                 <select name="fecha_nac[]" required>
-                                    <option>mes</option>
+                                    <option disabled selected>mes</option>
                                     @for($i=1;$i<=12;$i++)
-                                        <option>{{ $i }}</option>
+                                        <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>/
                                 <input type="number" min="{{ date('Y') - 70 }}" max="{{ date('Y') - 10 }}" name="fecha_nac[]" placeholder="año" required>
@@ -108,7 +108,7 @@
                             <label class="col-md-4 control-label">Confirmar contraseña*</label>
 
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password_confirmation">
+                                <input type="password" class="form-control" name="password_confirmation"  autocomplete="off">
 
                                 @if ($errors->has('password_confirmation'))
                                     <span class="help-block">
