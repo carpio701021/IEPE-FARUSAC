@@ -14,20 +14,7 @@
         <fieldset class="form-horizontal">
             <h2 class="fs-title">Información Personal</h2>
             <h3 class="fs-subtitle">Requisito para asignación de prueba especifica</h3>
-                <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
-                    <label class="col-md-4 control-label">Nombres: </label>
-                    <div class="col-md-6">
-                        <input class="form-control" type="text" name="nombre" value="{{old('nombre')}}" placeholder="Nombres"/>
-                    </div>
-                </div>
-
-                <div class="form-group{{ $errors->has('apellido') ? ' has-error' : '' }}">
-                    <label class="col-md-4 control-label">Apellidos:</label>
-                    <div class="col-md-6">
-                        <input class="form-control" type="text" name="apellido" value="{{old('apellido')}}" placeholder="Apellidos"/>
-                    </div>
-                </div>
-
+            <div class="fs-title">{{Auth::user()->getNombreCompleto()}}</div>
                 <div class="form-group{{ $errors->has('residencia') ? ' has-error' : '' }}">
                     <label class="col-md-4 control-label">Residencia:</label>
                     <div class="col-md-6">
@@ -206,7 +193,8 @@
             $('.input-group.date.fecha').datetimepicker({
                 locale: 'es',
                 format: 'L',
-                format: 'YYYY-MM-DD'
+                format: 'DD/MM/YYYY',
+                //startDate: '1990/01/01/',
             });
 
             $('.input-group.date.year').datetimepicker({

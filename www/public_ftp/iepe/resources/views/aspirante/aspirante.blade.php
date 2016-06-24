@@ -18,15 +18,9 @@
 							<div class="panel-body">
 								<div class="form-horizontal">
 									<div class="row">
-										<label class="control-label col-xs-6">Nombres:</label>
+										<label class="control-label col-xs-6">Nombre:</label>
 										<div class="col-xs-6">
-											<p class="form-control-static">{{$formulario->nombre}}</p>
-										</div>
-									</div>
-									<div class="row">
-										<label class="control-label col-xs-6" >Apellidos:</label>
-										<div class="col-xs-6">
-											<p class="form-control-static">{{$formulario->apellido}}</p>
+											<p class="form-control-static">{{Auth::user()->getNombreCompleto()}}</p>
 										</div>
 									</div>
 									<div class="row">
@@ -150,18 +144,6 @@
 								<div class="modal-body">
 									<form class="form-horizontal" role="form" action="/aspirante/formulario/{{$formulario->id_formulario}}" method="post">
 										<input type="hidden" name="_method" value="PUT">
-										<div class="form-group">
-											<label class="control-label col-sm-2" for="nombre">Nombre:</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="nombre" name="nombre" value="{{$formulario->nombre}}">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="control-label col-sm-2" for="apellido">Apellido:</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="apellido" name="apellido" value="{{$formulario->apellido}}">
-											</div>
-										</div>
 										<div class="form-group">
 											<label class="control-label col-sm-2" for="genero">Género:</label>
 											<div class="col-sm-10">
@@ -328,9 +310,10 @@
 			$('.input-group.date').datetimepicker({
 				locale: 'es',
 				format: 'L',
-				format: 'YYYY-MM-DD'
+				//format: 'YYYY-MM-DD',
+				format: 'DD-MM-YYYY',
+				startDate: '01-01-1990'
 			});
-
 		});
 	</script>
 

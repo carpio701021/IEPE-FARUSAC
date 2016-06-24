@@ -149,6 +149,7 @@ class LogicaIepe extends Migration
             $table->enum('carrera',['disenio','arquitectura']);
             $table->enum('jornada',['matutina','vespertina']);
             $table->integer('cantidad');
+            $table->integer('confirmados');
             $table->integer('anio');
 
             $table->timestamps();

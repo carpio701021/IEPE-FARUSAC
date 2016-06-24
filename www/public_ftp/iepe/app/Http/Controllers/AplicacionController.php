@@ -159,9 +159,11 @@ class AplicacionController extends Controller
             $message->to(env('MAIL_USERNAME','FARUSAC'));
             $count = 0;
             foreach ($emailArray as $email => $name){
-                $message->cc($email,$name);
-                if($count==50)
+                $message->Bcc($email,$name);
+                if($count++==50) {
                     sleep(3);//para evitar abrir dos veces al mismo tiempo el servicio smtp
+                    $count=0;
+                }
             }
         });
 
@@ -427,7 +429,6 @@ class AplicacionController extends Controller
             $aspirante = Aspirante::find($asig->aspirante_id);
             $emailArray[$aspirante->email]=$aspirante->getNombreCompleto();
         }
-        //$emailArray=['jodaches@gmail.com'=>'jose','ipc12016D@gmail.com'=>'ipc','201213058@ingenieria.usac.edu.gt'=>'carne'];
 
         $msg='Le informamos que ya se han publicado los resultados de la '.$aplicacion->nombre().'. Puede '.
              'revisar su resultado con su usuario en http://iepe.dev/aspirante/PruebaEspecifica/create. '.
@@ -440,9 +441,12 @@ class AplicacionController extends Controller
             $message->to(env('MAIL_USERNAME','FARUSAC'));
             $count = 0;
             foreach ($emailArray as $email => $name){
-                $message->cc($email,$name);
-                if($count==40)
+                $message->Bcc($email,$name);
+                if($count==40) {
                     sleep(2);//para evitar abrir dos veces al mismo tiempo el servicio smtp
+                    $count=0;
+                }
+                $count++;
             }
         });
 

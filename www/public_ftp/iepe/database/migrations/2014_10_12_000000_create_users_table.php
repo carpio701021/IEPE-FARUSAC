@@ -54,10 +54,9 @@ class CreateUsersTable extends Migration
 
         Schema::create('formularios', function (Blueprint $table) {
             $table->increments('id_formulario');
-            $table->string('nombre');
-            $table->string('apellido');
             $table->string('residencia');
             $table->string('departamento');
+            $table->string('municipio');
             $table->boolean('genero');
             $table->date('fecha_nacimiento');
             $table->enum('estado_civil',['soltero', 'casado']);

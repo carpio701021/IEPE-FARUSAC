@@ -30,13 +30,19 @@ class AspiranteAplicacion extends Model
     }
 
     public function getFechaAplicacion(){
-        return $this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->first()->fecha_aplicacion;
+        $fecha=$this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->first()->fecha_aplicacion;
+        return date('d-m-Y' ,strtotime($fecha));
+
     }
 
     public function getResultado(){
         //validar si se puede o no retornar el resultado aún
         if($this->resultado == 'irregular')
             return '*Pasar a oficina de orientación estudiantil de Arquitectura para verificar su resultado.';
+        elseif($this->resultado == 'aprobado')
+            return  'Aprobado - Por favor confirma tus preferencias en la sección de Aprobados, para una futura asignación';
+        elseif($this->resultado == 'reprobado')
+            return 'Insatisfactorio';
         else
             return $this->resultado;
     }

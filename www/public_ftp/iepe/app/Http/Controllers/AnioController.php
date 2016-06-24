@@ -32,7 +32,7 @@ class AnioController extends Controller
         ->where('carrera',$request->escuela)
         ->where('acta_id','>','0')
         ->where('estado','aprobada')
-        ->selectraw('f.NOV,f.nombre,f.apellido,email,carrera,jornada,confirmacion_intereses as confirmacion');
+        ->selectraw('f.NOV,aspirantes.nombre,aspirantes.apellido,email,carrera,jornada,confirmacion_intereses as confirmacion');
         //dd($aprobados->first());
 
         $excel = Excel::create($request->anio.'_Listado-'.$request->escuela, function($excel) use($aprobados){

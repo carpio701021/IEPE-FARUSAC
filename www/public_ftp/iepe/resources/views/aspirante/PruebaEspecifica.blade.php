@@ -65,26 +65,26 @@
 					</div>
 					<div id="colaps{{$asignada->id}}" class="panel-collapse collapse">
 						<div class="panel-body">
-							<div class="col-sm-8">
+							<div class="col-sm-12">
 								<div class="row">
 									<div class="col-sm-2"><strong>Fecha:</strong> </div>
-									<div class="col-sm-6"> {{$asignada->getFechaAplicacion()}} </div>
+									<div class="col-sm-10"> {{$asignada->getFechaAplicacion()}} </div>
 								</div>
 								<div class="row">
 									<div class="col-sm-2"><strong>Horario: </strong></div>
-									<div class="col-sm-7">
+									<div class="col-sm-10">
 										{{date("g:ia",strtotime($asignada->getHorario()->hora_inicio))."-".date("g:ia",strtotime($asignada->getHorario()->hora_fin))}} </div>
 								</div>
 								<div class="row">
 									<div class="col-sm-2"><strong>Salon:</strong> </div>
-									<div class="col-sm-6"> {{$asignada->getSalon()->nombre}} </div>
+									<div class="col-sm-10"> {{$asignada->getSalon()->nombre}} </div>
 								</div>
 								<div class="row">
 									<div class="col-sm-2"><strong>Resultado:</strong> </div>
 									@if($asignada->getAplicacion()->mostrar_resultados==1)
-										<div class="col-sm-8"> {{$asignada->getResultado()}} </div>
+										<div class="col-sm-10"> {{$asignada->getResultado()}} </div>
 									@else
-										<div class="col-sm-8"> - </div>
+										<div class="col-sm-10"> - </div>
 									@endif
 								</div>
 							</div>
