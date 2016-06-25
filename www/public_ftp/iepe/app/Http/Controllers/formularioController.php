@@ -18,7 +18,7 @@ class formularioController extends Controller
      */
     public function index()
     {
-        return "index";
+        return view("aspirante.formulario");
     }
 
     /**
@@ -43,7 +43,8 @@ class formularioController extends Controller
         $form->NOV=Auth::user()->NOV;
         $form->fecha_nacimiento = date('Y-m-d',strtotime($form->fecha_nacimiento));
         $form->save();
-        return view("aspirante.aspirante")->with('formulario',$form);
+        //return view("aspirante.aspirante")->with('/aspirante',$form);
+        return redirect('/aspirante');
     }
 
     /**
@@ -114,7 +115,7 @@ class formularioController extends Controller
     {
         Formulario::find($id)->update($request->all());
         $form=Formulario::find($id);
-        return view("aspirante.aspirante")->with('formulario',$form);
+        return view("aspirante.aspirante")->with('/aspirante/formulario',$form);
     }
 
     /**

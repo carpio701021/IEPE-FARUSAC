@@ -33,7 +33,7 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = 'aspirante';
-    protected $redirectAfterLogout = '/';
+    protected $redirectAfterLogout = '/aspirantes';
     protected $guard = 'aspirante_web';
     protected $username = 'NOV';
     protected $activationService;

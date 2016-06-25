@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/home', 'HomeController@index');
+
 
 
 /*
@@ -100,14 +100,13 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
 
 
+
 Route::group(['middleware' => 'aspirante_web'], function () {
     Route::post('/password/sendResetLink','Auth\PasswordController@sendResetLink');
     Route::get('aspirante/activation/{token}', 'Auth\AuthController@activateUser')->name('aspirante.activate');
     Route::auth();
+    Route::get('aspirantes', 'HomeController@index');
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
     Route::get('/aspirante/recursos/reglamento', 'RecursosController@getReglamento');
 
     Route::group(['middleware' => ['auth:aspirante_web'],'prefix' => 'aspirante'], function () {

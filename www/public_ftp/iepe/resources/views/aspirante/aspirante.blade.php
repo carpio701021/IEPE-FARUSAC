@@ -182,7 +182,7 @@
 											<label class="control-label col-sm-2" for="fecha_nacimiento">Fecha de Nacimiento:</label>
 											<div class="col-sm-10">
 												<div class='input-group date'>
-													<input type='text' class="form-control"  id="fecha_nacimiento" value="{{$formulario->fecha_nacimiento}}" name="fecha_nacimiento"/>
+													<input type='text' class="form-control"  id="fecha_nacimiento" value="{{ $formulario->fecha_nacimiento }}" name="fecha_nacimiento"/>
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
 													</span>
@@ -307,14 +307,15 @@
 
 	<script type="text/javascript">
 		$(function () {
-			$('.input-group.date').datetimepicker({
+			$('.date').datetimepicker({
 				locale: 'es',
 				format: 'L',
-				//format: 'YYYY-MM-DD',
-				format: 'DD-MM-YYYY',
-				startDate: '01-01-1990'
+				format: 'DD/MM/YYYY'
 			});
+			//alert("{{ $formulario->fecha_nacimiento }}");
+			fecha_nacimiento.value = moment("{{ $formulario->fecha_nacimiento }}",'YYYY-M-D').format('DD/MM/YYYY');
 		});
+
 	</script>
 
 

@@ -29,6 +29,12 @@ class Authenticate
             }
         }
 
+
+        if($guard=='aspirante_web' && !($request->path() == 'aspirante/formulario' || $request->path() == 'aspirantes')){
+            if(!Auth::user()->getFormulario())
+                return redirect('/aspirante/formulario');
+        }
+
         return $next($request);
     }
 }

@@ -24,7 +24,7 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="sidebar-brand"><a href="/">
+            <li class="sidebar-brand"><a href="/aspirantes">
                 <img src="/img/logotipoFARUSAC_Amarillo.png"  style="width:210px;height:70px;">
             </a></li>
             <li>&nbsp;</li>

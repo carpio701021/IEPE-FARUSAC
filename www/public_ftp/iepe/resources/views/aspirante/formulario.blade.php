@@ -3,7 +3,7 @@
 @section('content')
 
 
-    <form id="msform" class="form-horizontal" role="form" action="aspirante/formulario" method="POST">
+    <form id="msform" class="form-horizontal" role="form" action="/aspirante/formulario" method="POST">
         <!-- progressbar -->
         <ul id="progressbar">
             <li class="active">Ińformación Personal</li>
@@ -14,7 +14,7 @@
         <fieldset class="form-horizontal">
             <h2 class="fs-title">Información Personal</h2>
             <h3 class="fs-subtitle">Requisito para asignación de prueba especifica</h3>
-            <div class="fs-title">{{Auth::user()->getNombreCompleto()}}</div>
+                <div class="fs-title">{{Auth::user()->getNombreCompleto()}}</div>
                 <div class="form-group{{ $errors->has('residencia') ? ' has-error' : '' }}">
                     <label class="col-md-4 control-label">Residencia:</label>
                     <div class="col-md-6">
