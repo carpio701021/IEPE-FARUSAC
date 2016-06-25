@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Aspirante;
 use App\Datos_sun;
+use App\ListaNegra;
 use Auth;
 use Validator;
 use Illuminate\Http\Request;
@@ -133,11 +134,18 @@ class AuthController extends Controller
             ->first();
 
         //dd($mate);
-
         if($lenguaje == null || $mate == null){
             $errors = Array('NOV'=>'No se han encontrado registros válidos en nuestra base de datos.');
             return redirect('/register')->withErrors($errors)->withInput();
         }
+
+        if(ListaNegra::where('NOV',$request->NOV)->first()){
+            $errors = Array('NOV'=>'Número bloqueado. Pasar a Orientación estudiantil de la facultad de Arquitectura, USAC.');
+            return redirect('/register')->withErrors($errors)->withInput();
+        }
+
+        $request->nombre = $mate->primer_nombre.' '.$mate->segundo_nombre;
+        $request->apellido = $mate->primer_apellido.' '.$mate->segundo_apellido;
 
         //Auth::guard($this->getGuard())->login($this->create($request->all()));
         $user = $this->create($request->all());
@@ -214,6 +222,11 @@ class AuthController extends Controller
             $this->loginUsername() => 'required',
             'password' => 'required',
         ]);
+        if(ListaNegra::where('NOV',$request->NOV)->first()){
+            $errors = Array('NOV'=>'Número bloqueado. Pasar a Orientación estudiantil de la facultad de Arquitectura, USAC.');
+            return redirect('/login')->withErrors($errors)->withInput();
+        }
+
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and

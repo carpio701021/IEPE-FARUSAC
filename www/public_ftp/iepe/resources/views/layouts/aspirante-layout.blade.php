@@ -28,7 +28,7 @@
                 <img src="/img/logotipoFARUSAC_Amarillo.png"  style="width:210px;height:70px;">
             </a></li>
             <li>&nbsp;</li>
-            <li><a href="/reglamento"><span class="glyphicon glyphicon-file" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+            <li><a href="/aspirante/recursos/reglamento"><span class="glyphicon glyphicon-file" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Reglamento</a></li>
             <li><a href="/guia-asignacion"><span class="glyphicon glyphicon-facetime-video" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Guía de asignación</a></li>
