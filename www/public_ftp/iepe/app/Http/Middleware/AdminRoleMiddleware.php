@@ -23,6 +23,12 @@ class AdminRoleMiddleware
                 // Redirect...
                 return Response('Error: La página que buscas no existe o no tienes acceso', 403);
             }
+        }else if($rol=='directores'){
+            $user=Auth::guard('admin')->user();
+            if (!$user->tieneRol('director_arquitectura') && !$user->tieneRol('director_disenio_grafico')) {
+                // Redirect...
+                return Response('Error: La página que buscas no existe o no tienes acceso', 403);
+            }
         }else
             if (! Auth::guard('admin')->user()->tieneRol($rol)) {
                 // Redirect...

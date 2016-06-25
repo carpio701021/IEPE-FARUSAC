@@ -143,13 +143,15 @@ class AuthController extends Controller
             $errors = Array('NOV'=>'Número bloqueado. Pasar a Orientación estudiantil de la facultad de Arquitectura, USAC.');
             return redirect('/register')->withErrors($errors)->withInput();
         }
-
-        $request->nombre = $mate->primer_nombre.' '.$mate->segundo_nombre;
-        $request->apellido = $mate->primer_apellido.' '.$mate->segundo_apellido;
+        //dd($request->nombre);
+        $data = $request->all();
+        $data['nombre'] = $mate->primer_nombre.' '.$mate->segundo_nombre;
+        $data['apellido'] = $mate->primer_apellido.' '.$mate->segundo_apellido;
 
         //Auth::guard($this->getGuard())->login($this->create($request->all()));
-        $user = $this->create($request->all());
+        $user = $this->create($data);
         $user->NOV = $request->NOV;
+
         //Auth::guard($this->getGuard())->login($user);
         $this->activationService->sendActivationMail($user);
 
@@ -171,6 +173,8 @@ class AuthController extends Controller
             'NOV' => $data['NOV'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'nombre' => $data['nombre'],
+            'apellido' => $data['apellido']
         ]);
 
     }
