@@ -23,9 +23,9 @@ class Authenticate
                 return response('Unauthorized.', 401);
             } else {
                 if($guard=='admin')
-                    return redirect()->guest('/aspirante/admin/login');
+                    return redirect()->guest('aspirante/admin/login');
                 else
-                    return redirect()->guest('login');
+                    return redirect()->guest('aspirante/login');
             }
         }
 

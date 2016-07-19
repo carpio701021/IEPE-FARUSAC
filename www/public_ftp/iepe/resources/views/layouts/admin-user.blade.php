@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/admin">FARUSAC</a>
+            <a class="navbar-brand" href="{{ route('admin.index') }}">FARUSAC</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -41,7 +41,7 @@
 
             @if (!Auth::guard('admin')->check())
                 <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ url('/admin/login') }}">Iniciar Sesión</a></li>
+                        <li><a href="{{ route('admin.login') }}">Iniciar Sesión</a></li>
                 </ul>
             @else
                 <ul class="nav navbar-nav">
@@ -60,7 +60,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Escuela <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/admin/escuela/primerIngreso">Primer ingreso</a></li>
+                                <li><a href="{{ route('admin.escuela.primerIngreso') }}">Primer ingreso</a></li>
                             </ul>
                         </li>
                     @endif
@@ -68,9 +68,9 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/usuarios">Usuarios</a></li>
-                            <li><a href="/admin/notificar">Notificar a direcciones de escuela</a></li>
-                            <li><a href="/admin/datos">Cargar datos del SUN</a></li>
+                            <li><a href="{{ route('aspirante.admin.usuarios.index') }}">Usuarios</a></li>
+                            <li><a href="{{ route('admin.notificar') }}">Notificar a direcciones de escuela</a></li>
+                            <li><a href="{{ route('admin.datos') }}">Cargar datos del SUN</a></li>
                         </ul>
                     </li>
                     @endif
@@ -78,10 +78,10 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Desarrollo estudiantíl <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/aplicacion">Aplicaciones</a></li>
+                            <li><a href="{{ route('aspirante.admin.aplicacion.index') }}">Aplicaciones</a></li>
                             <li><a href="#">Estadística</a></li>
                             <li><a href="#">Resultados de básicos</a></li>
-                            <li><a href="/admin/datos/create">Ingresar manualmente resultados básicos</a></li>
+                            <li><a href="{{ route('admin.datos.create') }}">Ingresar manualmente resultados básicos</a></li>
                             <!--li><a href="#">Asignación de salones</a></li>
                             <li><a href="#">Información</a></li>
                             <li><a href="#">Ingreso de resultados básicos</a></li>
@@ -91,9 +91,9 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aspirantes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/admin/aspirantes">Aspirantes</a></li>
-                                <li><a href="/admin/listaNegra">Lista negra</a></li>
-                                <li><a href="/admin/recursos">Recursos</a></li>
+                                <li><a href="{{ route('aspirante.admin.aspirantes.index') }}">Aspirantes</a></li>
+                                <li><a href="{{ route('admin.listaNegra') }}">Lista negra</a></li>
+                                <li><a href="{{ route('admin.recursos') }}">Recursos</a></li>
                             </ul>
                         </li>
                     @endif
@@ -105,8 +105,7 @@
                             Resultados<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/acta">Aprobar resultados</a></li>
-                            <li><a href="#"></a></li>
+                            <li><a href="{{ route('aspirante.admin.acta.index') }}">Aprobar resultados</a></li>
                         </ul>
                     </li>
                     @endif
@@ -121,7 +120,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Cambiar contraseña</a></li>
-                            <li><a href="{{ url('/admin/logout') }}"><i class="glyphicon glyphicon-logout"></i>Cerrar Sesión</a></li>
+                            <li><a href="{{ route('admin.logout') }}"><i class="glyphicon glyphicon-logout"></i>Cerrar Sesión</a></li>
                         </ul>
                     </li>
                 </ul>

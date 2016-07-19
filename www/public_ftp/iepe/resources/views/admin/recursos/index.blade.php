@@ -54,7 +54,7 @@
                     Éste reglamento es accesible por cualquier persona que visite el sitio web.
                 </div>
                 <div class="col-sm-5">
-                    <form class="form-horizontal" role="form" action="/admin/recursos/reglamento" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" action="{{ route('admin.recursos.reglamento') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="container">
                                 {{csrf_field()}}
@@ -79,7 +79,7 @@
                     </form>
                 </div>
                 <div class="col-sm-3">
-                    <a href="/admin/recursos/reglamento" class="btn btn-default" target="_blank">Ver reglamento actual</a>
+                    <a href="{{ route('aspirante.recursos.reglamento') }}" class="btn btn-default" target="_blank">Ver reglamento actual</a>
                 </div>
             </div>
 
