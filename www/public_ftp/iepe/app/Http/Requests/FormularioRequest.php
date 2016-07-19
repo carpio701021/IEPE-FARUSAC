@@ -27,8 +27,8 @@ class FormularioRequest extends Request
         return [
             "residencia"                =>"required|string|max:255",
             "departamento"              =>"required|string|max:255",
-            "genero"                    =>"required|boolean",
-            "fecha_nacimiento"          =>"required|date_format:d/m/Y",
+            "telefono"                  =>"string|size:8",
+            "celular"                   =>"string|size:8",
             "estado_civil"              =>"required|in:soltero,casado",
             "estado_laboral"            =>"required|in:trabaja,no_trabaja",
             "titulo"                    =>"required|string|max:255",

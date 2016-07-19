@@ -17,7 +17,8 @@ class AspiranteController extends Controller
      */
     public function index()
     {
-        return view("aspirante.aspirante")->with("formulario",Auth::user()->getFormulario());
+        $formulario=Auth::user()->getFormulario();
+        return view("aspirante.aspirante",compact("formulario"));
     }
 
     /**

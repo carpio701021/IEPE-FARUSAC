@@ -92,7 +92,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aspirantes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/admin/aspirantes">Aspirantes</a></li>
-                                <li><a href="/admin/listaNegra">Lista negra</a></li>
+                                <li><a href="/admin/CasosEspeciales">Casos Especiales</a></li>
                                 <li><a href="/admin/recursos">Recursos</a></li>
                             </ul>
                         </li>

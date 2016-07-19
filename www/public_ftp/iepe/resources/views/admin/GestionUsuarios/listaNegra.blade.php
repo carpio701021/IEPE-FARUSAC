@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         @include('layouts.mensajes')
-        <h3>Lista Negra</h3>
+        <h3>Casos Especiales</h3>
         <meta id="csrf_token" content="{{ csrf_token() }}">
             <div class="panel panel-default">
                 <div class="panel-heading">Listado de numeros de orientación bloqueados</div>
@@ -70,7 +70,7 @@
 
     <script type="text/javascript">
         $('#btn_buscar').click(function(){
-            this.href='/admin/listaNegra/'+NOV.value;
+            this.href='/admin/CasosEspeciales/'+NOV.value;
         })
     </script>
 @stop

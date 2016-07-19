@@ -41,7 +41,6 @@ class formularioController extends Controller
     {
         $form = new Formulario($request->all());
         $form->NOV=Auth::user()->NOV;
-        $form->fecha_nacimiento = date('Y-m-d',strtotime($form->fecha_nacimiento));
         $form->save();
         //return view("aspirante.aspirante")->with('/aspirante',$form);
         return redirect('/aspirante');
@@ -114,8 +113,8 @@ class formularioController extends Controller
     public function update(FormularioRequest $request, $id)
     {
         Formulario::find($id)->update($request->all());
-        $form=Formulario::find($id);
-        return view("aspirante.aspirante")->with('/aspirante/formulario',$form);
+        $formulario=Formulario::find($id);
+        return view("aspirante.aspirante",compact('formulario'));
     }
 
     /**
@@ -127,5 +126,10 @@ class formularioController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getMunicipios($departamento){
+        $guatemala = json_decode(file_get_contents(storage_path()."/json/guatemala.json"), true);
+        return json_encode($guatemala[$departamento]);
     }
 }

@@ -65,27 +65,86 @@
 					</div>
 					<div id="colaps{{$asignada->id}}" class="panel-collapse collapse">
 						<div class="panel-body">
-							<div class="col-sm-12">
+							<div class="col-sm-6">
+								<h4>Datos de asignación</h4>
 								<div class="row">
-									<div class="col-sm-2"><strong>Fecha:</strong> </div>
-									<div class="col-sm-10"> {{$asignada->getFechaAplicacion()}} </div>
+									<div class="col-sm-6"><strong>Fecha:</strong> </div>
+									<div class="col-sm-6"> {{$asignada->getFechaAplicacion()}} </div>
 								</div>
 								<div class="row">
-									<div class="col-sm-2"><strong>Horario: </strong></div>
-									<div class="col-sm-10">
+									<div class="col-sm-6"><strong>Horario: </strong></div>
+									<div class="col-sm-6">
 										{{date("g:ia",strtotime($asignada->getHorario()->hora_inicio))."-".date("g:ia",strtotime($asignada->getHorario()->hora_fin))}} </div>
 								</div>
 								<div class="row">
-									<div class="col-sm-2"><strong>Salon:</strong> </div>
-									<div class="col-sm-10"> {{$asignada->getSalon()->nombre}} </div>
+									<div class="col-sm-6"><strong>Salon:</strong> </div>
+									<div class="col-sm-6"> {{$asignada->getSalon()->nombre}} </div>
 								</div>
 								<div class="row">
-									<div class="col-sm-2"><strong>Resultado:</strong> </div>
+									<div class="col-sm-6"><strong>Resultado:</strong> </div>
 									@if($asignada->getAplicacion()->mostrar_resultados==1)
-										<div class="col-sm-10"> {{$asignada->getResultado()}} </div>
+										<div class="col-sm-6"> {{$asignada->getResultado()}} </div>
 									@else
-										<div class="col-sm-10"> - </div>
+										<div class="col-sm-6"> - </div>
 									@endif
+								</div>
+								<br>
+								<h4>Resultados por área evaluada</h4>
+								<div class="row">
+									<div class="col-sm-6"><strong>RA:</strong> </div>
+									<div class="col-sm-6">
+										@if($asignada->getAplicacion()->mostrar_resultados==1)
+											@if($asignada->getResultadoRA())
+												<div class="text-success">Satisfactorio</div>
+											@else
+												<div class="text-danger">Insatisfactorio</div>
+											@endif
+										@else
+											-
+										@endif
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6"><strong>APE:</strong> </div>
+									<div class="col-sm-6">
+										@if($asignada->getAplicacion()->mostrar_resultados==1)
+											@if($asignada->getResultadoAPE())
+												<div class="text-success">Satisfactorio</div>
+											@else
+												<div class="text-danger">Insatisfactorio</div>
+											@endif
+										@else
+											-
+										@endif
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6"><strong>RV:</strong> </div>
+									<div class="col-sm-6">
+										@if($asignada->getAplicacion()->mostrar_resultados==1)
+											@if($asignada->getResultadoRV())
+												<div class="text-success">Satisfactorio</div>
+											@else
+												<div class="text-danger">Insatisfactorio</div>
+											@endif
+										@else
+											-
+										@endif
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6"><strong>APN:</strong> </div>
+									<div class="col-sm-6">
+										@if($asignada->getAplicacion()->mostrar_resultados==1)
+											@if($asignada->getResultadoAPN())
+												<div class="text-success">Satisfactorio</div>
+											@else
+												<div class="text-danger">Insatisfactorio</div>
+											@endif
+										@else
+											-
+										@endif
+									</div>
 								</div>
 							</div>
 						</div>

@@ -57,11 +57,11 @@ class CreateUsersTable extends Migration
             $table->string('residencia');
             $table->string('departamento');
             $table->string('municipio');
-            $table->boolean('genero');
-            $table->date('fecha_nacimiento');
             $table->enum('estado_civil',['soltero', 'casado']);
             $table->enum('estado_laboral',['trabaja', 'no_trabaja']);
             $table->string('titulo');
+            $table->string('telefono');
+            $table->string('celular');
             $table->integer('anio_titulo');
             $table->integer('dependientes');
             $table->string('centro_educativo');

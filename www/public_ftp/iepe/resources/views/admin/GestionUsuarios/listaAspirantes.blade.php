@@ -63,19 +63,19 @@
                                             </div>
                                             <form action="/admin/aspirantes" method="POST">
                                                 {{csrf_field()}}
-                                                <a href="#modalBlack{{$aspirante->NOV}}" data-toggle="modal"><span class="glyphicon glyphicon-ban-circle"></span> Agregar a lista negra</a><br>
+                                                <a href="#modalBlack{{$aspirante->NOV}}" data-toggle="modal"><span class="glyphicon glyphicon-ban-circle"></span> Agregar a casos especiales</a><br>
                                                 <div class="modal fade" role="dialog" id="modalBlack{{$aspirante->NOV}}">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content panel-danger">
                                                             <div class="modal-header panel-heading">
-                                                                <h4>Agregar a lista negra</h4>
+                                                                <h4>Agregar a casos especiales</h4>
                                                             </div>
                                                             <div class="modal-body" style="padding-top: 35px">
-                                                                <p>¿Desea agregar {{$aspirante->NOV}} a la lista negra? Esto evitara que pueda ingresar a la plataforma y asignarse pruebas específicas</p>
+                                                                <p>¿Desea agregar {{$aspirante->NOV}} a los casos especiales? Esto evitara que pueda ingresar a la plataforma y asignarse pruebas específicas</p>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <input type="hidden" name="NOV" value="{{$aspirante->NOV}}">
-                                                                <button type="submit" class="btn btn-danger">Agregar a lista negra</button>
+                                                                <button type="submit" class="btn btn-danger">Agregar a casos especiales</button>
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                                             </div>
                                                         </div>

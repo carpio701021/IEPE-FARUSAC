@@ -62,8 +62,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
             Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
             Route::resource('aspirantes','ListaNegraController');
-            Route::get('listaNegra','ListaNegraController@getListaNegra');
-            Route::get('listaNegra/{search}','ListaNegraController@listaNegraShow');
+            Route::get('CasosEspeciales','ListaNegraController@getListaNegra');
+            Route::get('CasosEspeciales/{search}','ListaNegraController@listaNegraShow');
 
             //Route::resource('datos','DatosController');
             Route::post('datos/insert','DatosController@insert');
