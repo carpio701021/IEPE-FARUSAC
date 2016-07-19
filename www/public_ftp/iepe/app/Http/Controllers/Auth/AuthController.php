@@ -33,8 +33,8 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'aspirante';
-    protected $redirectAfterLogout = '/aspirantes';
+    protected $redirectTo = 'aspirante/datos';
+    protected $redirectAfterLogout = '/aspirante';
     protected $guard = 'aspirante_web';
     protected $username = 'NOV';
     protected $activationService;
@@ -72,7 +72,7 @@ class AuthController extends Controller
     {
         $messages = [
             'required'      => 'El campo :attribute es obligatorio.',
-            'unique'        => 'El :attribute proporcionado ya esta registrado. <a class="btn btn-link" href="'.url('/password/reset').'">Recuperar contraseña</a><br>Si el problema persiste presentarse a la oficina de Orientacion Estudiantil de Arquitectura.',
+            'unique'        => 'El :attribute proporcionado ya esta registrado. <a class="btn btn-link" href="'.url('/password/reset').'">Recuperar contraseña</a><br>Si el problema persiste presentarse a la Unidad de Desarrollo y Bienestar Estudiantil de Arquitectura.',
             'numeric'       => 'El campo :attribute debe ser numérico',
             'email'         => 'El campo :attribute debe ser un correo electrónico válido.',
             'confirmed'     => 'El campo :attribute no concuerda con la confirmación.',
@@ -111,7 +111,7 @@ class AuthController extends Controller
 
         /**Verificar si es carnet**/
         if( $request->NOV > 100000000 && $request->NOV < 999999999 ){
-            $errors = Array('NOV'=>'Usted esta tratando de acceder con un número de carnet. Favor intente con su número de orientación vocacional. Si continua el error, pasar a la oficina de Orientación Estudiantil de Arquitectura.');
+            $errors = Array('NOV'=>'Usted esta tratando de acceder con un número de carnet. Favor intente con su número de orientación vocacional. Si continua el error, pasar a la Unidad de Desarrollo y Bienestar Estudiantil de Arquitectura.');
             return redirect('/register')->withErrors($errors)->withInput();
         }
 

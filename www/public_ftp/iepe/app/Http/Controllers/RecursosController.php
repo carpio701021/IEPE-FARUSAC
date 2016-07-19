@@ -24,6 +24,10 @@ class RecursosController extends Controller
     }
 
     public function getReglamento(Request $request){
+
+        return view("aspirante.reglamento");
+
+        /*
         $path=public_path().'/files/pdf/reglamento/reglamento.pdf';
         if(file_exists($path)) {
             return Response::make(file_get_contents(public_path() . '/files/pdf/reglamento/reglamento.pdf'), 200, [
@@ -33,5 +37,31 @@ class RecursosController extends Controller
         }
         else
             return back()->withErrors(['file'=>'Recurso no disponible']);
+
+        */
+    }
+
+    /*
+     *
+     *Codigo para leer y escribir un json
+     * $file = public_path().'/videos.json' ;
+        if(file_exists($file)) {
+            $json = json_decode(file_get_contents($file),TRUE);
+            $json['video_2'] = 'segundo fokin video';
+            file_put_contents($file, json_encode($json,TRUE));
+        }else{
+            $json['video_inicio'] = 'un video de youtube';
+            file_put_contents($file, json_encode($json,TRUE));
+        }
+
+
+     */
+
+    public function viewGuiaAsignacion(){
+        return view("aspirante.guia-asignacion");
+    }
+
+    public function viewGuiaAplicacion(){
+        return view("aspirante.guia-aplicacion");
     }
 }

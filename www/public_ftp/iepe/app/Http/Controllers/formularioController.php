@@ -44,7 +44,7 @@ class formularioController extends Controller
         $form->fecha_nacimiento = date('Y-m-d',strtotime($form->fecha_nacimiento));
         $form->save();
         //return view("aspirante.aspirante")->with('/aspirante',$form);
-        return redirect('/aspirante');
+        return redirect('/aspirante/datos');
     }
 
     /**
