@@ -82,8 +82,11 @@ Route::group(['prefix' => 'aspirante'], function () {
 
                 //recursos
                 Route::get('recursos','RecursosController@index')->name('admin.recursos');
-                //Route::get('recursos/reglamento','RecursosController@getReglamento')->name('admin.recursos.reglamento');
                 Route::post('recursos/reglamento','RecursosController@postReglamento')->name('admin.recursos.reglamento');
+                Route::post('recursos/imagenInformativa','RecursosController@postImagenInformativa')->name('admin.recursos.imagenInformativa');
+                Route::post('recursos/videoBienvenida','RecursosController@postVideoBienvenida')->name('admin.recursos.videoBienvenida');
+                Route::post('recursos/guia-asignacion','RecursosController@postGuiaAsignacion')->name('admin.recursos.guia-asignacion');
+                Route::post('recursos/guia-aplicacion','RecursosController@postGuiaAplicacion')->name('admin.recursos.guia-aplicacion');
             });
 
             Route::group(['middleware' => ['adminRol:secretario_decano_jefe_bienestar']], function () {
@@ -96,7 +99,7 @@ Route::group(['prefix' => 'aspirante'], function () {
 
             Route::group(['middleware' => ['adminRol:superadmin']], function () {
                 Route::resource('usuarios','GestionUsuariosController');
-                //Route::resource('datos','DatosController');
+
                 Route::post('datos','DatosController@store')->name('admin.datos');
                 Route::get('datos','DatosController@index')->name('admin.datos');
                 Route::get('notificar','AnioController@index')->name('admin.notificar');
@@ -131,6 +134,7 @@ Route::group(['prefix' => 'aspirante'], function () {
         Route::get('/', 'HomeController@index')->name('aspirante.home');
 
         //recursos del aspirante
+        Route::get('recursos/imagenInformativa', 'RecursosController@viewImagenInformativa')->name('aspirante.recursos.imagenInformativa');
         Route::get('recursos/reglamento', 'RecursosController@getReglamento')->name('aspirante.recursos.reglamento');
         Route::get('recursos/guia-asignacion', 'RecursosController@viewGuiaAsignacion')->name('aspirante.recursos.guia-asignacion');
         Route::get('recursos/guia-aplicacion', 'RecursosController@viewGuiaAplicacion')->name('aspirante.recursos.guia-aplicacion');

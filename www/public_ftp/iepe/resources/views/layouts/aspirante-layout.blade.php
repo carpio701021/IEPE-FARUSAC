@@ -28,7 +28,7 @@
                 <img src="{{ url('img/logotipoFARUSAC_Amarillo.png') }}"  style="width:210px;height:70px;">
             </a></li>
             <li>&nbsp;</li>
-            <li><a href="{{ url('aspirante/recursos/fechas') }}"><span class="glyphicon glyphicon-calendar" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+            <li><a href="{{ route('aspirante.recursos.imagenInformativa') }}"><span class="glyphicon glyphicon-calendar" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Fechas</a></li>
             <li><a href="{{ url('aspirante/recursos/reglamento') }}"><span class="glyphicon glyphicon-file" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Reglamento</a></li>
@@ -44,7 +44,7 @@
                         Registro</a></li>
             @else
                 <li id="item_aspirante">
-                    <a href="{{ url('aspirante') }}">
+                    <a href="{{ url('aspirante/datos') }}">
                         <span class="glyphicon glyphicon-edit" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Datos</a>
                 </li>

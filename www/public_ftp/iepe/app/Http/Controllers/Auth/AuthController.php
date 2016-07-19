@@ -258,7 +258,7 @@ class AuthController extends Controller
 
         return redirect()->back()
             ->withInput( $request->only($this->loginUsername()) )
-            ->withErrors([$this->loginUsername() => 'Credenciales incorrectas.'
+            ->withErrors([$this->loginUsername() => 'Credenciales incorrectas. Si el problema persiste pasar a la Unidad de Bienestar y Desarrollo Estudiantil de Arquitectura.'
             ]);
     }
 

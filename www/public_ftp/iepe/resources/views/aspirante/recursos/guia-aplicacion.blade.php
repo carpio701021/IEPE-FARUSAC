@@ -31,7 +31,6 @@
 @section('scripts')
     <script>
         function changeCentral(num){
-
             imgcentral.src='/img/guia-aplicacion/animacion_'+num+'.gif';
         }
     </script>
