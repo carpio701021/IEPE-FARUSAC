@@ -79,14 +79,12 @@ class AplicacionController extends Controller
      */
     public function store(AplicacionRequest $request)
     {
-        //dd($request->all());
-        //$this->asignarIrregulares($request->_especial,Aplicacion::find(5));
         if(Aplicacion::where('year',$request->year)
             ->where('naplicacion',$request->naplicacion)
             ->where('irregular',(isset($request->irregular)?$request->irregular:0))
             ->first()){
             $errors = Array('La combinacion de año y número de aplicación ya existe');
-            return redirect('/admin/aplicacion/create')->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput();
         }
 
         //Guarda una nueva aplicación
@@ -100,7 +98,7 @@ class AplicacionController extends Controller
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios,$request->fechasA);
         if($request->irregular){
             if($this->asignarIrregulares($request->_id_base,$aplicacion)){//se asignan automaticamente
-                $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente. Se asignaron los estudiantes irregulares');
+                $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente. Se asignaron los aspirantes irregulares');
             }else{
                 //return redirect('/admin/aplicacion')->withErrors(['irregular','Ocurrió un error']);
                 $request->session()->flash('mensaje_exito','ocurrió un error');
@@ -108,7 +106,7 @@ class AplicacionController extends Controller
         }else{
             $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente.');
         }
-        return redirect('/admin/aplicacion');
+        return redirect( route('aspirante.admin.aplicacion.index'));
     }
 
     function asignarIrregulares($id,$aplicacionEspecial){
@@ -222,11 +220,11 @@ class AplicacionController extends Controller
         //dd($aplicacion->fecha_inicio_asignaciones < date("Y-m-d"));
         if($aplicacion->fecha_inicio_asignaciones<date("Y-m-d") && date("Y-m-d h:i")<$aplicacion->fecha_fin_asignaciones){
             $errors = Array('No se puede editar la <i>'.$aplicacion->nombre().'</i> ya que está en tiempo de asignaciones');
-            return redirect('/admin/aplicacion')->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput();
         }
         $titulo = 'Editar aplicación';
         $put = true;
-        return view('admin.aplicacion.create',compact('aplicacion','titulo','put'));
+        return view('aspirante.admin.aplicacion.create',compact('aplicacion','titulo','put'));
     }
 
     /**
@@ -241,7 +239,7 @@ class AplicacionController extends Controller
 
         if(Aplicacion::where('id','!=',$id)->where('year',$request->year)->where('naplicacion',$request->naplicacion)->first()){
             $errors = Array('La combinacion de año y número de aplicación ya existe');
-            return redirect('/admin/aplicacion/'.$id.'/edit')->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput();
         }
 
         $aplicacion = Aplicacion::where('id',$id)->first();
@@ -258,7 +256,7 @@ class AplicacionController extends Controller
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios,$request->fechasA);
 
         $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'.$aplicacion->nombre().'</i> guardados.');
-        return redirect('/admin/aplicacion');
+        return redirect(route('aspirante.admin.aplicacion.index'));
     }
 
     public function getArte($aplicacion_id){
@@ -272,7 +270,6 @@ class AplicacionController extends Controller
         }
 
         $response = \Response::make($file, 200);
-        // using this will allow you to do some checks on it (if pdf/docx/doc/xls/xlsx)
         $response->header('Content-Type', 'image/*');
         return $response;
     }
@@ -285,7 +282,15 @@ class AplicacionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $aplicacion = Aplicacion::findOrFail($id);
+        if($aplicacion->getCountAsignados() > 0){
+            \Session::flash('mensaje_exito','No se puede eliminar la aplicación por que hay aspirantes asignados a ella.');
+            return 'No se puede eliminar la aplicación por que hay aspirantes asignados a ella.';
+        }
+        \App\AplicacionSalonHorario::where('aplicacion_id',$id)->delete();
+        $aplicacion->delete();
+        \Session::flash('mensaje_exito','Aplicación eliminada exitosamente');
+        return 'Aplicación eliminada exitosamente';
     }
 
     public function actualizarPercentiles(PercentilRequest $request,$id){

@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 class Aplicacion extends Model
 {
     //
-    use SoftDeletes;
+    //use SoftDeletes;
     protected $table = 'aplicaciones';
-    protected $dates = ['deleted_at'];
+    //protected $dates = ['deleted_at'];
 
 
     /**

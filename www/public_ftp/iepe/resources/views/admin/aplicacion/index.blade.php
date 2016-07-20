@@ -5,7 +5,7 @@
         <div class='btn-toolbar pull-right'>
             <br>
             <div class='btn-group'>
-                <a href="/admin/aplicacion/create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nueva aplicación</a>
+                <a href="{{ route('aspirante.admin.aplicacion.create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nueva aplicación</a>
             </div>
         </div>
         <h2>Aplicaciones</h2>
@@ -60,12 +60,9 @@
                                 <div class="col-md-3">
                                     <h4>Opciones</h4>
                                     <ul>
-                                        <li><a href="/admin/aplicacion/{{ $aplicacion->id }}/edit"><span class="glyphicon glyphicon-edit"></span> Editar</a></li>
-                                        <li><a href="/admin/aplicacion/{{$aplicacion->id}}/listados"><span class="glyphicon glyphicon-list"></span> Descargar Listado</a></li>
-                                        <li><a href="/admin/aplicacion/subirResultados/{{$aplicacion->id}}/edit"><span class="glyphicon glyphicon-upload"></span> Resultados</a></li>
-                                        <!--li><a href="#"><span class="glyphicon glyphicon-align-left"></span> Ajustar percentiles</a></li-->
-                                        <!--li><a href="#"><span class="glyphicon glyphicon-plus"></span> Asignación manual de aspirante</a></li-->
-                                        <!--li><a href="/admin/aplicacion/{{$aplicacion->id}}/constanciasSatisfactorias" target="_blank"><span class="glyphicon glyphicon-tasks"></span> Generar Constancias</a></li-->
+                                        <li><a href="{{ route('aspirante.admin.aplicacion.edit',['aplicacion'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-edit"></span> Editar</a></li>
+                                        <li><a href="{{ route('admin.aplicacion.listados',['aplicacion'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-list"></span> Descargar Listado</a></li>
+                                        <li><a href="{{ route('aspirante.admin.aplicacion.subirResultados.edit',['subirResultados'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-upload"></span> Resultados</a></li>
                                         <li>
                                             <a href="/admin/aplicacion/{{$aplicacion->id}}/habilitar">
                                                 @if($aplicacion->mostrar_resultados==1)
@@ -76,6 +73,7 @@
                                             </a>
                                         </li>
                                         <li><a data-toggle="modal" href="#modal{{$aplicacion->id}}"><span class="glyphicon glyphicon-send"></span> Notificar resultado</a></li>
+                                        <li><a data-confirm="¿Deseas eliminar la aplicación?" data-method="delete"  href="{{ route('aspirante.admin.aplicacion.destroy',['id'=>$aplicacion->id]) }}" class="jquery-postback"><span class="glyphicon glyphicon-delete"></span> Eliminar</a></li>
 
                                     </ul>
 
@@ -117,7 +115,7 @@
         <div align="center">{!! $aplicaciones->render() !!}</div>
 
     </div>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('scripts')
@@ -128,6 +126,27 @@
             //alert(fechaO);
             obj.innerHTML = moment(fechaO,'YYYY-MM-DD').format('D [de] MMMM [del] YYYY');
             //obj.innerHTML = moment(fechaO).format('L');
+        });
+    });
+
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(document).on('click', 'a.jquery-postback', function(e) {
+        e.preventDefault(); // does not go through with the link.
+
+        var $this = $(this);
+
+        $.post({
+            type: $this.data('method'),
+            url: $this.attr('href')
+        }).done(function (data) {
+            document.location.reload();
+            //alert(data);
+            console.log(data);
         });
     });
 </script>

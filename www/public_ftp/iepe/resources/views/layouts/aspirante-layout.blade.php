@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel='stylesheet' href="{{ url('css/googlefonts-css-latio.css') }}" type='text/css'>
-    <link rel="stylesheet" href="{{ url('css/aspirante.css') }}">
-    <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url('css/simple-sidebar.css') }}">
-    <link rel="stylesheet" href="{{ url('css/bootstrap-datetimepicker.min.css') }}">
+    <link rel='stylesheet' href="{{ url('aspirante_public/css/googlefonts-css-latio.css') }}" type='text/css'>
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/aspirante.css') }}">
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/simple-sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/bootstrap-datetimepicker.min.css') }}">
 
     <style>
         body {
@@ -25,31 +25,31 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand"><a href="{{ url('aspirante') }}">
-                <img src="{{ url('img/logotipoFARUSAC_Amarillo.png') }}"  style="width:210px;height:70px;">
+                <img src="{{ url('aspirante_public/img/logotipoFARUSAC_Amarillo.png') }}"  style="width:210px;height:70px;">
             </a></li>
             <li>&nbsp;</li>
             <li><a href="{{ route('aspirante.recursos.imagenInformativa') }}"><span class="glyphicon glyphicon-calendar" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Fechas</a></li>
-            <li><a href="{{ url('aspirante/recursos/reglamento') }}"><span class="glyphicon glyphicon-file" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+            <li><a href="{{ route('aspirante.recursos.reglamento') }}"><span class="glyphicon glyphicon-file" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Reglamento</a></li>
-            <li><a href="{{ url('aspirante/recursos/guia-asignacion') }}"><span class="glyphicon glyphicon-facetime-video" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+            <li><a href="{{ route('aspirante.recursos.guia-asignacion') }}"><span class="glyphicon glyphicon-facetime-video" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Guía de asignación</a></li>
-            <li><a href="{{ url('aspirante/recursos/guia-aplicacion') }}"><span class="glyphicon glyphicon-ok" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+            <li><a href="{{ route('aspirante.recursos.guia-aplicacion') }}"><span class="glyphicon glyphicon-ok" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Guía de aplicación</a></li>
             <li>&nbsp;</li>
             @if  (Auth::guest())
-                <li><a href="{{ url('aspirante/login') }}"><span class="glyphicon glyphicon-log-in" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                <li><a href="{{ route('aspirante.login') }}"><span class="glyphicon glyphicon-log-in" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Iniciar Sesión</a></li>
-                <li><a href="{{ url('aspirante/register') }}"><span class="glyphicon glyphicon-user" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                <li><a href="{{ route('aspirante.register') }}"><span class="glyphicon glyphicon-user" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Registro</a></li>
             @else
                 <li id="item_aspirante">
-                    <a href="{{ url('aspirante/datos') }}">
+                    <a href="{{ route('aspirante.datos.index') }}">
                         <span class="glyphicon glyphicon-edit" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Datos</a>
                 </li>
                 <li id="li_pruebaEspecifica">
-                    <a href="{{ url('aspirante/PruebaEspecifica/create') }}">
+                    <a href="{{ route('aspirante.PruebaEspecifica.create') }}">
                         <span class="glyphicon glyphicon-align-justify" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Prueba Específica</a>
                 </li>
@@ -66,10 +66,10 @@
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ url('aspirante/configuracion') }}">
+                        <li><a href="{{ route('aspirante.configuracion') }}">
                                 <span class="glyphicon glyphicon-wrench" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                                 Configurar cuenta</a></li>
-                        <li><a href="{{ url('aspirante/logout') }}">
+                        <li><a href="{{ route('aspirante.logout') }}">
                                 <span class="glyphicon glyphicon-log-out" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                                 Cerrar Sesión</a></li>
                     </ul>
@@ -121,12 +121,12 @@
 
 
 <!-- JavaScripts -->
-<script src="{{ url('js/jquery.min.js') }}"></script>
-<script src="{{ url('js/moment.js') }}"></script>
-<script src="{{ url('js/bootstrap.min.js') }}"></script>
+<script src="{{ url('aspirante_public/js/jquery.min.js') }}"></script>
+<script src="{{ url('aspirante_public/js/moment.js') }}"></script>
+<script src="{{ url('aspirante_public/js/bootstrap.min.js') }}"></script>
 
-<script src="{{ url('js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
-<script src="{{ url('js/locale/es.js') }}" type="text/javascript"></script>
+<script src="{{ url('aspirante_public/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+<script src="{{ url('aspirante_public/js/locale/es.js') }}" type="text/javascript"></script>
 
 <script>
     $("#menu-toggle").click(function(e) {

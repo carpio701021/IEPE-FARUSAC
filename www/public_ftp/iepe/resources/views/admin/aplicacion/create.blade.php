@@ -9,7 +9,7 @@
 
         {!! Form::model(
             $aplicacion,
-            array('route' => array('admin.aplicacion.update', $aplicacion->id),
+            array('route' => array('aspirante.admin.aplicacion.update', $aplicacion->id),
             'files' => true , 'class' => 'form-horizontal', 'role' => 'form'
         ) ) !!}
         @if( isset($put))
@@ -399,7 +399,7 @@
                 </button>
             </div>
             <div class="col-md-2">
-                <a href="/admin/aplicacion" class="btn btn-danger">
+                <a href="javascript:history.go(-1);" class="btn btn-danger">
                     <i class="glyphicon glyphicon-floppy-remove"></i> Cancelar
                 </a>
             </div>

@@ -9,8 +9,8 @@ use Carbon\Carbon;
 class Horario extends Model
 {
     //
-    use SoftDeletes;
-    protected $dates = ['deleted_at'];
+    //use SoftDeletes;
+    //protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.

@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AspiranteAplicacion extends Model
 {
     //
-    use SoftDeletes;
+    //use SoftDeletes;
     protected  $table="aspirantes_aplicaciones";
-    protected $dates = ['deleted_at'];
+    //protected $dates = ['deleted_at'];
     protected $fillable =['nota_RA','nota_APE','nota_RV','nota_APN','resultado','acta_id'];
 
     public function getHorario(){

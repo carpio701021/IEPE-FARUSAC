@@ -15,15 +15,15 @@ class RecursosController extends Controller
 
     public function postImagenInformativa(Request $request){
         if($request->file('imagenInformativa')->isValid()) {
-            $path = public_path().'/img/'; // upload path
+            $path = public_path().'/aspirante_public/img/'; // upload path
             $filename = 'imagenInformativa.'.$request->file('imagenInformativa')->getClientOriginalExtension();
             $request->file('imagenInformativa')->move($path, $filename);
 
-            $filejson = public_path().'/recursos.json' ;
+            $filejson = storage_path().'/recursos.json' ;
             if(file_exists($filejson)) {
                 $json = json_decode(file_get_contents($filejson),TRUE);
             }
-            $json['imagen_informativa'] = '/img/'.$filename;
+            $json['imagen_informativa'] = '/aspirante_public/img/'.$filename;
             file_put_contents($filejson, json_encode($json,TRUE));
 
             $request->session()->flash('mensaje_exito','Se ha actualizado la imagen informativa');
@@ -33,7 +33,7 @@ class RecursosController extends Controller
 
     public function postReglamento(Request $request){
         if($request->file('reglamento')->isValid()) {
-            $path = public_path().'/files/pdf/reglamento'; // upload path
+            $path = public_path().'/aspirante_public/files/pdf/reglamento'; // upload path
             $extension = $request->file('reglamento')->getClientOriginalExtension(); // getting file extension
             $request->file('reglamento')->move($path, 'reglamento.'.$extension);
             $request->session()->flash('mensaje_exito','Se ha actualizado el reglamento que descargan los aspirantes');
@@ -62,7 +62,7 @@ class RecursosController extends Controller
         $videoUrl = $request->video_url;
         $vid = $this->getYoutubeIdFromUrl($videoUrl);
 
-        $filejson = public_path().'/recursos.json' ;
+        $filejson = storage_path().'/recursos.json' ;
         if(file_exists($filejson)) {
             $json = json_decode(file_get_contents($filejson),TRUE);
         }
@@ -80,7 +80,7 @@ class RecursosController extends Controller
         $videoUrl = $request->video_url;
         $vid = $this->getYoutubeIdFromUrl($videoUrl);
 
-        $filejson = public_path().'/recursos.json' ;
+        $filejson = storage_path().'/recursos.json' ;
         if(file_exists($filejson)) {
             $json = json_decode(file_get_contents($filejson),TRUE);
         }
@@ -95,9 +95,10 @@ class RecursosController extends Controller
 
 
     public function postGuiaAplicacion(Request $request){
+        //TODO terminar
         $files = ['imgbtn1','imgbtn2','imgbtn3','imgbtn4','imginfo'];
         if($request->file('imgbtn1')->isValid()) {
-            $path = public_path().'/img/guia-aplicacion'; // upload path
+            $path = public_path().'/aspirante/img/guia-aplicacion'; // upload path
             $extension = $request->file('reglamento')->getClientOriginalExtension(); // getting file extension
             $request->file('imgbtn1')->move($path, 'imgbtn1.'.$extension);
             $request->session()->flash('mensaje_exito','Se ha actualizado el reglamento que descargan los aspirantes');

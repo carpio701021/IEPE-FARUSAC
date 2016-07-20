@@ -7,11 +7,11 @@
 
     <!-- Fonts -->
     <!--link href="/css/font-awesome.min.css" rel='stylesheet' type='text/css'-->
-    <link href="/css/googlefonts-css-latio.css" rel='stylesheet' type='text/css'>
+    <link href="{{ url('aspirante_public/css/googlefonts-css-latio.css') }}" rel='stylesheet' type='text/css'>
     <!-- Styles -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url('aspirante_public/css/bootstrap.min.css') }}" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/bootstrap-datetimepicker.min.css') }}">
 
     <style>
         body {
@@ -80,8 +80,8 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ route('aspirante.admin.aplicacion.index') }}">Aplicaciones</a></li>
                             <li><a href="#">Estadística</a></li>
-                            <li><a href="#">Resultados de básicos</a></li>
-                            <li><a href="{{ route('admin.datos.create') }}">Ingresar manualmente resultados básicos</a></li>
+                            <!--li><a href="#">Resultados de básicos</a></li-->
+                            <li><a href="{{ route('admin.datos.create') }}">Cambiar carnet por NOV</a></li>
                             <!--li><a href="#">Asignación de salones</a></li>
                             <li><a href="#">Información</a></li>
                             <li><a href="#">Ingreso de resultados básicos</a></li>
@@ -136,13 +136,13 @@
 
 
         <!-- JavaScripts -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/moment.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="{{ url('aspirante_public/js/jquery.min.js') }}"></script>
+<script src="{{ url('aspirante_public/js/moment.js') }}"></script>
+<script src="{{ url('aspirante_public/js/bootstrap.min.j') }}s"></script>
 
 <!--script src="/js/jquery.easing.1.3.js" type="text/javascript"></script-->
-<script src="/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-<script src="/js/locale/es.js" type="text/javascript"></script>
+<script src="{{ url('aspirante_public/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+<script src="{{ url('aspirante_public/js/locale/es.js') }}" type="text/javascript"></script>
 
 @section('scripts')
 @show

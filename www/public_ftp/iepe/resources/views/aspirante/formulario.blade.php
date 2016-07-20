@@ -186,8 +186,8 @@
 
 
 @section('scripts')
-    <script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>
-    <script src="/js/multistep.js" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/jquery.easing.1.3.js') }}" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/multistep.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $('.input-group.date.fecha').datetimepicker({

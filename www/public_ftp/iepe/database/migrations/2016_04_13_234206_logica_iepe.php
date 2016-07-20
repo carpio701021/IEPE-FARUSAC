@@ -29,7 +29,7 @@ class LogicaIepe extends Migration
             $table->string('nombre');
             $table->string('edificio');
             $table->integer('capacidad');
-            $table->softDeletes();
+            //$table->softDeletes();
             $table->timestamps();
         });
 
@@ -55,7 +55,7 @@ class LogicaIepe extends Migration
             $table->boolean('mostrar_resultados');
 
             $table->timestamps();
-            $table->softDeletes();
+            //$table->softDeletes();
         });
 
         Schema::create('horarios', function (Blueprint $table){
@@ -63,7 +63,7 @@ class LogicaIepe extends Migration
             $table->time('hora_inicio');
             $table->time('hora_fin');
             $table->timestamps();
-            $table->softDeletes();
+            //$table->softDeletes();
         });
 
         Schema::create('aplicaciones_salones_horarios', function (Blueprint $table){
@@ -121,7 +121,7 @@ class LogicaIepe extends Migration
             $table->enum('resultado',['pendiente','aprobado','reprobado','irregular']);
 
             $table->timestamps();
-            $table->softDeletes();
+            //$table->softDeletes();
         });
 
         Schema::create('datos_sun',function(Blueprint $table){
@@ -139,7 +139,7 @@ class LogicaIepe extends Migration
             $table->integer('anio_evaluacion');
 
             $table->timestamps();
-            $table->softDeletes();
+            //$table->softDeletes();
 
             $table->unique(['orientacion', 'fecha_evaluacion','id_materia'],'datos_sun_primary');
         });
@@ -153,7 +153,7 @@ class LogicaIepe extends Migration
             $table->integer('anio');
 
             $table->timestamps();
-            $table->softDeletes();
+            //$table->softDeletes();
 
             $table->unique(['anio', 'carrera','jornada'],'cupos_primary');
 
