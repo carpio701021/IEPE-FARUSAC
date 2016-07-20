@@ -118,6 +118,7 @@ Route::group(['middleware' => 'aspirante_web'], function () {
         Route::post('/configuracion/guardar', "AspiranteController@actualizarCuenta");
         Route::resource('/', 'AspiranteController');
         Route::resource('formulario', 'formularioController');
+        Route::get('aprobados', 'formularioController@getConfirmacion');
         Route::post('formulario/{formulario_id}/confirmar', 'formularioController@confirmarIntereses');
         Route::resource('PruebaEspecifica', 'AspiranteAplicacionController');
 

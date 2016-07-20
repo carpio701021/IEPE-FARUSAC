@@ -91,7 +91,7 @@
 								<br>
 								<h4>Resultados por área evaluada</h4>
 								<div class="row">
-									<div class="col-sm-6"><strong>RA:</strong> </div>
+									<div class="col-sm-6"><strong>Razonamiento abstracto:</strong> </div>
 									<div class="col-sm-6">
 										@if($asignada->getAplicacion()->mostrar_resultados==1)
 											@if($asignada->getResultadoRA())
@@ -105,7 +105,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-sm-6"><strong>APE:</strong> </div>
+									<div class="col-sm-6"><strong>Aptitud espacial:</strong> </div>
 									<div class="col-sm-6">
 										@if($asignada->getAplicacion()->mostrar_resultados==1)
 											@if($asignada->getResultadoAPE())
@@ -119,7 +119,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-sm-6"><strong>RV:</strong> </div>
+									<div class="col-sm-6"><strong>Razonamiento verbal:</strong> </div>
 									<div class="col-sm-6">
 										@if($asignada->getAplicacion()->mostrar_resultados==1)
 											@if($asignada->getResultadoRV())
@@ -133,7 +133,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-sm-6"><strong>APN:</strong> </div>
+									<div class="col-sm-6"><strong>Aptitud numérica:</strong> </div>
 									<div class="col-sm-6">
 										@if($asignada->getAplicacion()->mostrar_resultados==1)
 											@if($asignada->getResultadoAPN())

@@ -65,7 +65,11 @@ class formularioController extends Controller
      */
     public function edit($id)
     {
-        $formulario = Formulario::find($id);
+        
+    }
+    
+    public function getConfirmacion(){
+        $formulario = Auth::user()->getFormulario();
         return view('aspirante.satisfactorio',compact('formulario'));
     }
     
@@ -112,9 +116,13 @@ class formularioController extends Controller
      */
     public function update(FormularioRequest $request, $id)
     {
-        Formulario::find($id)->update($request->all());
         $formulario=Formulario::find($id);
-        return view("aspirante.aspirante",compact('formulario'));
+        if($formulario->NOV==Auth::user()->NOV){
+            $formulario->update($request->all());
+            return view("aspirante.aspirante",compact('formulario'));
+        }else{
+            //error
+        }
     }
 
     /**
