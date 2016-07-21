@@ -1,5 +1,21 @@
 @extends('layouts.formulario-layout')
 
+
+<script type="text/javascript">
+    function changeDepartamento(){
+        var dept = document.getElementById('departamento').value;
+        $.get( "/json/guatemala.json", function( data ) {
+            var municipios=data[dept];
+            municipio.innerHTML="";
+            for(var i =0; i<municipios.length; i++){
+                var option = document.createElement("option");
+                option.text = municipios[i];
+                document.getElementById('municipio').add(option);
+            }
+        });
+    }
+</script>
+
 @section('content')
 
 
@@ -23,10 +39,27 @@
                     </div>
                 </div>
 
+                <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
+                    <label class="col-md-4 control-label">Teléfono de casa:</label>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" name="telefono" value="{{old('telefono')}}"
+                               placeholder="00000000"/>
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('celular') ? ' has-error' : '' }}">
+                    <label class="col-md-4 control-label">Teléfono celular:</label>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" name="celular" value="{{old('celular')}}"
+                               placeholder="00000000"/>
+                    </div>
+                </div>
+
                 <div class="form-group{{ $errors->has('departamento') ? ' has-error' : '' }}">
                     <label class="col-md-4 control-label">Departamento: </label>
                     <div class="col-md-6">
-                        <select class="form-control" name="departamento">
+                        <select class="form-control" name="departamento" id="departamento" onchange="changeDepartamento()">
+                            <option selected disabled>Seleccione un departamento</option>
                             <option>Alta Verapaz</option>
                             <option>Baja Verapaz</option>
                             <option>Chimaltenango</option>
@@ -53,27 +86,15 @@
                     </div>
                 </div>
 
-                <div class="form-group{{ $errors->has('genero') ? ' has-error' : '' }}">
-                    <label class="col-md-4 control-label">Genero: </label>
-                    <div class="col-md-6">
-                        <select class="form-control" name="genero">
-                            <option value="1">Masculino</option>
-                            <option value="0">Femenino</option>
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="municipio">Municipio:</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="municipio" id="municipio" >
                         </select>
                     </div>
                 </div>
 
-                <div class="form-group{{ $errors->has('fecha_nacimiento') ? ' has-error' : '' }}">
-                    <label class="col-md-4 control-label">Fecha de nacimiento: </label>
-                    <div class="col-md-6">
-                        <div class='input-group date fecha'>
-                            <input class="form-control" type='text'  id="date_nacimiento" name="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}" placeholder="día/mes/año"/>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="form-group{{ $errors->has('estado_civil') ? ' has-error' : '' }}">
                     <label class="col-md-4 control-label">Estado civil: </label>

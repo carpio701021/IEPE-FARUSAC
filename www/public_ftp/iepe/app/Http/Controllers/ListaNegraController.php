@@ -48,7 +48,7 @@ class ListaNegraController extends Controller
     {
         if($request->has('NOV')){
             ListaNegra::create($request->all());
-            $request->session()->flash('mensaje_exito','Se agregó '.$request->NOV.' a la lista negra');
+            $request->session()->flash('mensaje_exito','Se agregó '.$request->NOV.' a los casos especiales');
         }
         return back();
     }
@@ -104,7 +104,6 @@ class ListaNegraController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -112,7 +111,7 @@ class ListaNegraController extends Controller
     {
         $nov = ListaNegra::find($id);
         $nov->delete();
-        $request->session()->flash('mensaje_exito',$nov->NOV.' eliminado de la lista negra');
+        $request->session()->flash('mensaje_exito',$nov->NOV.' eliminado de los casos especiales');
         return back();
     }
 }

@@ -54,7 +54,7 @@
                         Prueba Específica</a>
                 </li>
                 <li>
-                    <a href="{{ url('aspirante/formulario/'.Auth::user()->getFormulario()->id_formulario) }}/edit">
+                    <a href="{{ url('aspirante/aprobados') }}">
                         <span class="glyphicon glyphicon-check" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Aprobados</a>
                 </li>
@@ -110,6 +110,7 @@
                 </div>
                 <div class="col-lg-12">
                     @yield('content')
+                    <!--a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a-->
                 </div>
             </div>
         </div>

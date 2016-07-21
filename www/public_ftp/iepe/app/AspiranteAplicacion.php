@@ -32,7 +32,22 @@ class AspiranteAplicacion extends Model
     public function getFechaAplicacion(){
         $fecha=$this->belongsTo('App\AplicacionSalonHorario','aplicacion_salon_horario_id')->first()->fecha_aplicacion;
         return date('d-m-Y' ,strtotime($fecha));
+    }
 
+    public function getResultadoAPE(){
+        return ($this->nota_APE>=$this->getaplicacion()->percentil_APE);
+
+    }
+    public function getResultadoRA(){
+        return ($this->nota_RA>=$this->getaplicacion()->percentil_RA);
+    }
+
+    public function getResultadoRV(){
+        return ($this->nota_RV>=$this->getaplicacion()->percentil_RV);
+    }
+
+    public function getResultadoAPN(){
+        return ($this->nota_APN>=$this->getaplicacion()->percentil_APN);
     }
 
     public function getResultado(){

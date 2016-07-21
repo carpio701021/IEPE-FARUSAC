@@ -1,6 +1,6 @@
 @extends('layouts.aspirante-layout')
 
-@section('content')	
+@section('content')
 	<h1>Aspirante</h1>
 	<ul>
 		<div class="row">
@@ -26,7 +26,7 @@
 									<div class="row">
 										<label class="control-label col-xs-6" >Género:</label>
 										<div class="col-xs-6">
-											<p class="form-control-static">@if($formulario->genero==1) Masculino
+											<p class="form-control-static">@if(Auth::user()->getGenero()==1) Masculino
 												@else Femenino @endif</p>
 										</div>
 									</div>
@@ -37,16 +37,35 @@
 										</div>
 									</div>
 									<div class="row">
+										<label class="control-label col-xs-6" >Teléfono de casa:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->telefono}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6" >Teléfono celular:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->celular}}</p>
+										</div>
+									</div>
+									<div class="row">
 										<label class="control-label col-xs-6" >Departamento:</label>
 										<div class="col-xs-6">
 											<p class="form-control-static">{{$formulario->departamento}}</p>
 										</div>
 									</div>
 									<div class="row">
-										<label class="control-label col-xs-6" >Edad:</label>
+										<label class="control-label col-xs-6" >Municipio:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{$formulario->municipio}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<label class="control-label col-xs-6" >Fecha nacimiento:</label>
 										<div class="col-xs-6">
 											<p class="form-control-static">
-												{{\Carbon\Carbon::createFromFormat('Y-m-d',$formulario->fecha_nacimiento)->age}}
+												{{Auth::user()->getFechaNacimiento()}}
+												{{--\Carbon\Carbon::createFromFormat('Y-m-d',$formulario->fecha_nacimiento)->age--}}
 											</p>
 										</div>
 									</div>
@@ -145,51 +164,63 @@
 									<form class="form-horizontal" role="form" action="/aspirante/formulario/{{$formulario->id_formulario}}" method="post">
 										<input type="hidden" name="_method" value="PUT">
 										<div class="form-group">
-											<label class="control-label col-sm-2" for="genero">Género:</label>
-											<div class="col-sm-10">
-												<select class="form-control" name="genero" id="genero" >
-													<option value="1" @if($formulario->genero==1) selected @endif>Masculino</option>
-													<option value="0" @if($formulario->genero==0) selected @endif>Femenino</option>
-												</select>
-											</div>
-										</div>
-										<div class="form-group">
 											<label class="control-label col-sm-2" for="residencia">Residencia:</label>
 											<div class="col-sm-10">
 												<input type="text" class="form-control" id="residencia" name="residencia" value="{{$formulario->residencia}}">
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label col-sm-2" for="departamento">Departamento:</label>
+											<label class="control-label col-sm-2" for="telefono">Teléfono:</label>
 											<div class="col-sm-10">
-												<select class="form-control" name="departamento" id="departamento" >
-													<option selected>{{$formulario->departamento}}</option>
-													<option>Alta Verapaz</option><option>Baja Verapaz</option>
-													<option>Chimaltenango</option><option>Chiquimula</option>
-													<option>Petén</option><option>El Progreso</option>
-													<option>Quiché</option><option>Escuintla</option>
-													<option>Guatemala</option><option>Huehuetenango</option>
-													<option>Izabal</option><option>Jalapa</option>
-													<option>Jutiapa</option><option>Quetzaltenango</option>
-													<option>Retalhuleu</option><option>Sacatepéquez</option>
-													<option>San Marcos</option><option>Santa Rosa</option>
-													<option>Sololá</option><option>Suchitepéquez</option>
-													<option>Totonicapán</option><option>Zacapa</option>
-												</select>
+												<input class="form-control"  id="telefono" name="telefono" value="{{$formulario->telefono}}">
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label col-sm-2" for="fecha_nacimiento">Fecha de Nacimiento:</label>
+											<label class="control-label col-sm-2" for="celular">Celular:</label>
 											<div class="col-sm-10">
-												<div class='input-group date'>
-													<input type='text' class="form-control"  id="fecha_nacimiento" value="{{ $formulario->fecha_nacimiento }}" name="fecha_nacimiento"/>
-													<span class="input-group-addon">
-														<span class="glyphicon glyphicon-calendar"></span>
-													</span>
-												</div>
-
+												<input class="form-control" id="celular" name="celular" value="{{$formulario->celular}}">
 											</div>
 										</div>
+										<div class="form-group">
+											<label class="control-label col-sm-2" for="departamento">Departamento:</label>
+											<div class="col-md-10">
+												<select class="form-control" name="departamento" id="departamento" onchange="changeDepartamento()">
+													<option selected>{{$formulario->departamento}}</option>
+													<option>Alta Verapaz</option>
+													<option>Baja Verapaz</option>
+													<option>Chimaltenango</option>
+													<option>Chiquimula</option>
+													<option>Petén</option>
+													<option>El Progreso</option>
+													<option>Quiché</option>
+													<option>Escuintla</option>
+													<option>Guatemala</option>
+													<option>Huehuetenango</option>
+													<option>Izabal</option>
+													<option>Jalapa</option>
+													<option>Jutiapa</option>
+													<option>Quetzaltenango</option>
+													<option>Retalhuleu</option>
+													<option>Sacatepéquez</option>
+													<option>San Marcos</option>
+													<option>Santa Rosa</option>
+													<option>Sololá</option>
+													<option>Suchitepéquez</option>
+													<option>Totonicapán</option>
+													<option>Zacapa</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="control-label col-sm-2" for="departamento">Municipio:</label>
+											<div class="col-sm-10">
+												<select class="form-control" name="municipio" id="municipio" >
+													<option selected>{{$formulario->municipio}}</option>
+												</select>
+											</div>
+										</div>
+
 										<div class="form-group">
 											<label class="control-label col-sm-2" for="estado_civil">Estado Civil:</label>
 											<div class="col-sm-10">
@@ -312,12 +343,23 @@
 				format: 'L',
 				format: 'DD/MM/YYYY'
 			});
-			//alert("{{ $formulario->fecha_nacimiento }}");
-			fecha_nacimiento.value = moment("{{ $formulario->fecha_nacimiento }}",'YYYY-M-D').format('DD/MM/YYYY');
+			//alert("{{-- $formulario->fecha_nacimiento --}}");
+			//fecha_nacimiento.value = moment("{{-- $formulario->fecha_nacimiento --}}",'YYYY-M-D').format('DD/MM/YYYY');
 		});
 
+		function changeDepartamento(){
+			var dept = document.getElementById('departamento').value;
+			$.get( "/json/guatemala.json", function( data ) {
+				var municipios=data[dept];
+				municipio.innerHTML="";
+				for(var i =0; i<municipios.length; i++){
+					var option = document.createElement("option");
+					option.text = municipios[i];
+					document.getElementById('municipio').add(option);
+				}
+			});
+		}
 	</script>
-
 
 
 @endsection

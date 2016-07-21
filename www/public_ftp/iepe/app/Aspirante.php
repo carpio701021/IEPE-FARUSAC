@@ -68,6 +68,14 @@ class Aspirante extends Authenticatable
         return $this->nombre.' '.$this->apellido;
     }
 
+    public function getFechaNacimiento(){
+        return date('d-m-Y' ,strtotime(Datos_sun::where('orientacion',$this->NOV)->first()->fecha_nacimiento));
+    }
+
+    public function getGenero(){
+        return Datos_sun::where('orientacion',$this->NOV)->first()->sexo;
+    }
+
     public function aprobo(){
         $asignacion = AspiranteAplicacion::where('aspirante_id',$this->NOV)
             ->where('acta_id','>',0)->first();

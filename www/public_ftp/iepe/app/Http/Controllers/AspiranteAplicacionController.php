@@ -213,6 +213,7 @@ class AspiranteAplicacionController extends Controller
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setPaper('letter', 'portrait');
         $aspirante = Auth::user();
+        
         $pdf->loadView('aspirante.pdf.constanciaAsignacion',compact('asignacion','id','aspirante'));
         return $pdf;
     }

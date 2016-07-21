@@ -17,7 +17,7 @@
 
 <?php $count=0; ?>
 @foreach($asignaciones as $asignacion)
-    <img src="/var/www/public_ftp/iepe/public/img/fondoConstanciaSatisfactorio.png"  style="width:650px;height:510px;" border="1"/>
+    <img src="/var/www/public_ftp/iepe/storage/artes_constancia_satisfactoria/fondoConstanciaSatisfactorio.png"  style="width:650px;height:510px;" border="1"/>
     @if($count%2==0)
             <p style="position: absolute; top: 30px; left: 280px; font-size: 17px;  text-align: center ">
                 <strong>Universidad de San Carlos de Guatemala</strong><br>
