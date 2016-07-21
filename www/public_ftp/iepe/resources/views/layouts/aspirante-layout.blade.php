@@ -34,7 +34,7 @@
                     Reglamento</a></li>
             <li><a href="{{ route('aspirante.recursos.guia-asignacion') }}"><span class="glyphicon glyphicon-facetime-video" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Guía de asignación</a></li>
-            <li><a href="{{ route('aspirante.recursos.guia-aplicacion') }}"><span class="glyphicon glyphicon-ok" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+            <li><a href="{{ route('aspirante.recursos.guia-aplicacion') }}"><span class="glyphicon glyphicon-apple" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Guía de aplicación</a></li>
             <li>&nbsp;</li>
             @if  (Auth::guest())

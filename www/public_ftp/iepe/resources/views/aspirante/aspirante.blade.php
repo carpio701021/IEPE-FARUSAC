@@ -11,10 +11,6 @@
 							<div class="panel-heading">
 								<strong>Información Personal</strong>
 							</div>
-							<!--
-							//todo:
-								agregar datos de cuenta (correo, NOV)
-                    		-->
 							<div class="panel-body">
 								<div class="form-horizontal">
 									<div class="row">

@@ -164,9 +164,29 @@
                     <div class="col-sm-6">
                         <a href="{{ route('aspirante.recursos.guia-aplicacion') }}" class="btn btn-default" target="_blank">Ver guía actual</a>
                     </div>
+                    <div class="col-sm-12">
+                        <h4>Imagen principal</h4>
+                        <div class="form-group">
+                            <div class="container">
+                                {{csrf_field()}}
+                                <label class="btn btn-default btn-file" onclick="cancelarFile(7)">
+                                    Seleccionar archivo...
+                                    {!! Form::file('imginfo' , array(
+                                    'style' =>'display:none',
+                                    'onchange'=> "cambiar_archivo(7)",
+                                    'id' => 'file7',
+                                    'accept' => 'image/*'
+                                    )) !!}
+
+                                </label>
+                                <label class="control-label" id="labelfile7">No se ha seleccionado ningun archivo</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <h4>Razonamiento abstracto</h4>
                 <div class="row">
+
                     <div class="col-sm-6">
                         <label>Boton:</label>
                         <div class="form-group">
@@ -191,7 +211,7 @@
                             <div class="container">
                                 {{csrf_field()}}
                                 <label>Enlace de youtube:</label><br />
-                                <input type="text" name="enlace">
+                                <input type="text" name="enlace1" placeholder="URL del video">
                             </div>
                         </div>
                     </div>
@@ -222,7 +242,7 @@
                             <div class="container">
                                 {{csrf_field()}}
                                 <label>Enlace de youtube:</label><br />
-                                <input type="text" name="enlace">
+                                <input type="text" name="enlace2" placeholder="URL del video">
                             </div>
                         </div>
                     </div>
@@ -253,7 +273,7 @@
                             <div class="container">
                                 {{csrf_field()}}
                                 <label>Enlace de youtube:</label><br />
-                                <input type="text" name="enlace">
+                                <input type="text" name="enlace3" placeholder="URL del video">
                             </div>
                         </div>
                     </div>
@@ -284,7 +304,7 @@
                             <div class="container">
                                 {{csrf_field()}}
                                 <label>Enlace de youtube:</label><br />
-                                <input type="text" name="enlace">
+                                <input type="text" name="enlace4" placeholder="URL del video">
                             </div>
                         </div>
                     </div>

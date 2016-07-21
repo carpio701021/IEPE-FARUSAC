@@ -23,7 +23,7 @@ class RecursosController extends Controller
             if(file_exists($filejson)) {
                 $json = json_decode(file_get_contents($filejson),TRUE);
             }
-            $json['imagen_informativa'] = '/aspirante_public/img/'.$filename;
+            $json['imagen_informativa'] = $filename;
             file_put_contents($filejson, json_encode($json,TRUE));
 
             $request->session()->flash('mensaje_exito','Se ha actualizado la imagen informativa');
@@ -66,8 +66,7 @@ class RecursosController extends Controller
         if(file_exists($filejson)) {
             $json = json_decode(file_get_contents($filejson),TRUE);
         }
-        $json['video_bienvenida'] = 'https://www.youtube.com/embed/'.$vid
-            .'?version=3&autoplay=1&loop=1&controls=0&playlist='.$vid.'&showinfo=0&theme=light';
+        $json['video_bienvenida'] = $vid;
         file_put_contents($filejson, json_encode($json,TRUE));
 
         $request->session()->flash('mensaje_exito','Se ha actualizado el video de bienvenida');
@@ -84,8 +83,7 @@ class RecursosController extends Controller
         if(file_exists($filejson)) {
             $json = json_decode(file_get_contents($filejson),TRUE);
         }
-        $json['video_guia_asignacion'] = 'https://www.youtube.com/embed/'.$vid
-            .'?version=3&autoplay=1&loop=1&controls=0&playlist='.$vid.'&showinfo=0&theme=light';
+        $json['video_guia_asignacion'] = $vid;
         file_put_contents($filejson, json_encode($json,TRUE));
 
         $request->session()->flash('mensaje_exito','Se ha actualizado el video de guía de asignación');
@@ -95,16 +93,57 @@ class RecursosController extends Controller
 
 
     public function postGuiaAplicacion(Request $request){
-        //TODO terminar
-        $files = ['imgbtn1','imgbtn2','imgbtn3','imgbtn4','imginfo'];
-        if($request->file('imgbtn1')->isValid()) {
-            $path = public_path().'/aspirante/img/guia-aplicacion'; // upload path
-            $extension = $request->file('reglamento')->getClientOriginalExtension(); // getting file extension
-            $request->file('imgbtn1')->move($path, 'imgbtn1.'.$extension);
-            $request->session()->flash('mensaje_exito','Se ha actualizado el reglamento que descargan los aspirantes');
+        $filejson = storage_path().'/recursos.json' ;
+        if(file_exists($filejson)) {
+            $json = json_decode(file_get_contents($filejson),TRUE);
+        }else{
+            $json = [];
         }
+        $json['guia_aplicacion'] = [] ;
+        //dd($json);
+        //dd($request->all());
+
+        $filesBtn = ['imgbtn1','imgbtn2','imgbtn3','imgbtn4','imginfo'];
+        foreach($filesBtn as $img){
+            //dd($filesBtn);
+            if($request->file($img)->isValid()) {
+                $path = public_path().'/aspirante_public/img/guia-aplicacion'; // upload path
+                $extension = $request->file($img)->getClientOriginalExtension(); // getting file extension
+                $request->file($img)->move($path, $img.'.'.$extension);
+                $json['guia_aplicacion'][$img.''] = $img.'.'.$extension;
+            }
+        }
+
+        $videos = ['enlace1','enlace2','enlace3','enlace4'];
+        foreach($videos as $url){
+            if(isset($request[$url])) {
+                $vid = $this->getYoutubeIdFromUrl($request[$url]);
+                $json['guia_aplicacion'][$url] = $vid;
+            }
+        }
+
+        if(isset($request->enlaces_ayuda)){
+            //TODO terminar esta parte de enlaces de ayuda
+            $reg_exUrl = ("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/");
+            // The Text you want to filter for urls
+            $text = "The text you want to filter goes here. http://google.com";
+
+            // Check if there is a url in the text
+            if(preg_match($reg_exUrl, $text, $url)) {
+                // make the urls hyper links
+                preg_replace($reg_exUrl, "<a href="{$url[0]}">{$url[0]}</a> ", $text);
+            } else {
+                // if no urls in the text just return the text
+                $text;
+            }
+        }
+
+
+        file_put_contents($filejson, json_encode($json,TRUE));
+        $request->session()->flash('mensaje_exito','Se ha actualizado la guía de aplicación.');
         return back();
     }
+
 
 
 

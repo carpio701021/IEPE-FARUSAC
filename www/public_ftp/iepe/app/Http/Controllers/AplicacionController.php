@@ -211,7 +211,6 @@ class AplicacionController extends Controller
             ->whereIn('resultado',['aprobado','irregular'])
             ->orderby($orderby,$orden)
             ->paginate(15);
-        //dd($asignaciones);///esta onda me está trayendo todo de todo
         return view('admin.aplicacion.NotasAspirantes',
             compact('asignaciones','aplicacion','ob'));
     }

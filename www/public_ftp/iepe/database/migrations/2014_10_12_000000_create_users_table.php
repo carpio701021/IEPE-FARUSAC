@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
 
             $table->enum('rol',[
-                'superadmin', //persona que puede editar todo
+                'superadmin', //persona que puede editar todo_
                 'jefe_bienestar',
                 'secretario',
                 'decano',
