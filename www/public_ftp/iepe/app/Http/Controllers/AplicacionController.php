@@ -94,6 +94,15 @@ class AplicacionController extends Controller
         $aplicacion->percentil_RV	= 80;
         $aplicacion->percentil_APN	= 80;
 
+        if($request->hasFile('arte')){
+            $destinationPath ='/arte_aplicaciones'; // upload path
+            $extension = $request->file('arte')->getClientOriginalExtension(); // getting file extension
+            $fileName = 'arte'. '['.Carbon::now().']'. rand(10000,99999).'.'.$extension; // rename file
+            $request->file('arte')->move( storage_path().$destinationPath,$fileName);
+            $aplicacion->path_arte = $destinationPath . '/' . $fileName;
+        }
+
+
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios,$request->fechasA);
         if($request->irregular){
@@ -106,7 +115,7 @@ class AplicacionController extends Controller
         }else{
             $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente.');
         }
-        return redirect( route('aspirante.admin.aplicacion.index'));
+        return redirect( action('AplicacionController@index'));
     }
 
     function asignarIrregulares($id,$aplicacionEspecial){
@@ -256,17 +265,15 @@ class AplicacionController extends Controller
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios,$request->fechasA);
 
         $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'.$aplicacion->nombre().'</i> guardados.');
-        return redirect(route('aspirante.admin.aplicacion.index'));
+        return redirect(action('AplicacionController@index'));
     }
 
     public function getArte($aplicacion_id){
         $aplicacion = Aplicacion::where('id',$aplicacion_id)->firstOrFail();
-        //dd($aplicacion);
         if(isset($aplicacion->path_arte)){
             $file = File::get(storage_path().$aplicacion->path_arte);
         }else{
             abort(403, 'Imagen no encontrada.');
-            dd("nanai");
         }
 
         $response = \Response::make($file, 200);

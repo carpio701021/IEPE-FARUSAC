@@ -64,16 +64,12 @@ Route::group(['prefix' => 'aspirante'], function () {
                 Route::get('aplicacion/{aplicacion_id}/habilitar', 'AplicacionController@habilitarResultados')->name('admin.aplicacion.habilitar');
                 Route::post('aplicacion/notificar','AplicacionController@notificar')->name('admin.aplicacion.notificar');
 
-//TODO verificar estas rotas
+                Route::resource('aspirantes','ListaNegraController');
                 Route::get('CasosEspeciales','ListaNegraController@getListaNegra')->name('admin.listaNegra');
                 Route::get('CasosEspeciales/{search}','ListaNegraController@listaNegraShow')->name('admin.listaNegra.search');
                 Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
                 Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles')->name('admin.aplicacion.percentiles');
 
-                Route::resource('aspirantes','ListaNegraController');
-                Route::get('listaNegra','ListaNegraController@getListaNegra')->name('admin.listaNegra');
-                Route::get('listaNegra/{search}','ListaNegraController@listaNegraShow')->name('admin.listaNegra.search');
-// fin verificar
                 //Route::resource('datos','DatosController');
                 Route::post('datos/insert','DatosController@insert')->name('admin.datos.insert');
                 Route::get('datos/create','DatosController@create')->name('admin.datos.create');

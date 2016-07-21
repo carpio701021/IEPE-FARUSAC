@@ -5,7 +5,7 @@
         <div class='btn-toolbar pull-right'>
             <br>
             <div class='btn-group'>
-                <a href="{{ route('aspirante.admin.aplicacion.create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nueva aplicación</a>
+                <a href="{{ action('AplicacionController@create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nueva aplicación</a>
             </div>
         </div>
         <h2>Aplicaciones</h2>
@@ -55,16 +55,16 @@
                                 </div>
                                 <div class="col-md-4">
                                     <h4>Arte</h4>
-                                    <img src="/admin/aplicacion/{{ $aplicacion->id }}/arte" alt="-No establecida-" height="100%" width="100%">
+                                    <a href="{{ action('AplicacionController@getArte' , ['aplicacion'=>$aplicacion->id]) }}" target="_blank"><img src="{{ action('AplicacionController@getArte' , ['aplicacion'=>$aplicacion->id]) }}" alt="-No establecida-" height="100%" width="100%"></a>
                                 </div>
                                 <div class="col-md-3">
                                     <h4>Opciones</h4>
                                     <ul>
-                                        <li><a href="{{ route('aspirante.admin.aplicacion.edit',['aplicacion'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-edit"></span> Editar</a></li>
-                                        <li><a href="{{ route('admin.aplicacion.listados',['aplicacion'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-list"></span> Descargar Listado</a></li>
-                                        <li><a href="{{ route('aspirante.admin.aplicacion.subirResultados.edit',['subirResultados'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-upload"></span> Resultados</a></li>
+                                        <li><a href="{{ action('AplicacionController@edit',['aplicacion'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-edit"></span> Editar</a></li>
+                                        <li><a href="{{ action('AplicacionController@getListados',['aplicacion'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-list"></span> Descargar Listado</a></li>
+                                        <li><a href="{{ action('AspiranteAplicacionController@edit',['subirResultados'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-upload"></span> Resultados</a></li>
                                         <li>
-                                            <a href="/admin/aplicacion/{{$aplicacion->id}}/habilitar">
+                                            <a href="{{ action('AplicacionController@habilitarResultados', ['aplicacion_id',$aplicacion->id])}}">
                                                 @if($aplicacion->mostrar_resultados==1)
                                                 <span class="glyphicon glyphicon-ban-circle"></span> Deshabilitar resultados a aspirantes
                                                 @else
@@ -73,7 +73,7 @@
                                             </a>
                                         </li>
                                         <li><a data-toggle="modal" href="#modal{{$aplicacion->id}}"><span class="glyphicon glyphicon-send"></span> Notificar resultado</a></li>
-                                        <li><a data-confirm="¿Deseas eliminar la aplicación?" data-method="delete"  href="{{ route('aspirante.admin.aplicacion.destroy',['id'=>$aplicacion->id]) }}" class="jquery-postback"><span class="glyphicon glyphicon-delete"></span> Eliminar</a></li>
+                                        <li><a data-confirm="¿Deseas eliminar la aplicación?" data-method="delete"  href="{{ action('AplicacionController@destroy',['id'=>$aplicacion->id]) }}" class="jquery-postback"><span class="glyphicon glyphicon-delete"></span> Eliminar</a></li>
 
                                     </ul>
 
@@ -127,6 +127,18 @@
             obj.innerHTML = moment(fechaO,'YYYY-MM-DD').format('D [de] MMMM [del] YYYY');
             //obj.innerHTML = moment(fechaO).format('L');
         });
+
+        $('a[data-confirm]').click(function(ev) {
+            var href = $(this).attr('href');
+            if (!$('#dataConfirmModal').length) {
+                $('body').append('<div id="dataConfirmModal" class="modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel">Please Confirm</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div>');
+            }
+            $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+            $('#dataConfirmOK').attr('href', href);
+            $('#dataConfirmModal').modal({show:true});
+            return false;
+        });
+
     });
 
 
