@@ -14,7 +14,7 @@ class RecursosController extends Controller
     }
 
     public function postImagenInformativa(Request $request){
-        if($request->file('imagenInformativa')->isValid()) {
+        if(isset($request['imagenInformativa']) && $request->file('imagenInformativa')->isValid()) {
             $path = public_path().'/aspirante_public/img/'; // upload path
             $filename = 'imagenInformativa.'.$request->file('imagenInformativa')->getClientOriginalExtension();
             $request->file('imagenInformativa')->move($path, $filename);
@@ -32,7 +32,7 @@ class RecursosController extends Controller
     }
 
     public function postReglamento(Request $request){
-        if($request->file('reglamento')->isValid()) {
+        if(isset($request['reglamento']) && $request->file('reglamento')->isValid()) {
             $path = public_path().'/aspirante_public/files/pdf/reglamento'; // upload path
             $extension = $request->file('reglamento')->getClientOriginalExtension(); // getting file extension
             $request->file('reglamento')->move($path, 'reglamento.'.$extension);
@@ -99,14 +99,14 @@ class RecursosController extends Controller
         }else{
             $json = [];
         }
-        $json['guia_aplicacion'] = [] ;
+        //$json['guia_aplicacion'] = [] ;
         //dd($json);
         //dd($request->all());
 
         $filesBtn = ['imgbtn1','imgbtn2','imgbtn3','imgbtn4','imginfo'];
         foreach($filesBtn as $img){
             //dd($filesBtn);
-            if($request->file($img)->isValid()) {
+            if(isset($request[$img]) && $request->file($img)->isValid()) {
                 $path = public_path().'/aspirante_public/img/guia-aplicacion'; // upload path
                 $extension = $request->file($img)->getClientOriginalExtension(); // getting file extension
                 $request->file($img)->move($path, $img.'.'.$extension);
@@ -116,26 +116,14 @@ class RecursosController extends Controller
 
         $videos = ['enlace1','enlace2','enlace3','enlace4'];
         foreach($videos as $url){
-            if(isset($request[$url])) {
+            if(isset($request[$url]) && $request[$url]!="") {
                 $vid = $this->getYoutubeIdFromUrl($request[$url]);
                 $json['guia_aplicacion'][$url] = $vid;
             }
         }
 
-        if(isset($request->enlaces_ayuda)){
-            //TODO terminar esta parte de enlaces de ayuda
-            $reg_exUrl = ("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/");
-            // The Text you want to filter for urls
-            $text = "The text you want to filter goes here. http://google.com";
-
-            // Check if there is a url in the text
-            if(preg_match($reg_exUrl, $text, $url)) {
-                // make the urls hyper links
-                preg_replace($reg_exUrl, "<a href="{$url[0]}">{$url[0]}</a> ", $text);
-            } else {
-                // if no urls in the text just return the text
-                $text;
-            }
+        if(isset($request->enlaces_ayuda) && $request->enlaces_ayuda!=""){
+            $json['guia_aplicacion']['enlaces_ayuda'] = $request->enlaces_ayuda;
         }
 
 

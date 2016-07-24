@@ -1,5 +1,9 @@
 @extends('layouts.admin-user')
 
+@section('styles')
+    <link rel='stylesheet' href="{{ url('aspirante_public/css/bootstrap3-wysihtml5.min.css') }}">
+@stop
+
 @section('content')
 <div class="container">
     @include('layouts.mensajes')
@@ -20,7 +24,7 @@
                             <div class="container">
                                 {{csrf_field()}}
                                 <label>Enlace de youtube:</label>
-                                <input type="text" name="video_url">
+                                <input type="text" name="video_url" placeholder="URL del video">
                             </div>
                         </div>
                         <div class="form-group">
@@ -133,7 +137,7 @@
                             <div class="container">
                                 {{csrf_field()}}
                                 <label>Enlace de youtube:</label>
-                                <input type="text" name="video_url">
+                                <input type="text" name="video_url" placeholder="URL del video">
                             </div>
                         </div>
                         <div class="form-group">
@@ -310,6 +314,20 @@
                     </div>
                 </div>
 
+                <h4>Enlaces de ayuda</h4>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Ingrese el texto que desea que los aspirantes vean como ayuda:</label>
+                        <div class="form-group">
+
+                            <textarea id="some-textarea" name="enlaces_ayuda" placeholder="Ingresa el texto de ayuda" class="form-control"></textarea>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
 
 
                 <div class="form-group">
@@ -325,7 +343,11 @@
 @stop
 
 @section('scripts')
+    <script src="{{ url('aspirante_public/js/bootstrap3-wysihtml5.all.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
+        $(function () {
+            $('#some-textarea').wysihtml5();
+        });
 
         function cancelarFile(id){
             document.getElementById('file'+id).value=null;

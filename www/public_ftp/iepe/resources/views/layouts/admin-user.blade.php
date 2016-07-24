@@ -18,6 +18,8 @@
             font-family: 'Lato';
         }
     </style>
+    @section('styles')
+    @show
 
     <title>IEPE - FARUSAC</title>
 </head>
