@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <form class="form-horizontal" role="form" action="/admin/datos/insert" method="Post" >
+        <form class="form-horizontal" role="form" action="{{ action('DatosController@insert') }}" method="Post" >
             {{csrf_field()}}
             <div class="panel panel-default">
                 <div class="panel-heading">Resultados de búsqueda</div>
@@ -71,8 +71,8 @@
 @stop
 
 @section('scripts')
-    <script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>
-    <script src="/js/multistep.js" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/jquery.easing.1.3.js') }}" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/multistep.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $('.input-group.date.fecha').datetimepicker({

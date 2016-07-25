@@ -5,7 +5,7 @@
     <div class="container">
         <h3>Subir Resultados - {{$aplicacion->nombre()}}</h3>
         <div class="col-sm-6">
-            <form class="form-horizontal" role="form" action="/admin/aplicacion/subirResultados/{{$aplicacion->id}}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
+            <form class="form-horizontal" role="form" action="{{ action('AspiranteAplicacionController@update',['subirResultados'=>$aplicacion->id]) }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
             {{csrf_field()}}
             <input type="hidden" name="_method" value="PUT">
             <div class="panel panel-default">
@@ -35,7 +35,7 @@
         </form>
         </div>
         <div class="col-sm-6">
-            <form class="form-horizontal" role="form" action="/admin/aplicacion/subirResultados/{{$aplicacion->id}}/percentiles" method="Post">
+            <form class="form-horizontal" role="form" action="{{ action('AplicacionController@actualizarPercentiles',['aplicacion_id'=>$aplicacion->id]) }}" method="Post">
                 {{csrf_field()}}
                 <div class="panel panel-default">
                     <div class="panel-heading">Ajustar percentiles</div>
@@ -115,7 +115,7 @@
                 </tr>
                 </tbody>
             </table>
-            <form role="form" method="get" action="/admin/aplicacion/{{$aplicacion->id}}">
+            <form role="form" method="get" action="{{ action('AplicacionController@show',['aplicacion'=>$aplicacion->id]) }}">
                 {{csrf_field()}}
                 <input type="hidden" name="orden" value="0">
                 <button class="btn btn-primary" type="submit">Ver notas aspirantes aprobados</button>

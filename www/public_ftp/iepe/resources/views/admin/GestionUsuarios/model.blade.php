@@ -9,7 +9,7 @@
 
         {!! Form::model(
             $admin,
-            array('route' => array('admin.usuarios.update', $admin->registro_personal),
+            array('action' => array('GestionUsuariosController@update', $admin->registro_personal),
             'class' => 'form-horizontal', 'role' => 'form', 'method'=> ((isset($put))?'PUT':'POST')
         ) ) !!}
 

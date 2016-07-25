@@ -19,7 +19,7 @@
                     Es accesible por todos. El video se debe subir a youtube, y copiar el enlace para llenar éste formulario.
                 </div>
                 <div class="col-sm-5">
-                    <form class="form-horizontal" role="form" action="{{ route('admin.recursos.videoBienvenida') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" action="{{ action('RecursosController@postVideoBienvenida') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="container">
                                 {{csrf_field()}}
@@ -35,7 +35,7 @@
                     </form>
                 </div>
                 <div class="col-sm-3">
-                    <a href="{{ route('aspirante.home') }}" class="btn btn-default" target="_blank">Ver video actual</a>
+                    <a href="{{ action('HomeController@index') }}" class="btn btn-default" target="_blank">Ver video actual</a>
                 </div>
             </div>
 
@@ -51,7 +51,7 @@
                     Esta imagen mostrará un afiche con información relevante a las próximas aplicaciones.
                 </div>
                 <div class="col-sm-5">
-                    <form class="form-horizontal" role="form" action="{{ route('admin.recursos.imagenInformativa') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" action="{{ action('RecursosController@postImagenInformativa') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="container">
                                 {{csrf_field()}}
@@ -76,7 +76,7 @@
                     </form>
                 </div>
                 <div class="col-sm-3">
-                    <a href="{{ route('aspirante.recursos.imagenInformativa') }}" class="btn btn-default" target="_blank">Ver afiche actual</a>
+                    <a href="{{ action('RecursosController@viewImagenInformativa') }}" class="btn btn-default" target="_blank">Ver afiche actual</a>
                 </div>
             </div>
 
@@ -91,7 +91,7 @@
                     Éste reglamento es accesible por cualquier persona que visite el sitio web.
                 </div>
                 <div class="col-sm-5">
-                    <form class="form-horizontal" role="form" action="{{ route('admin.recursos.reglamento') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" action="{{ action('RecursosController@postReglamento') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="container">
                                 {{csrf_field()}}
@@ -116,7 +116,7 @@
                     </form>
                 </div>
                 <div class="col-sm-3">
-                    <a href="{{ route('aspirante.recursos.reglamento') }}" class="btn btn-default" target="_blank">Ver reglamento actual</a>
+                    <a href="{{ action('RecursosController@getReglamento') }}" class="btn btn-default" target="_blank">Ver reglamento actual</a>
                 </div>
             </div>
 
@@ -132,7 +132,7 @@
                     Este video estará disponible para que los aspirantes aprendan la forma correcta de asignarce su examen específico.
                 </div>
                 <div class="col-sm-5">
-                    <form class="form-horizontal" role="form" action="{{ route('admin.recursos.guia-asignacion') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" action="{{ action('RecursosController@postGuiaAsignacion') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="container">
                                 {{csrf_field()}}
@@ -148,7 +148,7 @@
                     </form>
                 </div>
                 <div class="col-sm-3">
-                    <a href="{{ route('aspirante.recursos.guia-asignacion') }}" class="btn btn-default" target="_blank">Ver video actual</a>
+                    <a href="{{ action('RecursosController@viewGuiaAsignacion') }}" class="btn btn-default" target="_blank">Ver video actual</a>
                 </div>
             </div>
 
@@ -160,19 +160,19 @@
     <div class="panel panel-default">
         <div class="panel-heading"><b>Guía de aplicación exámen específico</b></div>
         <div class="panel-body">
-            <form class="form-horizontal" role="form" action="{{ route('admin.recursos.guia-aplicacion') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
+            <form class="form-horizontal" role="form" action="{{ action('RecursosController@postGuiaAplicacion') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-sm-6">
                         Por cada aptitud que el estudiante debe aprobar se dará una breve explicación en un video.
                     </div>
                     <div class="col-sm-6">
-                        <a href="{{ route('aspirante.recursos.guia-aplicacion') }}" class="btn btn-default" target="_blank">Ver guía actual</a>
+                        <a href="{{ action('RecursosController@viewGuiaAplicacion') }}" class="btn btn-default" target="_blank">Ver guía actual</a>
                     </div>
+                    {{csrf_field()}}
                     <div class="col-sm-12">
                         <h4>Imagen principal</h4>
                         <div class="form-group">
                             <div class="container">
-                                {{csrf_field()}}
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(7)">
                                     Seleccionar archivo...
                                     {!! Form::file('imginfo' , array(
@@ -195,7 +195,6 @@
                         <label>Boton:</label>
                         <div class="form-group">
                             <div class="container">
-                                {{csrf_field()}}
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(3)">
                                     Seleccionar archivo...
                                     {!! Form::file('imgbtn1' , array(
@@ -213,7 +212,6 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="container">
-                                {{csrf_field()}}
                                 <label>Enlace de youtube:</label><br />
                                 <input type="text" name="enlace1" placeholder="URL del video">
                             </div>
@@ -226,7 +224,6 @@
                         <label>Boton:</label>
                         <div class="form-group">
                             <div class="container">
-                                {{csrf_field()}}
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(4)">
                                     Seleccionar archivo...
                                     {!! Form::file('imgbtn2' , array(
@@ -244,7 +241,6 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="container">
-                                {{csrf_field()}}
                                 <label>Enlace de youtube:</label><br />
                                 <input type="text" name="enlace2" placeholder="URL del video">
                             </div>
@@ -257,7 +253,6 @@
                         <label>Boton:</label>
                         <div class="form-group">
                             <div class="container">
-                                {{csrf_field()}}
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(5)">
                                     Seleccionar archivo...
                                     {!! Form::file('imgbtn3' , array(
@@ -275,7 +270,6 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="container">
-                                {{csrf_field()}}
                                 <label>Enlace de youtube:</label><br />
                                 <input type="text" name="enlace3" placeholder="URL del video">
                             </div>
@@ -288,7 +282,6 @@
                         <label>Boton:</label>
                         <div class="form-group">
                             <div class="container">
-                                {{csrf_field()}}
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(6)">
                                     Seleccionar archivo...
                                     {!! Form::file('imgbtn4' , array(
@@ -306,7 +299,6 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="container">
-                                {{csrf_field()}}
                                 <label>Enlace de youtube:</label><br />
                                 <input type="text" name="enlace4" placeholder="URL del video">
                             </div>

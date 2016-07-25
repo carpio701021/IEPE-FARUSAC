@@ -28,28 +28,28 @@
                 <img src="{{ url('aspirante_public/img/logotipoFARUSAC_Amarillo.png') }}"  style="width:210px;height:70px;">
             </a></li>
             <li>&nbsp;</li>
-            <li><a href="{{ route('aspirante.recursos.imagenInformativa') }}"><span class="glyphicon glyphicon-calendar" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+            <li><a href="{{ action('RecursosController@viewImagenInformativa') }}"><span class="glyphicon glyphicon-calendar" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Fechas</a></li>
-            <li><a href="{{ route('aspirante.recursos.reglamento') }}"><span class="glyphicon glyphicon-file" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+            <li><a href="{{ action('RecursosController@getReglamento') }}"><span class="glyphicon glyphicon-file" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Reglamento</a></li>
-            <li><a href="{{ route('aspirante.recursos.guia-asignacion') }}"><span class="glyphicon glyphicon-facetime-video" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+            <li><a href="{{ action('RecursosController@viewGuiaAsignacion') }}"><span class="glyphicon glyphicon-facetime-video" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Guía de asignación</a></li>
-            <li><a href="{{ route('aspirante.recursos.guia-aplicacion') }}"><span class="glyphicon glyphicon-apple" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+            <li><a href="{{ action('RecursosController@viewGuiaAplicacion') }}"><span class="glyphicon glyphicon-apple" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                     Guía de aplicación</a></li>
             <li>&nbsp;</li>
             @if  (Auth::guest())
-                <li><a href="{{ route('aspirante.login') }}"><span class="glyphicon glyphicon-log-in" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                <li><a href="{{ action('Auth\AuthController@showLoginForm') }}"><span class="glyphicon glyphicon-log-in" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Iniciar Sesión</a></li>
-                <li><a href="{{ route('aspirante.register') }}"><span class="glyphicon glyphicon-user" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                <li><a href="{{ action('Auth\AuthController@showRegistrationForm') }}"><span class="glyphicon glyphicon-user" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Registro</a></li>
             @else
                 <li id="item_aspirante">
-                    <a href="{{ route('aspirante.datos.index') }}">
+                    <a href="{{ action('AspiranteController@index') }}">
                         <span class="glyphicon glyphicon-edit" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Datos</a>
                 </li>
                 <li id="li_pruebaEspecifica">
-                    <a href="{{ route('aspirante.PruebaEspecifica.create') }}">
+                    <a href="{{ action('AspiranteAplicacionController@create') }}">
                         <span class="glyphicon glyphicon-align-justify" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Prueba Específica</a>
                 </li>
@@ -69,7 +69,7 @@
                         <li><a href="{{ route('aspirante.configuracion') }}">
                                 <span class="glyphicon glyphicon-wrench" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                                 Configurar cuenta</a></li>
-                        <li><a href="{{ route('aspirante.logout') }}">
+                        <li><a href="{{ action('Auth\AuthController@logout') }}">
                                 <span class="glyphicon glyphicon-log-out" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                                 Cerrar Sesión</a></li>
                     </ul>

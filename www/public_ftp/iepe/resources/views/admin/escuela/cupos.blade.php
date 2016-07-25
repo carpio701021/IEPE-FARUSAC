@@ -12,7 +12,7 @@
             </h2>
         </div>
         <div class="btn-group pull-right">
-            <a href="/admin/escuela/primerIngreso/nuevo" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Nuevo año</a>
+            <a href="{{ action('AnioController@nuevoAnio') }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Nuevo año</a>
         </div>
         <br>
         <br>
@@ -31,9 +31,9 @@
                                 <div class="col-md-4">
                                     <h4>Listado de aspirantes aprobados en el {{($anio->anio-1)}}</h4>
                                     @if(Auth::guard('admin')->user()->tieneRol('director_arquitectura'))
-                                        <a href="/admin/escuela/primerIngreso/listado?anio={{$anio->anio-1}}&carrera=arquitectura" class="btn btn-primary">Descargar</a>
+                                        <a href="{{ action('AnioController@getListado') }}?anio={{$anio->anio-1}}&carrera=arquitectura" class="btn btn-primary">Descargar</a>
                                     @elseif(Auth::guard('admin')->user()->tieneRol('director_disenio_grafico'))
-                                        <a href="/admin/escuela/primerIngreso/listado?anio={{$anio->anio-1}}&carrera=diseño" class="btn btn-primary">Descargar</a>
+                                        <a href="{{ action('AnioController@getListado') }}?anio={{$anio->anio-1}}&carrera=diseño" class="btn btn-primary">Descargar</a>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
@@ -49,7 +49,7 @@
                                         </div>
 
                                     <br>
-                                    <form class="form-horizontal" action="/admin/escuela/primerIngreso/guardarCupo" method="post">
+                                    <form class="form-horizontal" action="{{ action("AnioController@guardarCupo") }}" method="post">
                                         {{csrf_field()}}
                                         @if(Auth::guard('admin')->user()->tieneRol('director_arquitectura'))
                                             <input type="hidden" name="carrera" value="arquitectura">
@@ -80,7 +80,7 @@
                                     </div>
 
                                     <br>
-                                    <form class="form-horizontal" action="/admin/escuela/primerIngreso/guardarCupo" method="post">
+                                    <form class="form-horizontal" action="{{ action('AnioController@guardarCupo') }}" method="post">
                                         {{csrf_field()}}
                                         @if(Auth::guard('admin')->user()->tieneRol('director_arquitectura'))
                                             <input type="hidden" name="carrera" value="arquitectura">

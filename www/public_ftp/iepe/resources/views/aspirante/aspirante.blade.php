@@ -157,7 +157,7 @@
 									<h3 style="color:#EBC14D">Actualizar Datos</h3>
 								</div>
 								<div class="modal-body">
-									<form class="form-horizontal" role="form" action="/aspirante/formulario/{{$formulario->id_formulario}}" method="post">
+									<form class="form-horizontal" role="form" action="{{ action('formularioController@update',['formualrio'=>$formulario->id_formulario]) }}" method="post">
 										<input type="hidden" name="_method" value="PUT">
 										<div class="form-group">
 											<label class="control-label col-sm-2" for="residencia">Residencia:</label>

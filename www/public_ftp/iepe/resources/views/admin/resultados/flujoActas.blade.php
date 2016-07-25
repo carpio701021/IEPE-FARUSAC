@@ -219,7 +219,7 @@
                     }
                 }
             };
-            xhttp.open('GET','/admin/acta/getAplicacionesAnio/'
+            xhttp.open('GET',"{{ action('AplicacionController@getAplicacionesAnio',['anio'=>'']) }}/"
                     +anio+'?_token='+csrf_token.getAttribute("content"),true);
             xhttp.send();
         }
@@ -262,7 +262,7 @@
                 }
             };
             var parametros='&_token='+csrf_token.getAttribute("content");
-            var url='/admin/acta/search/'+aplicacion_id;
+            var url="{{ action('ActaController@getQueryActas',['aplicacion_id'=>'']) }}/"+aplicacion_id;
             xhttp.open('GET',url+'?'+parametros,true);
             xhttp.send();
         }
@@ -270,7 +270,7 @@
         $(document).ready(function() {
 
             $(".btn-verPDF").click(function() {//agregar acta id para mostrar pdf
-                var href = '/admin/acta/';
+                var href = "{{ action('ActaController@show',['acta'=>'']) }}/";
                 if(this.name=='propuesta_pdf')
                     href += select_propuestas.value;
                 else
@@ -286,13 +286,13 @@
             });
 
             $("#btn_constancias").click(function() {//agregar acta id para mostrar pdf
-                this.href = '/admin/acta/'+select_aprobadas.value+'/constanciasSatisfactorias';
+                this.href = "{{ action('ActaController@show',['acta'=>'']) }}/"+select_aprobadas.value+'/constanciasSatisfactorias';
             });
 
 
 
             $('#btn_eliminar_propuesta').click(function(){
-                $.post("/admin/acta/"+select_propuestas.value,
+                $.post("{{ action('ActaController@destroy',['acta'=>'']) }}/"+select_propuestas.value,
                         {_method: "DELETE",
                          _token:"{{csrf_token()}}"},
                         function(data){
@@ -325,7 +325,7 @@
                             if("{{Auth::guard('admin')->user()->rol}}"=='secretario') data.aprobacion_secretaria=1;
                         }
 
-                $.post("/admin/acta/"+id,
+                $.post("{{ action('ActaController@update',['acta'=>'']) }}/"+id,
                         data,
                         function(data){
                             //alert(data);
@@ -358,13 +358,13 @@
         });
 
         $('#btn_notificar').click(function(){
-            $.get('/admin/acta/'+select_aprobadas.value+'/notificar',function(data){
+            $.get("{{ action('ActaController@show',['acta'=>'']) }}/"+select_aprobadas.value+'/notificar',function(data){
                 alert(data);
             });
         })
 
         function actualizarInfoActa(area,acta_id){
-            $.get('/admin/acta/info/'+acta_id,
+            $.get("{{ action('ActaController@getInfoActa',['acta_id','']) }}/"+acta_id,
                     function(data){
                         var acta = jQuery.parseJSON(data);
                         if(area.id=='reprobada_info'){

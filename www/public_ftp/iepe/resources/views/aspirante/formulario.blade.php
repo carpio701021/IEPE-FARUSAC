@@ -4,7 +4,7 @@
 <script type="text/javascript">
     function changeDepartamento(){
         var dept = document.getElementById('departamento').value;
-        $.get( "/json/guatemala.json", function( data ) {
+        $.get( "/aspirante_public/json/guatemala.json", function( data ) {
             var municipios=data[dept];
             municipio.innerHTML="";
             for(var i =0; i<municipios.length; i++){
@@ -19,10 +19,10 @@
 @section('content')
 
 
-    <form id="msform" class="form-horizontal" role="form" action="/aspirante/formulario" method="POST">
+    <form id="msform" class="form-horizontal" role="form" action="{{ action('formularioController@store') }}" method="POST">
         <!-- progressbar -->
         <ul id="progressbar">
-            <li class="active">Ińformación Personal</li>
+            <li class="active">Información Personal</li>
             <li>Formación académica</li>
             <li>Intereses universitarios</li>
         </ul>

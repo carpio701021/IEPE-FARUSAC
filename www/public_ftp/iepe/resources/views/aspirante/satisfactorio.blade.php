@@ -4,7 +4,7 @@
 	<h1>Resultados satisfactorios</h1>
 	@if(Auth::user()->aprobo())
 
-		<form class="form-horizontal" action="/aspirante/formulario/{{$formulario->id_formulario}}/confirmar" method="post">
+		<form class="form-horizontal" action="{{ action('formularioController@confirmarIntereses',['formulario_id'=>$formulario->id_formulario]) }}" method="post">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4>Confirmar intereses universitarios</h4>
