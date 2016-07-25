@@ -43,7 +43,7 @@ class formularioController extends Controller
         $form->NOV=Auth::user()->NOV;
         $form->save();
         //return view("aspirante.aspirante")->with('/aspirante',$form);
-        return redirect('/aspirante/datos');
+        return redirect( action('AspiranteController@index') );
     }
 
     /**
@@ -137,7 +137,7 @@ class formularioController extends Controller
     }
 
     public function getMunicipios($departamento){
-        $guatemala = json_decode(file_get_contents(storage_path()."/json/guatemala.json"), true);
+        $guatemala = json_decode(file_get_contents(storage_path()."/aspirante_public/json/guatemala.json"), true);
         return json_encode($guatemala[$departamento]);
     }
 }

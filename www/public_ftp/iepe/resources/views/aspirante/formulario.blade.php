@@ -1,20 +1,6 @@
 @extends('layouts.formulario-layout')
 
 
-<script type="text/javascript">
-    function changeDepartamento(){
-        var dept = document.getElementById('departamento').value;
-        $.get( "/aspirante_public/json/guatemala.json", function( data ) {
-            var municipios=data[dept];
-            municipio.innerHTML="";
-            for(var i =0; i<municipios.length; i++){
-                var option = document.createElement("option");
-                option.text = municipios[i];
-                document.getElementById('municipio').add(option);
-            }
-        });
-    }
-</script>
 
 @section('content')
 
@@ -225,8 +211,20 @@
             });
 
         });
-    </script>
 
+        function changeDepartamento(){
+            var dept = document.getElementById('departamento').value;
+            $.get( "/aspirante_public/json/guatemala.json", function( data ) {
+                var municipios=data[dept];
+                municipio.innerHTML="";
+                for(var i =0; i<municipios.length; i++){
+                    var option = document.createElement("option");
+                    option.text = municipios[i];
+                    document.getElementById('municipio').add(option);
+                }
+            });
+        }
+    </script>
 
 
 @endsection
