@@ -99,6 +99,9 @@
                     <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
                 </button>
             </div>
+            <a href="javascript:history.go(-1);" class="btn btn-danger">
+                <i class="glyphicon glyphicon-floppy-remove"></i> Cancelar
+            </a>
         </div>
 
 

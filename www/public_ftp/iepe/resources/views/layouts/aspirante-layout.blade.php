@@ -54,7 +54,7 @@
                         Prueba Específica</a>
                 </li>
                 <li>
-                    <a href="{{ url('aspirante/aprobados') }}">
+                    <a href="{{ action('formularioController@getConfirmacion') }}">
                         <span class="glyphicon glyphicon-check" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Aprobados</a>
                 </li>

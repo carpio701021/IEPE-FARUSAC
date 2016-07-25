@@ -232,7 +232,7 @@ class AplicacionController extends Controller
         }
         $titulo = 'Editar aplicación';
         $put = true;
-        return view('aspirante.admin.aplicacion.create',compact('aplicacion','titulo','put'));
+        return view('admin.aplicacion.create',compact('aplicacion','titulo','put'));
     }
 
     /**

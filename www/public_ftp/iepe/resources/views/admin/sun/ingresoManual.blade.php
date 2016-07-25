@@ -10,11 +10,11 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label class="control-label col-sm-2" >Número:</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                         <input type="number" class="form-control" name="carne" id="carne" min="100000000" max="9999999999" value="{{old('carne')}}">
                     </div>
                     <div class="col-sm-2">
-                    <button type="button" onclick="search(carne.value)" class="btn btn-default">Buscar</button>
+                        <button type="button" onclick="search(carne.value)" class="btn btn-default">Buscar</button>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
                     }
                 };
                 xmlhttp.open("GET",
-                        "/admin/datos/insert/search?carne="+carne+"&_token"
+                        "{{ action('DatosController@search') }}?carne="+carne+"&_token"
                         + document.getElementById('csrf_token').getAttribute("content"), true);
                 xmlhttp.send();
         }

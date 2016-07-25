@@ -294,15 +294,19 @@
 										</div>
 
 										<div class="form-group">
-											<div class="col-sm-offset-2 col-sm-10">
-												<button type="submit" class="btn btn-default">Guardar</button>
+											<div class="col-sm-offset-2 col-sm-6">
+												<button type="submit" class="btn btn-primary">Guardar</button>
+											</div>
+											<div class="col-sm-4">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 											</div>
 										</div>
 										<input type="hidden" name="_token" value="{!! csrf_token() !!}">
+
 									</form>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
 								</div>
 							</div>
 						</div>
@@ -345,7 +349,7 @@
 
 		function changeDepartamento(){
 			var dept = document.getElementById('departamento').value;
-			$.get( "/json/guatemala.json", function( data ) {
+			$.get( "/aspirante_public/json/guatemala.json", function( data ) {
 				var municipios=data[dept];
 				municipio.innerHTML="";
 				for(var i =0; i<municipios.length; i++){
