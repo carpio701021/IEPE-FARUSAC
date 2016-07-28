@@ -361,10 +361,13 @@
             $.get("{{ action('ActaController@show',['acta'=>'']) }}/"+select_aprobadas.value+'/notificar',function(data){
                 alert(data);
             });
-        })
+        });
+        /**
+         * Todo revisar
+         */
 
         function actualizarInfoActa(area,acta_id){
-            $.get("{{ action('ActaController@getInfoActa',['acta_id','']) }}/"+acta_id,
+            $.get("{{ url('aspirante/admin/acta/info') }}/"+acta_id,
                     function(data){
                         var acta = jQuery.parseJSON(data);
                         if(area.id=='reprobada_info'){

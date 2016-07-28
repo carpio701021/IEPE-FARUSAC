@@ -3,6 +3,14 @@
 @section('content')
     @include('layouts.mensajes')
     <div class="container">
+        <div class='btn-toolbar pull-right'>
+            <br>
+            <div class='btn-group'>
+                <a href="javascript:history.go(-1);" class="btn btn-default">
+                    <i class="glyphicon glyphicon-arrow-left"></i> Regresar
+                </a>
+            </div>
+        </div>
         <h3>Aspirante aprobados - {{$aplicacion->nombre()}}</h3>
 
         <div class="container">
@@ -38,7 +46,7 @@
                     </div>
                 </form>
             </div>
-            <p>Estos resultados deben ser aprobados por x y z para que sean publicados a los aspirantes</p>
+            <p>Estos resultados deben ser aprobados por el Decano y el Secretario para que sean publicados a los aspirantes</p>
             <table class="table">
                 <thead>
                 <tr>

@@ -67,7 +67,9 @@ Route::group(['prefix' => 'aspirante'], function () {
                 Route::resource('aspirantes','ListaNegraController');
                 Route::get('CasosEspeciales','ListaNegraController@getListaNegra')->name('admin.listaNegra');
                 Route::get('CasosEspeciales/{search}','ListaNegraController@listaNegraShow')->name('admin.listaNegra.search');
-                Route::resource('aplicacion/subirResultados','AspiranteAplicacionController');
+                Route::resource('aplicacion/subirResultados','AspiranteAplicacionController',['only' => [
+                    'edit','update'
+                ]]);
                 Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles')->name('admin.aplicacion.percentiles');
 
                 //Route::resource('datos','DatosController');
@@ -146,7 +148,9 @@ Route::group(['prefix' => 'aspirante'], function () {
             Route::resource('formulario', 'formularioController');
             Route::get('aprobados', 'formularioController@getConfirmacion');
             Route::post('formulario/{formulario_id}/confirmar', 'formularioController@confirmarIntereses')->name('aspirante.formulario.confirmar');
-            Route::resource('PruebaEspecifica', 'AspiranteAplicacionController');
+            Route::resource('PruebaEspecifica', 'AspiranteAplicacionController', ['only' => [
+                'create','store','show'
+            ]]);
 
 
 

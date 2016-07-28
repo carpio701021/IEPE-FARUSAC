@@ -62,9 +62,9 @@
                                     <ul>
                                         <li><a href="{{ action('AplicacionController@edit',['aplicacion'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-edit"></span> Editar</a></li>
                                         <li><a href="{{ action('AplicacionController@getListados',['aplicacion'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-list"></span> Descargar Listado</a></li>
-                                        <li><a href="{{ action('AspiranteAplicacionController@edit',['subirResultados'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-upload"></span> Resultados</a></li>
+                                            <li><a href="{{ action('AspiranteAplicacionController@edit',['subirResultados'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-upload"></span> Subir resultados</a></li>
                                         <li>
-                                            <a href="{{ action('AplicacionController@habilitarResultados', ['aplicacion_id',$aplicacion->id])}}">
+                                            <a href="{{ action('AplicacionController@habilitarResultados', ['aplicacion_id'=>$aplicacion->id])}}">
                                                 @if($aplicacion->mostrar_resultados==1)
                                                 <span class="glyphicon glyphicon-ban-circle"></span> Deshabilitar resultados a aspirantes
                                                 @else
@@ -73,7 +73,7 @@
                                             </a>
                                         </li>
                                         <li><a data-toggle="modal" href="#modal{{$aplicacion->id}}"><span class="glyphicon glyphicon-send"></span> Notificar resultado</a></li>
-                                        <li><a data-confirm="¿Deseas eliminar la aplicación?" data-method="delete"  href="{{ action('AplicacionController@destroy',['id'=>$aplicacion->id]) }}" class="jquery-postback"><span class="glyphicon glyphicon-delete"></span> Eliminar</a></li>
+                                        <li><a data-confirm="¿Deseas eliminar la aplicación?" data-method="delete"  href="{{ action('AplicacionController@destroy',['id'=>$aplicacion->id]) }}" class="jquery-postback"><span class="glyphicon glyphicon-trash"></span> Eliminar</a></li>
 
                                     </ul>
 
@@ -95,7 +95,7 @@
                                 <p style="font-size: 20px">¿Desea enviar un correo a todos los aspirantes asignados a la {{$aplicacion->nombre()}} para que revisen su resultado?</p>
                             </div>
                             <div class="modal-footer">
-                                <form action="/admin/aplicacion/notificar" method="post" role="form">
+                                <form action="{{ action('AplicacionController@notificar') }}" method="post" role="form">
                                     <div class="form-horizontal">
                                         <div class="form-group">
                                             {{csrf_field()}}

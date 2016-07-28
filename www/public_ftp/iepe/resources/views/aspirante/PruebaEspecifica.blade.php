@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
 	function asignar_segunda() {
-		alert("Aqui se genera y muestra la constancia de asignacion. También se le manda un correo con el PDF")
+		alert("Aqui se genera y muestra la constancia de asignación. También se le manda un correo con el PDF")
 		btn_verConstancia.disabled=false;
 		btn_asignar.disabled=true;
 

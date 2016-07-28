@@ -235,6 +235,7 @@ php:
             - tokenizer
             - pdo
             - openssl
+            - gd
         pear: {  }
         pecl: {  }
     ini:
@@ -291,7 +292,11 @@ ruby:
         rv_33qiehyvkv7k:
             default: '1'
             bundler: '1'
-            version: 1.9.3
+            version: 2.2.4
+            gems:
+                - deep_merge@1.0.1
+                - activesupport@4.2.6
+                - vine@0.2 
 python:
     install: '1'
     packages: {  }

@@ -21,11 +21,9 @@
                 <div class="col-sm-5">
                     <form class="form-horizontal" role="form" action="{{ action('RecursosController@postVideoBienvenida') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
                         <div class="form-group">
-                            <div class="container">
                                 {{csrf_field()}}
                                 <label>Enlace de youtube:</label>
                                 <input type="text" name="video_url" placeholder="URL del video">
-                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-5">
@@ -53,7 +51,6 @@
                 <div class="col-sm-5">
                     <form class="form-horizontal" role="form" action="{{ action('RecursosController@postImagenInformativa') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
                         <div class="form-group">
-                            <div class="container">
                                 {{csrf_field()}}
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(2)">
                                     Seleccionar archivo...
@@ -66,7 +63,6 @@
 
                                 </label>
                                 <label class="control-label" id="labelfile2">No se ha seleccionado ningun archivo</label>
-                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-5">
@@ -93,7 +89,6 @@
                 <div class="col-sm-5">
                     <form class="form-horizontal" role="form" action="{{ action('RecursosController@postReglamento') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
                         <div class="form-group">
-                            <div class="container">
                                 {{csrf_field()}}
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(1)">
                                     Seleccionar archivo...
@@ -106,7 +101,6 @@
 
                                 </label>
                                 <label class="control-label" id="labelfile1">No se ha seleccionado ningun archivo</label>
-                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-5">
@@ -134,11 +128,9 @@
                 <div class="col-sm-5">
                     <form class="form-horizontal" role="form" action="{{ action('RecursosController@postGuiaAsignacion') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
                         <div class="form-group">
-                            <div class="container">
                                 {{csrf_field()}}
                                 <label>Enlace de youtube:</label>
                                 <input type="text" name="video_url" placeholder="URL del video">
-                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-5">
@@ -172,7 +164,6 @@
                     <div class="col-sm-12">
                         <h4>Imagen principal</h4>
                         <div class="form-group">
-                            <div class="container">
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(7)">
                                     Seleccionar archivo...
                                     {!! Form::file('imginfo' , array(
@@ -184,7 +175,6 @@
 
                                 </label>
                                 <label class="control-label" id="labelfile7">No se ha seleccionado ningun archivo</label>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -194,7 +184,6 @@
                     <div class="col-sm-6">
                         <label>Boton:</label>
                         <div class="form-group">
-                            <div class="container">
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(3)">
                                     Seleccionar archivo...
                                     {!! Form::file('imgbtn1' , array(
@@ -206,15 +195,12 @@
 
                                 </label>
                                 <label class="control-label" id="labelfile3">No se ha seleccionado ningun archivo</label>
-                            </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <div class="container">
                                 <label>Enlace de youtube:</label><br />
                                 <input type="text" name="enlace1" placeholder="URL del video">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -223,7 +209,6 @@
                     <div class="col-sm-6">
                         <label>Boton:</label>
                         <div class="form-group">
-                            <div class="container">
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(4)">
                                     Seleccionar archivo...
                                     {!! Form::file('imgbtn2' , array(
@@ -235,15 +220,12 @@
 
                                 </label>
                                 <label class="control-label" id="labelfile4">No se ha seleccionado ningun archivo</label>
-                            </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <div class="container">
                                 <label>Enlace de youtube:</label><br />
                                 <input type="text" name="enlace2" placeholder="URL del video">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -252,7 +234,6 @@
                     <div class="col-sm-6">
                         <label>Boton:</label>
                         <div class="form-group">
-                            <div class="container">
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(5)">
                                     Seleccionar archivo...
                                     {!! Form::file('imgbtn3' , array(
@@ -264,15 +245,12 @@
 
                                 </label>
                                 <label class="control-label" id="labelfile5">No se ha seleccionado ningun archivo</label>
-                            </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <div class="container">
                                 <label>Enlace de youtube:</label><br />
                                 <input type="text" name="enlace3" placeholder="URL del video">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -281,7 +259,6 @@
                     <div class="col-sm-6">
                         <label>Boton:</label>
                         <div class="form-group">
-                            <div class="container">
                                 <label class="btn btn-default btn-file" onclick="cancelarFile(6)">
                                     Seleccionar archivo...
                                     {!! Form::file('imgbtn4' , array(
@@ -293,15 +270,12 @@
 
                                 </label>
                                 <label class="control-label" id="labelfile6">No se ha seleccionado ningun archivo</label>
-                            </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <div class="container">
                                 <label>Enlace de youtube:</label><br />
                                 <input type="text" name="enlace4" placeholder="URL del video">
-                            </div>
                         </div>
                     </div>
                 </div>

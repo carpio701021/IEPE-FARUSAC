@@ -341,7 +341,7 @@ class AplicacionController extends Controller
 
 
     public function getListados($id){
-        //Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
+            //Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
 
             Excel::create('Listados_'.Aplicacion::find($id)->nombre(),function($excel) use ($id){
                 $aplicacion=Aplicacion::find($id);
@@ -354,7 +354,6 @@ class AplicacionController extends Controller
                             ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
                             ->selectRaw('NOV,nombre,apellido')
                             ->get();
-
                         //agregar data a la hoja
                         $sheet->fromModel($asignaciones,null,'B9',false);
 
@@ -362,7 +361,7 @@ class AplicacionController extends Controller
                         $objDrawing = new PHPExcel_Worksheet_Drawing();
                         $objDrawing->setName('logo_usac');
                         $objDrawing->setDescription('Logo');
-                        $logo = 'img/logo_usac.png'; // Provide path to your logo file
+                        $logo = ('aspirante_public/img/logo_usac.png'); // Provide path to your logo file
                         $objDrawing->setPath($logo);
                         $objDrawing->setCoordinates('B3');
                         $objDrawing->setHeight(60); // logo height
@@ -372,7 +371,7 @@ class AplicacionController extends Controller
                         $objDrawing = new PHPExcel_Worksheet_Drawing();
                         $objDrawing->setName('logo_farusac');
                         $objDrawing->setDescription('Logo');
-                        $logo = 'img/logotipoFARUSAC_Amarillo.png'; // Provide path to your logo file
+                        $logo = 'aspirante_public/img/logotipoFARUSAC_Amarillo.png'; // Provide path to your logo file
                         $objDrawing->setPath($logo);
                         $objDrawing->setCoordinates('E3');
                         $objDrawing->setHeight(65); // logo height
@@ -397,8 +396,7 @@ class AplicacionController extends Controller
                         for ($i = 1;$i<=count($asignaciones);$i++){
                             $sheet->setCellValue('A'.(9+$i),$i);
                         }
-
-                    //formato de celdas
+                        //formato de celdas
                         //titulo de cada columna pintado de gris
                         $sheet->row(9,array('No.','No. Orientación','Apellido','Nombre','Firma'));
                         $sheet->cells('A9:E9', function($cells) { //manipular celdas de encabezado data
@@ -426,7 +424,6 @@ class AplicacionController extends Controller
                     });
                 }
             })->download('xlsx');
-
         //});
     }
 
@@ -442,9 +439,9 @@ class AplicacionController extends Controller
         }
 
         $msg='Le informamos que ya se han publicado los resultados de la '.$aplicacion->nombre().'. Puede '.
-             'revisar su resultado con su usuario en http://iepe.dev/aspirante/PruebaEspecifica/create. '.
-             'De haber obtenido resultado satisfactorio debe confirmar su jornada y carerra para la futura '.
-             'asignación como estudiante universitario en http://iepe.dev/aspirante/ResultadosSatisfactorios.';
+             'revisar su resultado con su usuario en '. action('AspiranteAplicacionController@create') .' . '.
+             'De haber obtenido resultado satisfactorio debe confirmar su jornada y carrera para la futura '.
+             'asignación como estudiante universitario en '. action('formularioController@getConfirmacion').' .';
 
         Mail::raw($msg,function($message) use($emailArray){
             $message->subject('Resultados prueba especifica');
@@ -465,11 +462,11 @@ class AplicacionController extends Controller
         return back();
     }
 
-    public function habilitarResultados($id,Request $request){
-        $aplicacion = Aplicacion::find($id);
+    public function habilitarResultados($aplicacion_id){
+        $aplicacion = Aplicacion::find($aplicacion_id);
         $aplicacion->mostrar_resultados=!$aplicacion->mostrar_resultados;
         $aplicacion->save();
-        $request->session()->flash('mensaje_exito','Se modificó la visualización de resultados');
+        \Session::flash('mensaje_exito','Se modificó la visualización de resultados');
         return back();
     }
 
