@@ -103,8 +103,14 @@
                             </script>
                         @endif
                     @endif
+                        <div class="container">
+                            <a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">
+                                <span class="glyphicon glyphicon-menu-hamburger"></span>
+                            </a>
+                        </div>
+                        <br>
                     @yield('content')
-                    <!--a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a-->
+
                 </div>
             </div>
         </div>

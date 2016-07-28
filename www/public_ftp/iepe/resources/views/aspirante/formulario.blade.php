@@ -43,7 +43,7 @@
                     <label class="col-md-4 control-label">Teléfono de casa:</label>
                     <div class="col-md-6">
                         <input class="form-control" type="text" name="telefono" value="{{old('telefono')}}"
-                               placeholder="00000000"/>
+                               placeholder="8 dígitos"/>
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
                     <label class="col-md-4 control-label">Teléfono celular:</label>
                     <div class="col-md-6">
                         <input class="form-control" type="text" name="celular" value="{{old('celular')}}"
-                               placeholder="00000000"/>
+                               placeholder="8 dígitos"/>
                     </div>
                 </div>
 

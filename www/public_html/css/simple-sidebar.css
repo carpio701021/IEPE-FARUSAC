@@ -128,4 +128,9 @@
         position: relative;
         margin-right: 0;
     }
+
+    #menu-toggle{
+        visibility: hidden;
+    }
 }
+

@@ -9,6 +9,7 @@ use App\Datos_sun;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\DatosSunRequest;
+use Mockery\CountValidator\Exception;
 
 class DatosController extends Controller
 {
@@ -80,8 +81,12 @@ class DatosController extends Controller
         $insertados=0;
         $conteo=1;
         foreach ($results as $row){
-            $row['fecha_evaluacion']=Carbon::createFromFormat('d/m/Y', $row->fecha_evaluacion)->toDateString();
-            $row['fecha_nacimiento']=Carbon::createFromFormat('d/m/Y', $row->fecha_nacimiento)->toDateString();
+            if(is_string($row->fecha_evaluacion)){
+                $row['fecha_evaluacion']=Carbon::createFromFormat('d/m/Y', $row->fecha_evaluacion)->toDateString();
+                $row['fecha_nacimiento']=Carbon::createFromFormat('d/m/Y', $row->fecha_nacimiento)->toDateString();
+            }
+
+
             $conteo=$conteo+1;
             $validator=$this->validar($row,$conteo);
             if($validator->fails()){
