@@ -82,7 +82,7 @@ class AspiranteAplicacionController extends Controller
                 return back()->withErrors(['mail'=>$mail->getError()]);
             }
         }else{
-            return back()->withErrors(['cupo'=>'No puede asignarse a esta aplicación porque el cupo está lleno. Abocarse a las oficinas de la facultad de arquitectura para solucionarlo']);
+            return back()->withErrors(['cupo'=>'No puede asignarse a esta aplicación porque el cupo está lleno.']);
         }
 
     }

@@ -1,7 +1,7 @@
 @extends('layouts.aspirante-layout')
 
 @section('content')
-<div class="container">
+
     @if (Session::has('status'))
         <div class="alert alert-success">
             {{ Session::get('status') }}
@@ -12,7 +12,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Ingreso</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ action('Auth\AuthController@login') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('NOV') ? ' has-error' : '' }}">
@@ -60,7 +60,7 @@
                                     <i class="glyphicon glyphicon-log-in"></i> Ingresar
                                 </button>
 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">¿Olvidaste tu contraseña?</a>
+                                <a class="btn btn-link" href="{{ action('Auth\PasswordController@showResetForm') }}">¿Olvidaste tu contraseña?</a>
                             </div>
                         </div>
                     </form>
@@ -68,5 +68,5 @@
             </div>
         </div>
     </div>
-</div>
+
 @endsection

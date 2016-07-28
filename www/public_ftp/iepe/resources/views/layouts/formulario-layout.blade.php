@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel='stylesheet' href="/css/googlefonts-css-latio.css" type='text/css'>
-    <link rel="stylesheet" href="/css/aspirante.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/simple-sidebar.css">
-    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+    <link rel='stylesheet' href="{{ url('aspirante_public/css/googlefonts-css-latio.css') }}" type='text/css'>
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/aspirante.css') }}">
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/simple-sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/bootstrap-datetimepicker.min.css') }}">
 
     <style>
         body {
@@ -34,12 +34,12 @@
 
 
 <!-- JavaScripts -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/moment.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+    <script src="{{ url('aspirante_public/js/jquery.min.js') }}"></script>
+    <script src="{{ url('aspirante_public/js/moment.js') }}"></script>
+    <script src="{{ url('aspirante_public/js/bootstrap.min.js') }}"></script>
 
-<script src="/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-<script src="/js/locale/es.js" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/locale/es.js') }}" type="text/javascript"></script>
 
 <script>
     $("#menu-toggle").click(function(e) {

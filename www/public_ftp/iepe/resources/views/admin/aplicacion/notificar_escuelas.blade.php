@@ -23,15 +23,15 @@
                                 <div class="col-md-6">
                                     <h4>Escuela de Arquitectura</h4>
                                     <ul>
-                                        <li><a href="/admin/notificar/listado?anio={{$anio->year}}&escuela=arquitectura"><span class="glyphicon glyphicon-list"></span> Generar y ver listado</a></li>
-                                        <li><a href="/admin/notificar/enviar?anio={{ $anio->year }}&escuela=arquitectura"><span class="glyphicon glyphicon-send"></span> Notificar a escuela</a></li>
+                                        <li><a href="{{ action('AnioController@generarListado') }}?anio={{$anio->year}}&escuela=arquitectura"><span class="glyphicon glyphicon-list"></span> Generar y ver listado</a></li>
+                                        <li><a href="{{ action('AnioController@enviarEscuela') }}?anio={{ $anio->year }}&escuela=arquitectura"><span class="glyphicon glyphicon-send"></span> Notificar a escuela</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-6">
                                     <h4>Escuela de Diseño Gráfico</h4>
                                     <ul>
-                                        <li><a href="/admin/notificar/listado?anio={{$anio->year}}&escuela=diseño"><span class="glyphicon glyphicon-list"></span> Generar y ver listado</a></li>
-                                        <li><a href="/admin/notificar/enviar?anio={{ $anio->year }}&escuela=diseño"><span class="glyphicon glyphicon-send"></span> Notificar a escuela</a></li>
+                                        <li><a href="{{ action('AnioController@generarListado') }}?anio={{$anio->year}}&escuela=diseño"><span class="glyphicon glyphicon-list"></span> Generar y ver listado</a></li>
+                                        <li><a href="{{ action('AnioController@enviarEscuela') }}?anio={{ $anio->year }}&escuela=diseño"><span class="glyphicon glyphicon-send"></span> Notificar a escuela</a></li>
                                     </ul>
                                 </div>
                             </div>

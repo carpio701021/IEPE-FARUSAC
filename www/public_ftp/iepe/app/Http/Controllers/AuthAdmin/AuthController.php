@@ -30,8 +30,8 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'admin';
-    protected $redirectAfterLogout = '/admin/login';
+    protected $redirectTo = 'aspirante/admin';
+    protected $redirectAfterLogout = 'aspirante/admin/login';
     protected $guard = 'admin';
     protected $username = 'registro_personal';
     protected $loginView = 'admin.auth.login';
@@ -98,7 +98,7 @@ class AuthController extends Controller
      */
     protected function getFailedLoginMessage()
     {
-        return 'Las credenciales no concuerdan o no existen.';
+        return 'Las credenciales no concuerdan o no existen. Si el problema persiste pasar a la Unidad de Desarrollo y Bienestar Estudiantil de Arquitectura';
     }
 
     /**

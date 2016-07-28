@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
 	function asignar_segunda() {
-		alert("Aqui se genera y muestra la constancia de asignacion. También se le manda un correo con el PDF")
+		alert("Aqui se genera y muestra la constancia de asignación. También se le manda un correo con el PDF")
 		btn_verConstancia.disabled=false;
 		btn_asignar.disabled=true;
 
@@ -45,7 +45,7 @@
 							</div>
 						</div>
 						<div class="panel-footer">
-							<form class="form-group" method="POST" action="/aspirante/PruebaEspecifica">
+							<form class="form-group" method="POST" action="{{ action('AspiranteAplicacionController@store') }}">
 								<input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
 								<input type="hidden" value="{{$aplicacion->id}}"  name="aplicacion_id"/>
 							<input class="btn btn-primary" type="submit"  value="Asignar oportunidad"/>
@@ -149,7 +149,7 @@
 							</div>
 						</div>
 						<div class="panel-footer">
-							<form class="form-group" method="GET" action="/aspirante/PruebaEspecifica/{{$asignada->id}}" target="_blank">
+							<form class="form-group" method="GET" action="{{ action('AspiranteAplicacionController@show',['PruebaEspecifica'=>$asignada->id]) }}" target="_blank">
 								<input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
 								<input class="btn btn-primary "type="submit"  value="Ver constancia de asignación"/>
 							</form>

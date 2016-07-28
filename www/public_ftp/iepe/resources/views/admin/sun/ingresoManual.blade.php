@@ -10,16 +10,16 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label class="control-label col-sm-2" >Número:</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                         <input type="number" class="form-control" name="carne" id="carne" min="100000000" max="9999999999" value="{{old('carne')}}">
                     </div>
                     <div class="col-sm-2">
-                    <button type="button" onclick="search(carne.value)" class="btn btn-default">Buscar</button>
+                        <button type="button" onclick="search(carne.value)" class="btn btn-default">Buscar</button>
                     </div>
                 </div>
             </div>
         </div>
-        <form class="form-horizontal" role="form" action="/admin/datos/insert" method="Post" >
+        <form class="form-horizontal" role="form" action="{{ action('DatosController@insert') }}" method="Post" >
             {{csrf_field()}}
             <div class="panel panel-default">
                 <div class="panel-heading">Resultados de búsqueda</div>
@@ -71,8 +71,8 @@
 @stop
 
 @section('scripts')
-    <script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>
-    <script src="/js/multistep.js" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/jquery.easing.1.3.js') }}" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/multistep.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $('.input-group.date.fecha').datetimepicker({
@@ -110,7 +110,7 @@
                     }
                 };
                 xmlhttp.open("GET",
-                        "/admin/datos/insert/search?carne="+carne+"&_token"
+                        "{{ action('DatosController@search') }}?carne="+carne+"&_token"
                         + document.getElementById('csrf_token').getAttribute("content"), true);
                 xmlhttp.send();
         }

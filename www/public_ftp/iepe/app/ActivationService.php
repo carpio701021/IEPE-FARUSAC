@@ -28,11 +28,11 @@ class ActivationService
 
         $token = $this->activationRepo->createActivation($user);
 
-        $link = route('aspirante.activate', $token);
-        $message = sprintf('Activa tu cuenta: %s', $link);
+        //$link = route('aspirante.activate', $token);
+        $link = action('Auth\AuthController@activateUser', $token);
 
-        $this->mailer->raw($message, function (Message $m) use ($user) {
-            $m->to($user->email)->subject('Confirmación de correo');
+        $this->mailer->send('auth.emails.confirmarContraseña', ['link'=>$link] , function (Message $m) use ($user) {
+            $m->to($user->email)->subject('Confirmación de correo, registro FARUSAC');
         });
 
 

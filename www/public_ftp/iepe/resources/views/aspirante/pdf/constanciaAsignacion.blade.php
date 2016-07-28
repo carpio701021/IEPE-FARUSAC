@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<img src="/var/www/public_ftp/iepe/storage{{$asignacion->getAplicacion()->path_arte}}"  style="width:650px;height:510px;" border="1"/>
+<img src="/var/www/public_ftp/iepe/storage/fondoConstanciaAsignacion.jpg"  style="width:650px;height:510px;" border="1"/>
 
 <p style="position: absolute; top: 195px; left: 210px; font-size: 17px"> {{$asignacion->getAplicacion()->nombre()}}</p>
 <p style="position: absolute; top: 224px; left: 125px; font-size: 15px"> {{$aspirante->getNombreCompleto()}}</p>

@@ -9,7 +9,7 @@
 
         {!! Form::model(
             $aplicacion,
-            array('route' => array('admin.aplicacion.update', $aplicacion->id),
+            array('action' => array('AplicacionController@update', $aplicacion->id),
             'files' => true , 'class' => 'form-horizontal', 'role' => 'form'
         ) ) !!}
         @if( isset($put))
@@ -70,7 +70,6 @@
                 </div>
             </div>
 
-            {{--
             <div class="form-group{{  $errors->has('arte') ? ' has-error' : '' }}">
                 {!! Form::label('arte', 'Arte', array('class' => 'col-md-4 control-label')) !!}
                 <div class="col-md-6">
@@ -83,10 +82,9 @@
                             title="Arte"
                             data-toggle="popover"
                             data-trigger="focus"
-                            data-content="Imagen única que se imprime en la constancia de asignación del aspirante.">?</button>
+                            data-content="Imagen que se imprime y se troquela como comprobante de que aprobó el específico.">?</button>
                 </div>
             </div>
-            --}}
 
             <div class="form-group{{ $errors->has('fecha_inicio_asignaciones') ? ' has-error' : '' }}">
                 {!! Form::label('fecha_inicio_asignaciones', 'Fecha de inicio de asignaciones*', array('class' => 'col-md-4 control-label')) !!}
@@ -129,29 +127,6 @@
                     </div>
                 </div>
             </div>
-
-            {{--
-            <div class="form-group{{ $errors->has('fecha_aplicacion') ? ' has-error' : '' }}">
-            {!! Form::label('fecha_aplicacion', 'Fecha de la aplicación*', array('class' => 'col-md-4 control-label')) !!}
-            <div class="col-md-6">
-                <div class='input-group date fecha'
-                     data-toggle="popover"
-                     data-placement="left"
-                     data-trigger="focus"
-                     title="Fecha de la aplicación"
-                     data-content="Día en el que los aspirantes deben presentarse a la evaluación en el horario y salón establecido.">
-                    {!! Form::text('fecha_aplicacion' , null , array(
-                    'class' => 'form-control',
-                    'placeholder' => 'año/mes/día',
-                    'required' => 'true',
-                    )) !!}
-                    <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                </div>
-            </div>
-            --}}
-
 
             <div class="form-group{{ $errors->has('fechas_aplicacion') ? ' has-error' : '' }}">
                 <label class="col-md-4 control-label">Fechas de aplicación*</label>
@@ -399,28 +374,11 @@
                 </button>
             </div>
             <div class="col-md-2">
-                <a href="/admin/aplicacion" class="btn btn-danger">
+                <a href="javascript:history.go(-1);" class="btn btn-danger">
                     <i class="glyphicon glyphicon-floppy-remove"></i> Cancelar
                 </a>
             </div>
         </div>
-
-
-        {{--
-        <div class="form-group{{ $errors->has('') ? ' has-error' : '' }}">
-            {!! Form::label('', '*', array('class' => 'col-md-4 control-label')) !!}
-            <div class="col-md-6">
-                {!! Form::text('' , null , array(
-                'class' => 'form-control',
-                'placeholder' => '',
-                'required' => 'true',
-                'data-placement' => 'left', 'data-toggle' => 'popover',  'data-trigger' => 'focus',
-                'title' => '',
-                'data-content' => '',
-                )) !!}
-            </div>
-        </div>
-        --}}
 
         {!! Form::close() !!}
 
@@ -564,18 +522,5 @@
             $(boton).remove();
         }
 
-
-        /**
-         * $("#nombre").tooltip({
-            placement: "right",
-            trigger: "focus",
-            title: "Nombre de la aplicacion. Ejemplo: Segunda aplicacion 2016"
-        });
-         $("#arte").tooltip({
-            placement: "right",
-            trigger: "focus",
-            title: "Esta imagen es única por aplicación, lleva parámetros que impiden su falsificación, dentro de los cuales esta generar uno por fecha de aplicación "
-        });
-         **/
     </script>
 @endsection

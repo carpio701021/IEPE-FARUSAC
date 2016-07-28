@@ -102,7 +102,7 @@ class DatosController extends Controller
 
     private function validar($row,$conteo){
         $rules = [
-            'orientacion' => 'required|integer|digits:10',
+            'orientacion' => 'required|integer|digits_between:9,10',
             'primer_apellido' => 'required|max:35',
             'segundo_apellido' =>'required|max:35',
             'primer_nombre' => 'required|max:35',

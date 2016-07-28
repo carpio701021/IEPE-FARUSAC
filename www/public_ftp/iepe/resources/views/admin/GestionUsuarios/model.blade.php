@@ -9,7 +9,7 @@
 
         {!! Form::model(
             $admin,
-            array('route' => array('admin.usuarios.update', $admin->registro_personal),
+            array('action' => array('GestionUsuariosController@update', $admin->registro_personal),
             'class' => 'form-horizontal', 'role' => 'form', 'method'=> ((isset($put))?'PUT':'POST')
         ) ) !!}
 
@@ -99,6 +99,9 @@
                     <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
                 </button>
             </div>
+            <a href="javascript:history.go(-1);" class="btn btn-danger">
+                <i class="glyphicon glyphicon-floppy-remove"></i> Cancelar
+            </a>
         </div>
 
 

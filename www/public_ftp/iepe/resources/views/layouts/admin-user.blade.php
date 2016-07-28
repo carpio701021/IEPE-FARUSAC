@@ -7,17 +7,19 @@
 
     <!-- Fonts -->
     <!--link href="/css/font-awesome.min.css" rel='stylesheet' type='text/css'-->
-    <link href="/css/googlefonts-css-latio.css" rel='stylesheet' type='text/css'>
+    <link href="{{ url('aspirante_public/css/googlefonts-css-latio.css') }}" rel='stylesheet' type='text/css'>
     <!-- Styles -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url('aspirante_public/css/bootstrap.min.css') }}" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/bootstrap-datetimepicker.min.css') }}">
 
     <style>
         body {
             font-family: 'Lato';
         }
     </style>
+    @section('styles')
+    @show
 
     <title>IEPE - FARUSAC</title>
 </head>
@@ -33,7 +35,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/admin">FARUSAC</a>
+            <a class="navbar-brand" href="{{ route('admin.index') }}">FARUSAC</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -41,7 +43,7 @@
 
             @if (!Auth::guard('admin')->check())
                 <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ url('/admin/login') }}">Iniciar Sesión</a></li>
+                        <li><a href="{{ action('AuthAdmin\AuthController@showLoginForm') }}">Iniciar Sesión</a></li>
                 </ul>
             @else
                 <ul class="nav navbar-nav">
@@ -60,7 +62,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Escuela <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/admin/escuela/primerIngreso">Primer ingreso</a></li>
+                                <li><a href="{{ action('AnioController@indexPrimerIngreso') }}">Primer ingreso</a></li>
                             </ul>
                         </li>
                     @endif
@@ -68,9 +70,9 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/usuarios">Usuarios</a></li>
-                            <li><a href="/admin/notificar">Notificar a direcciones de escuela</a></li>
-                            <li><a href="/admin/datos">Cargar datos del SUN</a></li>
+                            <li><a href="{{ action('GestionUsuariosController@index') }}">Usuarios</a></li>
+                            <li><a href="{{ action('AnioController@index') }}">Notificar a direcciones de escuela</a></li>
+                            <li><a href="{{ action('DatosController@index') }}">Cargar datos del SUN</a></li>
                         </ul>
                     </li>
                     @endif
@@ -78,10 +80,10 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Desarrollo estudiantíl <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/aplicacion">Aplicaciones</a></li>
+                            <li><a href="{{ action('AplicacionController@index') }}">Aplicaciones</a></li>
                             <li><a href="#">Estadística</a></li>
-                            <li><a href="#">Resultados de básicos</a></li>
-                            <li><a href="/admin/datos/create">Ingresar manualmente resultados básicos</a></li>
+                            <!--li><a href="#">Resultados de básicos</a></li-->
+                            <li><a href="{{ action('DatosController@create') }}">Cambiar carnet por NOV</a></li>
                             <!--li><a href="#">Asignación de salones</a></li>
                             <li><a href="#">Información</a></li>
                             <li><a href="#">Ingreso de resultados básicos</a></li>
@@ -91,9 +93,9 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aspirantes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/admin/aspirantes">Aspirantes</a></li>
-                                <li><a href="/admin/CasosEspeciales">Casos Especiales</a></li>
-                                <li><a href="/admin/recursos">Recursos</a></li>
+                                <li><a href="{{ action('ListaNegraController@index') }}">Aspirantes</a></li>
+                                <li><a href="{{ action('ListaNegraController@getListaNegra') }}">Casos Especiales</a></li>
+                                <li><a href="{{ action('RecursosController@index') }}">Recursos</a></li>
                             </ul>
                         </li>
                     @endif
@@ -105,8 +107,7 @@
                             Resultados<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/acta">Aprobar resultados</a></li>
-                            <li><a href="#"></a></li>
+                            <li><a href="{{ action('ActaController@index') }}">Aprobar resultados</a></li>
                         </ul>
                     </li>
                     @endif
@@ -121,7 +122,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Cambiar contraseña</a></li>
-                            <li><a href="{{ url('/admin/logout') }}"><i class="glyphicon glyphicon-logout"></i>Cerrar Sesión</a></li>
+                            <li><a href="{{ action('AuthAdmin\AuthController@logout') }}"><i class="glyphicon glyphicon-logout"></i>Cerrar Sesión</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -137,13 +138,13 @@
 
 
         <!-- JavaScripts -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/moment.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="{{ url('aspirante_public/js/jquery.min.js') }}"></script>
+<script src="{{ url('aspirante_public/js/moment.js') }}"></script>
+<script src="{{ url('aspirante_public/js/bootstrap.min.j') }}s"></script>
 
 <!--script src="/js/jquery.easing.1.3.js" type="text/javascript"></script-->
-<script src="/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-<script src="/js/locale/es.js" type="text/javascript"></script>
+<script src="{{ url('aspirante_public/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+<script src="{{ url('aspirante_public/js/locale/es.js') }}" type="text/javascript"></script>
 
 @section('scripts')
 @show

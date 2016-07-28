@@ -40,7 +40,7 @@
                                                             <h4>{{$aspirante->NOV.' - '.$aspirante->getNombreCompleto()}}</h4>
                                                         </div>
                                                         <div class="modal-body" style="padding-top: 35px">
-                                                            <form class="form-horizontal" role="form" action="/admin/aspirantes/{{$aspirante->NOV}}"  method="post">
+                                                            <form class="form-horizontal" role="form" action="{{ action('ListaNegraController@update',['aspirantes'=>$aspirante->NOV]) }}"  method="post">
                                                                 {{csrf_field()}}
                                                                 <input type="hidden" name="_method" value="PUT" >
                                                                 <div class="form-group">
@@ -61,7 +61,7 @@
                                                 </div>
 
                                             </div>
-                                            <form action="/admin/aspirantes" method="POST">
+                                            <form action="{{ action('ListaNegraController@store') }}" method="POST">
                                                 {{csrf_field()}}
                                                 <a href="#modalBlack{{$aspirante->NOV}}" data-toggle="modal"><span class="glyphicon glyphicon-ban-circle"></span> Agregar a casos especiales</a><br>
                                                 <div class="modal fade" role="dialog" id="modalBlack{{$aspirante->NOV}}">
@@ -97,8 +97,8 @@
 @stop
 
 @section('scripts')
-    <script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>
-    <script src="/js/multistep.js" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/jquery.easing.1.3.js') }}" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/multistep.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $('.input-group.date.fecha').datetimepicker({
@@ -136,7 +136,7 @@
                     }
                 };
                 xmlhttp.open("GET",
-                        "/admin/datos/insert/search?carne="+carne+"&_token"
+                        "{{ action('DatosController@search') }}?carne="+carne+"&_token"
                         + document.getElementById('csrf_token').getAttribute("content"), true);
                 xmlhttp.send();
         }
@@ -146,7 +146,7 @@
         }
 
         $('#btn_buscar').click(function(){
-            this.href='/admin/aspirantes/'+NOV.value;
+            this.href='{{ action('ListaNegraController@show',['aspirantes'=>'']) }}/'+NOV.value;
         })
     </script>
 @stop

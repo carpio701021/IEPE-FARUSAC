@@ -31,7 +31,7 @@
                                                     {{$nov->NOV}}
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <form action="/admin/aspirantes/{{$nov->id}}" method="POST">
+                                                    <form action="{{ action('ListaNegraController@destroy',['aspirantes'=>$nov->id]) }}" method="POST">
                                                         {{csrf_field()}}
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         <button type="submit" style="
@@ -66,11 +66,11 @@
 @stop
 
 @section('scripts')
-    <script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/jquery.easing.1.3.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
         $('#btn_buscar').click(function(){
-            this.href='/admin/CasosEspeciales/'+NOV.value;
+            this.href='{{ action('ListaNegraController@listaNegraShow',['search'=>'']) }}/'+NOV.value;
         })
     </script>
 @stop

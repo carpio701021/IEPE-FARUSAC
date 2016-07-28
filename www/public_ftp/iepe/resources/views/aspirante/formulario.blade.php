@@ -1,28 +1,14 @@
 @extends('layouts.formulario-layout')
 
 
-<script type="text/javascript">
-    function changeDepartamento(){
-        var dept = document.getElementById('departamento').value;
-        $.get( "/json/guatemala.json", function( data ) {
-            var municipios=data[dept];
-            municipio.innerHTML="";
-            for(var i =0; i<municipios.length; i++){
-                var option = document.createElement("option");
-                option.text = municipios[i];
-                document.getElementById('municipio').add(option);
-            }
-        });
-    }
-</script>
 
 @section('content')
 
 
-    <form id="msform" class="form-horizontal" role="form" action="/aspirante/formulario" method="POST">
+    <form id="msform" class="form-horizontal" role="form" action="{{ action('formularioController@store') }}" method="POST">
         <!-- progressbar -->
         <ul id="progressbar">
-            <li class="active">Ińformación Personal</li>
+            <li class="active">Información Personal</li>
             <li>Formación académica</li>
             <li>Intereses universitarios</li>
         </ul>
@@ -207,8 +193,8 @@
 
 
 @section('scripts')
-    <script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>
-    <script src="/js/multistep.js" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/jquery.easing.1.3.js') }}" type="text/javascript"></script>
+    <script src="{{ url('aspirante_public/js/multistep.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $('.input-group.date.fecha').datetimepicker({
@@ -225,8 +211,20 @@
             });
 
         });
-    </script>
 
+        function changeDepartamento(){
+            var dept = document.getElementById('departamento').value;
+            $.get( "/aspirante_public/json/guatemala.json", function( data ) {
+                var municipios=data[dept];
+                municipio.innerHTML="";
+                for(var i =0; i<municipios.length; i++){
+                    var option = document.createElement("option");
+                    option.text = municipios[i];
+                    document.getElementById('municipio').add(option);
+                }
+            });
+        }
+    </script>
 
 
 @endsection

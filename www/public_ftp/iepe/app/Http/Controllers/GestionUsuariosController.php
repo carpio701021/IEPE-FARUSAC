@@ -34,6 +34,7 @@ class GestionUsuariosController extends Controller
 
         $admin = new Admin();
         extract(get_object_vars($this));
+        //dd($admin);
         return view('admin.GestionUsuarios.model',compact('admin'));
     }
 
@@ -49,8 +50,8 @@ class GestionUsuariosController extends Controller
         $request['password'] = bcrypt($request->password);
         $admin = new Admin($request->all());
         $admin->save();
-        $request->session()->flash('mensaje_exito','Usuario <i>'.$admin->registro_personal.'</i> creado.');
-        return redirect('/admin/usuarios');
+        $request->session()->flash('mensaje_exito','Usuario <i>'.$request->registro_personal.'</i> creado.');
+        return redirect(action('GestionUsuariosController@index'));
     }
 
     /**
@@ -94,7 +95,7 @@ class GestionUsuariosController extends Controller
             $admin = Admin::where('registro_personal',$request->registro_personal)->first();
             if($admin != null) {
                 $errors = Array('El registro de personal <i>'.$request->registro_personal.'</i> ya está registrado con otro usuario.');
-                return redirect('/admin/usuarios/'.$id.'/edit')->withErrors($errors)->withInput();
+                return back()->withErrors($errors)->withInput();
             }
         }
 
@@ -102,7 +103,7 @@ class GestionUsuariosController extends Controller
         $admin = Admin::findOrFail($id);
         $admin->update($request->all());
         $request->session()->flash('mensaje_exito','Cambios en usuario <i>'.$admin->registro_personal.'</i> guardados.');
-        return redirect('/admin/usuarios');
+        return back();
     }
 
     /**

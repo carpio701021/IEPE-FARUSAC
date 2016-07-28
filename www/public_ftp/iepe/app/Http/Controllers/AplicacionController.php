@@ -79,14 +79,12 @@ class AplicacionController extends Controller
      */
     public function store(AplicacionRequest $request)
     {
-        //dd($request->all());
-        //$this->asignarIrregulares($request->_especial,Aplicacion::find(5));
         if(Aplicacion::where('year',$request->year)
             ->where('naplicacion',$request->naplicacion)
             ->where('irregular',(isset($request->irregular)?$request->irregular:0))
             ->first()){
             $errors = Array('La combinacion de año y número de aplicación ya existe');
-            return redirect('/admin/aplicacion/create')->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput();
         }
 
         //Guarda una nueva aplicación
@@ -96,11 +94,20 @@ class AplicacionController extends Controller
         $aplicacion->percentil_RV	= 80;
         $aplicacion->percentil_APN	= 80;
 
+        if($request->hasFile('arte')){
+            $destinationPath ='/arte_aplicaciones'; // upload path
+            $extension = $request->file('arte')->getClientOriginalExtension(); // getting file extension
+            $fileName = 'arte'. '['.Carbon::now().']'. rand(10000,99999).'.'.$extension; // rename file
+            $request->file('arte')->move( storage_path().$destinationPath,$fileName);
+            $aplicacion->path_arte = $destinationPath . '/' . $fileName;
+        }
+
+
         $aplicacion->save();
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios,$request->fechasA);
         if($request->irregular){
             if($this->asignarIrregulares($request->_id_base,$aplicacion)){//se asignan automaticamente
-                $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente. Se asignaron los estudiantes irregulares');
+                $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente. Se asignaron los aspirantes irregulares');
             }else{
                 //return redirect('/admin/aplicacion')->withErrors(['irregular','Ocurrió un error']);
                 $request->session()->flash('mensaje_exito','ocurrió un error');
@@ -108,7 +115,7 @@ class AplicacionController extends Controller
         }else{
             $request->session()->flash('mensaje_exito','Aplicación <i>'.$aplicacion->nombre().'</i> creada exitosamente.');
         }
-        return redirect('/admin/aplicacion');
+        return redirect( action('AplicacionController@index'));
     }
 
     function asignarIrregulares($id,$aplicacionEspecial){
@@ -204,7 +211,6 @@ class AplicacionController extends Controller
             ->whereIn('resultado',['aprobado','irregular'])
             ->orderby($orderby,$orden)
             ->paginate(15);
-        //dd($asignaciones);///esta onda me está trayendo todo de todo
         return view('admin.aplicacion.NotasAspirantes',
             compact('asignaciones','aplicacion','ob'));
     }
@@ -222,7 +228,7 @@ class AplicacionController extends Controller
         //dd($aplicacion->fecha_inicio_asignaciones < date("Y-m-d"));
         if($aplicacion->fecha_inicio_asignaciones<date("Y-m-d") && date("Y-m-d h:i")<$aplicacion->fecha_fin_asignaciones){
             $errors = Array('No se puede editar la <i>'.$aplicacion->nombre().'</i> ya que está en tiempo de asignaciones');
-            return redirect('/admin/aplicacion')->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput();
         }
         $titulo = 'Editar aplicación';
         $put = true;
@@ -241,7 +247,7 @@ class AplicacionController extends Controller
 
         if(Aplicacion::where('id','!=',$id)->where('year',$request->year)->where('naplicacion',$request->naplicacion)->first()){
             $errors = Array('La combinacion de año y número de aplicación ya existe');
-            return redirect('/admin/aplicacion/'.$id.'/edit')->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput();
         }
 
         $aplicacion = Aplicacion::where('id',$id)->first();
@@ -258,21 +264,18 @@ class AplicacionController extends Controller
         $aplicacion->agregarSalonesHorarios($request->salones,$request->horarios,$request->fechasA);
 
         $request->session()->flash('mensaje_exito','Cambios en aplicación <i>'.$aplicacion->nombre().'</i> guardados.');
-        return redirect('/admin/aplicacion');
+        return redirect(action('AplicacionController@index'));
     }
 
     public function getArte($aplicacion_id){
         $aplicacion = Aplicacion::where('id',$aplicacion_id)->firstOrFail();
-        //dd($aplicacion);
         if(isset($aplicacion->path_arte)){
             $file = File::get(storage_path().$aplicacion->path_arte);
         }else{
             abort(403, 'Imagen no encontrada.');
-            dd("nanai");
         }
 
         $response = \Response::make($file, 200);
-        // using this will allow you to do some checks on it (if pdf/docx/doc/xls/xlsx)
         $response->header('Content-Type', 'image/*');
         return $response;
     }
@@ -285,7 +288,15 @@ class AplicacionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $aplicacion = Aplicacion::findOrFail($id);
+        if($aplicacion->getCountAsignados() > 0){
+            \Session::flash('mensaje_exito','No se puede eliminar la aplicación por que hay aspirantes asignados a ella.');
+            return 'No se puede eliminar la aplicación por que hay aspirantes asignados a ella.';
+        }
+        \App\AplicacionSalonHorario::where('aplicacion_id',$id)->delete();
+        $aplicacion->delete();
+        \Session::flash('mensaje_exito','Aplicación eliminada exitosamente');
+        return 'Aplicación eliminada exitosamente';
     }
 
     public function actualizarPercentiles(PercentilRequest $request,$id){
@@ -330,7 +341,7 @@ class AplicacionController extends Controller
 
 
     public function getListados($id){
-        //Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
+            //Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
 
             Excel::create('Listados_'.Aplicacion::find($id)->nombre(),function($excel) use ($id){
                 $aplicacion=Aplicacion::find($id);
@@ -343,7 +354,6 @@ class AplicacionController extends Controller
                             ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
                             ->selectRaw('NOV,nombre,apellido')
                             ->get();
-
                         //agregar data a la hoja
                         $sheet->fromModel($asignaciones,null,'B9',false);
 
@@ -351,7 +361,7 @@ class AplicacionController extends Controller
                         $objDrawing = new PHPExcel_Worksheet_Drawing();
                         $objDrawing->setName('logo_usac');
                         $objDrawing->setDescription('Logo');
-                        $logo = 'img/logo_usac.png'; // Provide path to your logo file
+                        $logo = ('aspirante_public/img/logo_usac.png'); // Provide path to your logo file
                         $objDrawing->setPath($logo);
                         $objDrawing->setCoordinates('B3');
                         $objDrawing->setHeight(60); // logo height
@@ -361,7 +371,7 @@ class AplicacionController extends Controller
                         $objDrawing = new PHPExcel_Worksheet_Drawing();
                         $objDrawing->setName('logo_farusac');
                         $objDrawing->setDescription('Logo');
-                        $logo = 'img/logotipoFARUSAC_Amarillo.png'; // Provide path to your logo file
+                        $logo = 'aspirante_public/img/logotipoFARUSAC_Amarillo.png'; // Provide path to your logo file
                         $objDrawing->setPath($logo);
                         $objDrawing->setCoordinates('E3');
                         $objDrawing->setHeight(65); // logo height
@@ -386,8 +396,7 @@ class AplicacionController extends Controller
                         for ($i = 1;$i<=count($asignaciones);$i++){
                             $sheet->setCellValue('A'.(9+$i),$i);
                         }
-
-                    //formato de celdas
+                        //formato de celdas
                         //titulo de cada columna pintado de gris
                         $sheet->row(9,array('No.','No. Orientación','Apellido','Nombre','Firma'));
                         $sheet->cells('A9:E9', function($cells) { //manipular celdas de encabezado data
@@ -415,7 +424,6 @@ class AplicacionController extends Controller
                     });
                 }
             })->download('xlsx');
-
         //});
     }
 
@@ -431,9 +439,9 @@ class AplicacionController extends Controller
         }
 
         $msg='Le informamos que ya se han publicado los resultados de la '.$aplicacion->nombre().'. Puede '.
-             'revisar su resultado con su usuario en http://iepe.dev/aspirante/PruebaEspecifica/create. '.
-             'De haber obtenido resultado satisfactorio debe confirmar su jornada y carerra para la futura '.
-             'asignación como estudiante universitario en http://iepe.dev/aspirante/ResultadosSatisfactorios.';
+             'revisar su resultado con su usuario en '. action('AspiranteAplicacionController@create') .' . '.
+             'De haber obtenido resultado satisfactorio debe confirmar su jornada y carrera para la futura '.
+             'asignación como estudiante universitario en '. action('formularioController@getConfirmacion').' .';
 
         Mail::raw($msg,function($message) use($emailArray){
             $message->subject('Resultados prueba especifica');
@@ -454,11 +462,11 @@ class AplicacionController extends Controller
         return back();
     }
 
-    public function habilitarResultados($id,Request $request){
-        $aplicacion = Aplicacion::find($id);
+    public function habilitarResultados($aplicacion_id){
+        $aplicacion = Aplicacion::find($aplicacion_id);
         $aplicacion->mostrar_resultados=!$aplicacion->mostrar_resultados;
         $aplicacion->save();
-        $request->session()->flash('mensaje_exito','Se modificó la visualización de resultados');
+        \Session::flash('mensaje_exito','Se modificó la visualización de resultados');
         return back();
     }
 

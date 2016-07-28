@@ -4,7 +4,7 @@
 <div class="container">
     @include('layouts.mensajes')
     <h3>Carga de datos</h3>
-    <form class="form-horizontal" role="form" action="/admin/datos" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
+    <form class="form-horizontal" role="form" action="{{ action('DatosController@store') }}" method="Post" accept-charset="UTF-8" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="panel panel-default">
             <div class="panel-heading">Cargar datos provistos por el SUN</div>

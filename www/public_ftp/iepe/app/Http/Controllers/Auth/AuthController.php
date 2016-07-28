@@ -33,8 +33,8 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'aspirante';
-    protected $redirectAfterLogout = '/aspirantes';
+    protected $redirectTo = 'aspirante/datos';
+    protected $redirectAfterLogout = '/aspirante';
     protected $guard = 'aspirante_web';
     protected $username = 'NOV';
     protected $activationService;
@@ -72,7 +72,7 @@ class AuthController extends Controller
     {
         $messages = [
             'required'      => 'El campo :attribute es obligatorio.',
-            'unique'        => 'El :attribute proporcionado ya esta registrado. <a class="btn btn-link" href="'.url('/password/reset').'">Recuperar contraseña</a><br>Si el problema persiste presentarse a la oficina de Orientacion Estudiantil de Arquitectura.',
+            'unique'        => 'El :attribute proporcionado ya esta registrado. <a class="btn btn-link" href="'.url('/password/reset').'">Recuperar contraseña</a><br>Si el problema persiste presentarse a la Unidad de Desarrollo y Bienestar Estudiantil de Arquitectura.',
             'numeric'       => 'El campo :attribute debe ser numérico',
             'email'         => 'El campo :attribute debe ser un correo electrónico válido.',
             'confirmed'     => 'El campo :attribute no concuerda con la confirmación.',
@@ -111,8 +111,8 @@ class AuthController extends Controller
 
         /**Verificar si es carnet**/
         if( $request->NOV > 100000000 && $request->NOV < 999999999 ){
-            $errors = Array('NOV'=>'Usted esta tratando de acceder con un número de carnet. Favor intente con su número de orientación vocacional. Si continua el error, pasar a la oficina de Orientación Estudiantil de Arquitectura.');
-            return redirect('/register')->withErrors($errors)->withInput();
+            $errors = Array('NOV'=>'Usted esta tratando de acceder con un número de carnet. Favor intente con su número de orientación vocacional. Si continua el error, pasar a la Unidad de Desarrollo y Bienestar Estudiantil de Arquitectura.');
+            return back()->withErrors($errors)->withInput();
         }
 
         //redirect('/register')->with('status', 'We sent you an activation code. Check your email.');
@@ -136,12 +136,12 @@ class AuthController extends Controller
         //dd($mate);
         if($lenguaje == null || $mate == null){
             $errors = Array('NOV'=>'No se han encontrado registros válidos en nuestra base de datos.');
-            return redirect('/register')->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput();
         }
 
         if(ListaNegra::where('NOV',$request->NOV)->first()){
             $errors = Array('NOV'=>'Número bloqueado. Pasar a Orientación estudiantil de la facultad de Arquitectura, USAC.');
-            return redirect('/register')->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput();
         }
         //dd($request->nombre);
         $data = $request->all();
@@ -157,8 +157,7 @@ class AuthController extends Controller
 
         //return redirect($this->redirectPath());
         $request->session()->flash('status','Te hemos enviado un código de verificación. Revisa tu correo.');
-        return redirect('/login');
-        //return redirect('/login')->with('status', 'Te hemos enviado un código de verificación. Revisa tu correo.');
+        return redirect(action('Auth\AuthController@showLoginForm'));
     }
 
     /**
@@ -206,7 +205,7 @@ class AuthController extends Controller
             $this->activationService->sendActivationMail($user);
             auth()->logout();
             $request->session()->flash('status','Necesitas confirmar tu correo. Se te ha enviado un código de verificación, por favor revisa tu correo.');
-            return redirect('/login');
+            return back();
             //return back()->with('warning', 'Necesitas confirmar tu correo. Nosotros te enviamos un código de verificación, por favor revisa tu correo.');
         }
         return redirect()->intended($this->redirectPath());
@@ -228,7 +227,7 @@ class AuthController extends Controller
         ]);
         if(ListaNegra::where('NOV',$request->NOV)->first()){
             $errors = Array('NOV'=>'Número bloqueado. Pasar a Orientación estudiantil de la facultad de Arquitectura, USAC.');
-            return redirect('/login')->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput();
         }
 
 
@@ -258,7 +257,7 @@ class AuthController extends Controller
 
         return redirect()->back()
             ->withInput( $request->only($this->loginUsername()) )
-            ->withErrors([$this->loginUsername() => 'Credenciales incorrectas.'
+            ->withErrors([$this->loginUsername() => 'Credenciales incorrectas. Si el problema persiste pasar a la Unidad de Bienestar y Desarrollo Estudiantil de Arquitectura.'
             ]);
     }
 

@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         if(Auth::check()){
             if(!Auth::user()->getFormulario()){
-                return redirect('/aspirante/formulario');
+                return redirect( action('formularioController@index') );
             }
         }
         return view('welcome');

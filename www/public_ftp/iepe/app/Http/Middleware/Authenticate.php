@@ -23,16 +23,16 @@ class Authenticate
                 return response('Unauthorized.', 401);
             } else {
                 if($guard=='admin')
-                    return redirect()->guest('/admin/login');
+                    return redirect()->guest( action('AuthAdmin\AuthController@showLoginForm') );
                 else
-                    return redirect()->guest('login');
+                    return redirect()->guest( action('Auth\AuthController@showLoginForm') );
             }
         }
 
 
         if($guard=='aspirante_web' && !($request->path() == 'aspirante/formulario' || $request->path() == 'aspirantes')){
             if(!Auth::user()->getFormulario())
-                return redirect('/aspirante/formulario');
+                return redirect( action('formularioController@index') );
         }
 
         return $next($request);

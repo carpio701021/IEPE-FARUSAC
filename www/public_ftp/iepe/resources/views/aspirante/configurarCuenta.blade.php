@@ -3,7 +3,7 @@
 
 @section('content')
     <h1>Configurar cuenta</h1>
-    <form class="form-horizontal" role="form" action="/aspirante/configuracion/guardar" method="POST">
+    <form class="form-horizontal" role="form" action="{{ action('AspiranteController@actualizarCuenta') }}" method="POST">
         <div class="well well-sm" style="padding-top: 30px">
             <div class="form-group">
                 <label class="control-label col-sm-2" for="email">Correo electrónico:</label>
@@ -40,7 +40,7 @@
             </div>
         </div>
     </form>
-     <form class="form-horizontal" role="form" action="/aspirante/configuracion/guardar" method="POST">
+     <form class="form-horizontal" role="form" action="{{ action('AspiranteController@actualizarCuenta') }}" method="POST">
         <div class="well well-sm" style="padding-top: 30px">
             <div class="form-group">
                 <label class="control-label col-sm-2" for="password">Contraseña:</label>

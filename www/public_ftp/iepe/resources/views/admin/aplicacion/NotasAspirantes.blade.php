@@ -3,13 +3,21 @@
 @section('content')
     @include('layouts.mensajes')
     <div class="container">
+        <div class='btn-toolbar pull-right'>
+            <br>
+            <div class='btn-group'>
+                <a href="javascript:history.go(-1);" class="btn btn-default">
+                    <i class="glyphicon glyphicon-arrow-left"></i> Regresar
+                </a>
+            </div>
+        </div>
         <h3>Aspirante aprobados - {{$aplicacion->nombre()}}</h3>
 
         <div class="container">
             <h3>Resultados</h3>
             <div class="panel panel-default">
                 <div class="panel-heading">Ordenar por</div>
-                <form role="form" method="get" action="/admin/aplicacion/{{$aplicacion->id}}">
+                <form role="form" method="get" action="{{ action('AplicacionController@show',['aplicacion'=>$aplicacion->id]) }}">
                     {{csrf_field()}}
                     <div class="panel-body">
                         <div class="col-sm-6">
@@ -38,7 +46,7 @@
                     </div>
                 </form>
             </div>
-            <p>Estos resultados deben ser aprobados por x y z para que sean publicados a los aspirantes</p>
+            <p>Estos resultados deben ser aprobados por el Decano y el Secretario para que sean publicados a los aspirantes</p>
             <table class="table">
                 <thead>
                 <tr>
@@ -65,7 +73,7 @@
                         <td>{{$a->nota_APN}}</td>
                         <td>{{$a->resultado}}</td>
                          <td>
-                         <form class="form" action="/admin/acta/{{$a->id}}/resultado" method="post">
+                         <form class="form" action="{{ action('AspiranteAplicacionController@cambiarIrregularAprobado',['aspirante_aplicacion_id'=>$a->id]) }}" method="post">
                              {{csrf_field()}}
                             @if($a->resultado=='aprobado')
                                 <input type="hidden" name="resultado" value="irregular">
@@ -88,10 +96,10 @@
                     <!--<a href="/admin/aplicacion/acta/{{$aplicacion->id}}/irregular" class="btn btn-warning" target="_blank">
                         Exportar pdf con calificaciones irregulares
                     </a>-->
-                    <a href="/admin/aplicacion/{{$aplicacion->id}}/especial" class="btn btn-warning" target="_blank">
+                    <a href="{{ action('AplicacionController@getCrearEspecial',['aplicacion_id'=>$aplicacion->id]) }}" class="btn btn-warning" target="_blank">
                         Convocar aspirantes irregulares a una aplicación especial
                     </a>
-                    <form role="form" action="/admin/acta" method="post">
+                    <form role="form" action="{{ action('ActaController@store') }}" method="post">
                         {{csrf_field()}}
                         <input type="hidden" name="aplicacion_id" value="{{$aplicacion->id}}"/>
                         <input type="hidden" name="estado" value="propuesta"/>

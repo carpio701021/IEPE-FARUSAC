@@ -12,7 +12,7 @@
         <li class="list-group-item active clearfix">
             <h2 class="panel-title pull-left" style="padding-top: 7.5px;">Administración de usuarios</h2>
             <div class="btn-group pull-right">
-                <a href="/admin/usuarios/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Nuevo usuario administrativo</a>
+                <a href="{{ action('GestionUsuariosController@create') }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Nuevo usuario administrativo</a>
             </div>
         </li>
         @foreach($admins as $admin)
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="col-md-4">
-                            <a href="/admin/usuarios/{{ $admin->registro_personal }}/edit"><span class="glyphicon glyphicon-pencil"></span> Editar datos</a><br>
+                            <a href="{{ action('GestionUsuariosController@edit',['usuarios'=>$admin->registro_personal]) }}"><span class="glyphicon glyphicon-pencil"></span> Editar datos</a><br>
                             <a href="javascript:void(0)" onclick="borrarAdmin({{ $admin->registro_personal }})"><span class="glyphicon glyphicon-trash"></span> Borrar</a><br>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
     function sendBorrarAdmin(){
         $('#modalConfirmar').modal('hide');
         $.ajax({
-            url: '/admin/usuarios/' + registro_personal_g,
+            url: '{{ action('GestionUsuariosController@destroy',['usuarios'=>'']) }}/' + registro_personal_g,
             type: 'POST',  // user.destroy
             data: {
                 '_token': "{{ csrf_token() }}",
