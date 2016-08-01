@@ -75,9 +75,18 @@
                                 </select>/
                                 <select name="fecha_nac[]" required>
                                     <option disabled selected>mes</option>
-                                    @for($i=1;$i<=12;$i++)
-                                        <option value="{{ $i }}">{{ $i }}</option>
-                                    @endfor
+                                    <option value="1">enero</option>
+                                    <option value="2">febrero</option>
+                                    <option value="3">marzo</option>
+                                    <option value="4">abril</option>
+                                    <option value="5">mayo</option>
+                                    <option value="6">junio</option>
+                                    <option value="7">julio</option>
+                                    <option value="8">agosto</option>
+                                    <option value="9">septiembre</option>
+                                    <option value="10">octubre</option>
+                                    <option value="11">noviembre</option>
+                                    <option value="12">diciembre</option>
                                 </select>/
                                 <input type="number" min="{{ date('Y') - 70 }}" max="{{ date('Y') - 10 }}" name="fecha_nac[]" placeholder="año" required>
 

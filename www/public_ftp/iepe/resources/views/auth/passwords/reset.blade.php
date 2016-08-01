@@ -8,7 +8,7 @@
                 <div class="panel-heading">Restablecer contraseña</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ action('PasswordController@reset') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ action('Auth\PasswordController@reset') }}">
                         {!! csrf_field() !!}
 
                         <input type="hidden" name="token" value="{{ $token }}">
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Contraseña</label>
+                            <label class="col-md-4 control-label">Nueva contraseña</label>
 
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="password">

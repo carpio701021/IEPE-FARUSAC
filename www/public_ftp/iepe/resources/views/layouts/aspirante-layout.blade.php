@@ -106,12 +106,13 @@
                         @endif
                     @endif
 
-                        <div class="container">
-                            <a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">
+                        <div class="container" id="menu-toggle">
+                            <a href="#menu-toggle" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-menu-hamburger"></span>
                             </a>
+                            <br>
+                            <br>
                         </div>
-                        <br>
 
                     <!--a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a-->
                     </div>

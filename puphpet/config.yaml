@@ -235,6 +235,8 @@ php:
             - tokenizer
             - pdo
             - openssl
+            - zip
+            - xml
             - gd
         pear: {  }
         pecl: {  }

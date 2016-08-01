@@ -76,6 +76,7 @@ class AuthController extends Controller
             'numeric'       => 'El campo :attribute debe ser numérico',
             'email'         => 'El campo :attribute debe ser un correo electrónico válido.',
             'confirmed'     => 'El campo :attribute no concuerda con la confirmación.',
+            'min'     => 'El campo :attribute debe tener al menos :min caracteres.',
         ];
         return Validator::make($data, [
             'NOV' => 'required|numeric|unique:aspirantes',
