@@ -11,7 +11,7 @@ class ActivationService
 
     protected $mailer;
     protected $activationRepo;
-    protected $resendAfter =  60 * 60 * 8;
+    protected $resendAfter =  60;
 
     public function __construct(Mailer $mailer, ActivationRepository $activationRepo)
     {

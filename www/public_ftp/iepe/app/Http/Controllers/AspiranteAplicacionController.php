@@ -209,17 +209,19 @@ class AspiranteAplicacionController extends Controller
     }
 
     private function generarConstanciaPDF($id){
-        $asignacion = AspiranteAplicacion::find($id);
+        $aplicacion_id = $id;
+        //$asignacion = AspiranteAplicacion::find($id);
+
+        $asignacion = AspiranteAplicacion::find(2);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setPaper('letter', 'portrait');
         $aspirante = Auth::user();
-        
         $pdf->loadView('aspirante.pdf.constanciaAsignacion',compact('asignacion','id','aspirante'));
         return $pdf;
     }
 
     public function cambiarIrregularAprobado(Request $request, $id){
-        $a=AspiranteAplicacion::find($id);
+        $a = AspiranteAplicacion::find($id);
         $a->update($request->all());
         return back();
     }

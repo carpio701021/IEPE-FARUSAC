@@ -198,6 +198,7 @@ class ActaController extends Controller
         set_time_limit(120);
         $asignaciones= AspiranteAplicacion::where('acta_id',$acta_id)->get();
         $aplicacion = Aplicacion::find(Actas::find($acta_id)->aplicacion_id);
+        //dd($acta_id);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setPaper('letter', 'portrait');//740,570
         $pdf->loadView('admin.pdf.constanciasSatisfactorias',compact('asignaciones','aplicacion'));

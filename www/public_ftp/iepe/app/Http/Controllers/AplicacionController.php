@@ -342,7 +342,6 @@ class AplicacionController extends Controller
 
     public function getListados($id){
             //Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
-
             Excel::create('Listados_'.Aplicacion::find($id)->nombre(),function($excel) use ($id){
                 $aplicacion=Aplicacion::find($id);
                 $salones_horarios = $aplicacion->getSalonesHorarios();
