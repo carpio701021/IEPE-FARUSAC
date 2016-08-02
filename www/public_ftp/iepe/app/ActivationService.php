@@ -11,7 +11,7 @@ class ActivationService
 
     protected $mailer;
     protected $activationRepo;
-    protected $resendAfter = 24;
+    protected $resendAfter =  60 * 60 * 8;
 
     public function __construct(Mailer $mailer, ActivationRepository $activationRepo)
     {
@@ -23,7 +23,7 @@ class ActivationService
     {
 
         if ($user->activated || !$this->shouldSend($user)) {
-            return;
+            return true;
         }
 
         $token = $this->activationRepo->createActivation($user);
@@ -31,11 +31,18 @@ class ActivationService
         //$link = route('aspirante.activate', $token);
         $link = action('Auth\AuthController@activateUser', $token);
 
-        $this->mailer->send('auth.emails.confirmarContraseña', ['link'=>$link] , function (Message $m) use ($user) {
-            $m->to($user->email)->subject('Confirmación de correo, registro FARUSAC');
-        });
+
+        try{
+            $this->mailer->send('auth.emails.confirmarContraseña', ['link'=>$link] , function (Message $m) use ($user) {
+                $m->to($user->email)->subject('Confirmación de correo, registro FARUSAC');
+            });
+        }
+        catch(\Swift_TransportException $e){
+            return false;
+        }
 
 
+        return true;
     }
 
     public function activateUser($token)
@@ -61,7 +68,8 @@ class ActivationService
     private function shouldSend($user)
     {
         $activation = $this->activationRepo->getActivation($user);
-        return $activation === null || strtotime($activation->created_at) + 60 * 60 * $this->resendAfter < time();
+        return $activation === null || strtotime($activation->created_at) + $this->resendAfter < time();
     }
+
 
 }

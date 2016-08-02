@@ -76,7 +76,7 @@ class AuthController extends Controller
             'numeric'       => 'El campo :attribute debe ser numérico',
             'email'         => 'El campo :attribute debe ser un correo electrónico válido.',
             'confirmed'     => 'El campo :attribute no concuerda con la confirmación.',
-            'min'     => 'El campo :attribute debe tener al menos :min caracteres.',
+            'min'           => 'El campo :attribute debe tener al menos :min caracteres.',
         ];
         return Validator::make($data, [
             'NOV' => 'required|numeric|unique:aspirantes',
@@ -154,10 +154,15 @@ class AuthController extends Controller
         $user->NOV = $request->NOV;
 
         //Auth::guard($this->getGuard())->login($user);
-        $this->activationService->sendActivationMail($user);
+        $exito = $this->activationService->sendActivationMail($user);
+
+        if(!$exito){
+            $request->session()->flash('status','Estamos teniendo problemas para enviar el correo de verificación. Por favor intenta ingresar más tarde.');
+        }else{
+            $request->session()->flash('status','Te hemos enviado un código de verificación. Revisa tu correo.');
+        }
 
         //return redirect($this->redirectPath());
-        $request->session()->flash('status','Te hemos enviado un código de verificación. Revisa tu correo.');
         return redirect(action('Auth\AuthController@showLoginForm'));
     }
 
@@ -203,10 +208,17 @@ class AuthController extends Controller
     public function authenticated(Request $request, $user)
     {
         if (!$user->activated) {
-            $this->activationService->sendActivationMail($user);
-            auth()->logout();
-            $request->session()->flash('status','Necesitas confirmar tu correo. Se te ha enviado un código de verificación, por favor revisa tu correo.');
-            return back();
+                $exito = $this->activationService->sendActivationMail($user);
+                if(!$exito){
+                    auth()->logout();
+                    $request->session()->flash('status','Estamos teniendo problemas para enviar el correo de verificación. Por favor intenta más tarde.');
+                    return redirect(action('Auth\AuthController@showLoginForm'));
+                }else{
+                    auth()->logout();
+                    $request->session()->flash('status','Necesitas confirmar tu correo. Se te ha enviado un código de verificación, por favor revisa tu correo.');
+                    return back();
+                }
+
             //return back()->with('warning', 'Necesitas confirmar tu correo. Nosotros te enviamos un código de verificación, por favor revisa tu correo.');
         }
         return redirect()->intended($this->redirectPath());
