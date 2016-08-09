@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class AplicacionSalonHorario extends Model
 {
@@ -39,6 +40,11 @@ class AplicacionSalonHorario extends Model
 
     public function printNombre(){
         return $this->getSalon()->nombre.'_'.$this->getHorario()->id;
+    }
+
+
+    public function getFechaFormatoGt(){
+        return Carbon::parse($this->fecha_aplicacion )->format('d/m/Y');
     }
 
 }

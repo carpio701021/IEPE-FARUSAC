@@ -53,7 +53,7 @@ class DatosController extends Controller
         if($request->file('datos_sun')->isValid()){
             $destinationPath = '/datos_sun'; // upload path
             $extension = $request->file('datos_sun')->getClientOriginalExtension(); // getting file extension
-            
+
             $request->file('datos_sun')->move( storage_path().$destinationPath,'datos_sun.'.$extension);
             $resultados=$this->insertar_excel_enBD(storage_path().$destinationPath.'/datos_sun.'.$extension);
             $errores=$resultados['errors'];
@@ -83,15 +83,23 @@ class DatosController extends Controller
         foreach ($results as $row){
             if(is_string($row->fecha_evaluacion)){
                 $row['fecha_evaluacion']=Carbon::createFromFormat('d/m/Y', $row->fecha_evaluacion)->toDateString();
+            }
+            if(is_string($row->fecha_nacimiento)){
                 $row['fecha_nacimiento']=Carbon::createFromFormat('d/m/Y', $row->fecha_nacimiento)->toDateString();
             }
-
 
             $conteo=$conteo+1;
             $validator=$this->validar($row,$conteo);
             if($validator->fails()){
                 array_push($errors,$validator);
             }elseif(!(Datos_sun::where('fecha_evaluacion',$row->fecha_evaluacion)->where('orientacion',$row->orientacion)->where('id_materia',$row->id_materia)->count()>0)){
+
+                if($row['sexo'] == 1){
+                    $row['sexo'] = "0";
+                } else if($row['sexo'] == 2){
+                    $row['sexo'] = "1";
+                }
+
                 Datos_sun::create($row->toarray());
                 $insertados=$insertados+1;
             }
@@ -104,11 +112,11 @@ class DatosController extends Controller
         $rules = [
             'orientacion' => 'required|integer|digits_between:9,10',
             'primer_apellido' => 'required|max:35',
-            'segundo_apellido' =>'required|max:35',
+            'segundo_apellido' =>'max:35',
             'primer_nombre' => 'required|max:35',
-            'segundo_nombre' => 'required|max:35',
+            'segundo_nombre' => 'max:35',
             'fecha_nacimiento' => 'required|date',
-            'sexo' => 'required|in:1,0',
+            'sexo' => 'required|in:1,2',
             'id_materia' => 'required|integer',
             'aprobacion' => 'required|in:1,0,true,false',
             'fecha_evaluacion' => 'required|date',

@@ -417,8 +417,8 @@ return array(
 
         'encoding'                => array(
 
-            'input'  => 'UTF-8',
-            'output' => 'UTF-8'
+            'input'  => env('ENCODING', 'ISO-8859-1'),
+            'output' => env('ENCODING', 'ISO-8859-1')
 
         ),
 

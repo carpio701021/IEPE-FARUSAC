@@ -62,7 +62,7 @@
                                     <ul>
                                         <li><a href="{{ action('AplicacionController@edit',['aplicacion'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-edit"></span> Editar</a></li>
                                         <li><a href="{{ action('AplicacionController@getListados',['aplicacion'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-list"></span> Descargar Listado</a></li>
-                                            <li><a href="{{ action('AspiranteAplicacionController@edit',['subirResultados'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-upload"></span> Subir resultados</a></li>
+                                            <li><a href="{{ action('AspiranteAplicacionController@edit',['subirResultados'=>$aplicacion->id]) }}"><span class="glyphicon glyphicon-upload"></span> Subir resultados, editar percentiles y generar actas</a></li>
                                         <li>
                                             <a href="{{ action('AplicacionController@habilitarResultados', ['aplicacion_id'=>$aplicacion->id])}}">
                                                 @if($aplicacion->mostrar_resultados==1)

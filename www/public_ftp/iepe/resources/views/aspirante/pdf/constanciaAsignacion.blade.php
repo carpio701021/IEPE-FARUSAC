@@ -19,7 +19,7 @@
 <p style="position: absolute; top: 224px; left: 125px; font-size: 15px"> {{$aspirante->getNombreCompleto()}}</p>
 <p style="position: absolute; top: 224px; left: 507px; font-size: 15px"> {{$aspirante->NOV}}</p>
 
-<p style="position: absolute; top: 275px; left: 115px; font-size: 15px"> {{$asignacion->getFechaAplicacion()}}</p>
+<p style="position: absolute; top: 275px; left: 115px; font-size: 15px"> {{ $asignacion->getFechaFormatoGt() }}</p>
 <p style="position: absolute; top: 275px; left: 438px; font-size: 15px"> {{$asignacion->getHorario()->printHorario()}}</p>
 
 <p style="position: absolute; top: 320px; left: 115px; font-size: 15px"> {{$asignacion->getSalon()->edificio}}</p>

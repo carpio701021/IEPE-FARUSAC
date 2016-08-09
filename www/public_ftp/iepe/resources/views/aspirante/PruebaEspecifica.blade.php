@@ -149,7 +149,7 @@
 							</div>
 						</div>
 						<div class="panel-footer">
-							<form class="form-group" method="GET" action="{{ action('AspiranteAplicacionController@show',['PruebaEspecifica'=>$asignada->id]) }}" target="_blank">
+							<form class="form-group" method="GET" action="{{ action('AspiranteAplicacionController@show',['PruebaEspecifica'=>$asignada->aplicacion_salon_horario_id]) }}" target="_blank">
 								<input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
 								<input class="btn btn-primary "type="submit"  value="Ver constancia de asignación"/>
 							</form>

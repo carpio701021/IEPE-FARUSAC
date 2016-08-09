@@ -107,7 +107,6 @@ class ActaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $acta=Actas::find($id);
         $acta->update($request->all());
         $acta->evaluarEstado();

@@ -6,24 +6,23 @@
             <img id="imgcentral" src="{{ url('aspirante_public/img/guia-aplicacion/'.json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['guia_aplicacion']['imginfo']) }}" style="width:100%;height:auto;" />
         </div>
         <div class="col-sm-3" style="padding: 0 0 0 0;">
-            <a onclick="changeCentral(1);">
-                <img id="imgcentral" src="{{ url('aspirante_public/img/guia-aplicacion/'.json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['guia_aplicacion']['imgbtn1']) }}" style="width:100%;height:auto;" />
-            </a>
+            <input type="image" onclick="changeCentral(1);"
+                   src="{{ url('aspirante_public/img/guia-aplicacion/'.json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['guia_aplicacion']['imgbtn1']) }}" style="width:100%;height:auto;" />
         </div>
         <div class="col-sm-3" style="padding: 0 0 0 0;">
-            <a onclick="changeCentral(2);">
-                <img id="imgcentral" src="{{ url('aspirante_public/img/guia-aplicacion/'.json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['guia_aplicacion']['imgbtn2']) }}" style="width:100%;height:auto;" />
-            </a>
+            <button onclick="javascript:changeCentral(2);">
+                <img src="{{ url('aspirante_public/img/guia-aplicacion/'.json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['guia_aplicacion']['imgbtn2']) }}" style="width:100%;height:auto;" />
+            </button>
         </div>
         <div class="col-sm-3" style="padding: 0 0 0 0;">
-            <a onclick="changeCentral(3);">
-                <img id="imgcentral" src="{{ url('aspirante_public/img/guia-aplicacion/'.json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['guia_aplicacion']['imgbtn3']) }}" style="width:100%;height:auto;" />
-            </a>
+            <button onclick="javascript:changeCentral(3);">
+                <img src="{{ url('aspirante_public/img/guia-aplicacion/'.json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['guia_aplicacion']['imgbtn3']) }}" style="width:100%;height:auto;" />
+            </button>
         </div>
         <div class="col-sm-3" style="padding: 0 0 0 0;">
-            <a onclick="changeCentral(4);">
-                <img id="imgcentral" src="{{ url('aspirante_public/img/guia-aplicacion/'.json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['guia_aplicacion']['imgbtn4']) }}" style="width:100%;height:auto;" />
-            </a>
+            <button onclick="javascript:changeCentral(4);">
+                <img src="{{ url('aspirante_public/img/guia-aplicacion/'.json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['guia_aplicacion']['imgbtn4']) }}" style="width:100%;height:auto;" />
+            </button>
         </div>
     </div>
     <br /><br /><br />

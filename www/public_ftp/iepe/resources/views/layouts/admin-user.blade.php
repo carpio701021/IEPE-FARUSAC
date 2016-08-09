@@ -104,10 +104,10 @@
                     ||Auth::guard('admin')->user()->tieneRol('decano'))
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Resultados<span class="caret"></span>
+                            Actas <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ action('ActaController@index') }}">Aprobar resultados</a></li>
+                            <li><a href="{{ action('ActaController@index') }}">Flujo de actas</a></li>
                         </ul>
                     </li>
                     @endif
@@ -121,7 +121,7 @@
                             <span class="glyphicon glyphicon-user"></span>  {{ Auth::guard('admin')->user()->email }} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Cambiar contraseña</a></li>
+                            <!--li><a href="#">Cambiar contraseña</a></li-->
                             <li><a href="{{ action('AuthAdmin\AuthController@logout') }}"><i class="glyphicon glyphicon-logout"></i>Cerrar Sesión</a></li>
                         </ul>
                     </li>

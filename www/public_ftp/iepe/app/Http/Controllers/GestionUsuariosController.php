@@ -99,7 +99,7 @@ class GestionUsuariosController extends Controller
             }
         }
 
-        $request['password'] = bcrypt($request->password);
+        if(isset($request['password'])) $request['password'] = bcrypt($request->password);
         $admin = Admin::findOrFail($id);
         $admin->update($request->all());
         $request->session()->flash('mensaje_exito','Cambios en usuario <i>'.$admin->registro_personal.'</i> guardados.');
