@@ -23,17 +23,17 @@ class AnioController extends Controller
 
     public function generarListado(Request $request){
         $aprobados = AspiranteAplicacion::
-        join('aplicaciones_salones_horarios as ash','aplicacion_salon_horario_id','=','ash.id')
-        ->join('aplicaciones as a','aplicacion_id','=','a.id')
-        ->join('actas','acta_id','=','actas.id')
-        ->join('formularios as f','aspirante_id','=','f.NOV')
-        ->join('aspirantes','f.NOV','=','aspirantes.NOV')
-        ->where('year',$request->anio)
-        ->where('carrera',$request->escuela)
-        ->where('acta_id','>','0')
-        ->where('estado','aprobada')
-        ->selectraw('f.NOV,aspirantes.nombre,aspirantes.apellido,email,carrera,jornada,confirmacion_intereses as confirmacion');
-        //dd($aprobados->first());
+            join('aplicaciones_salones_horarios as ash','aplicacion_salon_horario_id','=','ash.id')
+            ->join('aplicaciones as a','aplicacion_id','=','a.id')
+            ->join('actas','acta_id','=','actas.id')
+            ->join('formularios as f','aspirante_id','=','f.NOV')
+            ->join('aspirantes','f.NOV','=','aspirantes.NOV')
+            ->where('year',$request->anio)
+            ->where('carrera',$request->escuela)
+            ->where('acta_id','>','0')
+            ->where('estado','aprobada')
+            ->selectraw('f.NOV,aspirantes.nombre,aspirantes.apellido,email,carrera,jornada,confirmacion_intereses as confirmacion');
+            //dd($aprobados->first());
 
         $excel = Excel::create($request->anio.'_Listado-'.$request->escuela, function($excel) use($aprobados){
             $excel->sheet('Listado',function($sheet) use($aprobados){

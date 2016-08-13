@@ -129,7 +129,7 @@ class ActaController extends Controller
                 $mailArray[$secretario->email]=$secretario->nombre();
                 $subject = 'Propuesta ' . $acta->getName();
                 $msg = 'El jefe de bienestar estudiantil, ' . $jefeBienestar->nombre() . ' ha mandado una propuesta de acta para su revisión con
-                el listado de aspirantes aprobados en una prueba especifica. Para aprobarla o reprobarla acceder a http://iepe.dev/admin/acta.';
+                el listado de aspirantes aprobados en una prueba especifica. Para aprobarla o reprobarla acceder a '.action('ActaController@index').'.';
             }
         }
         if($request->has('aprobacion_decanato')) {
@@ -137,10 +137,10 @@ class ActaController extends Controller
             $mailArray[$secretario->email]=$secretario->nombre();
             if($request->aprobacion_decanato==1) { //aprobo
                 $subject='Propuesta '.$acta->getName().' aprobada';
-                $msg='La propuesta '.$acta->getName().' ha sido revisada y aprobada por decanatura, para revisar el proceso acceder a http://iepe.dev/admin/acta.';
+                $msg='La propuesta '.$acta->getName().' ha sido revisada y aprobada por decanatura, para revisar el proceso acceder a '.action('ActaController@index').'.';
             }else{ //reprobo
                 $subject='Propuesta '.$acta->getName().' reprobada';
-                $msg='La propuesta '.$acta->getName().' ha sido reprobada por decanatura, para revisar el proceso acceder a http://iepe.dev/admin/acta.';
+                $msg='La propuesta '.$acta->getName().' ha sido reprobada por decanatura, para revisar el proceso acceder a '.action('ActaController@index');
             }
         }
         if($request->has('aprobacion_secretaria')) {
@@ -148,10 +148,10 @@ class ActaController extends Controller
             $mailArray[$jefeBienestar->email]=$jefeBienestar->nombre();
             if($request->aprobacion_secretaria==1) { //aprobo
                 $subject='Propuesta '.$acta->getName().' aprobada';
-                $msg='La propuesta '.$acta->getName().' ha sido revisada y aprobada por secretaría general, para revisar el proceso acceder a http://iepe.dev/admin/acta.';
+                $msg='La propuesta '.$acta->getName().' ha sido revisada y aprobada por secretaría general, para revisar el proceso acceder a '.action('ActaController@index').'.';
             }else{ //reprobo
                 $subject='Propuesta '.$acta->getName().' reprobada';
-                $msg='La propuesta '.$acta->getName().' ha sido reprobada por secretaría general, para revisar el proceso acceder a http://iepe.dev/admin/acta.';
+                $msg='La propuesta '.$acta->getName().' ha sido reprobada por secretaría general, para revisar el proceso acceder a '.action('ActaController@index').'.';
             }
         }
 
@@ -205,6 +205,9 @@ class ActaController extends Controller
     }
     
     public function notificar($id){
+        /**
+         * @deprecated (sin uso)
+         */
         $asignaciones=AspiranteAplicacion::where('acta_id',$id)->get();
         $emailArray=[];
         foreach ($asignaciones as $asig){
@@ -213,8 +216,8 @@ class ActaController extends Controller
         }
         (new Mail())->send($emailArray,'Resultado Satisfactorio',
             'Le informamos que ha obtenido resultado satisfactorio en la prueba específica de la facultad de Arquitectura
-             de la Universidad de San Carlos de Guatemala. Puede rectificar el resultado con su usuario en http://iepe.dev/aspirante/PruebaEspecifica/create
-             Debe confirmar su jornada y carerra para la futura asignación como estudiante universitario en http://iepe.dev/aspirante/ResultadosSatisfactorios',
+             de la Universidad de San Carlos de Guatemala. Puede rectificar el resultado con su usuario en '.action('AspiranteAplicacionController@create').
+             ' Debe confirmar su jornada y carerra para la futura asignación como estudiante universitario en '.action('/').'/aspirante/aprobados',
             null,null);
         //return Json::encode($emailArray);
         return 'nitido';//$asignaciones->toJson();
