@@ -128,23 +128,8 @@ class AplicacionController extends Controller
             $asignacion = new AspiranteAplicacion();
             if($asignacion->asignar($irregular->aspirante_id,$aplicacionEspecial->id)){//true si hay cupo, false ya no hay cupo
                 $asignacion->save();
-                //$pdf=$this->generarConstanciaPDF($asignacion->id);
-                //$mail = new Mail();
-                //$request->session()->flash('mensaje_exito', 'Asignación realizada correctamente, puedes revisar tu salón y horario para la prueba');
-                /*if($mail->send(Auth::user()->email,
-                    Auth::user()->getFormulario()->nombre." ".Auth::user()->getFormulario()->apellido,
-                    'Constancia de asignación',
-                    'Imprime esta constancia para resguardar tu asignación',
-                    $pdf->output(),
-                    'Constancia de asignación '.Auth::user()->NOV))
-                {
-                    return back();
-                }else
-                {
-                    return back()->withErrors(['mail'=>$mail->getError()]);
-                }*/
             }else{
-                return false;// back()->withErrors(['cupo'=>'No puede asignarse a esta aplicación porque el cupo está lleno. Abocarse a las oficinas de la facultad de arquitectura para solucionarlo']);
+                return false;
             }
         }
         $this->notificarAsignacionIrregular($irregulares);

@@ -87,6 +87,9 @@ Route::group(['prefix' => 'aspirante'], function () {
                 Route::post('recursos/videoBienvenida','RecursosController@postVideoBienvenida')->name('admin.recursos.videoBienvenida');
                 Route::post('recursos/guia-asignacion','RecursosController@postGuiaAsignacion')->name('admin.recursos.guia-asignacion');
                 Route::post('recursos/guia-aplicacion','RecursosController@postGuiaAplicacion')->name('admin.recursos.guia-aplicacion');
+
+                Route::get('reportes', 'reportesController@index')->name('admin.reportes.index');
+
             });
 
             Route::group(['middleware' => ['adminRol:secretario_decano_jefe_bienestar']], function () {

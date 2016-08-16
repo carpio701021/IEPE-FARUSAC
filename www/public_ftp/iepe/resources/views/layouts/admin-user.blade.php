@@ -81,7 +81,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Desarrollo estudiantíl <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ action('AplicacionController@index') }}">Aplicaciones</a></li>
-                            <li><a href="#">Estadística</a></li>
+                            <li><a href="{{ action('reportesController@index') }}">Estadística</a></li>
                             <!--li><a href="#">Resultados de básicos</a></li-->
                             <li><a href="{{ action('DatosController@create') }}">Cambiar carnet por NOV</a></li>
                             <!--li><a href="#">Asignación de salones</a></li>
