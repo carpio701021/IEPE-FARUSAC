@@ -26,6 +26,7 @@
                 <div class="form-group">
                     <div class="col-xs-6">
                         <button type="submit" class="btn btn-primary">Cargar</button>
+                        <a href="{{ action('DatosController@descargarPlantilla') }}" class="btn btn-default">Descargar plantilla</a>
                     </div>
                 </div>
             </div>

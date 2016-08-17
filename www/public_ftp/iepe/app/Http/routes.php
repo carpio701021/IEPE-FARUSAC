@@ -105,6 +105,7 @@ Route::group(['prefix' => 'aspirante'], function () {
 
                 Route::post('datos','DatosController@store')->name('admin.datos');
                 Route::get('datos','DatosController@index')->name('admin.datos');
+                Route::get('datos/plantilla','DatosController@descargarPlantilla')->name('admin.datos.plantilla');
                 Route::get('notificar','AnioController@index')->name('admin.notificar');
                 Route::get('notificar/listado','AnioController@generarListado')->name('admin.notificar.listado');
                 Route::get('notificar/enviar','AnioController@enviarEscuela')->name('admin.notificar.enviar');

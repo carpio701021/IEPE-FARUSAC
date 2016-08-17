@@ -142,11 +142,14 @@ class DatosController extends Controller
 
     public function search(Request $request){//buscar por numero de carne o vocacional
         $datos=Datos_sun::where('orientacion',$_GET['carne'])->get();
-        //return response()->json(['response' => $_GET['carne']]);
         return $datos->toJson();
-        //dd($datos);
-        //return view("admin.sun.ingresoManual", compact('datos'));
-        //return back()->with('datos',$datos);
+    }
+
+    public function descargarPlantilla(){
+        $path=storage_path().'/plantillas/plantillaDatosSun.xlsx';
+        if(file_exists($path))
+            Excel::load($path)->download('xlsx');
+
     }
 
     public function show($id)
