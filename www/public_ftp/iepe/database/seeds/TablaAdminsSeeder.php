@@ -15,9 +15,9 @@ class TablaAdminsSeeder extends Seeder
 
         (new Admin([
             'registro_personal' =>  '10000',
-            'nombre'            =>  'Angel',
-            'apellido'          =>  'Caal',
-            'email'             =>  'angel.caal@farusac.edu.gt',
+            'nombre'            =>  'Jose',
+            'apellido'          =>  'Tobias',
+            'email'             =>  'carpio701021@hotmail.com',
             'password'          =>  bcrypt('123123'),
             'rol'               =>  'superadmin',
         ]))->save();
@@ -38,7 +38,7 @@ class TablaAdminsSeeder extends Seeder
             'registro_personal' =>  '10002',
             'nombre'            =>  'Byron Alfredo',
             'apellido'          =>  'Rabé Rendón',
-            'email'             =>  'o@farusac.com',
+            'email'             =>  '201213052@ingenieria.usac.edu.gt',
             'password'          =>  bcrypt('123123'),
             'rol'               =>  'decano',
         ]))->save();
@@ -49,7 +49,7 @@ class TablaAdminsSeeder extends Seeder
             'registro_personal' =>  '10003',
             'nombre'            =>  'Publio',
             'apellido'          =>  'Rodríguez',
-            'email'             =>  'secretaria.academica@farusac.com',
+            'email'             =>  'auxjcarpio@gmail.com',
             'password'          =>  bcrypt('123123'),
             'rol'               =>  'secretario',
         ]))->save();
@@ -60,7 +60,7 @@ class TablaAdminsSeeder extends Seeder
             'registro_personal' =>  '10004',
             'nombre'            =>  'Alexander',
             'apellido'          =>  'Aguilar',
-            'email'             =>  'arquitectura.direccion@farusac.com',
+            'email'             =>  '201213058@ingenieria.usac.edu.gt',
             'password'          =>  bcrypt('123123'),
             'rol'               =>  'director_arquitectura',
         ]))->save();
@@ -71,7 +71,7 @@ class TablaAdminsSeeder extends Seeder
             'registro_personal' =>  '10005',
             'nombre'            =>  'Luis',
             'apellido'          =>  'Jurado',
-            'email'             =>  'disenografico.direccion@farusac.com',
+            'email'             =>  'jodaches@gmail.com',
             'password'          =>  bcrypt('123123'),
             'rol'               =>  'director_disenio_grafico',
         ]))->save();

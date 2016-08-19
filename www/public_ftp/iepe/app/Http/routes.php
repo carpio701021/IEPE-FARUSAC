@@ -89,6 +89,7 @@ Route::group(['prefix' => 'aspirante'], function () {
                 Route::post('recursos/guia-aplicacion','RecursosController@postGuiaAplicacion')->name('admin.recursos.guia-aplicacion');
 
                 Route::get('reportes', 'reportesController@index')->name('admin.reportes.index');
+                Route::get('reportes/general', 'reportesController@reporteGeneral')->name('admin.reportes.reporteGeneral');
 
             });
 

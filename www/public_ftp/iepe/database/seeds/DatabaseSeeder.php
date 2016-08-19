@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         Eloquent::unguard();
         $this->call(TablaAdminsSeeder::class);
-        //$this->call(TablaAspirantesSeeder::class);
-        //$this->call(AplicacionesSeeder::class);
-        //$this->call(TablaAsignacionesSeeder::class);
+        $this->call(TablaAspirantesSeeder::class);
+        $this->call(AplicacionesSeeder::class);
+        $this->call(TablaAsignacionesSeeder::class);
     }
 }
