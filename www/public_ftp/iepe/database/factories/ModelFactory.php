@@ -48,7 +48,7 @@ $factory->define(App\Aspirante::class, function (Faker\Generator $faker) {
 $factory->define(App\AspiranteAplicacion::class, function(Faker\Generator $faker){
     return [
         //'aspirante_id'                  =>  $faker->unique()->numberBetween(1000000000,1000001200),
-        'aplicacion_salon_horario_id'   =>  $faker->numberBetween(1,10),
+        'aplicacion_salon_horario_id'   =>  $faker->numberBetween(1,20),
     ];
 });
 
