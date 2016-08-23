@@ -225,7 +225,7 @@ class AspiranteAplicacionController extends Controller
     }
 
     public function descargarPlantillaResultados(){
-        $path=storage_path().'/Formatos/formatoSubirResultados.xlsx';
+        $path=storage_path().'/plantillas/plantillaSubirResultados.xlsx';
         if(file_exists($path))
             Excel::load($path)->download('xlsx');
 
