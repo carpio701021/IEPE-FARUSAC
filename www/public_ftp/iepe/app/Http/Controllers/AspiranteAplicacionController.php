@@ -223,4 +223,11 @@ class AspiranteAplicacionController extends Controller
         $a->update($request->all());
         return back();
     }
+
+    public function descargarPlantillaResultados(){
+        $path=storage_path().'/plantillas/plantillaSubirResultados.xlsx';
+        if(file_exists($path))
+            Excel::load($path)->download('xlsx');
+
+    }
 }

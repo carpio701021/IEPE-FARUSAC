@@ -71,6 +71,8 @@ Route::group(['prefix' => 'aspirante'], function () {
                     'edit','update'
                 ]]);
                 Route::post('aplicacion/subirResultados/{aplicacion_id}/percentiles','AplicacionController@actualizarPercentiles')->name('admin.aplicacion.percentiles');
+                Route::get('aplicacion/plantilla/resultados','AspiranteAplicacionController@descargarPlantillaResultados')->name('admin.aplicacion.plantillaResutlados');
+
 
                 //Route::resource('datos','DatosController');
                 Route::post('datos/insert','DatosController@insert')->name('admin.datos.insert');
