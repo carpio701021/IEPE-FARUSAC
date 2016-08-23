@@ -13,6 +13,5 @@ class TablaAspirantesSeeder extends Seeder
     {
         factory(App\Aspirante::class, 500)->create();
         //factory(App\AspiranteAplicacion::class,1200)->create();
-        echo 'termine el seed aspirantes';
     }
 }

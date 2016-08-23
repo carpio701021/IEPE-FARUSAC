@@ -65,8 +65,9 @@ class AspiranteAplicacionController extends Controller
     {
         $asignacion = new AspiranteAplicacion();
         if($asignacion->asignar(Auth::user()->NOV,$request->aplicacion_id)){//true si hay cupo, false ya no hay cupo
+            //dd($asignacion);
             $asignacion->save();
-            $pdf=$this->generarConstanciaPDF($asignacion->id);
+            $pdf=$this->generarConstanciaPDF($asignacion->aplicacion_salon_horario);
             $mail = new Mail();
             $request->session()->flash('mensaje_exito', 'Asignación realizada correctamente, puedes revisar tu salón y horario para la prueba');
             if($mail->send([Auth::user()->email =>
@@ -209,8 +210,9 @@ class AspiranteAplicacionController extends Controller
     }
 
     private function generarConstanciaPDF($id){
-        $asignacion = AplicacionSalonHorario::findOrFail($id);
 
+        $asignacion = AplicacionSalonHorario::findOrFail($id);
+        dd($asignacion);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setPaper('letter', 'portrait');
         $aspirante = Auth::user();
