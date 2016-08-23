@@ -17,10 +17,10 @@
         </div>
     </div>
 
-    <script>
+    {{--<script>
         window.setTimeout(function () { // hide alert message
             $("#alert_message").alert('close');
         }, 7000);//milisegundos
-    </script>
+    </script>--}}
 
 @endif
