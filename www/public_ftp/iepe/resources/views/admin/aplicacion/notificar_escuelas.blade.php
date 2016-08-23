@@ -7,13 +7,12 @@
 
 
         <br>
-
         <div class="panel-group">
         @foreach ($anios as $anio)
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#collapse_{{ $anio->year }}"><b>{{ $anio->year }}</b></a>
+                            <a data-toggle="collapse" href="#collapse_{{ $anio->year }}">Evaluados y aprobados el <b>{{ $anio->year }}</b> (para ingresar el {{ $anio->year +1 }})</a>
                         </h4>
                     </div>
                     <div id="collapse_{{ $anio->year }}" class="panel-collapse collapse">

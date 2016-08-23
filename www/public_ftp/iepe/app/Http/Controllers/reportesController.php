@@ -45,7 +45,7 @@ class reportesController extends Controller
                 join('aspirantes','aspirantes_aplicaciones.aspirante_id','=','aspirantes.NOV')
                     ->leftJoin('actas','aspirantes_aplicaciones.acta_id','=','actas.id')
                     ->leftJoin('formularios','aspirantes.NOV','=','formularios.NOV')
-                    ->leftJoin('aplicaciones','actas.aplicacion_id','=','aplicaciones.id')
+                    ->join('aplicaciones','aspirantes_aplicaciones.aplicacion_id','=','aplicaciones.id')
                     ->get();
                 //dd($consulta);
 

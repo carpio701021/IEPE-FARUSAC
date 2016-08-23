@@ -10,7 +10,6 @@
 </script>
 @section('content')	
 	<h1>Prueba específica</h1>
-	<div class="container">
         <h2>Aplicaciones</h2>
 
 		@if(count($proximas)>0 || count($asignadas)>0)
@@ -164,5 +163,4 @@
 				disponibles, cuando exista alguna</div>
 			</div>
 		@endif
-    </div>
 @stop
