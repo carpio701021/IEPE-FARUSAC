@@ -28,6 +28,7 @@
                     <div class="form-group">
                         <div class="col-xs-6">
                             <button type="submit" class="btn btn-primary">Cargar</button>
+                            <a href="{{ action('AspiranteAplicacionController@descargarPlantillaResultados') }}" class="btn btn-default">Descargar plantilla</a>
                         </div>
                     </div>
                 </div>
