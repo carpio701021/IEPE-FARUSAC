@@ -43,24 +43,32 @@ class reportesController extends Controller
             $excel->sheet('First sheet', function($sheet) {
                 $consulta = AspiranteAplicacion::
                 join('aspirantes','aspirantes_aplicaciones.aspirante_id','=','aspirantes.NOV')
+                    ->join('aplicaciones_salones_horarios','aplicaciones_salones_horarios.id','=','aspirantes_aplicaciones.aplicacion_salon_horario_id')
+                    ->join('aplicaciones','aplicaciones_salones_horarios.aplicacion_id','=','aplicaciones.id')
                     ->leftJoin('actas','aspirantes_aplicaciones.acta_id','=','actas.id')
                     ->leftJoin('formularios','aspirantes.NOV','=','formularios.NOV')
-                    ->join('aplicaciones','aspirantes_aplicaciones.aplicacion_id','=','aplicaciones.id')
                     ->get();
                 //dd($consulta);
 
+                //$sheet->fromArray($consulta);
                 $data = [];
                 foreach($consulta as $tupla){
                     $data[] = [
-                        'No. Acta' => $tupla->acta_id,
+                        'Número de Orientación Vocacional' => $tupla->NOV,
+                        'Nombres' => $tupla->nombre,
+                        'Apellidos' => $tupla->apellido,
                         'RA' => $tupla->nota_RA,
                         'APE' => $tupla->nota_APE,
                         'RV' => $tupla->nota_RV,
                         'APN' => $tupla->nota_APN,
+                        'Percentil RA evaluado' => $tupla->percentil_RA,
+                        'Percentil APE evaluado' => $tupla->percentil_APE,
+                        'Percentil RV evaluado' => $tupla->percentil_RV,
+                        'Percentil APN evaluado' => $tupla->percentil_APN,
+                        'Año de aplicacion' => $tupla->year,
+                        'Número de aplicación' => $tupla->naplicacion,
+                        'No. Acta' => $tupla->acta_id,
                         'Resultado' => $tupla->resultado,
-                        'Número de Orientación Vocacional' => $tupla->NOV,
-                        'Nombres' => $tupla->nombre,
-                        'Apellidos' => $tupla->apellido,
                         'Correo' => $tupla->email,
                         'Estado del acta' => $tupla->estado,
                         'Residencia' => $tupla->residencia,
@@ -80,14 +88,8 @@ class reportesController extends Controller
                         'Jornada de interés' => $tupla->jornada,
                         'Confirmó sus intereses' => (isset($tupla->confirmacion_intereses)?'Si':'No'),
                         'Caso especial' => (isset($tupla->irregular)?'Si':'No'),
-                        'Año de aplicacion' => $tupla->year,
-                        'Número de aplicación' => $tupla->naplicacion,
                         'Fecha de inicio de asignaciones' => $tupla->fecha_inicio_asignaciones,
                         'Fecha de fin de asignaciones' => $tupla->fecha_fin_asignaciones,
-                        'Percentil RA evaluado' => $tupla->percentil_RA,
-                        'Percentil APE evaluado' => $tupla->percentil_APE,
-                        'Percentil RV evaluado' => $tupla->percentil_RV,
-                        'Percentil APN evaluado' => $tupla->percentil_APN
                     ];
 
                 }
