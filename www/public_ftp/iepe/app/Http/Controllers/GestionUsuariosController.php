@@ -103,7 +103,7 @@ class GestionUsuariosController extends Controller
         $admin = Admin::findOrFail($id);
         $admin->update($request->all());
         $request->session()->flash('mensaje_exito','Cambios en usuario <i>'.$admin->registro_personal.'</i> guardados.');
-        return back();
+        return redirect(action('GestionUsuariosController@index'));
     }
 
     /**

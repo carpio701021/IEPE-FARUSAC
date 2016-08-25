@@ -81,6 +81,9 @@ class DatosController extends Controller
         $insertados=0;
         $conteo=1;
         foreach ($results as $row){
+            if (isset($row['fecha_nacimiento']) || $row['fecha_nacimiento'] || $row['fecha_nacimiento'] != NULL){
+                $row['fecha_nacimiento'] = '01/01/1900';
+            }
             if(is_string($row->fecha_evaluacion)){
                 $row['fecha_evaluacion']=Carbon::createFromFormat('d/m/Y', $row->fecha_evaluacion)->toDateString();
             }
@@ -94,9 +97,9 @@ class DatosController extends Controller
                 array_push($errors,$validator);
             }elseif(!(Datos_sun::where('fecha_evaluacion',$row->fecha_evaluacion)->where('orientacion',$row->orientacion)->where('id_materia',$row->id_materia)->count()>0)){
 
-                if($row['sexo'] == 1){
+                if($row['sexo'] == 0 || $row['sexo'] == 1){
                     $row['sexo'] = "0";
-                } else if($row['sexo'] == 2){
+                } else {// if($row['sexo'] == 2){ //lo que sea de más será mujer
                     $row['sexo'] = "1";
                 }
 
@@ -111,12 +114,12 @@ class DatosController extends Controller
     private function validar($row,$conteo){
         $rules = [
             'orientacion' => 'required|integer|digits_between:9,10',
-            'primer_apellido' => 'required|max:35',
-            'segundo_apellido' =>'max:35',
-            'primer_nombre' => 'required|max:35',
-            'segundo_nombre' => 'max:35',
-            'fecha_nacimiento' => 'required|date',
-            'sexo' => 'required|in:1,2',
+            'primer_apellido' => 'required|max:75',
+            'segundo_apellido' =>'max:75',
+            'primer_nombre' => 'max:75',
+            'segundo_nombre' => 'max:75',
+            'fecha_nacimiento' => 'date', //si no viene poner algo
+            'sexo' => 'integer',//validar 0,1,2 o vacío
             'id_materia' => 'required|integer',
             'aprobacion' => 'required|in:1,0,true,false',
             'fecha_evaluacion' => 'required|date',

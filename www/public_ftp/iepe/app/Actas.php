@@ -22,7 +22,8 @@ class Actas extends Model
     }
     
     public function getName(){
-        return explode('/',$this->path_pdf)[7];
+        $array = explode('/',$this->path_pdf);
+        return $array[count($array)-1];
     }
     
 }

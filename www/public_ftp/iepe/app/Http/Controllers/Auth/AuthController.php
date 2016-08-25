@@ -118,6 +118,7 @@ class AuthController extends Controller
 
         //redirect('/register')->with('status', 'We sent you an activation code. Check your email.');
 
+
         /**
          * Verificar si existe en la base de datos
          * del SUN (deben ganar lenguaje-> 3 y matematicas-> 4)
@@ -125,16 +126,18 @@ class AuthController extends Controller
          **/
         $lenguaje = Datos_sun::where('orientacion',$request->NOV)
             ->where('fecha_nacimiento',$request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0])
+            ->orWhere('fecha_nacimiento','1990-1-1')
             ->where('id_materia','3')
             ->where('aprobacion','1')
             ->first();
         $mate = Datos_sun::where('orientacion',$request->NOV)
             ->where('fecha_nacimiento',$request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0])
+            ->orWhere('fecha_nacimiento','1990-1-1')
             ->where('id_materia','4')
             ->where('aprobacion','1')
             ->first();
 
-        //dd($mate);
+            //dd($mate);
         if($lenguaje == null || $mate == null){
             $errors = Array('NOV'=>'No se han encontrado registros válidos en nuestra base de datos.');
             return back()->withErrors($errors)->withInput();
@@ -144,6 +147,20 @@ class AuthController extends Controller
             $errors = Array('NOV'=>'Número bloqueado. Pasar a Orientación estudiantil de la facultad de Arquitectura, USAC.');
             return back()->withErrors($errors)->withInput();
         }
+
+        /**
+         * Los dantos del sun que no traian fecha de nacimiento se les puso 1/1/1900
+         * por lo que hay que validar si es esa fecha hay que
+         **/
+        if($lenguaje['fecha_nacimiento']=='1900-1-1'){
+            $lenguaje->fecha_nacimiento = $request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0];
+            $lenguaje->save();
+        }
+        if($mate['fecha_nacimiento']=='1900-1-1'){
+            $mate->fecha_nacimiento = $request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0];
+            $mate->save();
+        }
+
         //dd($request->nombre);
         $data = $request->all();
         $data['nombre'] = $mate->primer_nombre.' '.$mate->segundo_nombre;

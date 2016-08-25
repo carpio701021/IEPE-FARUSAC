@@ -83,7 +83,7 @@ class ActaController extends Controller
         $acta=Actas::find($id);
         return Response::make(file_get_contents($acta->path_pdf), 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="Acta'.$acta->id.'"'
+            'Content-Disposition' => 'inline; filename="Acta'.$acta->id.'.pdf"'
         ]);
     }
 
