@@ -47,4 +47,9 @@ class AplicacionSalonHorario extends Model
         return Carbon::parse($this->fecha_aplicacion )->format('d/m/Y');
     }
 
+    public function actualizarCupo(){
+        $this->asignados = AspiranteAplicacion::where('aplicacion_salon_horario_id',$this->id)->count();
+        $this->save();
+    }
+
 }

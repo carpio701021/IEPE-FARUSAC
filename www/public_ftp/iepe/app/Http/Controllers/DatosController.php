@@ -105,13 +105,13 @@ class DatosController extends Controller
                 $nombre = '';
                 $nombre .= ($row['primer_nombre']) ? $row['primer_nombre'] : '';
                 $nombre .= ($row['segundo_nombre']) ? ' ' . $row['segundo_nombre'] : '';
-                $row['primer_nombre'] = ($nombre != '') ? trim($nombre) : 'Indefinido';
+                $row['primer_nombre'] = ($nombre != '') ? trim($nombre) : '';
                 $row['segundo_nombre'] = '';
 
                 $apellido = '';
                 $apellido .= ($row['primer_apellido']) ? $row['primer_apellido'] : '';
                 $apellido .= ($row['segundo_apellido']) ? ' ' . $row['segundo_apellido'] : '';
-                $row['primer_apellido'] = ($apellido != '') ? trim($apellido) : 'Indefinido';
+                $row['primer_apellido'] = ($apellido != '') ? trim($apellido) : '';
                 $row['segundo_apellido'] = '';
 
                 Datos_sun::create($row->toarray());

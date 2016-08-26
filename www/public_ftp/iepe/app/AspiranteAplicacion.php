@@ -63,18 +63,20 @@ class AspiranteAplicacion extends Model
     }
 
     public function asignar($aspirante_id, $aplicacion_id){
+        $asignacion = new AspiranteAplicacion();
         $aplicaciones_salones_horarios = AplicacionSalonHorario::where("aplicacion_id",$aplicacion_id)
-            ->orderby('fecha_aplicacion','asc')
+            ->orderby('id','asc')
             ->get();
         foreach ($aplicaciones_salones_horarios as $ash){
             if($ash->getSalon()->capacidad>$ash->asignados){
                 $this->aspirante_id=$aspirante_id;
-                $this->aplicacion_salon_horario_id =$ash->id;
-                $ash->increment('asignados');
+                $this->aplicacion_salon_horario_id = $ash->id;
+                $this->save();
+                //$ash->increment('asignados');
+                $ash->actualizarCupo();
                 return true;
             }
         }
         return false;
-
     }
 }
