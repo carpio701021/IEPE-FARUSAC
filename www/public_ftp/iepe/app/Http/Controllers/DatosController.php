@@ -81,7 +81,7 @@ class DatosController extends Controller
         $insertados=0;
         $conteo=1;
         foreach ($results as $row){
-            if (isset($row['fecha_nacimiento']) || $row['fecha_nacimiento'] || $row['fecha_nacimiento'] != NULL){
+            if (!isset($row['fecha_nacimiento']) || !$row['fecha_nacimiento'] || $row['fecha_nacimiento'] == NULL){
                 $row['fecha_nacimiento'] = '01/01/1900';
             }
             if(is_string($row->fecha_evaluacion)){
@@ -102,6 +102,17 @@ class DatosController extends Controller
                 } else {// if($row['sexo'] == 2){ //lo que sea de más será mujer
                     $row['sexo'] = "1";
                 }
+                $nombre = '';
+                $nombre .= ($row['primer_nombre']) ? $row['primer_nombre'] : '';
+                $nombre .= ($row['segundo_nombre']) ? ' ' . $row['segundo_nombre'] : '';
+                $row['primer_nombre'] = ($nombre != '') ? trim($nombre) : 'Indefinido';
+                $row['segundo_nombre'] = '';
+
+                $apellido = '';
+                $apellido .= ($row['primer_apellido']) ? $row['primer_apellido'] : '';
+                $apellido .= ($row['segundo_apellido']) ? ' ' . $row['segundo_apellido'] : '';
+                $row['primer_apellido'] = ($apellido != '') ? trim($apellido) : 'Indefinido';
+                $row['segundo_apellido'] = '';
 
                 Datos_sun::create($row->toarray());
                 $insertados=$insertados+1;
@@ -114,7 +125,7 @@ class DatosController extends Controller
     private function validar($row,$conteo){
         $rules = [
             'orientacion' => 'required|integer|digits_between:9,10',
-            'primer_apellido' => 'required|max:75',
+            'primer_apellido' => 'max:75',
             'segundo_apellido' =>'max:75',
             'primer_nombre' => 'max:75',
             'segundo_nombre' => 'max:75',

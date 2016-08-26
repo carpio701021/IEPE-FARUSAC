@@ -126,18 +126,30 @@ class AuthController extends Controller
          **/
         $lenguaje = Datos_sun::where('orientacion',$request->NOV)
             ->where('fecha_nacimiento',$request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0])
-            ->orWhere('fecha_nacimiento','1990-1-1')
             ->where('id_materia','3')
             ->where('aprobacion','1')
             ->first();
+        if ($lenguaje == NULL) {
+            $lenguaje = Datos_sun::where('orientacion',$request->NOV)
+                ->where('fecha_nacimiento','1900-01-01')
+                ->where('id_materia','3')
+                ->where('aprobacion','1')
+                ->first();
+        }
         $mate = Datos_sun::where('orientacion',$request->NOV)
             ->where('fecha_nacimiento',$request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0])
-            ->orWhere('fecha_nacimiento','1990-1-1')
             ->where('id_materia','4')
             ->where('aprobacion','1')
             ->first();
+        if ($mate == NULL) {
+            $mate = Datos_sun::where('orientacion',$request->NOV)
+                ->where('fecha_nacimiento','1900-01-01')
+                ->where('id_materia','4')
+                ->where('aprobacion','1')
+                ->first();
+        }
 
-            //dd($mate);
+        //dd($mate);
         if($lenguaje == null || $mate == null){
             $errors = Array('NOV'=>'No se han encontrado registros válidos en nuestra base de datos.');
             return back()->withErrors($errors)->withInput();
@@ -225,16 +237,16 @@ class AuthController extends Controller
     public function authenticated(Request $request, $user)
     {
         if (!$user->activated) {
-                $exito = $this->activationService->sendActivationMail($user);
-                if(!$exito){
-                    auth()->logout();
-                    $request->session()->flash('status','Estamos teniendo problemas para enviar el correo de verificación. Por favor intenta más tarde.');
-                    return redirect(action('Auth\AuthController@showLoginForm'));
-                }else{
-                    auth()->logout();
-                    $request->session()->flash('status','Necesitas confirmar tu correo. Se te ha enviado un código de verificación, por favor revisa tu correo.');
-                    return back();
-                }
+            $exito = $this->activationService->sendActivationMail($user);
+            if(!$exito){
+                auth()->logout();
+                $request->session()->flash('status','Estamos teniendo problemas para enviar el correo de verificación. Por favor intenta más tarde.');
+                return redirect(action('Auth\AuthController@showLoginForm'));
+            }else{
+                auth()->logout();
+                $request->session()->flash('status','Necesitas confirmar tu correo. Se te ha enviado un código de verificación, por favor revisa tu correo.');
+                return back();
+            }
 
             //return back()->with('warning', 'Necesitas confirmar tu correo. Nosotros te enviamos un código de verificación, por favor revisa tu correo.');
         }
