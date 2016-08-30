@@ -22,7 +22,7 @@
 							- <strong>No asignada</strong>
 						</h4>
 					</div>
-					<div id="colapse{{$aplicacion->id}}" class="panel-collapse collapse">
+					<div id="colapse{{$aplicacion->id}}" class="panel-collapse collapse in">
 						<div class="panel-body">
 							<div class="col-sm-3">
 								<div class="row">
@@ -62,7 +62,7 @@
 							<a data-toggle="collapse" href="#colaps{{$asignada->id}}">{{$asignada->getAplicacion()->nombre()}}</a>
 						</h4>
 					</div>
-					<div id="colaps{{$asignada->id}}" class="panel-collapse collapse">
+					<div id="colaps{{$asignada->id}}" class="panel-collapse collapse in">
 						<div class="panel-body">
 							<div class="col-sm-6">
 								<h4>Datos de asignación</h4>

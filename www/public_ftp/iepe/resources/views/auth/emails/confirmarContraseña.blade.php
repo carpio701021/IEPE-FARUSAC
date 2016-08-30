@@ -3,5 +3,5 @@
 <p><a href="{{ $link }}">{{ $link }}</a></p>
 <br /><br />
 <p>Esperando termines tu proceso con éxito,<br />
-Equipo de Bienestar y Desarrollo Estudiantil, FAUSAC.
+Equipo de Bienestar y Desarrollo Estudiantil, FARUSAC.
 </p>

@@ -73,7 +73,7 @@ class AspiranteAplicacionController extends Controller
             if($mail->send([Auth::user()->email =>
                 Auth::user()->getFormulario()->nombre." ".Auth::user()->getFormulario()->apellido],
                 'Constancia de asignación',
-                'Imprime esta constancia para resguardar tu asignación',
+                'Te has asignado exitosamente, debes imprimir la constancia adjunta y presentarla el día de la aplicación.',
                 $pdf->output(),
                 'Constancia de asignación '.Auth::user()->NOV))
             {

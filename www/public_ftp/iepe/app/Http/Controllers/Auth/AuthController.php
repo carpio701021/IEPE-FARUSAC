@@ -91,7 +91,7 @@ class AuthController extends Controller
             auth()->login($aspirante);
             return redirect($this->redirectPath());
         }
-        abort(404);
+        return redirect(action('Auth\AuthController@showLoginForm'));
     }
 
     /**

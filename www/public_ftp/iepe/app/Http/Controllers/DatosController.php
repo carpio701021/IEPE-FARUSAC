@@ -129,7 +129,7 @@ class DatosController extends Controller
             'segundo_apellido' =>'max:75',
             'primer_nombre' => 'max:75',
             'segundo_nombre' => 'max:75',
-            'fecha_nacimiento' => 'date', //si no viene poner algo
+            'fecha_nacimiento' => 'date', //si no viene pone 1900
             'sexo' => 'integer',//validar 0,1,2 o vacío
             'id_materia' => 'required|integer',
             'aprobacion' => 'required|in:1,0,true,false',

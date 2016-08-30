@@ -51,7 +51,7 @@
                 <li id="li_pruebaEspecifica">
                     <a href="{{ action('AspiranteAplicacionController@create') }}">
                         <span class="glyphicon glyphicon-align-justify" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
-                        Prueba Específica</a>
+                        Asignar Específica</a>
                 </li>
                 <li>
                     <a href="{{ action('formularioController@getConfirmacion') }}">
