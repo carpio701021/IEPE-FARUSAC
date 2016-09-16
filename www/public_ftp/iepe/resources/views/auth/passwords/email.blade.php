@@ -41,6 +41,11 @@
                     </form>
                 </div>
             </div>
+            <div class="alert alert-warning" role="alert">
+                <strong>¿Cómo funciona?</strong><br>
+                Se te enviará a tu correo un enlace secreto para restablecer tu contraseña. <br>
+                Si ya no tienes acceso a tu correo, debes presentarte a la oficina de Bienestar y Desarrollo Estudiantil de la Facultad de Arquitectura o escribenos por medio de la <a href="https://www.facebook.com/BienestaryDesarrolloEstudiantilFarusac" target="_blank">fanpage de facebook</a> para que te sea restablecido tu nuevo correo.
+            </div>
         </div>
     </div>
 </div>

@@ -22,7 +22,7 @@
                             <a data-toggle="collapse" href="#collapse_{{ $aplicacion->id }}"><b>{{ $aplicacion->nombre() }}</b></a>
                         </h4>
                     </div>
-                    <div id="collapse_{{ $aplicacion->id }}" class="panel-collapse collapse">
+                    <div id="collapse_{{ $aplicacion->id }}" class="panel-collapse collapse in">
                         <div class="panel-body">
 
                             <div class="row">

@@ -25,7 +25,7 @@
                             <a data-toggle="collapse" href="#collapse_{{ $anio->anio }}"><b>{{ $anio->anio }}</b></a>
                         </h4>
                     </div>
-                    <div id="collapse_{{ $anio->anio }}" class="panel-collapse collapse">
+                    <div id="collapse_{{ $anio->anio }}" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-4">

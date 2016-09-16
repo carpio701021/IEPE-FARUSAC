@@ -38,20 +38,25 @@
                     Guía de aplicación</a></li>
             <li>&nbsp;</li>
             @if  (Auth::guest())
-                <li><a href="{{ action('Auth\AuthController@showLoginForm') }}"><span class="glyphicon glyphicon-log-in" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
-                        Iniciar Sesión</a></li>
                 <li><a href="{{ action('Auth\AuthController@showRegistrationForm') }}"><span class="glyphicon glyphicon-user" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Registro</a></li>
+                <li><a href="{{ action('Auth\AuthController@showLoginForm') }}"><span class="glyphicon glyphicon-log-in" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                        Iniciar Sesión</a></li>
             @else
                 <li id="item_aspirante">
                     <a href="{{ action('AspiranteController@index') }}">
                         <span class="glyphicon glyphicon-edit" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Datos</a>
                 </li>
-                <li id="li_pruebaEspecifica">
+                <li id="li_pruebaEspecifica" style="background:orangered" class="parpadea">
                     <a href="{{ action('AspiranteAplicacionController@create') }}">
                         <span class="glyphicon glyphicon-align-justify" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Asignar Específica</a>
+                </li>
+                <li id="li_pruebaEspecifica">
+                    <a href="{{ action('AspiranteAplicacionController@create') }}">
+                        <span class="glyphicon glyphicon-tasks" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
+                        Resultados</a>
                 </li>
                 <li>
                     <a href="{{ action('formularioController@getConfirmacion') }}">
@@ -108,7 +113,7 @@
 
                         <div class="container" id="menu-toggle">
                             <a href="#menu-toggle" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-menu-hamburger"></span>
+                                <span class="glyphicon glyphicon-menu-hamburger"></span> Menú
                             </a>
                             <br>
                             <br>

@@ -53,7 +53,7 @@
                             <label class="col-md-4 control-label">Confirmar correo electrónico*</label>
 
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email_confirmation" value="{{ old('email_confirmation') }}"  autocomplete="off">
+                                <input type="email" class="form-control" name="email_confirmation" value="{{ old('email_confirmation') }}"  autocomplete="off" oncopy="return false" oncut="return false" onpaste="return false">
 
                                 @if ($errors->has('email_confirmation'))
                                     <span class="help-block">
@@ -136,6 +136,10 @@
                         </div>
                     </form>
                 </div>
+            </div>
+
+            <div class="alert alert-warning" role="alert">
+                Si ya estas registrado prueba <a href="{{ action('Auth\PasswordController@showResetForm') }}">recuperar contraseña</a>.
             </div>
         </div>
 

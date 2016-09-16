@@ -64,7 +64,11 @@
                             </div>
                         </div>
                     </form>
+                    <br>
                 </div>
+            </div>
+            <div class="alert alert-warning" role="alert">
+                <strong>Recuerda</strong> que debes estar registrado para ingresar. Ir a <a href="{{ action('Auth\AuthController@showRegistrationForm') }}">registrarme</a>.
             </div>
         </div>
     </div>
