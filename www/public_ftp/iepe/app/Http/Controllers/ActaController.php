@@ -58,6 +58,7 @@ class ActaController extends Controller
 
         $aspirantes=$asignaciones->join('aspirantes','aspirante_id','=','aspirantes.NOV')
             ->selectRaw('aa.*,aspirantes.nombre,aspirantes.apellido')
+            ->orderBy('aspirantes.NOV')//linea por fe
             ->get();
         $pdf->loadView('admin.pdf.acta',compact('acta','aspirantes','aplicacion','fecha'));
 
