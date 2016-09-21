@@ -53,8 +53,10 @@ class ActaController extends Controller
             ->where('acta_id','0');
         $acta= Actas::create($request->all());//inserta aplicacion_id y estado='propuesta'
 
+
         $pdf = \App::make('dompdf.wrapper');
         $fecha=Carbon::parse($acta->created_at);
+
 
         $aspirantes=$asignaciones->join('aspirantes','aspirante_id','=','aspirantes.NOV')
             ->selectRaw('aa.*,aspirantes.nombre,aspirantes.apellido')
@@ -62,7 +64,10 @@ class ActaController extends Controller
             ->get();
         $pdf->loadView('admin.pdf.acta',compact('acta','aspirantes','aplicacion','fecha'));
 
-        $asignaciones->update(['acta_id'=>$acta->id]);
+        $asignaciones2 = $aplicacion->getAsignaciones()
+            ->where('resultado','aprobado')
+            ->where('acta_id','0');
+        $asignaciones2->update(['acta_id'=>$acta->id]);
         
         $path=storage_path().'/actas/Acta'.$acta->id.'-'.$aplicacion->nombre();
         $pdf->save($path);

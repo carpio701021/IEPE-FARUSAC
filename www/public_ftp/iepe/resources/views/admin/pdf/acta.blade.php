@@ -14,9 +14,7 @@
     Nivel, estado presentes: Arquitecto Byron Alfredo Rabe Rendón, Decano, Arquitecto 
     Publio Alcides Rodríguez Lobos, Secretario Académico, Arquitecto Oscar Romeo Enríquez 
     Guitiérrez, Jefe de Unidad de Desarrollo y Bienestar Estudiantil hacen constar: <b>PRIMERO: </b>
-    de acuerdo a los percentiles recomendados en la aplicación de la prueba Específica, que dan 
-    como resultado satisfactorio, se detalla a continuación el listado de aspirantes estudiantiles 
-    que cumplen con este requisito.
+    de acuerdo a los parámetros previamente convenidos para, con evaluación satisfactoria son {{ count($aspirantes) }}:
     </p>
     
     <table class="table" width="100%">

@@ -103,12 +103,7 @@
                     ||Auth::guard('admin')->user()->tieneRol('secretario')
                     ||Auth::guard('admin')->user()->tieneRol('decano'))
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Actas <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ action('ActaController@index') }}">Flujo de actas</a></li>
-                        </ul>
+                            <a href="{{ action('ActaController@index') }}">Actas</a>
                     </li>
                     @endif
                 </ul>

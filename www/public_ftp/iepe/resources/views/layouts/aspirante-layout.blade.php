@@ -48,7 +48,8 @@
                         <span class="glyphicon glyphicon-edit" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Datos</a>
                 </li>
-                <li id="li_pruebaEspecifica" style="background:orangered" class="parpadea">
+                <!--li id="li_pruebaEspecifica" style="background:#e2b12c" class="parpadea"-->
+                <li id="li_pruebaEspecifica" style="background:#e2b12c">
                     <a href="{{ action('AspiranteAplicacionController@create') }}">
                         <span class="glyphicon glyphicon-align-justify" style="font-size:25px"></span>&nbsp;&nbsp;&nbsp;
                         Asignar Específica</a>
