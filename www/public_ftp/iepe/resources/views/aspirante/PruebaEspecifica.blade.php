@@ -145,13 +145,21 @@
 										@endif
 									</div>
 								</div>
+
 							</div>
 						</div>
 						<div class="panel-footer">
-							<form class="form-group" method="GET" action="{{ action('AspiranteAplicacionController@show',['PruebaEspecifica'=>$asignada->aplicacion_salon_horario_id]) }}" target="_blank">
-								<input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
-								<input class="btn btn-primary "type="submit"  value="Ver constancia de asignación"/>
-							</form>
+							@if($asignada->getAplicacion()->mostrar_resultados==1)
+								<div class="alert alert-warning" role="alert">
+									<b>Nota: </b>De obtener uno o más resultados insatisfactorios, debe volver
+									a asignarse la prueba, <b>evaluando las 4 áreas nuevamente</b>.
+								</div>
+							@else
+								<form class="form-group" method="GET" action="{{ action('AspiranteAplicacionController@show',['PruebaEspecifica'=>$asignada->aplicacion_salon_horario_id]) }}" target="_blank">
+									<input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
+									<input class="btn btn-primary "type="submit"  value="Ver constancia de asignación"/>
+								</form>
+							@endif
 						</div>
 					</div>
 				</div>
@@ -163,4 +171,5 @@
 				disponibles, cuando exista alguna</div>
 			</div>
 		@endif
+
 @stop
