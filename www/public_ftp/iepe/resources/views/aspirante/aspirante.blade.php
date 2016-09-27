@@ -19,15 +19,13 @@
 											<p class="form-control-static">{{Auth::user()->getNombreCompleto()}}</p>
 										</div>
 									</div>
-									{{--
+
 									<div class="row">
 										<label class="control-label col-xs-6" >Género:</label>
 										<div class="col-xs-6">
-											<p class="form-control-static">@if(Auth::user()->getGenero()==1) Masculino
-												@else Femenino @endif</p>
+											<p class="form-control-static">{{Auth::user()->getGenero()}}</p>
 										</div>
 									</div>
-									--}}
 									<div class="row">
 										<label class="control-label col-xs-6" >Residencia:</label>
 										<div class="col-xs-6">
@@ -161,6 +159,15 @@
 								<div class="modal-body">
 									<form class="form-horizontal" role="form" action="{{ action('formularioController@update',['formualrio'=>$formulario->id_formulario]) }}" method="post">
 										<input type="hidden" name="_method" value="PUT">
+										<div class="form-group">
+											<label class="control-label col-sm-2" for="estado_civil">Género:</label>
+											<div class="col-sm-10">
+												<select class="form-control" name="genero" id="estado_civil">
+													<option value="masculino" @if($formulario->genero=="masculino") selected @endif>Masculino</option>
+													<option value="femenino" @if($formulario->genero=="femenino") selected @endif>Femenino</option>
+												</select>
+											</div>
+										</div>
 										<div class="form-group">
 											<label class="control-label col-sm-2" for="residencia">Residencia:</label>
 											<div class="col-sm-10">

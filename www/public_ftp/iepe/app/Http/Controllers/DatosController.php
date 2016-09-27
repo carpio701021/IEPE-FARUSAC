@@ -39,7 +39,7 @@ class DatosController extends Controller
         $dato_sun['orientacion']=$request->orientacion;
         Datos_sun::create($dato_sun->toarray());
         $request->session()->flash('mensaje_exito','Agregado a base de datos de resultados básicos, ahora es posible crean un usuario con No. Orientación: '.$request->orientacion);
-        return back()->withErrors($request);
+        return back();
     }
     /**
      * Store a newly created resource in storage.

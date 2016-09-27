@@ -92,6 +92,16 @@
                     </div>
                 </div>
 
+                <div class="form-group{{ $errors->has('genero') ? ' has-error' : '' }}">
+                    <label class="col-md-4 control-label">Género: </label>
+                    <div class="col-md-6">
+                        <select class="form-control" name="genero">
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group{{ $errors->has('estado_laboral') ? ' has-error' : '' }}">
                     <label class="col-md-4 control-label">Situación laboral: </label>
                     <div class="col-md-6">

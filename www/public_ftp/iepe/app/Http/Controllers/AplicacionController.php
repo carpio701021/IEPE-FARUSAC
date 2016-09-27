@@ -411,6 +411,94 @@ class AplicacionController extends Controller
         //});
     }
 
+    public function getListadoGeneral($id){
+        $aspirantes = AspiranteAplicacion::join('aspirantes', 'aspirante_id', '=', 'aspirantes.NOV')
+            ->join('aplicaciones_salones_horarios as ash','ash.id','=','aplicacion_salon_horario_id')
+            ->join('horarios','horarios.id','=','ash.horario_id')
+            ->join('salones','salones.id','=','ash.salon_id')
+            ->selectRaw('NOV,aspirantes.nombre,apellido,ash.fecha_aplicacion,hora_inicio,hora_fin,salones.nombre as salon')
+            ->where('ash.aplicacion_id','=',$id);
+        //dd($aspirantes->get());
+        //Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
+        Excel::create('ListadoGeneral_'.Aplicacion::find($id)->nombre(),function($excel) use ($aspirantes,$id){
+                         //obtener data
+                $excel->sheet("Listado", function($sheet) use ($aspirantes, $id) {
+
+                        $asignaciones=$aspirantes->get();
+                        //agregar data a la hoja
+                        $sheet->fromModel($asignaciones, null, 'B9', false) ;
+
+                        //agregar imagen usac
+                        /*$objDrawing = new PHPExcel_Worksheet_Drawing();
+                        $objDrawing->setName('logo_usac');
+                        $objDrawing->setDescription('Logo');
+                        $logo = ('aspirante_public/img/logo_usac.png'); // Provide path to your logo file
+                        $objDrawing->setPath($logo);
+                        $objDrawing->setCoordinates('B3');
+                        $objDrawing->setHeight(60); // logo height
+                        $objDrawing->setWorksheet($sheet);
+
+                        //agregar imagen farusac
+                        $objDrawing = new PHPExcel_Worksheet_Drawing();
+                        $objDrawing->setName('logo_farusac');
+                        $objDrawing->setDescription('Logo');
+                        $logo = 'aspirante_public/img/logotipoFARUSAC_Amarillo.png'; // Provide path to your logo file
+                        $objDrawing->setPath($logo);
+                        $objDrawing->setCoordinates('E3');
+                        $objDrawing->setHeight(65); // logo height
+                        $objDrawing->setWorksheet($sheet);
+                        */
+                        //encabezado de la pagina donde se indica la info de la aplicacion salon hora
+                        $c_ini = 'C';
+                        $c_fin = 'E';
+                        $sheet->mergeCells($c_ini . '1:' . $c_fin . '1');
+                        $sheet->mergeCells($c_ini . '2:' . $c_fin . '2');
+                        $sheet->mergeCells($c_ini . '3:' . $c_fin . '3');
+                        $sheet->mergeCells($c_ini . '4:' . $c_fin . '4');
+                        $sheet->mergeCells($c_ini . '5:' . $c_fin . '5');
+                        $sheet->mergeCells($c_ini . '6:' . $c_fin . '6');
+                        $sheet->mergeCells($c_ini . '7:' . $c_fin . '7');
+                        $sheet->mergeCells($c_ini . '8:' . $c_fin . '8');
+                        $sheet->setCellValue($c_ini . '1', 'UNIVERSIDAD SAN CARLOS DE GUATEMALA');
+                        $sheet->setCellValue($c_ini . '2', 'Facultad de Arquitectura');
+                        $sheet->setCellValue($c_ini . '3', 'Unidad de Orientación Estudiantil');
+                        $sheet->setCellValue($c_ini . '5', Aplicacion::find($id)->nombre());
+
+
+                        $sheet->setFreeze('A10');
+                        for ($i = 1; $i <= count($asignaciones); $i++) {
+                            $sheet->setCellValue('A' . (9 + $i), $i);
+                        }
+                        //formato de celdas
+                        //titulo de cada columna pintado de gris
+                        $sheet->row(9, array('No.', 'No. Orientación', 'Apellido', 'Nombre', 'FechaAplicacion','Inicio','Fin','Salon'));
+                        $sheet->cells('A9:h9', function ($cells) { //manipular celdas de encabezado data
+                            $cells->setBackground('#BDBDBD');
+                        });
+
+                        //encabezado de la hoja
+                        $sheet->cells('A1:h8', function ($cells) { //manipular celdas
+                            $cells->setBackground('#FFFFFF');
+                            $cells->setAlignment('center');
+                        });
+
+                        //ancho de columnas
+                        $sheet->setWidth('A', 4);
+                        $sheet->setWidth('B', 15);
+                        $sheet->setWidth('C', 25);
+                        $sheet->setWidth('D', 25);
+                        $sheet->setWidth('E', 15);
+
+                        //formato de columnas
+                        $sheet->getStyle('B1:B256')
+                            ->getAlignment()
+                            ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+                });
+        })->download('xlsx');
+        //});
+    }
+
     public function notificar(Request $request){
         $aplicacion=Aplicacion::find($request->aplicacion_id);
         $asignaciones = $aplicacion

@@ -73,7 +73,9 @@ class Aspirante extends Authenticatable
     }
 
     public function getGenero(){
-        return Datos_sun::where('orientacion',$this->NOV)->first()->sexo;
+        //dd($this);
+        return $this->getFormulario()->genero;
+        //return Datos_sun::where('orientacion',$this->NOV)->first()->sexo;
     }
 
     public function aprobo(){
