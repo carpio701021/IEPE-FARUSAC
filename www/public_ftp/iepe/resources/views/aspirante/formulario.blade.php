@@ -24,8 +24,44 @@
                                placeholder="Dirección de vivienda actual"/>
                     </div>
                 </div>
+            <div class="form-group{{ $errors->has('fecha_nac') ? ' has-error' : '' }}">
+                <label class="col-md-4 control-label">Fecha de nacimiento*</label>
 
-                <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
+                <div class="col-md-6" align="left">
+                    <select name="fecha_nac[]" required>
+                        <option disabled selected>día</option>
+                        @for($i=1;$i<=31;$i++)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                    </select>/
+                    <select name="fecha_nac[]" required>
+                        <option disabled selected>mes</option>
+                        <option value="1">enero</option>
+                        <option value="2">febrero</option>
+                        <option value="3">marzo</option>
+                        <option value="4">abril</option>
+                        <option value="5">mayo</option>
+                        <option value="6">junio</option>
+                        <option value="7">julio</option>
+                        <option value="8">agosto</option>
+                        <option value="9">septiembre</option>
+                        <option value="10">octubre</option>
+                        <option value="11">noviembre</option>
+                        <option value="12">diciembre</option>
+                    </select>/
+                    <input type="number" min="{{ date('Y') - 70 }}" max="{{ date('Y') - 10 }}" name="fecha_nac[]" placeholder="año" required>
+
+                    @if ($errors->has('email_confirmation'))
+                        <span class="help-block">
+                                            <strong>{{ $errors->first('email_confirmation') }}</strong>
+                                        </span>
+                    @endif
+                </div>
+            </div>
+
+
+
+            <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
                     <label class="col-md-4 control-label">Teléfono de casa:</label>
                     <div class="col-md-6">
                         <input class="form-control" type="text" name="telefono" value="{{old('telefono')}}"

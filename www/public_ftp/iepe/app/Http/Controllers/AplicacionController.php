@@ -416,7 +416,8 @@ class AplicacionController extends Controller
             ->join('aplicaciones_salones_horarios as ash','ash.id','=','aplicacion_salon_horario_id')
             ->join('horarios','horarios.id','=','ash.horario_id')
             ->join('salones','salones.id','=','ash.salon_id')
-            ->selectRaw('NOV,aspirantes.nombre,apellido,ash.fecha_aplicacion,hora_inicio,hora_fin,salones.nombre as salon')
+            ->join('formularios','formularios.NOV','=','aspirantes.NOV')
+            ->selectRaw('aspirantes.NOV,aspirantes.nombre,apellido,ash.fecha_aplicacion,hora_inicio,hora_fin,salones.nombre as salon,fecha_nacimiento')
             ->where('ash.aplicacion_id','=',$id);
         //dd($aspirantes->get());
         //Excel::load(storage_path().'/Formatos/formato_listado_salon_horario.xlsx', function($file) use ($id){
@@ -450,7 +451,7 @@ class AplicacionController extends Controller
                         */
                         //encabezado de la pagina donde se indica la info de la aplicacion salon hora
                         $c_ini = 'C';
-                        $c_fin = 'E';
+                        $c_fin = 'F';
                         $sheet->mergeCells($c_ini . '1:' . $c_fin . '1');
                         $sheet->mergeCells($c_ini . '2:' . $c_fin . '2');
                         $sheet->mergeCells($c_ini . '3:' . $c_fin . '3');
@@ -471,13 +472,13 @@ class AplicacionController extends Controller
                         }
                         //formato de celdas
                         //titulo de cada columna pintado de gris
-                        $sheet->row(9, array('No.', 'No. Orientación', 'Apellido', 'Nombre', 'FechaAplicacion','Inicio','Fin','Salon'));
-                        $sheet->cells('A9:h9', function ($cells) { //manipular celdas de encabezado data
+                        $sheet->row(9, array('No.', 'No. Orientación', 'Apellido', 'Nombre', 'FechaAplicacion','Inicio','Fin','Salon','Fecha Nacimiento'));
+                        $sheet->cells('A9:I9', function ($cells) { //manipular celdas de encabezado data
                             $cells->setBackground('#BDBDBD');
                         });
 
                         //encabezado de la hoja
-                        $sheet->cells('A1:h8', function ($cells) { //manipular celdas
+                        $sheet->cells('A1:i8', function ($cells) { //manipular celdas
                             $cells->setBackground('#FFFFFF');
                             $cells->setAlignment('center');
                         });
@@ -488,6 +489,7 @@ class AplicacionController extends Controller
                         $sheet->setWidth('C', 25);
                         $sheet->setWidth('D', 25);
                         $sheet->setWidth('E', 15);
+                        $sheet->setWidth('I', 17);
 
                         //formato de columnas
                         $sheet->getStyle('B1:B256')

@@ -38,7 +38,8 @@ class FormularioRequest extends Request
             "direccion_centro_educativo"=>"required|string|max:255",
             "sector"                    =>"required|in:privado,publico",
             "carrera"                   =>"required|in:arquitectura,diseño",
-            "jornada"                   =>"required|in:matutina,vespertina"
+            "jornada"                   =>"required|in:matutina,vespertina",
+            "fecha_nac"                 =>"required|size:3"
         ];
     }
 
