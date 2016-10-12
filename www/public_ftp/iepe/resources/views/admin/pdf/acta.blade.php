@@ -19,7 +19,7 @@
         Facultad de Arquitectura del Edificio T-2, Primer Nivel, estando presentes:  Arquitecto
         Byron Alfredo Rabe Rendón, Decano, Arquitecto Publio Alcides Rodríguez Lobos,
         Secretario Académico, Arquitecto Oscar Romeo Enríquez Gutiérrez, Jefe de Unidad de
-        Desarrollo y Bienestar Estudiantil hacen constar: <b>PRIMERO: </b> de acuerdo a los parámetros
+        Desarrollo y Bienestar Estudiantil hacen constar: <b>PRIMERO: </b>
         de acuerdo a los parámetros previamente convenidos, los aspirantes con evaluación satisfactoria son
         {{ count($aspirantes) }}
     </p>
@@ -43,9 +43,8 @@
     <!--div style="page-break-before: always;"></div-->
     <p align="justify">
         <b>SEGUNDO:</b> se acuerda autorizar la impresión de las constancias correspondientes.
-        <b>TERCERO:</b> Se levanta la presente acta y sin más que asentar se finaliza la presente en el
-        mismo lugar y fecha del encabezado. Sin más se firma para constancia, los que en ella
-        intervinieron.  Damos Fe:-</p>
+        <b>TERCERO:</b> Se levanta la presente acta en el mismo lugar y fecha
+        descrita al inicio de la misma. Damos Fe:-</p>
 
         <br>
     <p align='center'><strong>"Id y ensañar a todos"</strong></p>
