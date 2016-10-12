@@ -46,6 +46,7 @@ Route::group(['prefix' => 'aspirante'], function () {
                 Route::post('escuela/primerIngreso/guardarCupo', 'AnioController@guardarCupo')->name('admin.escuela.primerIngreso.guardarCupo');
                 Route::get('escuela/primerIngreso/nuevo', 'AnioController@nuevoAnio')->name('admin.escuela.primerIngreso.nuevo');
                 Route::get('escuela/primerIngreso/listado', 'AnioController@getListado')->name('admin.escuela.primerIngreso.listado');
+
             });
 
             Route::get('/', function () {
@@ -61,6 +62,7 @@ Route::group(['prefix' => 'aspirante'], function () {
 
                 Route::get('aplicacion/{aplicacion_id}/actas', 'AplicacionController@getActas')->name('admin.aplicacion.actas');
                 Route::get('aplicacion/{aplicacion_id}/listados', 'AplicacionController@getListados')->name('admin.aplicacion.listados');
+                Route::get('aplicacion/{aplicacion_id}/listadoGeneral', 'AplicacionController@getListadoGeneral')->name('admin.aplicacion.listadoGeneral');
                 Route::get('aplicacion/{aplicacion_id}/habilitar', 'AplicacionController@habilitarResultados')->name('admin.aplicacion.habilitar');
                 Route::post('aplicacion/notificar','AplicacionController@notificar')->name('admin.aplicacion.notificar');
 

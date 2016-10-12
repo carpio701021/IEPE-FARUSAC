@@ -19,15 +19,13 @@
 											<p class="form-control-static">{{Auth::user()->getNombreCompleto()}}</p>
 										</div>
 									</div>
-									{{--
+
 									<div class="row">
 										<label class="control-label col-xs-6" >Género:</label>
 										<div class="col-xs-6">
-											<p class="form-control-static">@if(Auth::user()->getGenero()==1) Masculino
-												@else Femenino @endif</p>
+											<p class="form-control-static">{{Auth::user()->getGenero()}}</p>
 										</div>
 									</div>
-									--}}
 									<div class="row">
 										<label class="control-label col-xs-6" >Residencia:</label>
 										<div class="col-xs-6">
@@ -162,9 +160,58 @@
 									<form class="form-horizontal" role="form" action="{{ action('formularioController@update',['formualrio'=>$formulario->id_formulario]) }}" method="post">
 										<input type="hidden" name="_method" value="PUT">
 										<div class="form-group">
+											<label class="control-label col-sm-2" for="estado_civil">Género:</label>
+											<div class="col-sm-10">
+												<select class="form-control" name="genero" id="estado_civil">
+													<option value="masculino" @if($formulario->genero=="masculino") selected @endif>Masculino</option>
+													<option value="femenino" @if($formulario->genero=="femenino") selected @endif>Femenino</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
 											<label class="control-label col-sm-2" for="residencia">Residencia:</label>
 											<div class="col-sm-10">
 												<input type="text" class="form-control" id="residencia" name="residencia" value="{{$formulario->residencia}}">
+											</div>
+										</div>
+										<div class="form-group{{ $errors->has('fecha_nac') ? ' has-error' : '' }}">
+											<label class="col-md-2 control-label">Fecha de nacimiento:</label>
+
+											<div class="col-md-10" align="left">
+												<select name="fecha_nac[]" id="dia_nacimiento">
+													@for($i=1;$i<=31;$i++)
+															<option value="{{ $i }}">{{ $i }}</option>
+													@endfor
+												</select>/
+												<select name="fecha_nac[]" id="mes_nacimiento" required>
+													<option disabled selected>mes</option>
+													<option value="1">enero</option>
+													<option value="2">febrero</option>
+													<option value="3">marzo</option>
+													<option value="4">abril</option>
+													<option value="5">mayo</option>
+													<option value="6">junio</option>
+													<option value="7">julio</option>
+													<option value="8">agosto</option>
+													<option value="9">septiembre</option>
+													<option value="10">octubre</option>
+													<option value="11">noviembre</option>
+													<option value="12">diciembre</option>
+												</select>/
+												<script>
+													var dd = document.getElementById('mes_nacimiento');
+													dd.selectedIndex = {{ explode("-",$formulario->fecha_nacimiento)[1] }}
+													var dn = document.getElementById('dia_nacimiento');
+													dn.selectedIndex= {{ explode("-",$formulario->fecha_nacimiento)[2] }} -1
+
+												</script>
+												<input type="number" min="{{ date('Y') - 70 }}" max="{{ date('Y') - 10 }}" name="fecha_nac[]" value="{{ explode("-",$formulario->fecha_nacimiento)[0] }}" placeholder="año" required>
+
+												@if ($errors->has('email_confirmation'))
+													<span class="help-block">
+                                            <strong>{{ $errors->first('email_confirmation') }}</strong>
+                                        </span>
+												@endif
 											</div>
 										</div>
 										<div class="form-group">

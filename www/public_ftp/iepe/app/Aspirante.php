@@ -69,11 +69,13 @@ class Aspirante extends Authenticatable
     }
 
     public function getFechaNacimiento(){
-        return date('d-m-Y' ,strtotime(Datos_sun::where('orientacion',$this->NOV)->first()->fecha_nacimiento));
+        return date('d-m-Y' ,strtotime($this->getFormulario()->fecha_nacimiento));
     }
 
     public function getGenero(){
-        return Datos_sun::where('orientacion',$this->NOV)->first()->sexo;
+        //dd($this);
+        return $this->getFormulario()->genero;
+        //return Datos_sun::where('orientacion',$this->NOV)->first()->sexo;
     }
 
     public function aprobo(){

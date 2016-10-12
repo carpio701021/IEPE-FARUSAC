@@ -39,6 +39,7 @@ class formularioController extends Controller
      */
     public function store(FormularioRequest $request)
     {
+        $request["fecha_nacimiento"] = $request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0];
         $form = new Formulario($request->all());
         $form->NOV=Auth::user()->NOV;
         $form->save();
@@ -116,6 +117,7 @@ class formularioController extends Controller
      */
     public function update(FormularioRequest $request, $id)
     {
+        $request["fecha_nacimiento"] = $request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0];
         $formulario=Formulario::find($id);
         if($formulario->NOV==Auth::user()->NOV){
             $formulario->update($request->all());
