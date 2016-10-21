@@ -5,4 +5,7 @@ Homestead.yaml
 Homestead.json
 .env
 
-.gitignore
+x.gitignore
+public/*
+!public/aspirante_public
+!public/index.php
