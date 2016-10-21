@@ -1,0 +1,30 @@
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address               Foreign Address             State       PID/Program name   
+tcp        0      0 0.0.0.0:41767               0.0.0.0:*                   LISTEN      1162/rpc.statd      
+tcp        0      0 127.0.0.1:9000              0.0.0.0:*                   LISTEN      3898/php-fpm        
+tcp        0      0 127.0.0.1:3306              0.0.0.0:*                   LISTEN      1508/mysqld         
+tcp        0      0 0.0.0.0:111                 0.0.0.0:*                   LISTEN      1140/rpcbind        
+tcp        0      0 0.0.0.0:22                  0.0.0.0:*                   LISTEN      1303/sshd           
+tcp        0      0 127.0.0.1:25                0.0.0.0:*                   LISTEN      2527/master         
+tcp        0      0 :::111                      :::*                        LISTEN      1140/rpcbind        
+tcp        0      0 :::80                       :::*                        LISTEN      4174/httpd          
+tcp        0      0 :::22                       :::*                        LISTEN      1303/sshd           
+tcp        0      0 ::1:25                      :::*                        LISTEN      2527/master         
+tcp        0      0 :::443                      :::*                        LISTEN      4174/httpd          
+tcp        0      0 :::39900                    :::*                        LISTEN      1162/rpc.statd      
+udp        0      0 127.0.0.1:914               0.0.0.0:*                               1162/rpc.statd      
+udp        0      0 0.0.0.0:68                  0.0.0.0:*                               972/dhclient        
+udp        0      0 0.0.0.0:59355               0.0.0.0:*                               1162/rpc.statd      
+udp        0      0 0.0.0.0:111                 0.0.0.0:*                               1140/rpcbind        
+udp        0      0 192.168.56.152:123          0.0.0.0:*                               1315/ntpd           
+udp        0      0 10.0.2.15:123               0.0.0.0:*                               1315/ntpd           
+udp        0      0 127.0.0.1:123               0.0.0.0:*                               1315/ntpd           
+udp        0      0 0.0.0.0:123                 0.0.0.0:*                               1315/ntpd           
+udp        0      0 0.0.0.0:891                 0.0.0.0:*                               1140/rpcbind        
+udp        0      0 :::60257                    :::*                                    1162/rpc.statd      
+udp        0      0 :::111                      :::*                                    1140/rpcbind        
+udp        0      0 fe80::a00:27ff:fece:7b1c:123 :::*                                    1315/ntpd           
+udp        0      0 ::1:123                     :::*                                    1315/ntpd           
+udp        0      0 fe80::a00:27ff:fe25:a210:123 :::*                                    1315/ntpd           
+udp        0      0 :::123                      :::*                                    1315/ntpd           
+udp        0      0 :::891                      :::*                                    1140/rpcbind        
