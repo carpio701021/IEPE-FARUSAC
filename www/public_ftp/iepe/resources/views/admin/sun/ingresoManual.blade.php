@@ -91,6 +91,16 @@
     </script>
 
     <script type="text/javascript">
+        function codMateriaToString(codMateria){
+            if(codMateria=="3"){
+                return "Lenguaje";
+            }
+            if(codMateria=="4"){
+                return "Matemática";
+            }
+            return "Desconocido";
+        }
+
         function search(carne) {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
@@ -99,11 +109,11 @@
                         var cad;
                         for(var a = 0; a < myArr.length ; a++){
                             cad= cad+"<option class='list-group-item' value='"+myArr[a].id+"'>"
-                                    +myArr[a].orientacion
-                                    +" materia: "+myArr[a].id_materia
-                                    +" "+(myArr[a].aprobacion+"").replace('1','aprobado').replace('0','reprobado')
-                                    +" evaluado el "+myArr[a].fecha_evaluacion
-                                    +"</option>";
+                                    + "Orientación: " + myArr[a].orientacion + " | "
+                                    + "Materia: " + codMateriaToString(myArr[a].id_materia) + " | "
+                                    + "Estado: "+(myArr[a].aprobacion+"").replace('1','aprobado').replace('0','reprobado') + " | "
+                                    + "Evaluado el " + myArr[a].fecha_evaluacion
+                                    + "</option>";
                         }
                         document.getElementById("resultados").innerHTML = cad;
                         //alert(xmlhttp.responseText);
