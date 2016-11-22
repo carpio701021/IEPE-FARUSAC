@@ -20,6 +20,9 @@
             font-family: 'Lato';
         }
     </style>
+
+    @section('styles')
+    @show
     <title>FARUSAC - Primer ingreso</title>
 </head>
 <body id="app-layout">

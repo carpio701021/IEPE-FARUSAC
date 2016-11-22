@@ -93,6 +93,7 @@ class RecursosController extends Controller
 
 
     public function postGuiaAplicacion(Request $request){
+        //dd($request->all());
         $filejson = storage_path().'/recursos.json' ;
         if(file_exists($filejson)) {
             $json = json_decode(file_get_contents($filejson),TRUE);

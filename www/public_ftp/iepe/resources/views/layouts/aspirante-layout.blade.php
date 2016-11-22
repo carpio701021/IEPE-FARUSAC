@@ -19,6 +19,9 @@
         }
     </style>
 
+    @section('styles')
+    @show
+
 </head>
 <body>
 <div id="wrapper">
