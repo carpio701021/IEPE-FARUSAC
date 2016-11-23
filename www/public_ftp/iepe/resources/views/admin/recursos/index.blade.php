@@ -13,22 +13,20 @@
         <div class="panel-group">
 
             <div class="panel panel-default">
-                <div class="panel-heading"><b>Video de bienvenida</b></div>
+                <div class="panel-heading"><b>Bienvenida</b></div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            Éste video se auto reproduce al momento de ingresar a la página de bienvenida.
-                            Es accesible por todos. El video se debe subir a youtube, y copiar el enlace para llenar
-                            éste formulario.
-                        </div>
-                        <div class="col-sm-5">
+                    <div class="form-group">
+                        Ésto aparecerá en la bienvenida y se pueden poner videos, imagenes y textos al gusto. *Si incertar video no funciona, dejar lineas debajo de donde se quiere incertar.
                             <form class="form-horizontal" role="form"
-                                  action="{{ action('RecursosController@postVideoBienvenida') }}" method="Post"
-                                  accept-charset="UTF-8" enctype="multipart/form-data">
+                                  action="{{ action('RecursosController@postBienvenida') }}" method="Post"
+                                  accept-charset="UTF-8" enctype="multipart/form-data"
+                                  onsubmit="javascript: return postFormBienvenida();">
                                 <div class="form-group">
                                     {{csrf_field()}}
-                                    <label>Enlace de youtube:</label>
-                                    <input type="text" name="video_url" placeholder="URL del video">
+                                    <div id="standalone-container">
+                                        <input type="hidden" name="postBienvenida" id="postBienvenida">
+                                        <div id="editor-postBienvenida">{!! json_decode((file_get_contents(storage_path().'/recursos.json')),TRUE)['bienvenida'] !!}</div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-5">
@@ -36,11 +34,6 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                        <div class="col-sm-3">
-                            <a href="{{ action('HomeController@index') }}" class="btn btn-default" target="_blank">Ver
-                                video actual</a>
-                        </div>
                     </div>
 
                 </div>
@@ -312,19 +305,10 @@
                             <div class="col-sm-12">
                                 <label>Ingrese el texto que desea que los aspirantes vean como ayuda:</label>
                                 <div class="form-group">
-
-                                    <!--textarea id="some-textarea" name="enlaces_ayuda" placeholder="Ingresa el texto de ayuda" class="form-control">
-                                {!! json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['guia_aplicacion']['enlaces_ayuda'] !!}
-                                            </textarea-->
-
                                     <div id="standalone-container">
-
                                         <input name="enlaces_ayuda"  id="enlaces_ayuda" type="hidden">
-                                        <div id="editor-GuiaAplicacion">{!! json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['guia_aplicacion']['enlaces_ayuda'] !!}</div>
-
+                                        <div id="editor-GuiaAplicacion">{!! json_decode((file_get_contents(storage_path().'/recursos.json')),TRUE)['guia_aplicacion']['enlaces_ayuda'] !!}</div>
                                     </div>
-
-
                                 </div>
                             </div>
 
@@ -372,7 +356,14 @@
 
         ];
         var quill1 = new Quill('#editor-GuiaAplicacion', {
-            //debug: 'info',
+            modules: {
+                toolbar: toolbarOptions
+            },
+            placeholder: 'Escribe y edita aqui tu texto...',
+            theme: 'snow'
+        });
+
+        var quillBienvenida = new Quill('#editor-postBienvenida', {
             modules: {
                 toolbar: toolbarOptions
             },
@@ -383,6 +374,13 @@
         function postFormGuiaAplicacion() {
             enviar = document.getElementById('editor-GuiaAplicacion').firstElementChild.innerHTML;
             document.getElementById("enlaces_ayuda").value = enviar;
+            return true;
+        }
+
+        function postFormBienvenida() {
+            enviar = document.getElementById('editor-postBienvenida').firstElementChild.innerHTML;
+            //alert(enviar);
+            document.getElementById("postBienvenida").value = enviar;
             return true;
         }
 

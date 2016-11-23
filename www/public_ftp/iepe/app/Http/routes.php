@@ -88,7 +88,7 @@ Route::group(['prefix' => 'aspirante'], function () {
                 Route::get('recursos','RecursosController@index')->name('admin.recursos');
                 Route::post('recursos/reglamento','RecursosController@postReglamento')->name('admin.recursos.reglamento');
                 Route::post('recursos/imagenInformativa','RecursosController@postImagenInformativa')->name('admin.recursos.imagenInformativa');
-                Route::post('recursos/videoBienvenida','RecursosController@postVideoBienvenida')->name('admin.recursos.videoBienvenida');
+                Route::post('recursos/videoBienvenida','RecursosController@postBienvenida')->name('admin.recursos.bienvenida');
                 Route::post('recursos/guia-asignacion','RecursosController@postGuiaAsignacion')->name('admin.recursos.guia-asignacion');
                 Route::post('recursos/guia-aplicacion','RecursosController@postGuiaAplicacion')->name('admin.recursos.guia-aplicacion');
 

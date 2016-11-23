@@ -58,18 +58,17 @@ class RecursosController extends Controller
         return false;
     }
 
-    public function postVideoBienvenida(Request $request){
-        $videoUrl = $request->video_url;
-        $vid = $this->getYoutubeIdFromUrl($videoUrl);
+    public function postBienvenida(Request $request){
+        $postBienvenida = $request->postBienvenida;
 
         $filejson = storage_path().'/recursos.json' ;
         if(file_exists($filejson)) {
             $json = json_decode(file_get_contents($filejson),TRUE);
         }
-        $json['video_bienvenida'] = $vid;
+        $json['bienvenida'] = $postBienvenida;
         file_put_contents($filejson, json_encode($json,TRUE));
 
-        $request->session()->flash('mensaje_exito','Se ha actualizado el video de bienvenida');
+        $request->session()->flash('mensaje_exito','Se ha actualizado el post de bienvenida');
         return back();
     }
 
