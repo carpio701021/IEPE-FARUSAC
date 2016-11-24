@@ -127,6 +127,7 @@ class LogicaIepe extends Migration
         Schema::create('datos_sun',function(Blueprint $table){
             $table->increments('id');
             $table->bigInteger('orientacion');
+            $table->bigInteger('CUI');
             $table->string('primer_apellido',35);
             $table->string('segundo_apellido',35);
             $table->string('primer_nombre',35);

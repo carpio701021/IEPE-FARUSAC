@@ -155,6 +155,8 @@ Route::group(['prefix' => 'aspirante'], function () {
             Route::post('configuracion/guardar', "AspiranteController@actualizarCuenta")->name('aspirante.configuracion.guardar');
             Route::resource('datos', 'AspiranteController');
             Route::resource('formulario', 'formularioController');
+            Route::get('actualizarCUI', 'formularioController@actualizarCUI');
+            Route::post('actualizarCUI', 'formularioController@storeCUI');
             Route::get('aprobados', 'formularioController@getConfirmacion');
             Route::post('formulario/{formulario_id}/confirmar', 'formularioController@confirmarIntereses')->name('aspirante.formulario.confirmar');
             Route::resource('PruebaEspecifica', 'AspiranteAplicacionController', ['only' => [

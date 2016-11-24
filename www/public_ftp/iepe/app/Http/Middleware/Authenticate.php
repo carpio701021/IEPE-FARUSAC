@@ -29,10 +29,14 @@ class Authenticate
             }
         }
 
-
-        if($guard=='aspirante_web' && !($request->path() == 'aspirante/formulario' || $request->path() == 'aspirantes')){
-            if(!Auth::user()->getFormulario())
-                return redirect( action('formularioController@index') );
+        if($guard=='aspirante_web')
+        if(!($request->path() == 'aspirante/actualizarCUI' || $request->path() == 'aspirantes')){
+            if(! isset(Auth::user()->CUI ))
+                return redirect( action('formularioController@actualizarCUI') );
+            else if(!($request->path() == 'aspirante/formulario' || $request->path() == 'aspirantes')){
+                if(!Auth::user()->getFormulario())
+                    return redirect( action('formularioController@index') );
+            }
         }
 
         return $next($request);

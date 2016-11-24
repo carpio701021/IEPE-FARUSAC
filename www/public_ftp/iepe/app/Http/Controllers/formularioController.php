@@ -20,6 +20,28 @@ class formularioController extends Controller
     {
         return view("aspirante.formulario");
     }
+    public function actualizarCUI()
+    {
+        return view("aspirante.actualizarCUI");
+    }
+
+    public function storeCUI(Request $request)
+    {
+        $this->validate($request, [
+            'CUI' => 'required|numeric|unique:aspirantes,CUI|digits:13|min:10000000',
+        ], [
+            'required'      => 'El CUI es obligatorio',
+            'numeric'       => 'El CUI debe ser numérico',
+            'unique'        => 'El CUI especificado ya existe, si el problema persiste presentarse a la oficina de Bienestar y Desarrollo Estudiantil de la Facultad de Arquitectura.',
+            'digits'        => 'El CUI especificado no es válido',
+            'min'        => 'El CUI especificado no es válido',
+        ]);
+        $usuario = Auth::user();
+        $usuario->CUI = $request->CUI;
+        $usuario->save();
+
+        return redirect( action('AspiranteController@index') );
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -37,6 +37,7 @@ class CreateUsersTable extends Migration
 
         Schema::create('aspirantes', function (Blueprint $table) {
             $table->bigInteger('NOV')->unsigned()->primary();
+            $table->bigInteger('CUI')->unsigned()->nullable()->unique(); //número de DPI
             $table->string('nombre');
             $table->string('apellido');
             $table->string('email')->unique();
@@ -54,11 +55,13 @@ class CreateUsersTable extends Migration
 
         Schema::create('formularios', function (Blueprint $table) {
             $table->increments('id_formulario');
+            $table->date('fecha_nacimiento');
             $table->string('residencia');
             $table->string('departamento');
             $table->string('municipio');
             $table->enum('estado_civil',['soltero', 'casado']);
             $table->enum('estado_laboral',['trabaja', 'no_trabaja']);
+            $table->enum('genero',['masculino', 'femenino']);
             $table->string('titulo');
             $table->string('telefono');
             $table->string('celular');

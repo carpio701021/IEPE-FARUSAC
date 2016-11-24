@@ -22,13 +22,14 @@
 </head>
 <body>
 @if($errors->any())
+    <br/><br/><br/>
     <div class="container">
-    <div class="alert alert-danger fade in">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        @foreach ($errors->all() as $error)
-            <strong>Error: </strong> {{$error}}<br/>
-        @endforeach
-    </div>
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @foreach ($errors->all() as $error)
+                <strong>Error: </strong> {{$error}}<br/>
+            @endforeach
+        </div>
     </div>
     @endif
 @yield('content')
