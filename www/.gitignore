@@ -1,7 +1,2 @@
 /cgi-bin
 /html
-
-
-public_html/*
-!public_html/aspirante_public
-!public_html/index.php

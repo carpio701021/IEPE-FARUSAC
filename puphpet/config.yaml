@@ -3,8 +3,8 @@ vagrantfile:
     vm:
         provider:
             local:
-                box: puphpet/centos65-x64
-                box_url: puphpet/centos65-x64
+                box: puphpet/ubuntu1404-x64
+                box_url: puphpet/ubuntu1404-x64
                 box_version: '0'
                 chosen_virtualizer: virtualbox
                 virtualizers:
@@ -15,30 +15,32 @@ vagrantfile:
                     vmware:
                         numvcpus: 1
                     parallels:
-                        use_linked_clone: 0
+                        linked_clone: 0
                         check_guest_tools: 0
                         update_guest_tools: 0
                 machines:
-                    vflm_v9fbidt67atv:
-                        id: iepe
+                    vflm_hh583xnv7etb:
+                        id: aspirantes
+                        hostname: aspirantes.dev
                         network:
-                            private_network: 192.168.56.152
+                            private_network: 192.168.52.58
                             forwarded_port:
-                                vflmnfp_u5yvkol6fk65:
+                                vflmnfp_93m2x5sqr33v:
                                     host: '6997'
                                     guest: '22'
-                        hostname: iepe.dev
                         memory: '512'
                         cpus: '1'
         provision:
             puppet:
                 manifests_path: puphpet/puppet/manifests
-                module_path: puphpet/puppet/modules
+                module_path:
+                    - puphpet/puppet/modules
+                    - puphpet/puppet/manifests
                 options:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
         synced_folder:
-            vflsf_vt75v6t5rbyy:
+            vflsf_y9cn6m27c43l:
                 source: ./www
                 target: /var/www
                 sync_type: default
@@ -83,7 +85,6 @@ vagrantfile:
         https: ''
         ftp: ''
         no_proxy: ''
-        enabled: ''
 server:
     install: '1'
     packages:
@@ -109,25 +110,22 @@ cron:
 nginx:
     install: '0'
     settings:
+        version: present
         default_vhost: 1
-        proxy_buffer_size: 128k
         proxy_buffers: '4 256k'
+        proxy_buffer_size: 128k
         proxy_connect_timeout: 600s
         proxy_send_timeout: 600s
         proxy_read_timeout: 600s
         names_hash_bucket_size: 128
     upstreams: {  }
     vhosts:
-        nxv_v0slu7irla6d:
+        nxv_kg6j35epfde2:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
             www_root: /var/www/awesome
             listen_port: '80'
-            index_files:
-                - index.html
-                - index.htm
-                - index.php
             client_max_body_size: 1m
             ssl: '0'
             ssl_cert: ''
@@ -138,10 +136,9 @@ nginx:
             rewrite_to_https: '1'
             spdy: '1'
             locations:
-                nxvl_cxd3b1x8qw7y:
+                nxvl_mi2uc9q86uy1:
+                    www_root: ''
                     location: /
-                    autoindex: 'off'
-                    internal: 'false'
                     try_files:
                         - $uri
                         - $uri/
@@ -151,10 +148,9 @@ nginx:
                     fastcgi_split_path: ''
                     proxy: ''
                     proxy_redirect: ''
-                nxvl_pidoo2r07lqm:
+                nxvl_obsr88hsgwkq:
+                    www_root: ''
                     location: '~ \.php$'
-                    autoindex: 'off'
-                    internal: 'false'
                     try_files:
                         - $uri
                         - $uri/
@@ -184,11 +180,11 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_irae2baji9n0:
-            servername: iepe.dev
+        av_jnauj95yt1ca:
+            servername: aspirantes.dev
             serveraliases:
-                - www.iepe.dev
-            docroot: /var/www/public_html
+                - www.aspirantes.dev
+            docroot: /var/www/iepe/public
             port: '80'
             setenv:
                 - 'APP_ENV dev'
@@ -203,8 +199,8 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_yih156odx7c2:
-                    path: /var/www/public_html
+                avd_je66mcobq1oj:
+                    path: /var/www/iepe
                     options:
                         - Indexes
                         - FollowSymlinks
@@ -215,16 +211,21 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        avdfm_lopk5i3c94vt:
+                        avdfm_kg9tlu770wag:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
                             provider: filesmatch
                     provider: directory
+letsencrypt:
+    install: '1'
+    settings:
+        email: ''
+    domains: {  }
 php:
     install: '1'
     settings:
-        version: '70'
+        version: '7.0'
     modules:
         php:
             - cli
@@ -234,7 +235,6 @@ php:
             - dom
             - tokenizer
             - pdo
-            - openssl
             - zip
             - xml
             - gd
@@ -248,7 +248,7 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_qho762bv4yhb:
+        phpfp_d8xuiywrhxm2:
             ini:
                 prefix: www
                 listen: '127.0.0.1:9000'
@@ -291,14 +291,14 @@ drush:
 ruby:
     install: '1'
     versions:
-        rv_33qiehyvkv7k:
+        rv_ngsfc88ex72q:
             default: '1'
             bundler: '1'
             version: 2.2.4
             gems:
                 - deep_merge@1.0.1
                 - activesupport@4.2.6
-                - vine@0.2 
+                - vine@0.2
 python:
     install: '1'
     packages: {  }
@@ -310,7 +310,6 @@ nodejs:
     npm_packages: {  }
 hhvm:
     install: '0'
-    nightly: 0
     composer: '1'
     composer_home: ''
     settings: {  }
@@ -326,20 +325,20 @@ hhvm:
 mariadb:
     install: '1'
     settings:
-        version: '10.1'
+        version: '10.2'
         root_password: '123'
         override_options: {  }
     adminer: '1'
     users:
-        mariadbnu_j2lgs8ybtf4k:
+        mariadbnu_n9lvkm179ea0:
             name: dbApp
             password: '123'
     databases:
-        mariadbnd_te32kdqklh9y:
+        mariadbnd_a05ppm8w8f0q:
             name: dbiepe
             sql: ''
     grants:
-        mariadbng_3i62tfm6fqq9:
+        mariadbng_z640ir8esshe:
             user: dbApp
             table: '*.*'
             privileges:
@@ -352,15 +351,15 @@ mysql:
         override_options: {  }
     adminer: '1'
     users:
-        mysqlnu_fr1lxbp2uska:
+        mysqlnu_sp4afz36a199:
             name: dbApp
             password: '123'
     databases:
-        mysqlnd_m9cehzf3qitt:
+        mysqlnd_akqeixdyplpr:
             name: dbiepe
             sql: ''
     grants:
-        mysqlng_2pa32jx2j29u:
+        mysqlng_5oklwkkylla9:
             user: dbApp
             table: '*.*'
             privileges:
@@ -425,7 +424,7 @@ elastic_search:
         version: 2.1.0
         java_install: true
     instances:
-        esi_i09cwqlagltr:
+        esi_1vqk0pw3g4ns:
             name: es-01
 solr:
     install: '0'
