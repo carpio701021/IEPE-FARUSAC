@@ -19,13 +19,13 @@ vagrantfile:
                         check_guest_tools: 0
                         update_guest_tools: 0
                 machines:
-                    vflm_hh583xnv7etb:
+                    vflm_sf71u8djuce3:
                         id: aspirantes
                         hostname: aspirantes.dev
                         network:
                             private_network: 192.168.52.58
                             forwarded_port:
-                                vflmnfp_93m2x5sqr33v:
+                                vflmnfp_ytgaiwf1jsfd:
                                     host: '6997'
                                     guest: '22'
                         memory: '512'
@@ -40,7 +40,7 @@ vagrantfile:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
         synced_folder:
-            vflsf_y9cn6m27c43l:
+            vflsf_wjwutfb0wxr6:
                 source: ./www
                 target: /var/www
                 sync_type: default
@@ -96,10 +96,10 @@ users_groups:
 locale:
     install: '1'
     settings:
-        default_locale: es_GT.UTF-8
+        default_locale: en_US.UTF-8
         locales:
             - en_GB.UTF-8
-            - en_US.UTF-8
+            - es_GT.UTF-8
         timezone: America/Guatemala
 firewall:
     install: '1'
@@ -120,7 +120,7 @@ nginx:
         names_hash_bucket_size: 128
     upstreams: {  }
     vhosts:
-        nxv_kg6j35epfde2:
+        nxv_ybygrfxy2si8:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
@@ -136,7 +136,7 @@ nginx:
             rewrite_to_https: '1'
             spdy: '1'
             locations:
-                nxvl_mi2uc9q86uy1:
+                nxvl_cy33nsf6oth3:
                     www_root: ''
                     location: /
                     try_files:
@@ -148,7 +148,7 @@ nginx:
                     fastcgi_split_path: ''
                     proxy: ''
                     proxy_redirect: ''
-                nxvl_obsr88hsgwkq:
+                nxvl_zm8f5ucf9wjy:
                     www_root: ''
                     location: '~ \.php$'
                     try_files:
@@ -180,7 +180,7 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_jnauj95yt1ca:
+        av_lzmx340unwmq:
             servername: aspirantes.dev
             serveraliases:
                 - www.aspirantes.dev
@@ -199,7 +199,7 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_je66mcobq1oj:
+                avd_wwcx6u92a9ja:
                     path: /var/www/iepe
                     options:
                         - Indexes
@@ -211,7 +211,7 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        avdfm_kg9tlu770wag:
+                        avdfm_kh41v38w7eyk:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
@@ -248,7 +248,7 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_d8xuiywrhxm2:
+        phpfp_iw0qq1icy42a:
             ini:
                 prefix: www
                 listen: '127.0.0.1:9000'
@@ -291,7 +291,7 @@ drush:
 ruby:
     install: '1'
     versions:
-        rv_ngsfc88ex72q:
+        rv_ic36mz967szg:
             default: '1'
             bundler: '1'
             version: 2.2.4
@@ -330,15 +330,15 @@ mariadb:
         override_options: {  }
     adminer: '1'
     users:
-        mariadbnu_n9lvkm179ea0:
+        mariadbnu_nzxj3qraf0le:
             name: dbApp
             password: '123'
     databases:
-        mariadbnd_a05ppm8w8f0q:
+        mariadbnd_2yu34pvrlj2x:
             name: dbiepe
             sql: ''
     grants:
-        mariadbng_z640ir8esshe:
+        mariadbng_c9w8f0vspe08:
             user: dbApp
             table: '*.*'
             privileges:
@@ -351,15 +351,15 @@ mysql:
         override_options: {  }
     adminer: '1'
     users:
-        mysqlnu_sp4afz36a199:
+        mysqlnu_x2if0d8pesa3:
             name: dbApp
             password: '123'
     databases:
-        mysqlnd_akqeixdyplpr:
+        mysqlnd_10d7vzvxiop8:
             name: dbiepe
             sql: ''
     grants:
-        mysqlng_5oklwkkylla9:
+        mysqlng_3hop0r3c6smd:
             user: dbApp
             table: '*.*'
             privileges:
@@ -424,7 +424,7 @@ elastic_search:
         version: 2.1.0
         java_install: true
     instances:
-        esi_1vqk0pw3g4ns:
+        esi_bo23kbv7anyp:
             name: es-01
 solr:
     install: '0'

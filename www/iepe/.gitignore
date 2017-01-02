@@ -4,8 +4,3 @@
 Homestead.yaml
 Homestead.json
 .env
-
-x.gitignore
-public/*
-!public/aspirante_public
-!public/index.php

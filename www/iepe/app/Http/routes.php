@@ -25,7 +25,7 @@
 */
 
 Route::get('/', function () {
-    return redirect('estudiante');
+    return redirect('aspirante');
 });
 
 Route::group(['prefix' => 'aspirante'], function () {
