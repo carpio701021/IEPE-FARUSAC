@@ -9,8 +9,55 @@ use Illuminate\Support\Facades\Response;
 
 class RecursosController extends Controller
 {
+
     public function index(){
+        $this->verificarRecursosJSON();
         return view('admin.recursos.index');
+    }
+
+    public function verificarRecursosJSON(){
+        $filejson = storage_path().'/recursos.json' ;
+        $json = '';
+        if(file_exists($filejson)) {
+            $json = json_decode(file_get_contents($filejson),TRUE);
+        }else{
+            $json = [];
+        }
+
+        if(!isset($json['guia_aplicacion']))
+            $json['guia_aplicacion'] = '';
+
+        $filesBtn = ['imgbtn1','imgbtn2','imgbtn3','imgbtn4','imginfo'];
+        foreach($filesBtn as $img)
+            if(!isset($json['guia_aplicacion'][$img] ))
+                $json['guia_aplicacion'][$img] = '';
+
+        $videos = ['enlace1','enlace2','enlace3','enlace4'];
+        foreach($videos as $url)
+            if(!isset($json['guia_aplicacion'][$url]))
+                $json['guia_aplicacion'][$url] = '';
+
+        if(!isset($json['guia_aplicacion']['enlaces_ayuda']))
+            $json['guia_aplicacion']['enlaces_ayuda'] = '';
+
+
+        if(!isset($json['bienvenida']))
+            $json['bienvenida'] = '';
+
+
+        if(!isset($json['imagen_informativa']))
+            $json['imagen_informativa'] = '';
+
+        if(!isset($json['video_guia_asignacion']))
+            $json['video_guia_asignacion'] = '';
+
+
+
+
+
+        file_put_contents($filejson, json_encode($json,TRUE));
+
+        return;
     }
 
     public function postImagenInformativa(Request $request){

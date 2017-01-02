@@ -16,7 +16,7 @@
                 <div class="panel-heading"><b>Bienvenida</b></div>
                 <div class="panel-body">
                     <div class="form-group">
-                        Ésto aparecerá en la bienvenida y se pueden poner videos, imagenes y textos al gusto. *Si incertar video no funciona, dejar lineas debajo de donde se quiere incertar.
+                        Ésto aparecerá en la bienvenida y se pueden poner videos, imagenes y textos al gusto. *Si insertar video no funciona, dejar lineas debajo de donde se quiere incertar.
                             <form class="form-horizontal" role="form"
                                   action="{{ action('RecursosController@postBienvenida') }}" method="Post"
                                   accept-charset="UTF-8" enctype="multipart/form-data"
