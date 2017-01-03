@@ -154,8 +154,6 @@ class LogicaIepe extends Migration
             $table->integer('anio');
 
             $table->timestamps();
-            //$table->softDeletes();
-
             $table->unique(['anio', 'carrera','jornada'],'cupos_primary');
 
         });

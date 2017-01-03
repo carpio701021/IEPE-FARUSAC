@@ -1,5 +1,6 @@
 puphpet/config-custom.yaml
 /.vagrant
+/.vagrant.old
 /www/public_ftp/.idea/
 /www/public_ftp/iepe/.idea
 /documentacion/
