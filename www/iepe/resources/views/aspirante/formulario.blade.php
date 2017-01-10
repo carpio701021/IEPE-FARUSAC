@@ -28,13 +28,13 @@
                 <label class="col-md-4 control-label">Fecha de nacimiento*</label>
 
                 <div class="col-md-6" align="left">
-                    <select name="fecha_nac[]" required>
+                    <select name="fecha_nac[]">
                         <option disabled selected>día</option>
                         @for($i=1;$i<=31;$i++)
                             <option value="{{ $i }}">{{ $i }}</option>
                         @endfor
                     </select>/
-                    <select name="fecha_nac[]" required>
+                    <select name="fecha_nac[]" >
                         <option disabled selected>mes</option>
                         <option value="1">enero</option>
                         <option value="2">febrero</option>
@@ -49,7 +49,7 @@
                         <option value="11">noviembre</option>
                         <option value="12">diciembre</option>
                     </select>/
-                    <input type="number" min="{{ date('Y') - 70 }}" max="{{ date('Y') - 10 }}" name="fecha_nac[]" placeholder="año" required>
+                    <input type="number" min="{{ date('Y') - 70 }}" max="{{ date('Y') - 10 }}" name="fecha_nac[]" placeholder="año">
 
                     @if ($errors->has('email_confirmation'))
                         <span class="help-block">

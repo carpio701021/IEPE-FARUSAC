@@ -61,7 +61,9 @@ class formularioController extends Controller
      */
     public function store(FormularioRequest $request)
     {
-        $request["fecha_nacimiento"] = $request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0];
+        
+        $request["fecha_nacimiento"] = $request->fecha_nac[2].'-'.$request->fecha_nac[1].'-'.$request->fecha_nac[0];        
+            
         $form = new Formulario($request->all());
         $form->NOV=Auth::user()->NOV;
         $form->save();
@@ -97,20 +99,23 @@ class formularioController extends Controller
     }
     
     public function confirmarIntereses($id,Request $request){
-        $cupo = Cupo::where('anio',(date('Y')+1))
+        $cupo = Cupo::where('anio',(date('Y')))
             ->where('carrera',str_replace('diseño','disenio',$request->carrera))
             ->where('jornada',$request->jornada)->first();
         if($cupo){
             if($cupo->confirmados<$cupo->cantidad){ //aun hay cupo
-                $formulario = Formulario::find($id);
-                if($formulario->confirmacion_intereses==1){//liberar un cupo
-                    $cupoanterior = Cupo::where('anio',(date('Y')+1))
+                $formulario = Formulario::find($id);                
+                if($formulario->confirmacion_intereses==1){//liberar un cupo                    
+                    $cupoanterior = Cupo::where('anio',(date('Y')))
                         ->where('carrera',str_replace('diseño','disenio',$formulario->carrera))
                         ->where('jornada',$formulario->jornada)
-                        ->first();
-                    $cupoanterior->confirmados=$cupoanterior->confirmados-1;
-                    $cupoanterior->save();
+                        ->first();                    
+                    $cupoanterior->confirmados=$cupoanterior->confirmados-1;                    
+                    $cupoanterior->save();                    
                 }
+                $cupo = Cupo::where('anio',(date('Y')))
+                    ->where('carrera',str_replace('diseño','disenio',$request->carrera))
+                    ->where('jornada',$request->jornada)->first();
                 $cupo->confirmados=$cupo->confirmados+1;
                 $cupo->save();
                 $formulario->update($request->all());
@@ -118,8 +123,19 @@ class formularioController extends Controller
                 $request->session()->flash('mensaje_exito','Se han confirmado tus intereses universitarios para una futura asignación como estudiante.');
                 return back()->withInput();
             }else{// ya no hay cupo
-                if($cupo->cantidad>0)
+                if($cupo->cantidad>0){
+                    $formulario = Formulario::find($id);                
+                    if($formulario->confirmacion_intereses==1){//liberar un cupo  
+                        //dd($formulario);
+                        //dd($request);
+                        if(strcmp($formulario->carrera,$request->carrera)==0 and 
+                            strcmp($formulario->jornada,$request->jornada)==0){
+                            $request->session()->flash('mensaje_exito','Ya estas confirmado en esta jornada y carrera');
+                            return back()->withInput();
+                        }
+                    }
                     return back()->withInput()->withErrors(['cupo_lleno'=>'Lo sentimos, el cupo para la carrera y jornada seleccionada está lleno.']);
+                }
                 else
                     return back()->withInput()->withErrors(['cupo_indefinido'=>'Aún no se ha establecido el cupo, por favor intente mas tarde.']);
 

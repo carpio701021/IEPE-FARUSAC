@@ -55,7 +55,7 @@ class Admin extends Authenticatable
         ];
     }
     
-    public function nombre(){
-        return $this->nombre.' '.$this->apellido;
+    public function nombre(){                        
+        return $this->nombre.' '.$this->apellido;                      
     }
 }
