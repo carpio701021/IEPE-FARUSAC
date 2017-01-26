@@ -98,13 +98,21 @@ visitar [How to configure PHPStorm with Xdebug on vagrant box](http://www.sitepo
 ### Instalación
 Pasos:
 1. Dirigirse a la carpeta de apache (en ubuntu `/var/www`)
+
 2. Clonar el repositorio `git clone https://github.com/carpio701021/IEPE-FARUSAC`
+
 3. Ingresar a la carpeta del repositorio `IEPE-FARUSAC/www/iepe/`
+
 4. Dar permisos de escritura (755) a la carpeta `IEPE-FARUSAC/www/iepe/storage` 
+
     `$ sudo chgrp -R www-data /var/www/html/project`
+    
     `$ sudo chmod -R 775 /var/www/html/project/storage`
+    
 5. Correr el comando `composer install`
+
 6. Correr el comando `php artisan key:generate`
+
 7. Editar archivos de configuración en `www/iepe/.env`, si no existe puede utilizar como base el .env.example
 
 
