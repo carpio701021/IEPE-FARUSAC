@@ -1,14 +1,13 @@
 # IEPE-FARUSAC
-Este proyecto tiene como finalidad la automatización del proceso de inscripción y evaluación de estudiantes de primer ingreso, a las pruebas específicas de la Facultad de Arquitectura, de la Universidad de San Carlos de Guatemala. 
+Este proyecto tiene como finalidad la automatización del proceso de inscripción y evaluación de estudiantes de primer ingreso, a las pruebas específicas de la Facultad de Arquitectura, de la Universidad de San Carlos de Guatemala.
 
 ## Ambiente de desarrollo
 Este proyecto trae su propio ambiente de desarrollo, no es necesario trabajar con WAMP, XAMP o semejantes. A continuación se describe las caracteristicas generales del ambiente:
-- Sistema Operativo: CentOS 6.7 x64
+- Sistema Operativo: Ubuntu 16.04 LTS
 - MariaDB 10.1
-- PHP 5.5
+- PHP 7
 - Apache: 2.4.18
 - Laravel 5.2
-- instalar GD extension: yum install php-gd
 
 ### Requisitos
 Primero revise que tiene instalado:
@@ -81,15 +80,39 @@ Si el servidor no responde revisar en la maquina fisica (en linux) el archivo /e
 
 ## Paquetes adicionales
 - MySql Adminer, para la administracion de las bases de datos. Se puede acceder a éste desde [192.168.56.52/adminer](http://192.168.56.152/adminer)
-- Xdebug, para integrar con PhpStorm, Notepad++, Sublime Text o cual quier otro IDE que lo permita. Para mayor información 
-visitar [How to configure PHPStorm with Xdebug on vagrant box](http://www.sitepoint.com/install-xdebug-phpstorm-vagrant/), 
-[Xdebug and You: Why You Should be Using a Real Debugger](https://jtreminio.com/2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger), 
+- Xdebug, para integrar con PhpStorm, Notepad++, Sublime Text o cual quier otro IDE que lo permita. Para mayor información
+visitar [How to configure PHPStorm with Xdebug on vagrant box](http://www.sitepoint.com/install-xdebug-phpstorm-vagrant/),
+[Xdebug and You: Why You Should be Using a Real Debugger](https://jtreminio.com/2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger),
 
-## Ambiente de produccion
-Este proyecto trae su propio ambiente de desarrollo, no es necesario trabajar con WAMP, XAMP o semejantes. A continuación se describe las caracteristicas generales del ambiente:
-- Sistema Operativo: CentOS 6.7 x64
-- MariaDB 10.1
-- PHP 5.5
-- Apache: 2.4.18
-- Laravel 5.2
-- instalar GD extension: yum install php-gd
+## Despliegue en ambiente de producción
+
+### Prerrequisitos del sistema
+
+- PHP >= 5.5.9
+- OpenSSL PHP Extension
+- PDO PHP Extension
+- Mbstring PHP Extension
+- Tokenizer PHP Extension
+- GD PHP Extension
+
+### Instalación
+Pasos:
+1. Dirigirse a la carpeta de apache (en ubuntu `/var/www`)
+2. Clonar el repositorio `git clone https://github.com/carpio701021/IEPE-FARUSAC`
+3. Ingresar a la carpeta del repositorio `IEPE-FARUSAC/www/iepe/`
+4. Dar permisos de escritura (755) a la carpeta `IEPE-FARUSAC/www/iepe/storage` 
+    `$ sudo chgrp -R www-data /var/www/html/project`
+    `$ sudo chmod -R 775 /var/www/html/project/storage`
+5. Correr el comando `composer install`
+6. Correr el comando `php artisan key:generate`
+7. Editar archivos de configuración en `www/iepe/.env`, si no existe puede utilizar como base el .env.example
+
+
+### Base de datos
+- Para la creación de la base de datos usar `php artisan migrate`
+- Para utilizar la data de prueba corra el script `php artisan migrate --seed`
+- O puede restablecer un backup de la base de datos.
+
+### Configuraciónes finales
+- Para establecer las pantallas de inicio ingrese a su navegador a
+`hostconfigurado.com/aspirantes/admin/recursos`.
