@@ -89,7 +89,7 @@ visitar [How to configure PHPStorm with Xdebug on vagrant box](http://www.sitepo
   - Mbstring PHP Extension
   - Tokenizer PHP Extension
   - GD PHP Extension
-  - Apache >= 2.4.18
+- Apache >= 2.4.18
 - MariaDB >= 10.1
 
 ### Instalación
@@ -122,7 +122,7 @@ Pasos:
 - Para utilizar la data de prueba corra el script `php artisan migrate --seed`
 - O puede restablecer un backup de base de datos.
 
-### Configuraciónes finales
+### Configuraciones finales
 - Para establecer las pantallas de inicio ingrese a su navegador a
 `hostconfigurado.com/aspirantes/admin/recursos`.
 - El usuario administrador (el unico creado a nivel de base de datos) debe crear y configurar los usuarios y sus roles en el respectivo menu de su usuario en la aplicacion.

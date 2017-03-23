@@ -24,8 +24,8 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect('aspirante');
+Route::get('aspirante', function () {
+    return redirect('/');
 });
 
 Route::group(['prefix' => 'aspirante'], function () {
@@ -122,54 +122,58 @@ Route::group(['prefix' => 'aspirante'], function () {
 
 
 
-    Route::group(['middleware' => 'aspirante_web'], function () {
-        Route::post('password/sendResetLink','Auth\PasswordController@sendResetLink')->name('aspirante.sendResetLink');//componer rutas
-        Route::get('activation/{token}', 'Auth\AuthController@activateUser')->name('aspirante.activate');//componer correo
-
-        /** auth routes equivalentes a Route::auth(); **/
-        Route::get('login', 'Auth\AuthController@showLoginForm')->name('aspirante.login');
-        Route::post('login', 'Auth\AuthController@login')->name('aspirante.login');
-        Route::get('logout', 'Auth\AuthController@logout')->name('aspirante.logout');
-
-        Route::get('register', 'Auth\AuthController@showRegistrationForm')->name('aspirante.register');
-        Route::post('register', 'Auth\AuthController@register')->name('aspirante.register');
-
-        Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm')->name('aspirante.password.reset');
-        Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail')->name('aspirante.password.email');
-        Route::post('password/reset', 'Auth\PasswordController@reset')->name('aspirante.password.reset');
-        //fin auth
-
-
-        Route::get('/', 'HomeController@index')->name('aspirante.home');
-
-        //recursos del aspirante
-        Route::get('recursos/imagenInformativa', 'RecursosController@viewImagenInformativa')->name('aspirante.recursos.imagenInformativa');
-        Route::get('recursos/reglamento', 'RecursosController@getReglamento')->name('aspirante.recursos.reglamento');
-        Route::get('recursos/guia-asignacion', 'RecursosController@viewGuiaAsignacion')->name('aspirante.recursos.guia-asignacion');
-        Route::get('recursos/guia-aplicacion', 'RecursosController@viewGuiaAplicacion')->name('aspirante.recursos.guia-aplicacion');
-
-        Route::group(['middleware' => ['auth:aspirante_web']], function () {
-            Route::get('configuracion', function () {
-                return view('aspirante.configurarCuenta');
-            })->name('aspirante.configuracion');
-            Route::post('configuracion/guardar', "AspiranteController@actualizarCuenta")->name('aspirante.configuracion.guardar');
-            Route::resource('datos', 'AspiranteController');
-            Route::resource('formulario', 'formularioController');
-            Route::get('actualizarCUI', 'formularioController@actualizarCUI');
-            Route::post('actualizarCUI', 'formularioController@storeCUI');
-            Route::get('aprobados', 'formularioController@getConfirmacion');
-            Route::post('formulario/{formulario_id}/confirmar', 'formularioController@confirmarIntereses')->name('aspirante.formulario.confirmar');
-            Route::resource('PruebaEspecifica', 'AspiranteAplicacionController', ['only' => [
-                'create','store','show'
-            ]]);
 
 
 
-        });
+
+});
+
+
+
+Route::group(['middleware' => 'aspirante_web'], function () {
+    Route::post('password/sendResetLink','Auth\PasswordController@sendResetLink')->name('aspirante.sendResetLink');//componer rutas
+    Route::get('activation/{token}', 'Auth\AuthController@activateUser')->name('aspirante.activate');//componer correo
+
+    /** auth routes equivalentes a Route::auth(); **/
+    Route::get('login', 'Auth\AuthController@showLoginForm')->name('aspirante.login');
+    Route::post('login', 'Auth\AuthController@login')->name('aspirante.login');
+    Route::get('logout', 'Auth\AuthController@logout')->name('aspirante.logout');
+
+    Route::get('register', 'Auth\AuthController@showRegistrationForm')->name('aspirante.register');
+    Route::post('register', 'Auth\AuthController@register')->name('aspirante.register');
+
+    Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm')->name('aspirante.password.reset');
+    Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail')->name('aspirante.password.email');
+    Route::post('password/reset', 'Auth\PasswordController@reset')->name('aspirante.password.reset');
+    //fin auth
+
+
+    Route::get('/', 'HomeController@index')->name('aspirante.home');
+
+    //recursos del aspirante
+    Route::get('recursos/imagenInformativa', 'RecursosController@viewImagenInformativa')->name('aspirante.recursos.imagenInformativa');
+    Route::get('recursos/reglamento', 'RecursosController@getReglamento')->name('aspirante.recursos.reglamento');
+    Route::get('recursos/guia-asignacion', 'RecursosController@viewGuiaAsignacion')->name('aspirante.recursos.guia-asignacion');
+    Route::get('recursos/guia-aplicacion', 'RecursosController@viewGuiaAplicacion')->name('aspirante.recursos.guia-aplicacion');
+
+    Route::group(['middleware' => ['auth:aspirante_web']], function () {
+        Route::get('configuracion', function () {
+            return view('aspirante.configurarCuenta');
+        })->name('aspirante.configuracion');
+        Route::post('configuracion/guardar', "AspiranteController@actualizarCuenta")->name('aspirante.configuracion.guardar');
+        Route::resource('datos', 'AspiranteController');
+        Route::resource('formulario', 'formularioController');
+        Route::get('actualizarCUI', 'formularioController@actualizarCUI');
+        Route::post('actualizarCUI', 'formularioController@storeCUI');
+        Route::get('aprobados', 'formularioController@getConfirmacion');
+        Route::post('formulario/{formulario_id}/confirmar', 'formularioController@confirmarIntereses')->name('aspirante.formulario.confirmar');
+        Route::resource('PruebaEspecifica', 'AspiranteAplicacionController', ['only' => [
+            'create','store','show'
+        ]]);
+
+
+
     });
-
-
-
 });
 
 

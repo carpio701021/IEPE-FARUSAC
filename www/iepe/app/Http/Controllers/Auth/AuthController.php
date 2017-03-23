@@ -33,8 +33,8 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'aspirante/datos';
-    protected $redirectAfterLogout = '/aspirante';
+    protected $redirectTo =  '/' ;
+    protected $redirectAfterLogout = '/';
     protected $guard = 'aspirante_web';
     protected $username = 'NOV';
     protected $activationService;
@@ -48,6 +48,8 @@ class AuthController extends Controller
     {
         $this->middleware('aspirante_web', ['except' => 'logout']);
         $this->activationService = $activationService;
+        $this->redirectTo = action('AspiranteController@index');
+        $this->redirectAfterLogout = action('AspiranteController@index');
     }
 
     /**

@@ -24,28 +24,32 @@ class AplicacionesSeeder extends Seeder
         $salon[] = new Salon(['edificio'=>'T3','nombre'=>'T1 L II 4','capacidad'=>'75']);end($salon)->save();
         $salon[] = new Salon(['edificio'=>'T3','nombre'=>'T1 L II 5','capacidad'=>'75']);end($salon)->save();
 
-        $aplicacion[] =new Aplicacion(['fecha_inicio_asignaciones'=>'2016/05/24',
-            'fecha_fin_asignaciones'=>'2016/10/27',
-            'year'=>2016,
+        $aplicacion[] =new Aplicacion([
+            'fecha_inicio_asignaciones'=>'2017/03/01',
+            'fecha_fin_asignaciones'=>'2017/09/01',
+            'year'=>2017,
             'naplicacion'=>1,
         ]); end($aplicacion)->save();
 
 
-        $aplicacion[] =new Aplicacion(['fecha_inicio_asignaciones'=>'2016/08/15',
-            'fecha_fin_asignaciones'=>'2016/08/25',
-            'year'=>2016,
+        $aplicacion[] =new Aplicacion([
+            'fecha_inicio_asignaciones'=>'2017/07/15',
+            'fecha_fin_asignaciones'=>'2017/08/25',
+            'year'=>2017,
             'naplicacion'=>2,
         ]); end($aplicacion)->save();
 
-        $aplicacion[] =new Aplicacion(['fecha_inicio_asignaciones'=>'2015/10/10',
+        $aplicacion[] =new Aplicacion([
+            'fecha_inicio_asignaciones'=>'2015/10/10',
             'fecha_fin_asignaciones'=>'2015/10/20',
             'year'=>2015,
             'naplicacion'=>4,
         ]);end($aplicacion)->save();
 
-        $aplicacion[] =new Aplicacion(['fecha_inicio_asignaciones'=>'2017/06/20',
-            'fecha_fin_asignaciones'=>'2017/06/30',
-            'year'=>2017,
+        $aplicacion[] =new Aplicacion([
+            'fecha_inicio_asignaciones'=>'2018/06/20',
+            'fecha_fin_asignaciones'=>'2018/06/30',
+            'year'=>2018,
             'naplicacion'=>1,
         ]); end($aplicacion)->save();
 

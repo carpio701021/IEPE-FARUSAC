@@ -30,6 +30,7 @@ $factory->define(App\Formulario::class, function (Faker\Generator $faker) {
         'carrera'      => $faker->numberBetween(1,2),
         'jornada'=> $faker->numberBetween(1,2),
         'confirmacion_intereses'=>0,
+        'fecha_nacimiento' => $faker->date($format = 'Y-m-d', $max = 'now'),
     ];
 });
 
