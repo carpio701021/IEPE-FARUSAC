@@ -88,7 +88,8 @@
 									@endif
 								</div>
 								<br>
-								<h4>Resultados por área evaluada</h4>
+								<div class="container hidden" id="divResultadosDetallados">
+								<h4>Resultados por área evaluada</h4>								
 								<div class="row">
 									<div class="col-sm-6"><strong>Razonamiento abstracto:</strong> </div>
 									<div class="col-sm-6">
@@ -145,7 +146,7 @@
 										@endif
 									</div>
 								</div>
-
+								</div>
 							</div>
 						</div>
 						<div class="panel-footer">

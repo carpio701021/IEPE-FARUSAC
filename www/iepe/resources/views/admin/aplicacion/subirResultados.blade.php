@@ -42,6 +42,16 @@
                     <div class="panel-heading">Ajustar percentiles</div>
                     <div class="panel-body">
                         <div class="form-group">
+                            <label class="control-label col-xs-2">Carrera</label>
+                            <div class="col-xs-10">
+                                <select class="form-control" name="selectCarrera">
+                                    <option value="disenio">Diseño Gráfico</option>
+                                    <option value="arquitectura">Arquitectura</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="control-label col-xs-2">RA</label>
                             <div class="col-xs-10">
                                 <input class="form-control" type="number" name="percentil_RA" value='{{$aplicacion->percentil_RA}}'/>
@@ -78,7 +88,8 @@
     <div class="container">
         <h3>Resumen de calificación</h3>
         <p>Esta calificación se realiza utilizando los percentiles definidos para cada area</p>
-        <div class="col-sm-8">
+        <div class="col-sm-6">
+            <h4>Arquitectura</h4>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -115,13 +126,53 @@
                     <td>{{$resumen_areas['rAPN']}}</td>
                 </tr>
                 </tbody>
-            </table>
-            <form role="form" method="get" action="{{ action('AplicacionController@show',['aplicacion'=>$aplicacion->id]) }}">
+            </table>            
+        </div>
+        <div class="col-sm-6">
+            <h4>Diseño Gráfico</h4>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Area</th>
+                    <th>Percentil Utilizado</th>
+                    <th>Aprobados</th>
+                    <th>Reprobados</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>RA</td>
+                    <td>{{$aplicacion->percentil_RA_disenio}}</td>
+                    <td>{{$resumen_areas['aRA']}}</td>
+                    <td>{{$resumen_areas['rRA']}}</td>
+
+                </tr>
+                <tr>
+                    <td>APE</td>
+                    <td>{{$aplicacion->percentil_APE_disenio}}</td>
+                    <td>{{$resumen_areas['aAPE']}}</td>
+                    <td>{{$resumen_areas['rAPE']}}</td>
+                </tr>
+                <tr>
+                    <td>RV</td>
+                    <td>{{$aplicacion->percentil_RV_disenio}}</td>
+                    <td>{{$resumen_areas['aRV']}}</td>
+                    <td>{{$resumen_areas['rRV']}}</td>
+                </tr>
+                <tr>
+                    <td>APN</td>
+                    <td>{{$aplicacion->percentil_APN_disenio}}</td>
+                    <td>{{$resumen_areas['aAPN']}}</td>
+                    <td>{{$resumen_areas['rAPN']}}</td>
+                </tr>
+                </tbody>
+            </table>            
+        </div>
+        <form role="form" method="get" action="{{ action('AplicacionController@show',['aplicacion'=>$aplicacion->id]) }}">
                 {{csrf_field()}}
                 <input type="hidden" name="orden" value="0">
                 <button class="btn btn-primary" type="submit">Ver notas aspirantes aprobados</button>
             </form>
-        </div>
     </div>
 
 @stop

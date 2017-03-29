@@ -140,20 +140,35 @@ class Aplicacion extends Model
             ;
     }
 
-    public function calificar(){
+    public function calificar($carrera){
         $salonesHorarios = $this->getSalonesHorarios();
         foreach ($salonesHorarios as $salonhorario){
             $asignaciones = $salonhorario->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
-            ->where('resultado','<>','irregular');
-            foreach ($asignaciones->get() as $asignacion){
-                if($asignacion->nota_RA>=$this->percentil_RA
-                    && $asignacion->nota_APE>=$this->percentil_APE
-                    && $asignacion->nota_RV>=$this->percentil_RV
-                    && $asignacion->nota_APN>=$this->percentil_APN){
-                    $asignacion->resultado='aprobado';
+            ->join('formularios','aspirante_id','=','NOV')            
+            ->select('aspirantes_aplicaciones.id','nota_RA','nota_APE','nota_RV','nota_APN','resultado','carrera')
+            ->where('resultado','<>','irregular');                    
+            foreach ($asignaciones->get() as $asignacion){                
+                
+                if($asignacion->carrera=="arquitectura"){
+                    if($asignacion->nota_RA>=$this->percentil_RA
+                        && $asignacion->nota_APE>=$this->percentil_APE
+                        && $asignacion->nota_RV>=$this->percentil_RV
+                        && $asignacion->nota_APN>=$this->percentil_APN){
+                        $asignacion->resultado='aprobado';
+                    }else{
+                        $asignacion->resultado='reprobado';
+                    }
                 }else{
-                    $asignacion->resultado='reprobado';
+                    if($asignacion->nota_RA>=$this->percentil_RA_disenio
+                        && $asignacion->nota_APE>=$this->percentil_APE_disenio
+                        && $asignacion->nota_RV>=$this->percentil_RV_disenio
+                        && $asignacion->nota_APN>=$this->percentil_APN_disenio){
+                        $asignacion->resultado='aprobado';
+                    }else{
+                        $asignacion->resultado='reprobado';
+                    }
                 }
+                
                 $asignacion->save();
             }
         }
