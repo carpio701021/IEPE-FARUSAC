@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <label class="control-label col-xs-2">Carrera</label>
                             <div class="col-xs-10">
-                                <select class="form-control" name="selectCarrera">
+                                <select class="form-control" name="selectCarrera" id="selectCarrera">
                                     <option value="disenio">Diseño Gráfico</option>
                                     <option value="arquitectura">Arquitectura</option>
                                 </select>
@@ -54,25 +54,25 @@
                         <div class="form-group">
                             <label class="control-label col-xs-2">RA</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="number" name="percentil_RA" value='{{$aplicacion->percentil_RA}}'/>
+                                <input class="form-control" type="number" id="percentil_RA" name="percentil_RA" value='{{ $aplicacion->percentil_RA }}'/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-2">APE</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="number" name="percentil_APE" value='{{$aplicacion->percentil_APE}}'/>
+                                <input class="form-control" type="number" id="percentil_APE" name="percentil_APE" value='{{$aplicacion->percentil_APE}}'/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-2">RV</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="number" name="percentil_RV" value='{{$aplicacion->percentil_RV}}'/>
+                                <input class="form-control" type="number" id="percentil_RV" name="percentil_RV" value='{{$aplicacion->percentil_RV}}'/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-2">APN</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="number" name="percentil_APN" value='{{$aplicacion->percentil_APN}}'/>
+                                <input class="form-control" type="number" id="percentil_APN" name="percentil_APN" value='{{$aplicacion->percentil_APN}}'/>
                             </div>
                         </div>
                         <div align="right">
@@ -126,7 +126,12 @@
                     <td>{{$resumen_areas['rAPN']}}</td>
                 </tr>
                 </tbody>
-            </table>            
+            </table>    
+            <div class="row">
+                <label>Aprobados: {{ $resumen_areas['aprobados_arquitectura'] }}</label><br/>
+                <label>Reprobados: {{ $resumen_areas['reprobados_arquitectura'] }}</label><br/>
+                <label>Total: {{ $resumen_areas['reprobados_arquitectura'] + $resumen_areas['aprobados_arquitectura'] }}</label>
+            </div>        
         </div>
         <div class="col-sm-6">
             <h4>Diseño Gráfico</h4>
@@ -143,32 +148,37 @@
                 <tr>
                     <td>RA</td>
                     <td>{{$aplicacion->percentil_RA_disenio}}</td>
-                    <td>{{$resumen_areas['aRA']}}</td>
-                    <td>{{$resumen_areas['rRA']}}</td>
+                    <td>{{$resumen_areas['aRA_disenio']}}</td>
+                    <td>{{$resumen_areas['rRA_disenio']}}</td>
 
                 </tr>
                 <tr>
                     <td>APE</td>
                     <td>{{$aplicacion->percentil_APE_disenio}}</td>
-                    <td>{{$resumen_areas['aAPE']}}</td>
-                    <td>{{$resumen_areas['rAPE']}}</td>
+                    <td>{{$resumen_areas['aAPE_disenio']}}</td>
+                    <td>{{$resumen_areas['rAPE_disenio']}}</td>
                 </tr>
                 <tr>
                     <td>RV</td>
                     <td>{{$aplicacion->percentil_RV_disenio}}</td>
-                    <td>{{$resumen_areas['aRV']}}</td>
-                    <td>{{$resumen_areas['rRV']}}</td>
+                    <td>{{$resumen_areas['aRV_disenio']}}</td>
+                    <td>{{$resumen_areas['rRV_disenio']}}</td>
                 </tr>
                 <tr>
                     <td>APN</td>
                     <td>{{$aplicacion->percentil_APN_disenio}}</td>
-                    <td>{{$resumen_areas['aAPN']}}</td>
-                    <td>{{$resumen_areas['rAPN']}}</td>
+                    <td>{{$resumen_areas['aAPN_disenio']}}</td>
+                    <td>{{$resumen_areas['rAPN_disenio']}}</td>
                 </tr>
                 </tbody>
             </table>            
+            <div class="row">
+                <label>Aprobados: {{ $resumen_areas['aprobados_disenio'] }}</label><br/>
+                <label>Reprobados: {{ $resumen_areas['reprobados_disenio'] }}</label><br/>
+                <label>Total: {{ $resumen_areas['reprobados_disenio'] + $resumen_areas['aprobados_disenio'] }}</label>
+            </div>
         </div>
-        <form role="form" method="get" action="{{ action('AplicacionController@show',['aplicacion'=>$aplicacion->id]) }}">
+        <form role="form" style="padding-top:15%;padding-bottom:5%" method="get" action="{{ action('AplicacionController@show',['aplicacion'=>$aplicacion->id]) }}">
                 {{csrf_field()}}
                 <input type="hidden" name="orden" value="0">
                 <button class="btn btn-primary" type="submit">Ver notas aspirantes aprobados</button>
@@ -186,6 +196,22 @@
         function cambiar_archivo() {
             labelfile.innerHTML=file.value;
         }
+
+        $("#selectCarrera").change(function(){
+            
+            if ($(this).val() == 'arquitectura'){
+                $("#percentil_RA").val( {{ $aplicacion->percentil_RA }});
+                $("#percentil_RV").val( {{ $aplicacion->percentil_RV }});
+                $("#percentil_APN").val( {{ $aplicacion->percentil_APN }});
+                $("#percentil_APE").val( {{ $aplicacion->percentil_APE }});
+            }else{
+                $("#percentil_RA").val( {{ $aplicacion->percentil_RA_disenio }});
+                $("#percentil_RV").val( {{ $aplicacion->percentil_RV_disenio }});
+                $("#percentil_APN").val( {{ $aplicacion->percentil_APN_disenio }});
+                $("#percentil_APE").val( {{ $aplicacion->percentil_APE_disenio }});
+            }
+            
+        }); 
 
     </script>
 

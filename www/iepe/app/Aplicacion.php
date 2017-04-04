@@ -178,6 +178,10 @@ class Aplicacion extends Model
         return $this->hasMany('App\AplicacionSalonHorario','aplicacion_id')->get();
     }
 
+    /**
+     * @deprecated 
+     * se usó en el primer release, sustituido por el metodo getResumenCalificacion 
+     **/
     public function getResumen_Areas(){
         $aprobados_RA=0;$reprobados_RA=0;
         $aprobados_APE=0;$reprobados_APE=0;
@@ -208,6 +212,38 @@ class Aplicacion extends Model
             'aAPE'=>$aprobados_APE,'rAPE'=>$reprobados_APE,
             'aRV'=>$aprobados_RV,'rRV'=>$reprobados_RV,
             'aAPN'=>$aprobados_APN,'rAPN'=>$reprobados_APN,];
+    }
+
+    
+    /**
+     * llamada a un store procedure para obtener los resultados de una calificacion efectuada
+     * @return array
+     * 
+     */
+    public function getResumenCalificacion(){
+        $resumen = DB::select('CALL resumenCalificacion('.$this->id.')')[0];        
+        return [
+            'aRA'=>$resumen->aprobados_RA,
+            'rRA'=>$resumen->reprobados_RA,
+            'aAPE'=>$resumen->aprobados_APE,
+            'rAPE'=>$resumen->reprobados_APE,
+            'aRV'=>$resumen->aprobados_RV,
+            'rRV'=>$resumen->reprobados_RV,
+            'aAPN'=>$resumen->aprobados_APN,
+            'rAPN'=>$resumen->reprobados_APN,
+            'aRA_disenio'=>$resumen->aprobados_RA_disenio,
+            'rRA_disenio'=>$resumen->reprobados_RA_disenio,
+            'aAPE_disenio'=>$resumen->aprobados_APE_disenio,
+            'rAPE_disenio'=>$resumen->reprobados_APE_disenio,
+            'aRV_disenio'=>$resumen->aprobados_RV_disenio,
+            'rRV_disenio'=>$resumen->reprobados_RV_disenio,
+            'aAPN_disenio'=>$resumen->aprobados_APN_disenio,
+            'rAPN_disenio'=>$resumen->reprobados_APN_disenio,
+            'aprobados_arquitectura'=> $resumen->aprobados_arquitectura,
+            'reprobados_arquitectura'=> $resumen->reprobados_arquitectura,
+            'aprobados_disenio'=> $resumen->aprobados_disenio,
+            'reprobados_disenio'=> $resumen->reprobados_disenio,
+                ];
     }
 
     public function getCountAprobados(){
