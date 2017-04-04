@@ -88,6 +88,7 @@
 									@endif
 								</div>
 								<br>
+								{{-- DESCOMENTAR PARA MOSTRAR RESULTADO DETALLADO
 								<div class="container hidden" id="divResultadosDetallados">
 								<h4>Resultados por área evaluada</h4>								
 								<div class="row">
@@ -147,6 +148,7 @@
 									</div>
 								</div>
 								</div>
+								--}}
 							</div>
 						</div>
 						<div class="panel-footer">
