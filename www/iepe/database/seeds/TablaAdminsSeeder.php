@@ -38,7 +38,7 @@ class TablaAdminsSeeder extends Seeder
             'registro_personal' =>  '10002',
             'nombre'            =>  'Byron Alfredo',
             'apellido'          =>  'Rabé Rendón',
-            'email'             =>  '201213052@ingenieria.usac.edu.gt',
+            'email'             =>  '2012130522@ingenieria.usac.edu.gt',
             'password'          =>  bcrypt('123123'),
             'rol'               =>  'decano',
         ]))->save();
@@ -74,6 +74,17 @@ class TablaAdminsSeeder extends Seeder
             'email'             =>  'jodaches@gmail.com',
             'password'          =>  bcrypt('123123'),
             'rol'               =>  'director_disenio_grafico',
+        ]))->save();
+
+
+
+        (new Admin([
+            'registro_personal' =>  '10006',
+            'nombre'            =>  'Registro y Estadistica',
+            'apellido'          =>  '',
+            'email'             =>  '201213052@ingenieria.usac.edu.gt',
+            'password'          =>  bcrypt('123123'),
+            'rol'               =>  'consultor_ws',
         ]))->save();
 
 

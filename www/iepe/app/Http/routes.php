@@ -28,10 +28,116 @@ Route::get('aspirante', function () {
     return redirect('/');
 });
 
+Route::any('soap/wsPrimerIngreso', 'SoapController@wsPrimerIngreso');
+
+//Route::any('soap/wsPrimerIngreso', 'SoapController@wsPrimerIngreso');
+/*
+Route::any('soap/wsPrimerIngreso', function () {
+    $urlService =  url('soap/wsPrimerIngreso') ; // action('SoapController@wsPrimerIngreso');
+    $namespace = $urlService.'?wsdl';
+    $serviceAction = $urlService . '/verificar_prueba_especifica';
+
+    global $HTTP_SERVER_VARS;
+    $_SERVER['PHP_SELF'] = url('soap/wsPrimerIngreso');
+    $server = new \nusoap_server();
+
+
+    $server->configureWSDL('wsPrimerIngreso', false, $urlService);
+    //$this->server->debug_flag = false;
+    $server->wsdl->schemaTargetNamespace = $namespace;
+    // Parametros de entrada
+    $server->wsdl->addComplexType(
+        'VERIFICAR_PE',
+        'complexType',
+        'struct',
+        'all',
+        '',
+        array(
+            'USR' => array ('name'=>'USR', 'type' => 'xsd:string'),
+            'PWD' => array ('name'=>'PWD', 'type' => 'xsd:string'),
+            'NOV' => array ('name'=>'NOV', 'type' => 'xsd:string'),
+            'UA' => array ('name'=>'UA', 'type' => 'xsd:string'),
+            'EXT' => array ('name'=>'EXT', 'type' => 'xsd:string'),
+            'CAR' => array ('name'=>'CAR', 'type' => 'xsd:string'),
+            'CICLO' => array ('name'=>'CICLO', 'type' => 'xsd:string'),
+        )
+    );
+    // Parametros de salida
+    $server->wsdl->addComplexType(
+        'RESPUESTA',
+        'complexType',
+        'struct',
+        'all',
+        '',
+        array(
+            'NOV'  => array('name' => 'NOV', 'type' => 'xsd:string'),
+            'UA'  => array('name' => 'UA', 'type' => 'xsd:string'),
+            'EXT'  => array('name' => 'EXT', 'type' => 'xsd:string'),
+            'CAR'  => array('name' => 'CAR', 'type' => 'xsd:string'),
+            'CICLO'  => array('name' => 'CICLO', 'type' => 'xsd:string'),
+            'RESULTADO'  => array('name' => 'RESULTADO', 'type' => 'xsd:string'),
+            'FECHA_CALIFICACION'  => array('name' => 'FECHA_CALIFICACION', 'type' => 'xsd:string'),
+            'FECHA_CADUCA'  => array('name' => 'FECHA_CADUCA', 'type' => 'xsd:string'),
+            'NOTA'  => array('name' => 'NOTA', 'type' => 'xsd:string'),
+            'AUTORIZACION'  => array('name' => 'AUTORIZACION', 'type' => 'xsd:string'),
+            'ERROR'  => array('name' => 'ERROR', 'type' => 'xsd:string'),
+            'MSG_ERROR'  => array('name' => 'MSG_ERROR', 'type' => 'xsd:string')
+            //'greeting' => array('name' => 'greeting', 'type' => 'xsd:string'),
+            //'winner' => array('name' => 'winner', 'type' => 'xsd:boolean')
+        )
+    );
+
+    $server->register('verificar_prueba_especifica',                // method name
+        array('VERIFICAR_PE' => 'tns:VERIFICAR_PE'),        // input parameters
+        array('RESPUESTA' => 'tns:RESPUESTA'),    // output parameters
+        $namespace, //'urn:WS_PRIMER_INGRESO',                // namespace
+        $serviceAction, //'urn:WS_PRIMER_INGRESO/verificar_prueba_especifica',                // soapaction
+        'rpc',                        // style
+        'encoded',                    // use
+        'Servicios relacionados a primer ingreso a la Facultad de Arquitectura USAC'    // documentation
+    );
+
+
+
+    function verificar_prueba_especifica($VERIFICAR_PE) {
+        //global $server;
+
+        $RESPUESTA = [];
+
+        //verificar el usuario y la contraseña
+        //$admins = Admin::findAll();
+        //dd($admins);
+        //verificar resultado de estudiante
+
+
+        //devolver respuesta
+        $RESPUESTA['NOV'] = $VERIFICAR_PE['NOV'] ;
+        $RESPUESTA['UA'] = 'Hola '.$VERIFICAR_PE['UA'] ;
+        $RESPUESTA['EXT'] = '';
+        $RESPUESTA['CAR'] = '';
+        $RESPUESTA['CICLO'] = '';
+        $RESPUESTA['RESULTADO'] = '';
+        $RESPUESTA['FECHA_CALIFICACION'] = '';
+        $RESPUESTA['FECHA_CADUCA'] = '';
+        $RESPUESTA['NOTA'] = '';
+        $RESPUESTA['AUTORIZACION'] = '';
+        $RESPUESTA['ERROR'] = '';
+        $RESPUESTA['MSG_ERROR'] = '';
+
+
+        return $RESPUESTA;
+    }
+
+    //dd($this->server);
+
+
+    $rawPostData = file_get_contents("php://input");
+    return \Response::make($server->service($rawPostData), 200, array('Content-Type' => 'text/xml; charset=ISO-8859-1'));
+});// */
+
 Route::group(['prefix' => 'aspirante'], function () {
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
-
         //Authentication Routes...
         $this->get('login', 'AuthAdmin\AuthController@showLoginForm')->name('admin.login');
         $this->post('login', 'AuthAdmin\AuthController@login')->name('admin.login');

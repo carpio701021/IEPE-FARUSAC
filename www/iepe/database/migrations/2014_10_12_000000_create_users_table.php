@@ -28,7 +28,8 @@ class CreateUsersTable extends Migration
                 'secretario',
                 'decano',
                 'director_arquitectura',
-                'director_disenio_grafico'
+                'director_disenio_grafico',
+                'consultor_ws'
             ]);
 
             $table->rememberToken();

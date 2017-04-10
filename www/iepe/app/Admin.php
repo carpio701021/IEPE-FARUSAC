@@ -51,7 +51,8 @@ class Admin extends Authenticatable
             'secretario'                =>  'Secretario',
             'decano'                    =>  'Decano',
             'director_arquitectura'     =>  'Director de Arquitectura',
-            'director_disenio_grafico'  =>  'Director de Diseño Gráfico'
+            'director_disenio_grafico'  =>  'Director de Diseño Gráfico',
+            'consultor_ws'  =>  'Consultor de servicios Web'
         ];
     }
     
