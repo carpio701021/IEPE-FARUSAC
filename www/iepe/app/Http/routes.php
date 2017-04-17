@@ -142,7 +142,7 @@ Route::group(['middleware' => 'aspirante_web'], function () {
     Route::get('register', 'Auth\AuthController@showRegistrationForm')->name('aspirante.register');
     Route::post('register', 'Auth\AuthController@register')->name('aspirante.register');
 
-    Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm')->name('aspirante.password.reset');
+    Route::get('aspirante/password/reset/{token?}', 'Auth\PasswordController@showResetForm')->name('aspirante.password.reset');
     Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail')->name('aspirante.password.email');
     Route::post('password/reset', 'Auth\PasswordController@reset')->name('aspirante.password.reset');
     //fin auth
