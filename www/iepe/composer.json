@@ -30,7 +30,8 @@
             "App\\": "app/"
         },
         "files": [
-            "app/vendor/econea/nusoap/src/nusoap.php"
+            "vendor/econea/nusoap/src/nusoap.php",
+            "app/wsPrimerIngreso.php"
         ]
     },
     "autoload-dev": {

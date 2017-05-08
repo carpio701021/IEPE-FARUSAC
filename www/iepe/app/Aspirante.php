@@ -78,6 +78,7 @@ class Aspirante extends Authenticatable
         //return Datos_sun::where('orientacion',$this->NOV)->first()->sexo;
     }
 
+    //funcion usada desde la interfaz grafica para mostrar resultados
     public function aprobo(){
         $asignacion = AspiranteAplicacion::where('aspirante_id',$this->NOV)
             ->where('acta_id','>',0)->first();
@@ -88,4 +89,15 @@ class Aspirante extends Authenticatable
         else
             return false;
     }
+
+    //funcion para saber si ha ganado o no alguna prueba especifica
+    public function resultadosPruebaEspecifica(){
+        return AspiranteAplicacion::where('aspirante_id',$this->NOV)
+            ->where('acta_id','>',0)
+            ->where('resultado','aprobado')
+            ->orderBy('created_at','desc')
+            ->first();
+    }
+
+
 }
