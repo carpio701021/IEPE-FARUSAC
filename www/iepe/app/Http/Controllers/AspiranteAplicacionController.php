@@ -110,7 +110,7 @@ class AspiranteAplicacionController extends Controller
     {
         $aplicacion=Aplicacion::find($id);
         return view('admin.aplicacion.subirResultados')->with(['aplicacion'=>$aplicacion,
-        'resumen_areas'=>$aplicacion->getResumen_Areas()]);
+        'resumen_areas'=>$aplicacion->getResumenCalificacion()]);
     }
 
     /**

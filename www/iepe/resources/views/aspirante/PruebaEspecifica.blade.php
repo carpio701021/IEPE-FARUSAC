@@ -7,6 +7,10 @@
 		btn_asignar.disabled=true;
 
 	}
+	
+	function bloquearBoton(){
+		btn_asignar.disabled=true;
+	}
 </script>
 @section('content')	
 	<h1>Prueba específica</h1>
@@ -44,7 +48,7 @@
 							</div>
 						</div>
 						<div class="panel-footer">
-							<form class="form-group" method="POST" action="{{ action('AspiranteAplicacionController@store') }}">
+							<form  onsubmit="bloquearBoton()" class="form-group" method="POST" action="{{ action('AspiranteAplicacionController@store') }}">
 								<input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
 								<input type="hidden" value="{{$aplicacion->id}}"  name="aplicacion_id"/>
 							<input class="btn btn-primary" type="submit"  value="Asignar oportunidad"/>
@@ -88,7 +92,9 @@
 									@endif
 								</div>
 								<br>
-								<h4>Resultados por área evaluada</h4>
+								{{-- DESCOMENTAR PARA MOSTRAR RESULTADO DETALLADO
+								<div class="container hidden" id="divResultadosDetallados">
+								<h4>Resultados por área evaluada</h4>								
 								<div class="row">
 									<div class="col-sm-6"><strong>Razonamiento abstracto:</strong> </div>
 									<div class="col-sm-6">
@@ -145,7 +151,8 @@
 										@endif
 									</div>
 								</div>
-
+								</div>
+								--}}
 							</div>
 						</div>
 						<div class="panel-footer">

@@ -286,12 +286,19 @@ class AplicacionController extends Controller
 
     public function actualizarPercentiles(PercentilRequest $request,$id){
         $aplicacion = Aplicacion::find($id);
-        $aplicacion->percentil_RA=$request->percentil_RA;
-        $aplicacion->percentil_APE=$request->percentil_APE;
-        $aplicacion->percentil_RV=$request->percentil_RV;
-        $aplicacion->percentil_APN=$request->percentil_APN;
+        if ($request->selectCarrera == "arquitectura"){
+            $aplicacion->percentil_RA=$request->percentil_RA;
+            $aplicacion->percentil_APE=$request->percentil_APE;
+            $aplicacion->percentil_RV=$request->percentil_RV;
+            $aplicacion->percentil_APN=$request->percentil_APN;
+        }else{
+            $aplicacion->percentil_RA_disenio=$request->percentil_RA;
+            $aplicacion->percentil_APE_disenio=$request->percentil_APE;
+            $aplicacion->percentil_RV_disenio=$request->percentil_RV;
+            $aplicacion->percentil_APN_disenio=$request->percentil_APN;
+        }        
         $aplicacion->save();
-        $aplicacion->calificar();//actualizará la tabla aspirantes_aplicaciones
+        $aplicacion->calificar($request->selectCarrera);//actualizará la tabla aspirantes_aplicaciones
 
         return back();
     }
