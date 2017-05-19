@@ -48,8 +48,8 @@ Route::get('soap/wsPrimerIngresox', function () {
     $respuesta = verificar_prueba_especifica([
         'USR' => '10006',
         'PWD' => '123123',
-        'NOV' => '1000000003',
-        'UA' => '05',
+        'NOV' => '1000000958',
+        'UA' => '02',
         'EXT' => '00',
         'CAR' => '01',
         'CICLO' => '2016'

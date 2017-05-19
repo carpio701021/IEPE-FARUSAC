@@ -19,20 +19,21 @@ function verificar_prueba_especifica($VERIFICAR_PE) {
         //verificar el usuario, la contraseña y el rol
         $usuario = $VERIFICAR_PE['USR'];
         $pass = $VERIFICAR_PE['PWD'];
-        if (!Auth::guard('admin')->attempt(['registro_personal' => $usuario, 'password' => $pass]) || !Auth::guard('admin')->user()->tieneRol('consultor_ws')) {
-            $RESPUESTA['ERROR'] = '1';
-            $RESPUESTA['MSG_ERROR'] = 'Error de autenticacion. Usuario o contraseña invalidos.';
-            return $RESPUESTA;
-        }
+        if (!Auth::guard('admin')->attempt(['registro_personal' => $usuario, 'password' => $pass]) || !Auth::guard('admin')->user()->tieneRol('consultor_ws'))
+            return erroresWsPrimerIngreso(1);
+
+        //verifica unidad y extension
+        if(!($VERIFICAR_PE['UA']=='02' && $VERIFICAR_PE['EXT']=='00' && ($VERIFICAR_PE['CAR']=='01' || $VERIFICAR_PE['CAR']=='03')))
+            return erroresWsPrimerIngreso(2);
 
         //verifica que el usuario exista
         $aspirante = Aspirante::where('NOV',$VERIFICAR_PE['NOV'])->first();
         if($aspirante===null)
-            return erroresWsPrimerIngreso(2);
+            return erroresWsPrimerIngreso(3);
 
         //traer resultados satisfactorios
-        $resultados = $aspirante->resultadosPruebaEspecifica();
-        if($resultados===null)
+        $aspiranteAplicacion = $aspirante->resultadosPruebaEspecifica();
+        if($aspiranteAplicacion===null)
             return $RESPUESTA=[
                 'NOV' => $VERIFICAR_PE['NOV'],
                 'RESULTADO' => 'Insatisfactorio',
@@ -40,17 +41,42 @@ function verificar_prueba_especifica($VERIFICAR_PE) {
                 'MSG_ERROR' => ''
             ];
 
+        $aplicacion = $aspiranteAplicacion->getAplicacion();
+        $resultado = 'Insatisfactorio';
+
+        if($VERIFICAR_PE['CAR']=='01' // arquitectura
+            && $aspiranteAplicacion->nota_RA >= $aplicacion->percentil_RA
+            && $aspiranteAplicacion->nota_APE >= $aplicacion->percentil_APE
+            && $aspiranteAplicacion->nota_RV >= $aplicacion->percentil_RV
+            && $aspiranteAplicacion->nota_APN >= $aplicacion->percentil_APN
+        ) $resultado = 'Aprobado';
+
+
+
+        if($VERIFICAR_PE['CAR']=='03' //diseño grafico
+            && $aspiranteAplicacion->nota_RA >= $aplicacion->percentil_RA_disenio
+            && $aspiranteAplicacion->nota_APE >= $aplicacion->percentil_APE_disenio
+            && $aspiranteAplicacion->nota_RV >= $aplicacion->percentil_RV_disenio
+            && $aspiranteAplicacion->nota_APN >= $aplicacion->percentil_APN_disenio
+        ) $resultado = 'Aprobado';
+
+        $acta = $aspiranteAplicacion->getActaAprobada();
+        if($acta==null)
+            return erroresWsPrimerIngreso(4);
+
+
+
         //devolver respuesta
         $RESPUESTA['NOV'] = $aspirante->getNOV();
         $RESPUESTA['UA'] = $VERIFICAR_PE['UA'] ;
-        $RESPUESTA['EXT'] = '';
-        $RESPUESTA['CAR'] = '';
-        $RESPUESTA['CICLO'] = '';
-        $RESPUESTA['RESULTADO'] = 'Satisfactorio';
-        $RESPUESTA['FECHA_CALIFICACION'] = $resultados->updated_at;
-        $RESPUESTA['FECHA_CADUCA'] = '';
+        $RESPUESTA['EXT'] = $VERIFICAR_PE['EXT'] ;
+        $RESPUESTA['CAR'] = $VERIFICAR_PE['CAR'] ;
+        $RESPUESTA['CICLO'] = $aspiranteAplicacion->updated_at->year;
+        $RESPUESTA['RESULTADO'] = $resultado;
+        $RESPUESTA['FECHA_CALIFICACION'] = $acta->updated_at;
+        $RESPUESTA['FECHA_CADUCA'] = $acta->updated_at->addYears(2);
         $RESPUESTA['NOTA'] = '';
-        $RESPUESTA['AUTORIZACION'] = 'Codigo de constancia '.md5($resultados->getFechaAplicacion().'-'.$aspirante->getNOV());
+        $RESPUESTA['AUTORIZACION'] = 'Codigo de constancia '.md5($aspiranteAplicacion->getFechaAplicacion().'-'.$aspirante->getNOV());
         $RESPUESTA['ERROR'] = '0';
         $RESPUESTA['MSG_ERROR'] = '';
 
@@ -68,7 +94,13 @@ function erroresWsPrimerIngreso($noError,$exception = null){
             $RESPUESTA['MSG_ERROR'] = 'Error de autenticacion. Usuario o contraseña invalidos.';
             break;
         case 2:
+            $RESPUESTA['MSG_ERROR'] = 'Unidad, extension o carrera no válidos en este sistema.';
+            break;
+        case 3:
             $RESPUESTA['MSG_ERROR'] = 'No se encontro ninguna coincidencia para el NOV proporcionado.';
+            break;
+        case 4:
+            $RESPUESTA['MSG_ERROR'] = 'El acta del aspirante no esta aprobada.';
             break;
         default:
             $RESPUESTA['MSG_ERROR'] = 'Error inesperado.';
@@ -83,15 +115,17 @@ function erroresWsPrimerIngreso($noError,$exception = null){
 /*
  *
  * RECIBIR un String con el siguiente XML:
-<VERIFICAR_PE>
-        <USR>10006</USR>
-        <PWD>123123</PWD>
-        <NOV>1000000003</NOV>
-        <UA>05</UA>
-        <EXT>00</EXT>
-        <CAR>01</CAR>
-        <CICLO>2016</CICLO>
-</VERIFICAR_PE>
+
+            <VERIFICAR_PE>
+                <USR>10006</USR>
+                <PWD>123123</PWD>
+                <NOV>1000000958</NOV>
+                <UA>02</UA>
+                <EXT>00</EXT>
+                <CAR>03</CAR>
+                <CICLO>2016</CICLO>
+            </VERIFICAR_PE>
+
 
 DEVUELVE EL SIGUIENTE XML en un String
 En caso de existir resultado:

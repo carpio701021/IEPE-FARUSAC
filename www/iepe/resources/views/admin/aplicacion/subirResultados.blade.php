@@ -45,8 +45,8 @@
                             <label class="control-label col-xs-2">Carrera</label>
                             <div class="col-xs-10">
                                 <select class="form-control" name="selectCarrera" id="selectCarrera">
-                                    <option value="disenio">Diseño Gráfico</option>
                                     <option value="arquitectura">Arquitectura</option>
+                                    <option value="disenio">Diseño Gráfico</option>
                                 </select>
                             </div>
                         </div>

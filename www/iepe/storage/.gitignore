@@ -1,7 +1,7 @@
-arte_aplicaciones/
-actas/
-datos_sun/
-listados_escuelas/
-Resultados/
+arte_aplicaciones/*
+actas/*
+datos_sun/*
+listados_escuelas/*
+Resultados/*
 recursos.json
-reportes/
+reportes/*

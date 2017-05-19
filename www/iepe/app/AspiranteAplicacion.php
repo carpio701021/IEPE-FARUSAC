@@ -34,21 +34,33 @@ class AspiranteAplicacion extends Model
         return date('d-m-Y' ,strtotime($fecha));
     }
 
+    public function getActaAprobada(){
+        //dd(Actas::where('id',$this->acta_id)->get());
+        if ( $this->acta_id == 0) return null;
+        return Actas::where('id',$this->acta_id)
+            ->where('estado','aprobada')
+            ->first();
+    }
+
+
+    //metodos comentados hasta revisar su funcionamiento (tomar en cuenta que ahora los percentiles van por carrera)
+    /*
     public function getResultadoAPE(){
-        return ($this->nota_APE>=$this->getaplicacion()->percentil_APE);
+        return ($this->nota_APE>=$this->getAplicacion()->percentil_APE);
 
     }
     public function getResultadoRA(){
-        return ($this->nota_RA>=$this->getaplicacion()->percentil_RA);
+        return ($this->nota_RA>=$this->getAplicacion()->percentil_RA);
     }
 
     public function getResultadoRV(){
-        return ($this->nota_RV>=$this->getaplicacion()->percentil_RV);
+        return ($this->nota_RV>=$this->getAplicacion()->percentil_RV);
     }
 
     public function getResultadoAPN(){
-        return ($this->nota_APN>=$this->getaplicacion()->percentil_APN);
+        return ($this->nota_APN>=$this->getAplicacion()->percentil_APN);
     }
+    */
 
     public function getResultado(){
         //validar si se puede o no retornar el resultado aún
