@@ -62,7 +62,12 @@ function verificar_prueba_especifica($VERIFICAR_PE) {
 
         $acta = $aspiranteAplicacion->getActaAprobada();
         if($acta==null)
-            return erroresWsPrimerIngreso(4);
+            return $RESPUESTA=[
+                'NOV' => $VERIFICAR_PE['NOV'],
+                'RESULTADO' => 'Insatisfactorio',
+                'ERROR' => '0',
+                'MSG_ERROR' => 'Acta incompleta'
+            ];
 
 
 
@@ -98,9 +103,6 @@ function erroresWsPrimerIngreso($noError,$exception = null){
             break;
         case 3:
             $RESPUESTA['MSG_ERROR'] = 'No se encontro ninguna coincidencia para el NOV proporcionado.';
-            break;
-        case 4:
-            $RESPUESTA['MSG_ERROR'] = 'El acta del aspirante no esta aprobada.';
             break;
         default:
             $RESPUESTA['MSG_ERROR'] = 'Error inesperado.';

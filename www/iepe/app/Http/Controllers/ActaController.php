@@ -55,6 +55,8 @@ class ActaController extends Controller
 
 
         $pdf = \App::make('dompdf.wrapper');
+
+        setlocale(LC_ALL, 'es_GT.UTF8');
         $fecha=Carbon::parse($acta->created_at);
 
 
