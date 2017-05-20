@@ -51,7 +51,7 @@
 							<form  onsubmit="bloquearBoton()" class="form-group" method="POST" action="{{ action('AspiranteAplicacionController@store') }}">
 								<input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
 								<input type="hidden" value="{{$aplicacion->id}}"  name="aplicacion_id"/>
-							<input class="btn btn-primary" type="submit"  value="Asignar oportunidad"/>
+							<input class="btn btn-primary" type="submit" id="btn_asignar" value="Asignar oportunidad"/>
 							</form>
 						</div>
 					</div>

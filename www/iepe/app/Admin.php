@@ -56,7 +56,7 @@ class Admin extends Authenticatable
         ];
     }
     
-    public function nombre(){                        
+    public function getNombreCompleto(){                            
         return $this->nombre.' '.$this->apellido;                      
     }
 }

@@ -34,7 +34,7 @@ class GestionUsuariosController extends Controller
 
         $admin = new Admin();        
         extract(get_object_vars($this));        
-        //dd($admin);
+
         return view('admin.GestionUsuarios.model',compact('admin'));
     }
 

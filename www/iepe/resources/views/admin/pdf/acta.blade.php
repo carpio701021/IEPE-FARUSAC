@@ -17,8 +17,8 @@
         constituidos
         en la oficina administrativa de la Unidad de Desarrollo y Bienestar Estudiantil de la
         Facultad de Arquitectura del Edificio T-2, Primer Nivel, estando presentes:  Arquitecto
-        Byron Alfredo Rabe Rendón, Decano, Arquitecto Publio Alcides Rodríguez Lobos,
-        Secretario Académico, Arquitecto Oscar Romeo Enríquez Gutiérrez, Jefe de Unidad de
+        {{ $decano->getNombreCompleto() }}, Decano, Arquitecto {{ $secretario->getNombreCompleto() }},
+        Secretario Académico, Arquitecto {{ $jefe_bienestar->getNombreCompleto() }}, Jefe de Unidad de
         Desarrollo y Bienestar Estudiantil hacen constar: <b>PRIMERO: </b>
         de acuerdo a los parámetros previamente convenidos, los aspirantes con evaluación satisfactoria son
         {{ count($aspirantes) }}
@@ -50,7 +50,7 @@
     <p align='center'><strong>"Id y ensañar a todos"</strong></p>
             <br>
             <br>
-            <p align='center'> Arq. Byron Rabe Rendón<br>
+            <p align='center'> Arq. {{ $decano->getNombreCompleto() }}<br>
                 Decano<br>
                 Facultad de Arquitectura
             </p>
@@ -59,14 +59,14 @@
             <table width="100%">
                 <tr>
                     <td valign="top">
-                        <p align="center">Arq. Oscar Enríquez <br>
+                        <p align="center">Arq. {{ $jefe_bienestar->getNombreCompleto() }}<br>
                             Bienestar y Desarrollo Estudiantil<br>
                             Facultad de Arquitectura<br>
                             Jefe</p>
                     </td>
                     <td valign="top">
                         <p align="center">
-                            Arq. Publio Rodríguez Lobos<br>
+                            Arq. {{ $secretario->getNombreCompleto() }}<br>
                             Secretaría Académica<br>
                             Facultad de Arquitectura<br>
                         </p>
