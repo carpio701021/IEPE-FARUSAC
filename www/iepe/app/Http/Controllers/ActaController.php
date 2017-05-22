@@ -64,7 +64,17 @@ class ActaController extends Controller
             ->selectRaw('aa.*,aspirantes.nombre,aspirantes.apellido')
             ->orderBy('aspirantes.NOV')//linea por fe
             ->get();
-        $pdf->loadView('admin.pdf.acta',compact('acta','aspirantes','aplicacion','fecha'));
+        $decano = Admin::where('rol','decano')->first();
+        $secretario = Admin::where('rol','secretario')->first();
+        $jefe_bienestar = Admin::where('rol','jefe_bienestar')->first();
+        $pdf->loadView('admin.pdf.acta',compact('acta',
+                                                'aspirantes',
+                                                'aplicacion',
+                                                'fecha',
+                                                'decano',
+                                                'secretario',
+                                                'jefe_bienestar'
+                                                ));
 
         $asignaciones2 = $aplicacion->getAsignaciones()
             ->where('resultado','aprobado')
@@ -206,9 +216,16 @@ class ActaController extends Controller
         $asignaciones= AspiranteAplicacion::where('acta_id',$acta_id)->get();
         $aplicacion = Aplicacion::find(Actas::find($acta_id)->aplicacion_id);
         //dd($acta_id);
+
+        $secretario = Admin::where('rol','secretario')->first();
+        $jefe_bienestar = Admin::where('rol','jefe_bienestar')->first();
+
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setPaper('letter', 'portrait');//740,570
-        $pdf->loadView('admin.pdf.constanciasSatisfactorias',compact('asignaciones','aplicacion'));
+        $pdf->loadView('admin.pdf.constanciasSatisfactorias',compact('asignaciones',
+                                                                    'aplicacion',
+                                                                    'secretario',
+                                                                    'jefe_bienestar'));
         return $pdf->stream();
     }
     

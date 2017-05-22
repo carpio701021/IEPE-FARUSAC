@@ -99,5 +99,9 @@ class Aspirante extends Authenticatable
             ->first();
     }
 
+    public function getCui(){
+        return $this->CUI;
+    }
+
 
 }

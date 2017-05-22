@@ -25,5 +25,5 @@
 <p style="position: absolute; top: 320px; left: 115px; font-size: 15px"> {{$asignacion->getSalon()->edificio}}</p>
 <p style="position: absolute; top: 320px; left: 438px; font-size: 15px"> {{$asignacion->getSalon()->nombre}}</p>
 
-</body>
+</body> 
 </html> 

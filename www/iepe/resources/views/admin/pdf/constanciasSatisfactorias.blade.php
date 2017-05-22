@@ -36,12 +36,12 @@
             </p>
 
             <p style="position: absolute; top: 430px; left: 20px; font-size: 12px;  text-align: right ">
-                <strong>Msc. Arq. Publio Rodríguez</strong> <br>
+                <strong>Msc. Arq. {{ $secretario->getNombreCompleto() }}</strong> <br>
                 Secretario<br>
                 Facultad de Arquitectura
             </p>
             <p style="position: absolute; top: 430px; left: 493px; font-size: 12px;  text-align: right ">
-                <strong>Arq. Oscar Enriquez</strong> <br>
+                <strong>Arq. {{ $jefe_bienestar->getNombreCompleto() }}</strong> <br>
                 Unidad Bienestar<br>
                 y Desarrollo Estudiantil
             </p>
@@ -63,12 +63,12 @@
             </p>
 
             <p style="position: absolute; top: 940px; left: 20px; font-size: 12px;  text-align: right ">
-                <strong>Msc. Arq. Publio Rodríguez</strong> <br>
+                <strong>Msc. Arq. {{ $secretario->getNombreCompleto() }}</strong> <br>
                 Secretario<br>
                 Facultad de Arquitectura
             </p>
             <p style="position: absolute; top: 940px; left: 493px; font-size: 12px;  text-align: right ">
-                <strong>Arq. Oscar Enriquez</strong> <br>
+                <strong>Arq. {{ $jefe_bienestar->getNombreCompleto() }}</strong> <br>
                 Unidad Bienestar<br>
                 y Desarrollo Estudiantil
             </p>

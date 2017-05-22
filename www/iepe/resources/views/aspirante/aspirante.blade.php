@@ -21,6 +21,13 @@
 									</div>
 
 									<div class="row">
+										<label class="control-label col-xs-6">CUI:</label>
+										<div class="col-xs-6">
+											<p class="form-control-static">{{Auth::user()->getCui()}}</p>
+										</div>
+									</div>
+
+									<div class="row">
 										<label class="control-label col-xs-6" >Género:</label>
 										<div class="col-xs-6">
 											<p class="form-control-static">{{Auth::user()->getGenero()}}</p>
