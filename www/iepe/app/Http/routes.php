@@ -135,7 +135,10 @@ Route::group(['prefix' => 'aspirante'], function () {
             });
 
             Route::group(['middleware' => ['adminRol:superadmin']], function () {
+                Route::get('usuarios/adminsEliminados','GestionUsuariosController@adminsEliminados')->name('admin.usuarios.adminsEliminados');
+                Route::get('usuarios/adminsEliminados/restore/{id}','GestionUsuariosController@restoreAdmin')->name('admin.usuarios.adminsEliminados.restoreAdmin');
                 Route::resource('usuarios','GestionUsuariosController');
+                
 
                 Route::post('datos','DatosController@store')->name('admin.datos');
                 Route::get('datos','DatosController@index')->name('admin.datos');

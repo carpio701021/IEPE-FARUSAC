@@ -22,6 +22,22 @@ class GestionUsuariosController extends Controller
         extract(get_object_vars($this));
         return view('admin.GestionUsuarios.index',compact('admins'));
     }
+    
+    public function adminsEliminados()
+    {
+        $admins = Admin::onlyTrashed()->get();
+        return view('admin.GestionUsuarios.adminsEliminados',compact('admins'));
+    }
+    
+    public function restoreAdmin(Request $request, $id)
+    {
+        $admin = Admin::onlyTrashed()
+                ->where('registro_personal', $id)
+                ->first();
+        $admin->restore();
+        $request->session()->flash('mensaje_exito','Usuario <i>'.$request->registro_personal.'</i> restaurado.');
+        return redirect(action('GestionUsuariosController@index'));
+    }
 
     /**
      * Show the form for creating a new resource.
