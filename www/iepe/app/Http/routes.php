@@ -32,8 +32,8 @@ Route::any('soap/wsPrimerIngreso', 'SoapController@wsPrimerIngreso');
 
 //Route::any('soap/wsPrimerIngreso', 'SoapController@wsPrimerIngreso');
 
-Route::get('soap/wsPrimerIngresox', function () {
-/*
+/*Route::get('soap/wsPrimerIngresox', function () {
+
  * <VERIFICAR_PE>
         <USR>usuario</USR>
         <PWD>contraseña</PWD>//Este usuario y contraseña es para uso de ustedes, y ustedes nos dan las credenciales para consumirlo.
@@ -43,7 +43,7 @@ Route::get('soap/wsPrimerIngresox', function () {
         <CAR>01</CAR>
         <CICLO>2016</CICLO>
 </VERIFICAR_PE>
- */
+
 
     $respuesta = verificar_prueba_especifica([
         'USR' => '10006',
@@ -56,7 +56,7 @@ Route::get('soap/wsPrimerIngresox', function () {
     ]);
 
     return view('welcome2',compact('respuesta'));
-});
+}); */
 
 Route::group(['prefix' => 'aspirante'], function () {
 
