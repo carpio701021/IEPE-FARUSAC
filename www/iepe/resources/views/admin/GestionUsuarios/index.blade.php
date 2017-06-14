@@ -12,6 +12,7 @@
         <li class="list-group-item active clearfix">
             <h2 class="panel-title pull-left" style="padding-top: 7.5px;">Administración de usuarios</h2>
             <div class="btn-group pull-right">
+                <a href="{{ action('GestionUsuariosController@adminsEliminados') }}" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span> Ver usuarios eliminados</a>
                 <a href="{{ action('GestionUsuariosController@create') }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Nuevo usuario administrativo</a>
             </div>
         </li>

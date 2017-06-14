@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Admin extends Authenticatable
 {
+    use SoftDeletes;
     protected $primaryKey = 'registro_personal';
+    protected $dates = ['deleted_at'];
     /**
      * Get the name of the unique identifier for the user.
      *
