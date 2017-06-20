@@ -49,7 +49,7 @@ function verificar_prueba_especifica($VERIFICAR_PE) {
             && $aspiranteAplicacion->nota_APE >= $aplicacion->percentil_APE
             && $aspiranteAplicacion->nota_RV >= $aplicacion->percentil_RV
             && $aspiranteAplicacion->nota_APN >= $aplicacion->percentil_APN
-        ) ? 'Satisfactorio';
+        ) ? 'Satisfactorio' : $resultado ;
 
 
 
@@ -58,7 +58,7 @@ function verificar_prueba_especifica($VERIFICAR_PE) {
             && $aspiranteAplicacion->nota_APE >= $aplicacion->percentil_APE_disenio
             && $aspiranteAplicacion->nota_RV >= $aplicacion->percentil_RV_disenio
             && $aspiranteAplicacion->nota_APN >= $aplicacion->percentil_APN_disenio
-        ) ? 'Satisfactorio';
+        ) ? 'Satisfactorio': $resultado;
 
         $acta = $aspiranteAplicacion->getActaAprobada();
         if($acta==null)

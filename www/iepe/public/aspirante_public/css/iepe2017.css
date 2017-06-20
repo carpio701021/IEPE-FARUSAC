@@ -1,0 +1,116 @@
+
+/**Para que las imagenes del qlEditor sean responsivas**/
+.ql-editor p img{
+    width: 95%;
+}
+
+/*
+Azul base: #192A4A
+Amarillo base: #E6B120
+*/
+
+@font-face {
+    font-family: 'Futura-Medium';
+    src: url('../fonts/Futura-MediumBT.woff');
+}
+
+body {
+    font-family: 'Futura-Medium';
+    font-size: 16px;
+}
+
+/*.navbar-inverse*/
+
+.navbar-inverse {
+    background-color: #192A4A;
+    border-color: #192A4A;
+    border: none;
+}
+.dropdown-menu li a{
+    padding: 14px 20px;
+}
+.navbar-inverse li.dropdown a{
+    color: #ffffff;
+}
+
+.navbar-inverse li.dropdown  a:hover{
+    color: #192949;
+    background-color: #E6B120;
+}
+
+.navbar-inverse li.dropdown a[aria-expanded="true"]:focus{
+    color: #192949;
+    background-color: #E6B120;
+}
+
+.navbar-inverse li.dropdown a[aria-expanded="true"]{
+    color: #192949;
+    background-color: #E6B120;
+}
+
+.navbar-inverse li.dropdown ul.dropdown-menu li a{
+    color: #ffffff;
+}
+.navbar-inverse li.dropdown ul.dropdown-menu li a:hover{
+    color: #192949;
+}
+
+
+
+/*.navbar-secundary*/
+
+.navbar-secundary {
+    background-color: #E6B120;
+    border: none;
+    color: #192A4A;
+}
+
+.navbar-secundary li.dropdown a{
+    color: #192A4A;
+}
+
+.navbar-secundary li.dropdown  a:hover{
+    color: #ffffff;
+    /*background-color: #192949;*/
+}
+
+.navbar-secundary li.dropdown  a:focus{
+    color: #E6B120;
+    background-color: #192949;
+}
+
+.navbar-secundary {
+    padding-top: 80px;
+}
+
+.brand-arqui {
+    height:30px;
+    padding: 0px 0px 15px 0px;
+}
+
+.brand-arqui .container img{
+    width:220px;
+    height:auto;
+}
+
+.navbar-iepe-icons li a{
+    padding: 5px;
+    margin: 0px;
+}
+
+.iepe-icon {
+    color: #192A4A;
+    padding: 2px;
+}
+
+.fa-inverse .iepe-icon:hover {
+     color: #192A4A;
+ }
+
+
+.iepe-icon:hover{
+    color: #ffffff;
+}
+.iepe-icon:hover .fa-inverse {
+    color: #192A4A;
+}
