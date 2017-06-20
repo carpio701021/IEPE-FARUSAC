@@ -8,6 +8,7 @@
 
     <link rel="shortcut icon" href="/estudiante/images/icono.ico" type="image/x-icon">
     <link rel='stylesheet' href="{{ url('aspirante_public/css/googlefonts-css-latio.css') }}" type='text/css'>
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ url('aspirante_public/css/aspirante.css') }}">
     <link rel="stylesheet" href="{{ url('aspirante_public/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('aspirante_public/css/simple-sidebar.css') }}">
@@ -24,7 +25,142 @@
 
 </head>
 <body>
-<div id="wrapper">
+
+<nav class="navbar navbar-inverse navbar-fixed-top" >
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <a class="navbar-brand" href="{{ url('aspirante') }}">
+            <div class="container">
+                <img src="{{ url('aspirante_public/img/logotipoFARUSAC_Amarillo.png') }}"  style="width:20%;height:auto;">{{-- 210 y 70 --}}
+                </div>
+            </a>
+                <ul class="nav navbar-nav navbar-right">
+                    <!--li class="active"><a href="#">Usuarios <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Notificaciones</a></li-->
+                    <style>
+                        li.dropdown ul.dropdown-menu li a{
+                            color: white;
+                        }
+                        li.dropdown ul.dropdown-menu li a:hover{
+                            color: #192949;
+                        }
+                    </style>
+                    
+                        <li class="dropdown">
+                            <a href="{{ url('aspirante') }}">Inicio</a>
+                        </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Proceso de Ingreso <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Prueba de Orientación Vocacional</a></li>
+                            <li><a href="#">Prueba de Conocimientos Básicos</a></li>
+                            <li><a href="{{ action('RecursosController@viewGuiaAplicacion') }}">Pruebas específicas</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="{{ action('RecursosController@viewGuiaAsignacion') }}">Guía de Asignación</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="{{ action('RecursosController@viewImagenInformativa') }}">Calendario</a>
+                    </li>
+                    <li class="dropdown">
+                            <a href="{{ action('RecursosController@getReglamento') }}">Reglamento</a>
+                    </li>
+                    
+                </ul>                
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<style type="text/css">
+body {    
+  padding-top: 100px;
+}
+</style>
+
+<nav class="navbar navbar-inverse navbar-static-top" style="background-color: #E6B120; border: none;">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbary" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>            
+                
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbary" >
+
+                <ul class="nav navbar-nav">                    
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="#"><i class="fa fa-youtube"></i></a></li>                    
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <!--li class="active"><a href="#">Usuarios <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Notificaciones</a></li-->
+                    <style>
+                        li.dropdown ul.dropdown-menu li a{
+                            color: white;
+                        }
+                        li.dropdown ul.dropdown-menu li a:hover{
+                            color: #192949;
+                        }
+                    </style>
+                    
+                   
+                    <li class="dropdown">
+                        <a href="{{ action('Auth\AuthController@showRegistrationForm') }}">Registrate</a>
+                    </li>
+                    <li class="dropdown">
+                            <a href="{{ action('Auth\AuthController@showLoginForm') }}">Inicia Sesión
+                                <span class="glyphicon glyphicon-user"></span>
+
+                            </a>
+                    </li>
+                    
+                </ul>
+                {{-- <ul class="nav navbar-nav navbar-right">
+                                                    <li class="dropdown">
+                                                        <a>{{ "" }}:</a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="glyphicon glyphicon-user"></span>  {{ "" }} <span class="caret"></span>
+                                                        </a>
+                                                        <ul class="dropdown-menu">
+                                                            <!--li><a href="#">Cambiar contraseña</a></li-->
+                                                            <li><a href="{{ action('AuthAdmin\AuthController@logout') }}"><i class="glyphicon glyphicon-logout"></i>Cerrar Sesión</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                 --}}
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+@yield('content')
+
+{{-- <div id="wrapper">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
@@ -133,7 +269,7 @@
             </div>
         </div>
     </div>
-</div> <!-- /#wrapper -->
+</div>  --}}<!-- /#wrapper -->
 
 
 
