@@ -13,7 +13,7 @@
 }
 
 #msform fieldset {
-	background: #192949;
+	background: #192A4A;
 	border: 0 none;
 	border-radius: 3px;
 	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
@@ -76,7 +76,8 @@
 /*progressbar*/
 #progressbar {
 	margin-bottom: 50px;
-	overflow: hidden;	
+    padding: 5px;
+	overflow: hidden;
 	/*CSS counters to number the steps*/
 	counter-reset: step;
 	
@@ -87,7 +88,7 @@
 	text-transform: uppercase;
 	font-size: 12px;
 	width: 33.33%;
-	float: left;	
+	float: left;
 }
 #progressbar li:before {
 	content: counter(step);
@@ -118,8 +119,9 @@
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
 #progressbar li.active:before,  #progressbar li.active:after{
-	background: #EBC14D;
-	color: black;	
+	background: #E6B120;
+    padding: 5px 20px 0px 5px;
+	color: black;
 }
 
 

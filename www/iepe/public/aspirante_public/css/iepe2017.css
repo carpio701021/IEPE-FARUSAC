@@ -1,7 +1,24 @@
 
 /**Para que las imagenes del qlEditor sean responsivas**/
-.ql-editor p img{
-    width: 95%;
+.iepe-img img{
+    max-width: 100%;
+    height: auto;
+}
+
+.video-container {
+    position:relative;
+    padding-bottom:30.25%;
+    padding-top:40px;
+    height:0;
+    overflow:hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
 }
 
 /*
@@ -26,25 +43,38 @@ body {
     border-color: #192A4A;
     border: none;
 }
+
+.navbar .navbar-nav > li > a {
+    padding-top:40px !important;
+    padding-bottom:20px !important;
+}
+
 .dropdown-menu li a{
     padding: 14px 20px;
+}
+
+@media (max-width: 767px) {
+    .navbar .navbar-nav > li > a {
+        padding-top:5px !important;
+        padding-bottom:5px !important;
+    }
 }
 .navbar-inverse li.dropdown a{
     color: #ffffff;
 }
 
 .navbar-inverse li.dropdown  a:hover{
-    color: #192949;
+    color: #000000;
     background-color: #E6B120;
 }
 
 .navbar-inverse li.dropdown a[aria-expanded="true"]:focus{
-    color: #192949;
+    color: #000000;
     background-color: #E6B120;
 }
 
 .navbar-inverse li.dropdown a[aria-expanded="true"]{
-    color: #192949;
+    color: #000000;
     background-color: #E6B120;
 }
 
@@ -58,11 +88,21 @@ body {
 
 
 /*.navbar-secundary*/
-
+.divide-nav{
+    height: 80px;
+}
 .navbar-secundary {
     background-color: #E6B120;
     border: none;
     color: #192A4A;
+    margin: 0px -15px 0px -15px;
+    padding: 0px 0px 0px 0px;
+    min-height:35px !important;
+}
+
+.navbar-secundary .navbar-nav > li > a {
+    padding-top: 8px !important;
+    padding-bottom: 5px !important;
 }
 
 .navbar-secundary li.dropdown a{
@@ -79,33 +119,78 @@ body {
     background-color: #192949;
 }
 
-.navbar-secundary {
-    padding-top: 80px;
+.navbar-toggle  {
+    background-color: #ffffff ;
+    color: #192949 !important;
 }
+
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus{
+    background-color: #E6B120;
+}
+
+.navbar-toggle .icon-bar  {
+    background-color: #ffffff ;
+    border:1px solid #192949;
+}
+
+.navbar-toggle .collapsed {
+    background-color: #E6B120;
+}
+
+@media (max-width: 767px) {
+    .navbar-secundary .navbar-nav > li > a {
+        padding-top:5px !important;
+        padding-bottom:5px !important;
+        text-align: center;
+    }
+    .divide-nav{
+        display: none;
+    }
+}
+
+
+
+/* Logotipo */
 
 .brand-arqui {
     height:30px;
-    padding: 0px 0px 15px 0px;
+    padding: 0px 0px 10px 0px;
+    margin: -22px 0px 0px 0px;
 }
 
-.brand-arqui .container img{
-    width:220px;
+.brand-arqui img{
+    max-width:250px;
     height:auto;
 }
 
-.navbar-iepe-icons li a{
-    padding: 5px;
-    margin: 0px;
+@media (max-width: 767px) {
+    .brand-arqui {
+        padding: 0;
+    }
+
+    .brand-arqui img {
+        max-width:170px;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
 }
+
+
+
+/* Iconos de redes sociales */
+
 
 .iepe-icon {
     color: #192A4A;
-    padding: 2px;
+    padding: 8px 0px 0px 50px;
+    margin: -20px 0px -15px 0px;
+    font-size: 18px;
 }
 
+
 .fa-inverse .iepe-icon:hover {
-     color: #192A4A;
- }
+    color: #192A4A;
+}
 
 
 .iepe-icon:hover{
@@ -113,4 +198,10 @@ body {
 }
 .iepe-icon:hover .fa-inverse {
     color: #192A4A;
+}
+
+@media (max-width: 767px) {
+    .navbar-iepe-icons{
+        text-align: center;
+    }
 }
