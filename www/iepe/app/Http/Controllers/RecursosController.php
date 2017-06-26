@@ -51,8 +51,33 @@ class RecursosController extends Controller
         if(!isset($json['video_guia_asignacion']))
             $json['video_guia_asignacion'] = '';
 
+        //imagenes de la pagina nueva de inicio
+        if(!isset($json['inicio']))
+            $json['inicio'] = [];
 
+        if(!isset($json['inicio']['carousel']))
+            $json['inicio']['carousel'] = [];
 
+        if(!isset($json['inicio']['arqui']))
+            $json['inicio']['arqui'] = "";
+
+        if(!isset($json['inicio']['disenio']))
+            $json['inicio']['disenio'] = "";
+
+        if(!isset($json['carreras']))
+            $json['carreras'] = [];
+
+        if(!isset($json['carreras']['video_arqui']))
+            $json['carreras']['video_arqui'] = "";
+
+        if(!isset($json['carreras']['pensum_arqui']))
+            $json['carreras']['pensum_arqui'] = "";
+
+        if(!isset($json['carreras']['video_disenio']))
+            $json['carreras']['video_disenio'] = "";
+
+        if(!isset($json['carreras']['pensum_disenio']))
+            $json['carreras']['pensum_disenio'] = "";
 
 
         file_put_contents($filejson, json_encode($json,TRUE));
@@ -116,6 +141,71 @@ class RecursosController extends Controller
         file_put_contents($filejson, json_encode($json,TRUE));
 
         $request->session()->flash('mensaje_exito','Se ha actualizado el post de bienvenida');
+        return back();
+    }
+
+
+    public function postAddToCarousel(Request $request){
+        $imgCarousel_b64 = $request->imgCarousel_b64;
+        //dd($request->all());
+        if($imgCarousel_b64==null || $imgCarousel_b64=="") return back();
+        $filejson = storage_path().'/recursos.json' ;
+        if(file_exists($filejson)) {
+            $json = json_decode(file_get_contents($filejson),TRUE);
+        }
+        $json['inicio']['carousel'][] = $imgCarousel_b64;
+        file_put_contents($filejson, json_encode($json,TRUE));
+
+        $request->session()->flash('mensaje_exito','Se ha actualizado el carousel de inicio');
+        return back();
+    }
+
+
+    public function postImgInfoDisenio(Request $request){
+        $ImgInfoDisenio_b64 = $request->ImgInfoDisenio_b64;
+        //dd($request->all());
+        if($ImgInfoDisenio_b64==null || $ImgInfoDisenio_b64=="") return back();
+        $filejson = storage_path().'/recursos.json' ;
+        if(file_exists($filejson)) {
+            $json = json_decode(file_get_contents($filejson),TRUE);
+        }
+        $json['inicio']['disenio'] = $ImgInfoDisenio_b64;
+        file_put_contents($filejson, json_encode($json,TRUE));
+
+        $request->session()->flash('mensaje_exito','Se ha actualizado el boton de Diseño Gráfico de inicio');
+        return back();
+    }
+
+
+    public function postImgInfoArqui(Request $request){
+        $ImgInfoArqui_b64 = $request->ImgInfoArqui_b64;
+        //dd($request->all());
+        if($ImgInfoArqui_b64==null || $ImgInfoArqui_b64=="") return back();
+        $filejson = storage_path().'/recursos.json' ;
+        if(file_exists($filejson)) {
+            $json = json_decode(file_get_contents($filejson),TRUE);
+        }
+        $json['inicio']['arqui'] = $ImgInfoArqui_b64;
+        file_put_contents($filejson, json_encode($json,TRUE));
+
+        $request->session()->flash('mensaje_exito','Se ha actualizado el boton de Arquitectura de inicio');
+        return back();
+    }
+
+    public function BorImgCarrousel($img_pos){
+
+        //dd($request->all());
+        if($img_pos==null || $img_pos=="") return back();
+        $filejson = storage_path().'/recursos.json' ;
+        if(file_exists($filejson)) {
+            $json = json_decode(file_get_contents($filejson),TRUE);
+        }
+
+        unset($json['inicio']['carousel'][$img_pos]);
+        $json['inicio']['carousel'] = array_values($json['inicio']['carousel']);
+        file_put_contents($filejson, json_encode($json,TRUE));
+
+        //$request->session()->flash('mensaje_exito','Se ha actualizado el boton de Arquitectura de inicio');
         return back();
     }
 

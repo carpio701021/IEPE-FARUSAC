@@ -120,6 +120,10 @@ Route::group(['prefix' => 'aspirante'], function () {
                 Route::post('recursos/videoBienvenida','RecursosController@postBienvenida')->name('admin.recursos.bienvenida');
                 Route::post('recursos/guia-asignacion','RecursosController@postGuiaAsignacion')->name('admin.recursos.guia-asignacion');
                 Route::post('recursos/guia-aplicacion','RecursosController@postGuiaAplicacion')->name('admin.recursos.guia-aplicacion');
+                Route::post('recursos/inicioCarousel','RecursosController@postAddToCarousel')->name('admin.recursos.postAddToCarousel');
+                Route::post('recursos/inicioImgInfoDisenio','RecursosController@postImgInfoDisenio')->name('admin.recursos.postImgInfoDisenio');
+                Route::post('recursos/inicioImgInfoArqui','RecursosController@postImgInfoArqui')->name('admin.recursos.postImgInfoArqui');
+                Route::get('recursos/inicioCarousel/{img_pos}','RecursosController@BorImgCarrousel')->name('admin.recursos.BorImgCarrousel');
 
                 Route::get('reportes', 'reportesController@index')->name('admin.reportes.index');
                 Route::get('reportes/general', 'reportesController@reporteGeneral')->name('admin.reportes.reporteGeneral');

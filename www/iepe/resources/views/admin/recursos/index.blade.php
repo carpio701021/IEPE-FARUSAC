@@ -10,39 +10,179 @@
         <h3>Administrar recursos para aspirantes</h3>
         <br/>
 
-        <div class="panel-group">
+        <div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading"><b>Bienvenida</b></div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        Ésto aparecerá en la bienvenida y se pueden poner videos, imagenes y textos al gusto. *Si insertar video no funciona, dejar lineas debajo de donde se quiere incertar.
-                            <form class="form-horizontal" role="form"
-                                  action="{{ action('RecursosController@postBienvenida') }}" method="Post"
-                                  accept-charset="UTF-8" enctype="multipart/form-data"
-                                  onsubmit="javascript: return postFormBienvenida();">
-                                <div class="form-group">
-                                    {{csrf_field()}}
-                                    <div id="standalone-container">
-                                        <input type="hidden" name="postBienvenida" id="postBienvenida">
-                                        <div id="editor-postBienvenida">{!! json_decode((file_get_contents(storage_path().'/recursos.json')),TRUE)['bienvenida'] !!}</div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-5">
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                </div>
-                            </form>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#inicio" aria-controls="inicio" role="tab" data-toggle="tab">Inicio</a></li>
+                <li role="presentation"><a href="#info_disenio" aria-controls="info_disenio" role="tab" data-toggle="tab">Información de Diseño</a></li>
+                <li role="presentation"><a href="#info_arqui" aria-controls="info_arqui" role="tab" data-toggle="tab">Información de Arquitectura</a></li>
+                <li role="presentation"><a href="#calendario" aria-controls="calendario" role="tab" data-toggle="tab">Calendario</a></li>
+                <li role="presentation"><a href="#reglamento" aria-controls="reglamento" role="tab" data-toggle="tab">Reglamento</a></li>
+                <li role="presentation"><a href="#guia_asignacion" aria-controls="guia_asignacion" role="tab" data-toggle="tab">Guía de Asignación</a></li>
+                <li role="presentation"><a href="#guia_aplicacion" aria-controls="guia_aplicacion" role="tab" data-toggle="tab">Guía de Aplicación</a></li>
+            </ul>
+
+            <br/>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="inicio">
+                    <h3>Imagen de boton a información de Diseño Gráfico</h3>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <label class="btn btn-default btn-file" onclick="cancelarFile('ImgInfoDisenio')">
+                                                Seleccionar archivo...
+                                                {!! Form::file('ImgInfoDisenio' , array(
+                                                'style'     =>  'display:none',
+                                                'onchange'  =>  "input_file_b64(this,'ImgInfoDisenio_b64','ImgInfoDisenio')",
+                                                'id'        =>  'fileImgInfoDisenio',
+                                                'accept'    =>  'image/*'
+                                                )) !!}
+
+                                            </label>
+                                            <label class="control-label" id="labelfileImgInfoDisenio">No se ha seleccionado ningun
+                                                archivo</label>
+
+                                        </div>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <form class="" role="form"
+                                              action="{{ action('RecursosController@postImgInfoDisenio') }}" method="Post"
+                                              accept-charset="UTF-8" enctype="multipart/form-data">
+                                            {{csrf_field()}}
+                                            <input type="submit" class="btn btn-primary" value="Subir imagen">
+                                            <input type="hidden" name="ImgInfoDisenio_b64" id="ImgInfoDisenio_b64">
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <h3>Imagen de boton a información de Arquitectura</h3>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <label class="btn btn-default btn-file" onclick="cancelarFile('ImgInfoArqui')">
+                                                Seleccionar archivo...
+                                                {!! Form::file('ImgInfoArqui' , array(
+                                                'style'     =>  'display:none',
+                                                'onchange'  =>  "input_file_b64(this,'ImgInfoArqui_b64','ImgInfoArqui')",
+                                                'id'        =>  'fileImgInfoArqui',
+                                                'accept'    =>  'image/*'
+                                                )) !!}
+
+                                            </label>
+                                            <label class="control-label" id="labelfileImgInfoArqui">No se ha seleccionado ningun
+                                                archivo</label>
+
+                                        </div>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <form class="" role="form"
+                                              action="{{ action('RecursosController@postImgInfoArqui') }}" method="Post"
+                                              accept-charset="UTF-8" enctype="multipart/form-data">
+                                            {{csrf_field()}}
+                                            <input type="submit" class="btn btn-primary" value="Subir imagen">
+                                            <input type="hidden" name="ImgInfoArqui_b64" id="ImgInfoArqui_b64">
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
 
+                    <p>Información de la pagína de inicio.</p>
+                    <br/>
+                    <h3>Imagenes del carousel:</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <p>Cargar nueva:</p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <label class="btn btn-default btn-file" onclick="cancelarFile('Carousel')">
+                                                Seleccionar archivo...
+                                                {!! Form::file('imgCarousel' , array(
+                                                'style'     =>  'display:none',
+                                                'onchange'  =>  "input_file_b64(this,'imgCarousel_b64','Carousel')",
+                                                'id'        =>  'fileCarousel',
+                                                'accept'    =>  'image/*'
+                                                )) !!}
+
+                                            </label>
+                                            <label class="control-label" id="labelfileCarousel">No se ha seleccionado ningun archivo</label>
+
+                                        </div>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <form class="" role="form"
+                                              action="{{ action('RecursosController@postAddToCarousel') }}" method="Post"
+                                              accept-charset="UTF-8" enctype="multipart/form-data">
+                                            {{csrf_field()}}
+                                            <input type="submit" class="btn btn-primary" value="Agregar a Carousel">
+                                            <input type="hidden" name="imgCarousel_b64" id="imgCarousel_b64">
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+
+                        </div>
+                        <?php $iterador = 0; ?>
+                        @foreach(json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['inicio']['carousel'] as $imgCarousel)
+                            <div class="col-md-3">
+                                <div class="thumbnail">
+                                    <a target="_blank" href="{{$imgCarousel}}">
+                                        <img id="img" src="{{$imgCarousel}}" alt="Lights" style="width:100%">
+                                    </a>
+                                    <div class="caption">
+                                        <p>Imagen #{{$iterador+1}} <a href="{{ action('RecursosController@BorImgCarrousel',$iterador) }}" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span></a></p>
+                                    </div>
+                                </div>
+                                <?php $iterador += 1; ?>
+                            </div>
+                        @endforeach
+                    </div>
+                    <br/>
+
+                    {{--
+                    Ésto aparecerá en la bienvenida y se pueden poner videos, imagenes y textos al gusto. *Si insertar video no funciona, dejar lineas debajo de donde se quiere incertar.
+                    <form class="form-horizontal" role="form"
+                          action="{{ action('RecursosController@postBienvenida') }}" method="Post"
+                          accept-charset="UTF-8" enctype="multipart/form-data"
+                          onsubmit="javascript: return postFormBienvenida();">
+                        <div class="form-group">
+                            {{csrf_field()}}
+                            <div id="standalone-container">
+                                <input type="hidden" name="postBienvenida" id="postBienvenida">
+                                <div id="editor-postBienvenida">{!! json_decode((file_get_contents(storage_path().'/recursos.json')),TRUE)['bienvenida'] !!}</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-5">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </form>--}}
                 </div>
-            </div>
-
-
-            <div class="panel panel-default">
-                <div class="panel-heading"><b>Imagen informativa de fechas</b></div>
-                <div class="panel-body">
+                <div role="tabpanel" class="tab-pane" id="info_disenio">info_disenio</div>
+                <div role="tabpanel" class="tab-pane" id="info_arqui">info_arqui</div>
+                <div role="tabpanel" class="tab-pane" id="calendario">
                     <div class="row">
                         <div class="col-sm-4">
                             Esta imagen mostrará un afiche con información relevante a las próximas aplicaciones.
@@ -80,11 +220,7 @@
                     </div>
 
                 </div>
-            </div>
-
-            <div class="panel panel-default">
-                <div class="panel-heading"><b>Reglamento</b></div>
-                <div class="panel-body">
+                <div role="tabpanel" class="tab-pane" id="reglamento">
                     <div class="row">
                         <div class="col-sm-4">
                             Éste reglamento es accesible por cualquier persona que visite el sitio web.
@@ -120,14 +256,8 @@
                                target="_blank">Ver reglamento actual</a>
                         </div>
                     </div>
-
                 </div>
-            </div>
-
-
-            <div class="panel panel-default">
-                <div class="panel-heading"><b>Video guía de asignación</b></div>
-                <div class="panel-body">
+                <div role="tabpanel" class="tab-pane" id="guia_asignacion">
                     <div class="row">
                         <div class="col-sm-4">
                             Este video estará disponible para que los aspirantes aprendan la forma correcta de asignarce
@@ -140,7 +270,7 @@
                                 <div class="form-group">
                                     {{csrf_field()}}
                                     <label>Enlace de youtube:</label>
-                                    <input type="text" name="video_url" placeholder="URL del video">
+                                    <input type="text" name="video_url" placeholder="URL del video" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-5">
@@ -154,14 +284,8 @@
                                target="_blank">Ver video actual</a>
                         </div>
                     </div>
-
                 </div>
-            </div>
-
-
-            <div class="panel panel-default">
-                <div class="panel-heading"><b>Guía de aplicación exámen específico</b></div>
-                <div class="panel-body">
+                <div role="tabpanel" class="tab-pane" id="guia_aplicacion">
                     <form class="form-horizontal" role="form"
                           action="{{ action('RecursosController@postGuiaAplicacion') }}" method="Post"
                           accept-charset="UTF-8" enctype="multipart/form-data"
@@ -217,7 +341,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Enlace de youtube:</label><br/>
-                                    <input type="text" name="enlace1" placeholder="URL del video">
+                                    <input type="text" name="enlace1" placeholder="URL del video" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -243,7 +367,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Enlace de youtube:</label><br/>
-                                    <input type="text" name="enlace2" placeholder="URL del video">
+                                    <input type="text" name="enlace2" placeholder="URL del video" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -269,7 +393,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Enlace de youtube:</label><br/>
-                                    <input type="text" name="enlace3" placeholder="URL del video">
+                                    <input type="text" name="enlace3" placeholder="URL del video" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -295,7 +419,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Enlace de youtube:</label><br/>
-                                    <input type="text" name="enlace4" placeholder="URL del video">
+                                    <input type="text" name="enlace4" placeholder="URL del video" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -326,12 +450,26 @@
 
         </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 @stop
 
 @section('scripts')
     <script src="{{ url('aspirante_public/js/quill.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
+
 
         var toolbarOptions = [
             ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -362,7 +500,7 @@
             placeholder: 'Escribe y edita aqui tu texto...',
             theme: 'snow'
         });
-
+         /*
         var quillBienvenida = new Quill('#editor-postBienvenida', {
             modules: {
                 toolbar: toolbarOptions
@@ -370,6 +508,7 @@
             placeholder: 'Escribe y edita aqui tu texto...',
             theme: 'snow'
         });
+        */
 
         function postFormGuiaAplicacion() {
             enviar = document.getElementById('editor-GuiaAplicacion').firstElementChild.innerHTML;
@@ -390,5 +529,27 @@
         function cambiar_archivo(id) {
             document.getElementById('labelfile' + id).innerHTML = document.getElementById('file' + id).value;
         }
+
+        function input_file_b64(input,input_name,name) {
+            cambiar_archivo(name+'');
+
+            if (input.files && input.files[0]) {
+            //if (this.files && this.files[0]) {
+
+                var FR= new FileReader();
+
+                FR.addEventListener("load", function(e) {
+                    //document.getElementById("img").src       = e.target.result;
+                    document.getElementById(input_name+'').value = e.target.result;
+                });
+
+                FR.readAsDataURL( input.files[0] );
+            }
+        }
+
+
+
+        //document.getElementById("fileCarousel").addEventListener("change", readFile);
+
     </script>
 @stop
