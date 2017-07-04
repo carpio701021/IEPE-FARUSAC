@@ -8,16 +8,12 @@
 
     <link rel="shortcut icon" href="/estudiante/images/icono.ico" type="image/x-icon">
     <link rel='stylesheet' href="{{ url('aspirante_public/css/googlefonts-css-latio.css') }}" type='text/css'>
-    <link rel="stylesheet" href="{{ url('aspirante_public/css/aspirante.css') }}">
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/aspirante_style.css') }}">
     <link rel="stylesheet" href="{{ url('aspirante_public/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('aspirante_public/css/simple-sidebar.css') }}">
     <link rel="stylesheet" href="{{ url('aspirante_public/css/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/iepe2017.css') }}">
 
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-    </style>
 
 </head>
 <body>

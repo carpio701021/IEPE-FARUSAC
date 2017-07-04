@@ -13,12 +13,13 @@
     <link href="{{ url('aspirante_public/css/bootstrap.min.css') }}" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{ url('aspirante_public/css/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ url('aspirante_public/css/iepe2017.css') }}">
 
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-    </style>
+    <link rel="icon" href="http://farusac.edu.gt/wp-content/uploads/2016/10/favicosquare.png" sizes="32x32" />
+    <link rel="icon" href="http://farusac.edu.gt/wp-content/uploads/2016/10/favicosquare.png" sizes="192x192" />
+    <link rel="apple-touch-icon-precomposed" href="http://farusac.edu.gt/wp-content/uploads/2016/10/favicosquare.png" />
+    <meta name="msapplication-TileImage" content="http://farusac.edu.gt/wp-content/uploads/2016/10/favicosquare.png" />
+
     @section('styles')
     @show
 
@@ -36,7 +37,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ route('admin.index') }}">FARUSAC</a>
+
+            <a class="navbar-brand brand-arqui" href="{{ url('aspirante') }}">
+                <img alt="Brand" src="{{ url('aspirante_public/img/logotipoFARUSAC_blanco.png') }}" />{{-- 210 y 70 --}}
+            </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,14 +54,6 @@
                 <ul class="nav navbar-nav">
                     <!--li class="active"><a href="#">Usuarios <span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Notificaciones</a></li-->
-                    <style>
-                        li.dropdown ul.dropdown-menu li a{
-                            color: white;
-                        }
-                        li.dropdown ul.dropdown-menu li a:hover{
-                            color: #192949;
-                        }
-                    </style>
                     @if(Auth::guard('admin')->user()->tieneRol('director_arquitectura')||
                     Auth::guard('admin')->user()->tieneRol('director_disenio_grafico'))
                         <li class="dropdown">

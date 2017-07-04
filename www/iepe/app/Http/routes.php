@@ -32,8 +32,8 @@ Route::any('soap/wsPrimerIngreso', 'SoapController@wsPrimerIngreso');
 
 //Route::any('soap/wsPrimerIngreso', 'SoapController@wsPrimerIngreso');
 
-Route::get('soap/wsPrimerIngresox', function () {
-/*
+/*Route::get('soap/wsPrimerIngresox', function () {
+
  * <VERIFICAR_PE>
         <USR>usuario</USR>
         <PWD>contraseña</PWD>//Este usuario y contraseña es para uso de ustedes, y ustedes nos dan las credenciales para consumirlo.
@@ -43,7 +43,7 @@ Route::get('soap/wsPrimerIngresox', function () {
         <CAR>01</CAR>
         <CICLO>2016</CICLO>
 </VERIFICAR_PE>
- */
+
 
     $respuesta = verificar_prueba_especifica([
         'USR' => '10006',
@@ -56,7 +56,7 @@ Route::get('soap/wsPrimerIngresox', function () {
     ]);
 
     return view('welcome2',compact('respuesta'));
-});
+}); */
 
 Route::group(['prefix' => 'aspirante'], function () {
 
@@ -120,6 +120,10 @@ Route::group(['prefix' => 'aspirante'], function () {
                 Route::post('recursos/videoBienvenida','RecursosController@postBienvenida')->name('admin.recursos.bienvenida');
                 Route::post('recursos/guia-asignacion','RecursosController@postGuiaAsignacion')->name('admin.recursos.guia-asignacion');
                 Route::post('recursos/guia-aplicacion','RecursosController@postGuiaAplicacion')->name('admin.recursos.guia-aplicacion');
+                Route::post('recursos/inicioCarousel','RecursosController@postAddToCarousel')->name('admin.recursos.postAddToCarousel');
+                Route::post('recursos/inicioImgInfoDisenio','RecursosController@postImgInfoDisenio')->name('admin.recursos.postImgInfoDisenio');
+                Route::post('recursos/inicioImgInfoArqui','RecursosController@postImgInfoArqui')->name('admin.recursos.postImgInfoArqui');
+                Route::get('recursos/inicioCarousel/{img_pos}','RecursosController@BorImgCarrousel')->name('admin.recursos.BorImgCarrousel');
 
                 Route::get('reportes', 'reportesController@index')->name('admin.reportes.index');
                 Route::get('reportes/general', 'reportesController@reporteGeneral')->name('admin.reportes.reporteGeneral');

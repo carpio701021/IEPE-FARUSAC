@@ -214,6 +214,11 @@ class AspiranteAplicacionController extends Controller
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setPaper('letter', 'portrait');
         $aspirante = Auth::user();
+
+        $decano = Admin::where('rol','decano')->first();
+        $secretario = Admin::where('rol','secretario')->first();
+        $jefe_bienestar = Admin::where('rol','jefe_bienestar')->first();
+        
         $pdf->loadView('aspirante.pdf.constanciaAsignacion',compact('asignacion','id','aspirante'));
         return $pdf;
     }
