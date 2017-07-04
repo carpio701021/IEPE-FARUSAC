@@ -174,7 +174,7 @@
 		@endforeach
 		@else
 			<div class="panel panel-default">
-				<div class="panel-body">En esta area podrá ver las aplicaciones de pruebas especificas
+				<div class="panel-body">En esta area podrá ver las aplicaciones de pruebas específicas
 				disponibles, cuando exista alguna</div>
 			</div>
 		@endif
