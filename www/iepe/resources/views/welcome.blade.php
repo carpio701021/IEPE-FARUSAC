@@ -22,12 +22,12 @@
         </ol>
 
         <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
+        <div class="carousel-inner" role="listbox" >
             <?php $iterador = 0; ?>
             @foreach(json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['inicio']['carousel'] as $imgCarousel)
 
-                <div class="item iepe-img<?php echo (($iterador==0)? " active":"") ?> ">
-                    <img src="{{$imgCarousel}}" alt="{{"img".$iterador}}">
+                <div class="item iepe-img<?php echo (($iterador==0)? " active":"") ?> " >
+                    <img class="img-responsive center-block" src="{{$imgCarousel}}" alt="{{"img".$iterador}}">
                     <div class="carousel-caption">
                         {{--"img".$iterador--}}
                     </div>
@@ -48,10 +48,14 @@
         </a>
     </div>
     <br/>
-    <table style="width:100%" border="1">
+    <table style="width:100%" border="0">
         <tr>
-            <td class="iepe-img" style="text-align: left"><img src="{{ json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['inicio']['disenio'] }}" alt="imgDisenio"></td>
-            <td class="iepe-img" style="text-align: right"><img src="{{ json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['inicio']['arqui'] }}" alt="imgArqui"></td>
+            <td class="iepe-img" style="text-align: left">
+                <a href="{{ action('RecursosController@getPensumDisenio') }}"><img src="{{ json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['inicio']['disenio'] }}" alt="imgDisenio"></a>
+            </td>
+            <td class="iepe-img" style="text-align: right">
+                <a href="{{ action('RecursosController@getPensumArqui') }}"><img src="{{ json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['inicio']['arqui'] }}" alt="imgArqui"></a>
+            </td>
         </tr>
     </table>
 
