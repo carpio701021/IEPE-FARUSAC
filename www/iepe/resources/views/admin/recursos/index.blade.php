@@ -180,8 +180,134 @@
                         </div>
                     </form>--}}
                 </div>
-                <div role="tabpanel" class="tab-pane" id="info_disenio">info_disenio</div>
-                <div role="tabpanel" class="tab-pane" id="info_arqui">info_arqui</div>
+                <div role="tabpanel" class="tab-pane" id="info_disenio">
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Pensum de Diseño Gráfico
+                        </div>
+                        <div class="col-sm-5">
+                            <form class="form-horizontal" role="form"
+                                  action="{{ action('RecursosController@postPensumDisenio') }}" method="Post"
+                                  accept-charset="UTF-8" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    {{csrf_field()}}
+                                    <label class="btn btn-default btn-file" onclick="cancelarFile('PensumDisenio')">
+                                        Seleccionar archivo...
+                                        {!! Form::file('PensumDisenio' , array(
+                                        'style' =>'display:none',
+                                        'onchange'=> "cambiar_archivo('PensumDisenio')",
+                                        'id' => 'filePensumDisenio',
+                                        'accept' => '.pdf'
+                                        )) !!}
+
+                                    </label>
+                                    <label class="control-label" id="labelfilePensumDisenio">No se ha seleccionado ningun
+                                        archivo</label>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-5">
+                                        <button type="submit" class="btn btn-primary">Cargar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Video informativo de Diseño Gráfico
+                        </div>
+                        <div class="col-sm-5">
+                            <form class="form-horizontal" role="form"
+                                  action="{{ action('RecursosController@postVideoDisenio') }}" method="Post"
+                                  accept-charset="UTF-8">
+                                <div class="form-group">
+                                    {{csrf_field()}}
+                                    <label>Enlace de youtube:</label>
+                                    <input type="text" name="video_url" placeholder="URL del video" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-5">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+
+                    <a href="{{ action('RecursosController@getPensumDisenio') }}" class="btn btn-default"
+                       target="_blank">Ver página informativa de Diseño actual</a>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="info_arqui">
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Éste pensum de Arquitectura es accesible por cualquier persona que visite el sitio web.
+                        </div>
+                        <div class="col-sm-5">
+                            <form class="form-horizontal" role="form"
+                                  action="{{ action('RecursosController@postPensumArqui') }}" method="Post"
+                                  accept-charset="UTF-8" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    {{csrf_field()}}
+                                    <label class="btn btn-default btn-file" onclick="cancelarFile('PensumArqui')">
+                                        Seleccionar archivo...
+                                        {!! Form::file('PensumArqui' , array(
+                                        'style' =>'display:none',
+                                        'onchange'=> "cambiar_archivo('PensumArqui')",
+                                        'id' => 'filePensumArqui',
+                                        'accept' => '.pdf'
+                                        )) !!}
+
+                                    </label>
+                                    <label class="control-label" id="labelfilePensumArqui">No se ha seleccionado ningun
+                                        archivo</label>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-5">
+                                        <button type="submit" class="btn btn-primary">Cargar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Video informativo de Arquitectura
+                        </div>
+                        <div class="col-sm-5">
+                            <form class="form-horizontal" role="form"
+                                  action="{{ action('RecursosController@postVideoArqui') }}" method="Post"
+                                  accept-charset="UTF-8">
+                                <div class="form-group">
+                                    {{csrf_field()}}
+                                    <label>Enlace de youtube:</label>
+                                    <input type="text" name="video_url" placeholder="URL del video" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-5">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+
+                    <a href="{{ action('RecursosController@getPensumArqui') }}" class="btn btn-default"
+                       target="_blank">Ver página informativa de Arquitectura actual</a>
+
+                </div>
                 <div role="tabpanel" class="tab-pane" id="calendario">
                     <div class="row">
                         <div class="col-sm-4">

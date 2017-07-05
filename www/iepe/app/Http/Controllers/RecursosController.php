@@ -113,6 +113,26 @@ class RecursosController extends Controller
         return back();
     }
 
+    public function postPensumArqui(Request $request){
+        if($request->file('PensumArqui')->isValid()) {
+            $path = public_path().'/aspirante_public/files/pdf'; // upload path
+            $extension = $request->file('PensumArqui')->getClientOriginalExtension(); // getting file extension
+            $request->file('PensumArqui')->move($path, 'PensumArqui.'.$extension);
+            $request->session()->flash('mensaje_exito','Se ha actualizado el pensum de Arquitectura que descargan los aspirantes');
+        }
+        return back();
+    }
+
+    public function postPensumDisenio(Request $request){
+        if($request->file('PensumDisenio')->isValid()) {
+            $path = public_path().'/aspirante_public/files/pdf'; // upload path
+            $extension = $request->file('PensumDisenio')->getClientOriginalExtension(); // getting file extension
+            $request->file('PensumDisenio')->move($path, 'PensumDisenio.'.$extension);
+            $request->session()->flash('mensaje_exito','Se ha actualizado el pensum de Diseño que descargan los aspirantes');
+        }
+        return back();
+    }
+
     function getYoutubeIdFromUrl($url) {
         $parts = parse_url($url);
         if(isset($parts['query'])){
@@ -228,6 +248,38 @@ class RecursosController extends Controller
 
 
 
+    public function postVideoDisenio(Request $request){
+        $videoUrl = $request->video_url;
+        $vid = $this->getYoutubeIdFromUrl($videoUrl);
+
+        $filejson = storage_path().'/recursos.json' ;
+        if(file_exists($filejson)) {
+            $json = json_decode(file_get_contents($filejson),TRUE);
+        }
+        $json['carreras']['video_disenio'] = $vid;
+        file_put_contents($filejson, json_encode($json,TRUE));
+
+        $request->session()->flash('mensaje_exito','Se ha actualizado el video informativo de Diseño Gráfico.');
+        return back();
+    }
+
+    public function postVideoArqui(Request $request){
+        $videoUrl = $request->video_url;
+        $vid = $this->getYoutubeIdFromUrl($videoUrl);
+
+        $filejson = storage_path().'/recursos.json' ;
+        if(file_exists($filejson)) {
+            $json = json_decode(file_get_contents($filejson),TRUE);
+        }
+        $json['carreras']['video_arqui'] = $vid;
+        file_put_contents($filejson, json_encode($json,TRUE));
+
+        $request->session()->flash('mensaje_exito','Se ha actualizado el video informativo de Arquitectura.');
+        return back();
+    }
+
+
+
     public function postGuiaAplicacion(Request $request){
         //dd($request->all());
         $filejson = storage_path().'/recursos.json' ;
@@ -274,8 +326,15 @@ class RecursosController extends Controller
 
 
     public function getReglamento(Request $request){
-
         return view("aspirante.recursos.reglamento");
+    }
+
+    public function getPensumDisenio(Request $request){
+        return view("aspirante.recursos.pensum-disenio");
+    }
+
+    public function getPensumArqui(Request $request){
+        return view("aspirante.recursos.pensum-arqui");
     }
 
     public function viewImagenInformativa(){

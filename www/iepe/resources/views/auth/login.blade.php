@@ -2,75 +2,57 @@
 
 @section('content')
 
-    @if (Session::has('status'))
-        <div class="alert alert-success">
-            {{ Session::get('status') }}
-        </div>
-    @endif
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Ingreso</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ action('Auth\AuthController@login') }}">
-                        {!! csrf_field() !!}
+    <p class="text-right iepe-logform-message">¿Aún no te has registrado? <a href="{{ action('Auth\AuthController@showRegistrationForm') }}">Regístrate</a></p>
 
-                        <div class="form-group{{ $errors->has('NOV') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Número de Orientación Vocacional</label>
+    <div class="row iepe-logform">
+        <div class="col-sm-3 col-sm-offset-4">
 
-                            <div class="col-md-6">
-                                <input type="text"  class="form-control" name="NOV" value="{{ old('NOV') }}">
 
-                                @if ($errors->has('NOV'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('NOV') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Contraseña</label>
-
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Recordarme
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="glyphicon glyphicon-log-in"></i> Ingresar
-                                </button>
-
-                                <a class="btn btn-link" href="{{ action('Auth\PasswordController@showResetForm') }}">¿Olvidaste tu contraseña?</a>
-                            </div>
-                        </div>
-                    </form>
-                    <br>
+            @if (Session::has('status'))
+                <div class="alert alert-success">
+                    {{ Session::get('status') }}
                 </div>
+            @endif
+
+            <div class="container-fluid">
+                <img src="{{ url('aspirante_public/img/aspirante_title.png') }}" />
+                <h4>INICIA SESIÓN</h4>
+                <br/>
+
             </div>
-            <div class="alert alert-warning" role="alert">
-                <strong>Recuerda</strong> que debes estar registrado para ingresar. Ir a <a href="{{ action('Auth\AuthController@showRegistrationForm') }}">registrarme</a>.
-            </div>
+
+            <form class="form-horizontal" role="form" method="POST" action="{{ action('Auth\AuthController@login') }}">
+                {!! csrf_field() !!}
+
+                <div class="form-group{{ $errors->has('NOV') ? ' has-error' : '' }}">
+                    <input type="text"  class="form-control" name="NOV" value="{{ old('NOV') }}" placeholder="No. Orientación Vocacional">
+                    @if ($errors->has('NOV'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('NOV') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                    <input type="password" class="form-control" name="password" placeholder="Contraseña">
+                    @if ($errors->has('password'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <br/>
+
+                <button type="submit" class="btn iepe-btn">Ingresar</button>
+                <br/><br/>
+
+                <p class="iepe-logform-message">¿Olvidaste tu contraseña? <a class="" href="{{ action('Auth\PasswordController@showResetForm') }}">Click Aquí</a></p>
+
+            </form>
+
         </div>
     </div>
+
 
 @endsection
