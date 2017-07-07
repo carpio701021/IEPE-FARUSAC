@@ -44,21 +44,21 @@ function verificar_prueba_especifica($VERIFICAR_PE) {
         $aplicacion = $aspiranteAplicacion->getAplicacion();
         $resultado = 'Insatisfactorio';
 
-        if($VERIFICAR_PE['CAR']=='01' // arquitectura
+        $resultado = ($VERIFICAR_PE['CAR']=='01' // arquitectura
             && $aspiranteAplicacion->nota_RA >= $aplicacion->percentil_RA
             && $aspiranteAplicacion->nota_APE >= $aplicacion->percentil_APE
             && $aspiranteAplicacion->nota_RV >= $aplicacion->percentil_RV
             && $aspiranteAplicacion->nota_APN >= $aplicacion->percentil_APN
-        ) $resultado = 'Satisfactorio';
+        ) ? 'Satisfactorio' : $resultado ;
 
 
 
-        if($VERIFICAR_PE['CAR']=='03' //diseño grafico
+        $resultado = ($VERIFICAR_PE['CAR']=='03' //diseño grafico
             && $aspiranteAplicacion->nota_RA >= $aplicacion->percentil_RA_disenio
             && $aspiranteAplicacion->nota_APE >= $aplicacion->percentil_APE_disenio
             && $aspiranteAplicacion->nota_RV >= $aplicacion->percentil_RV_disenio
             && $aspiranteAplicacion->nota_APN >= $aplicacion->percentil_APN_disenio
-        ) $resultado = 'Satisfactorio';
+        ) ? 'Satisfactorio': $resultado;
 
         $acta = $aspiranteAplicacion->getActaAprobada();
         if($acta==null)

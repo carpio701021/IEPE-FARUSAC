@@ -119,7 +119,15 @@ Route::group(['prefix' => 'aspirante'], function () {
                 Route::post('recursos/imagenInformativa','RecursosController@postImagenInformativa')->name('admin.recursos.imagenInformativa');
                 Route::post('recursos/videoBienvenida','RecursosController@postBienvenida')->name('admin.recursos.bienvenida');
                 Route::post('recursos/guia-asignacion','RecursosController@postGuiaAsignacion')->name('admin.recursos.guia-asignacion');
+                Route::post('recursos/video-disenio','RecursosController@postVideoDisenio')->name('admin.recursos.video-disenio');
+                Route::post('recursos/video-arqui','RecursosController@postVideoArqui')->name('admin.recursos.video-arqui');
                 Route::post('recursos/guia-aplicacion','RecursosController@postGuiaAplicacion')->name('admin.recursos.guia-aplicacion');
+                Route::post('recursos/inicioCarousel','RecursosController@postAddToCarousel')->name('admin.recursos.postAddToCarousel');
+                Route::post('recursos/inicioImgInfoDisenio','RecursosController@postImgInfoDisenio')->name('admin.recursos.postImgInfoDisenio');
+                Route::post('recursos/inicioImgInfoArqui','RecursosController@postImgInfoArqui')->name('admin.recursos.postImgInfoArqui');
+                Route::get('recursos/inicioCarousel/{img_pos}','RecursosController@BorImgCarrousel')->name('admin.recursos.BorImgCarrousel');
+                Route::post('recursos/pensum_disenio','RecursosController@postPensumDisenio')->name('admin.recursos.pensum_disenio');
+                Route::post('recursos/pensum_arqui','RecursosController@postPensumArqui')->name('admin.recursos.pensum_arqui');
 
                 Route::get('reportes', 'reportesController@index')->name('admin.reportes.index');
                 Route::get('reportes/general', 'reportesController@reporteGeneral')->name('admin.reportes.reporteGeneral');
@@ -185,6 +193,8 @@ Route::group(['middleware' => 'aspirante_web'], function () {
     //recursos del aspirante
     Route::get('recursos/imagenInformativa', 'RecursosController@viewImagenInformativa')->name('aspirante.recursos.imagenInformativa');
     Route::get('recursos/reglamento', 'RecursosController@getReglamento')->name('aspirante.recursos.reglamento');
+    Route::get('recursos/pensum_disenio', 'RecursosController@getPensumDisenio')->name('aspirante.recursos.pensum_disenio');
+    Route::get('recursos/pensum_arqui', 'RecursosController@getPensumArqui')->name('aspirante.recursos.pensum_arqui');
     Route::get('recursos/guia-asignacion', 'RecursosController@viewGuiaAsignacion')->name('aspirante.recursos.guia-asignacion');
     Route::get('recursos/guia-aplicacion', 'RecursosController@viewGuiaAplicacion')->name('aspirante.recursos.guia-aplicacion');
 

@@ -12,9 +12,10 @@
 		btn_asignar.disabled=true;
 	}
 </script>
-@section('content')	
-	<h1>Prueba específica</h1>
-        <h2>Aplicaciones</h2>
+@section('content')
+	<div class="container">
+		<h1>Prueba específica</h1>
+		<h2>Aplicaciones</h2>
 
 		@if(count($proximas)>0 || count($asignadas)>0)
 		@foreach($proximas as $aplicacion)
@@ -94,7 +95,7 @@
 								<br>
 								{{-- DESCOMENTAR PARA MOSTRAR RESULTADO DETALLADO
 								<div class="container hidden" id="divResultadosDetallados">
-								<h4>Resultados por área evaluada</h4>								
+								<h4>Resultados por área evaluada</h4>
 								<div class="row">
 									<div class="col-sm-6"><strong>Razonamiento abstracto:</strong> </div>
 									<div class="col-sm-6">
@@ -174,9 +175,10 @@
 		@endforeach
 		@else
 			<div class="panel panel-default">
-				<div class="panel-body">En esta area podrá ver las aplicaciones de pruebas especificas
+				<div class="panel-body">En esta area podrá ver las aplicaciones de pruebas específicas
 				disponibles, cuando exista alguna</div>
 			</div>
 		@endif
 
+	</div>
 @stop
