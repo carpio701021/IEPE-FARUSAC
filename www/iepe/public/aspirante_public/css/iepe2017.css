@@ -66,6 +66,7 @@ body {
     border: none;
 }
 
+
 .navbar .navbar-nav > li > a {
     padding-top:40px !important;
     padding-bottom:20px !important;
@@ -107,6 +108,12 @@ body {
     color: #192949;
 }
 
+
+/*
+.navbar-primary {
+    margin: 0px 400px 0px 400px;    
+}
+*/
 
 
 /*.navbar-secundary*/
@@ -176,8 +183,10 @@ body {
 
 .brand-arqui {
     height:30px;
-    padding: 0px 0px 10px 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
     margin: -22px 0px 0px 0px;
+    
 }
 
 .brand-arqui img{

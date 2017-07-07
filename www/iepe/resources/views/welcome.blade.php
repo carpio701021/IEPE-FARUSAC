@@ -13,6 +13,7 @@
     --}}
 
 
+<div class="container">
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -48,15 +49,14 @@
         </a>
     </div>
     <br/>
-    <table style="width:100%" border="0">
-        <tr>
-            <td class="iepe-img" style="text-align: left">
-                <a href="{{ action('RecursosController@getPensumDisenio') }}"><img src="{{ json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['inicio']['disenio'] }}" alt="imgDisenio"></a>
-            </td>
-            <td class="iepe-img" style="text-align: right">
-                <a href="{{ action('RecursosController@getPensumArqui') }}"><img src="{{ json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['inicio']['arqui'] }}" alt="imgArqui"></a>
-            </td>
-        </tr>
-    </table>
+    <div class="row">
+        <div class="col-lg-6 iepe-img">
+            <a href="{{ action('RecursosController@getPensumDisenio') }}"><img src="{{ json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['inicio']['disenio'] }}" alt="imgDisenio"></a>
+        </div>
+        <div class="col-lg-6 iepe-img">
+            <a href="{{ action('RecursosController@getPensumArqui') }}"><img src="{{ json_decode(file_get_contents(storage_path().'/recursos.json'),TRUE)['inicio']['arqui'] }}" alt="imgArqui"></a>
+        </div>
+    </div>
+</div>
 
 @endsection
