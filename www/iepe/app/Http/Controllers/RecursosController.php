@@ -119,6 +119,10 @@ class RecursosController extends Controller
             $extension = $request->file('PensumArqui')->getClientOriginalExtension(); // getting file extension
             $request->file('PensumArqui')->move($path, 'PensumArqui.'.$extension);
             $request->session()->flash('mensaje_exito','Se ha actualizado el pensum de Arquitectura que descargan los aspirantes');
+        }else{
+            return back()->withErrors(Array(
+                'Error' => 'Archivo invalido '
+            ));
         }
         return back();
     }
@@ -129,8 +133,11 @@ class RecursosController extends Controller
             $extension = $request->file('PensumDisenio')->getClientOriginalExtension(); // getting file extension
             $request->file('PensumDisenio')->move($path, 'PensumDisenio.'.$extension);
             $request->session()->flash('mensaje_exito','Se ha actualizado el pensum de Diseño que descargan los aspirantes');
-        }
-        return back();
+        }else{
+            return back()->withErrors(Array(
+                'Error' => 'Archivo invalido '
+            ));
+        }        return back();
     }
 
     function getYoutubeIdFromUrl($url) {

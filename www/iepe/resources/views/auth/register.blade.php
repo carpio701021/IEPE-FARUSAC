@@ -18,8 +18,8 @@
     <br/><br/><br/>
 
     <div class="row iepe-logform">
-        <div class="col-sm-3 col-sm-offset-2">
-            <div class="container-fluid">
+        <div class="col-sm-4 col-sm-offset-2">
+            <div class="container-fluid iepe-img">
                 <img src="{{ url('aspirante_public/img/aspirante_title.png') }}" />
                 <h4>REGÍSTRATE</h4>
                 <br/>
@@ -28,7 +28,7 @@
 
         </div>
 
-        <div class="col-sm-3 col-sm-offset-1">
+        <div class="col-sm-3">
 
             <form class="form-horizontal" role="form" method="POST" action="{{ action('Auth\AuthController@register') }}">
                 {!! csrf_field() !!}

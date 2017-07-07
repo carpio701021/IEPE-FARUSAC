@@ -5,7 +5,7 @@
     <p class="text-right iepe-logform-message">¿Aún no te has registrado? <a href="{{ action('Auth\AuthController@showRegistrationForm') }}">Regístrate</a></p>
 
     <div class="row iepe-logform">
-        <div class="col-sm-3 col-sm-offset-4">
+        <div class="col-sm-4 col-sm-offset-4">
 
 
             @if (Session::has('status'))
@@ -14,7 +14,7 @@
                 </div>
             @endif
 
-            <div class="container-fluid">
+            <div class="container-fluid iepe-img">
                 <img src="{{ url('aspirante_public/img/aspirante_title.png') }}" />
                 <h4>INICIA SESIÓN</h4>
                 <br/>
