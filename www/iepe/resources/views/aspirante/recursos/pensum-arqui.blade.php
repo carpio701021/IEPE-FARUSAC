@@ -6,7 +6,7 @@
         <div class="row iepe-info-container">
 
             <div class="col-lg-5">
-                <img src="{{ url('aspirante_public/img/arquitectura_title.png') }}" />
+                <img src="{{ url('aspirante_public/img/arquitectura_title.png') }}" style="max-width: 100%;height: auto;" />
                 <p>La Arquitectura es una profesión de carácter artístico, social y tecnológico, cuyo objeto es producir espacios utilitarios y estéticos para desarrollar confortablemente las actividades que realiza el ser humano.</p>
                 <a class="btn btn-lg iepe-btn-lg" target="_blank" href="{{ url('aspirante_public/files/pdf/PensumArqui.pdf') }}">Pensum</a>
                 <br /><br />
