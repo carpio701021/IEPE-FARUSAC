@@ -38,7 +38,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand brand-arqui" href="{{ url('aspirante') }}">
+            <a class="navbar-brand brand-arqui" href="{{ url('aspirante/admin') }}">
                 <img alt="Brand" src="{{ url('aspirante_public/img/logotipoFARUSAC_blanco.png') }}" />{{-- 210 y 70 --}}
             </a>
         </div>
