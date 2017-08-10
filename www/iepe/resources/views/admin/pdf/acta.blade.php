@@ -15,11 +15,11 @@
         En la Ciudad de Guatemala
         {{strftime('a los %e días del mes de %B del año %G',strtotime($fecha))}},
         constituidos
-        en la oficina administrativa de la Unidad de Desarrollo y Bienestar Estudiantil de la
+        en la oficina administrativa de la Unidad de Bienestar y Desarrollo Estudiantil de la
         Facultad de Arquitectura del Edificio T-2, Primer Nivel, estando presentes:  Arquitecto
         {{ $decano->getNombreCompleto() }}, Decano, Arquitecto {{ $secretario->getNombreCompleto() }},
         Secretario Académico, Arquitecto {{ $jefe_bienestar->getNombreCompleto() }}, Jefe de Unidad de
-        Desarrollo y Bienestar Estudiantil hacen constar: <b>PRIMERO: </b>
+        Bienestar y Desarrollo Estudiantil hacen constar: <b>PRIMERO: </b>
         de acuerdo a los parámetros previamente convenidos, los aspirantes con evaluación satisfactoria son
         {{ count($aspirantes) }}
     </p>
@@ -60,7 +60,7 @@
                 <tr>
                     <td valign="top">
                         <p align="center">Arq. {{ $jefe_bienestar->getNombreCompleto() }}<br>
-                            Bienestar y Desarrollo Estudiantil<br>
+                            Unidad de Bienestar y Desarrollo Estudiantil<br>
                             Facultad de Arquitectura<br>
                             Jefe</p>
                     </td>

@@ -143,16 +143,16 @@ class ActaController extends Controller
         $msg='';
         if($request->has('estado')) {
             if ($request->estado == 'enviada') {
-                $mailArray[$decano->email]=$decano->nombre();
-                $mailArray[$secretario->email]=$secretario->nombre();
+                $mailArray[$decano->email]=$decano->getNombreCompleto();
+                $mailArray[$secretario->email]=$secretario->getNombreCompleto();
                 $subject = 'Propuesta ' . $acta->getName();
-                $msg = 'El jefe de bienestar estudiantil, ' . $jefeBienestar->nombre() . ' ha mandado una propuesta de acta para su revisión con
+                $msg = 'El jefe de bienestar estudiantil, ' . $jefeBienestar->getNombreCompleto() . ' ha mandado una propuesta de acta para su revisión con
                 el listado de aspirantes aprobados en una prueba especifica. Para aprobarla o reprobarla acceder a '.action('ActaController@index').'.';
             }
         }
         if($request->has('aprobacion_decanato')) {
-            $mailArray[$jefeBienestar->email]=$jefeBienestar->nombre();
-            $mailArray[$secretario->email]=$secretario->nombre();
+            $mailArray[$jefeBienestar->email]=$jefeBienestar->getNombreCompleto();
+            $mailArray[$secretario->email]=$secretario->getNombreCompleto();
             if($request->aprobacion_decanato==1) { //aprobo
                 $subject='Propuesta '.$acta->getName().' aprobada';
                 $msg='La propuesta '.$acta->getName().' ha sido revisada y aprobada por decanatura, para revisar el proceso acceder a '.action('ActaController@index').'.';
@@ -162,8 +162,8 @@ class ActaController extends Controller
             }
         }
         if($request->has('aprobacion_secretaria')) {
-            $mailArray[$decano->email]=$decano->nombre();
-            $mailArray[$jefeBienestar->email]=$jefeBienestar->nombre();
+            $mailArray[$decano->email]=$decano->getNombreCompleto();
+            $mailArray[$jefeBienestar->email]=$jefeBienestar->getNombreCompleto();
             if($request->aprobacion_secretaria==1) { //aprobo
                 $subject='Propuesta '.$acta->getName().' aprobada';
                 $msg='La propuesta '.$acta->getName().' ha sido revisada y aprobada por secretaría general, para revisar el proceso acceder a '.action('ActaController@index').'.';
