@@ -28,7 +28,7 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="inicio">
-                    <h3>Imagen de boton a información de Diseño Gráfico</h3>
+                    <h3>Imagen de botón a información de Diseño Gráfico</h3>
                     <div class="row">
                         <div class="col-lg-12">
                             <table>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <br/>
-                    <h3>Imagen de boton a información de Arquitectura</h3>
+                    <h3>Imagen de botón a información de Arquitectura</h3>
                     <div class="row">
                         <div class="col-lg-12">
                             <table>
@@ -448,7 +448,7 @@
                         <div class="row">
 
                             <div class="col-sm-6">
-                                <label>Boton:</label>
+                                <label>Botón:</label>
                                 <div class="form-group">
                                     <label class="btn btn-default btn-file" onclick="cancelarFile(3)">
                                         Seleccionar archivo...
@@ -474,7 +474,7 @@
                         <h4>Aptitud espacial</h4>
                         <div class="row">
                             <div class="col-sm-6">
-                                <label>Boton:</label>
+                                <label>Botón:</label>
                                 <div class="form-group">
                                     <label class="btn btn-default btn-file" onclick="cancelarFile(4)">
                                         Seleccionar archivo...
