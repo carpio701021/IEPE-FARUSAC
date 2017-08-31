@@ -11,7 +11,7 @@
                 </a>
             </div>
         </div>
-        <h3>Aspirante aprobados - {{$aplicacion->nombre()}}</h3>
+        <h3>Aspirantes Aprobados - {{$aplicacion->nombre()}}</h3>
 
         <div class="container">
             <h3>Resultados</h3>
