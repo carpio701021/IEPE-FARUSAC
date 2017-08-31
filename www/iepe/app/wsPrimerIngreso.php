@@ -114,6 +114,40 @@ function erroresWsPrimerIngreso($noError,$exception = null){
     return $RESPUESTA;
 }
 
+function verificar_prueba_especifica_str($pxml) {
+    
+    $wsdl = action('SoapController@wsPrimerIngreso').'?wsdl';
+    
+    $client = new \nusoap_client($wsdl,'wsdl');
+    
+    $err = $client->getError();
+    if ($err) {	dd('Error en Constructor' . $err) ; }
+
+    $result = $client->call('verificar_prueba_especifica', $pxml);
+    
+    if ($client->fault) {
+    	return ($result);
+    } else {	// Chequea errores
+    	$err = $client->getError();
+    	if ($err) {		// Muestra el error
+    		return ( 'Ha ocurrido un error: '. $err );
+    	}
+    }
+    
+    $xml = new SimpleXMLElement('<RESPUESTA/>');
+
+    foreach ($result as $k => $v) {
+        $xml->addChild($k, $v);
+    }
+
+    //dd($test_array);
+    
+    //array_walk_recursive($test_array, array ($xml, 'addChild'));
+    //print $xml->asXML();
+
+    return $xml->asXML();
+}
+
 /*
  *
  * RECIBIR un String con el siguiente XML:
@@ -121,7 +155,7 @@ function erroresWsPrimerIngreso($noError,$exception = null){
             <VERIFICAR_PE>
                 <USR>10006</USR>
                 <PWD>123123</PWD>
-                <NOV>1000000958</NOV>
+                <NOV>1000000000</NOV>
                 <UA>02</UA>
                 <EXT>00</EXT>
                 <CAR>03</CAR>
