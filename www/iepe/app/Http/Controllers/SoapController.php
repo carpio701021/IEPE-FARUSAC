@@ -18,6 +18,7 @@ class SoapController extends Controller
         $urlService = action('SoapController@wsPrimerIngreso');
         $namespace = $urlService.'?wsdl';
         $serviceAction = $urlService . '/verificar_prueba_especifica';
+        $serviceActionStr = $urlService . '/verificar_prueba_especifica_str';
 
         global $HTTP_SERVER_VARS;
         $_SERVER['PHP_SELF'] = url('soap/wsPrimerIngreso');
@@ -71,13 +72,25 @@ class SoapController extends Controller
         $server->register('verificar_prueba_especifica',                // method name
             array('VERIFICAR_PE' => 'tns:VERIFICAR_PE'),        // input parameters
             array('RESPUESTA' => 'tns:RESPUESTA'),    // output parameters
-            /**/$namespace, //'urn:WS_PRIMER_INGRESO',                // namespace
-            /**/$serviceAction, //'urn:WS_PRIMER_INGRESO/verificar_prueba_especifica',                // soapaction
-            /**/'rpc',                        // style
-            /**/'encoded',                    // use
-            /**/'Servicios relacionados a primer ingreso a la Facultad de Arquitectura USAC'    // documentation
+            $namespace, //'urn:WS_PRIMER_INGRESO',                // namespace
+            $serviceAction, //'urn:WS_PRIMER_INGRESO/verificar_prueba_especifica',                // soapaction
+            'rpc',                        // style
+            'encoded',                    // use
+            'Servicios relacionados a primer ingreso a la Facultad de Arquitectura USAC'    // documentation
         );
 
+
+        $server->register("verificar_prueba_especifica_str",
+            array("pxml" => "xsd:string"),
+            array("result" => "xsd:string"),   // output parameters
+            $namespace, //'urn:WS_PRIMER_INGRESO',                // namespace
+            $serviceActionStr, //'urn:WS_PRIMER_INGRESO/verificar_prueba_especifica',                // soapaction
+            'rpc',                        // style
+            'encoded',                    // use
+            'Servicios relacionados a primer ingreso a la Facultad de Arquitectura USAC. Igual que el primero pero el input y el output en un solo string.'    // documentation
+        );
+
+//update aplicaciones set percentil_RA_disenio = percentil_RA, percentil_APE_disenio = percentil_APE, percentil_RV_disenio = percentil_RV, percentil_APN_disenio = percentil_APN where percentil_RA_disenio
 
         //dd(get_class_methods('SoapController'));
         //dd([
