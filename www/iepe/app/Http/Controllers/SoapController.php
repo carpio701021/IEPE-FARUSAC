@@ -90,6 +90,7 @@ class SoapController extends Controller
             'Servicios relacionados a primer ingreso a la Facultad de Arquitectura USAC. Igual que el primero pero el input y el output en un solo string.'    // documentation
         );
 
+//update aplicaciones set percentil_RA_disenio = percentil_RA, percentil_APE_disenio = percentil_APE, percentil_RV_disenio = percentil_RV, percentil_APN_disenio = percentil_APN where percentil_RA_disenio
 
         //dd(get_class_methods('SoapController'));
         //dd([

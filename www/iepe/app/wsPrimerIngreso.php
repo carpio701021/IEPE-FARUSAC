@@ -42,6 +42,10 @@ function verificar_prueba_especifica($VERIFICAR_PE) {
             ];
 
         $aplicacion = $aspiranteAplicacion->getAplicacion();
+        
+        
+        
+        /*
         $resultado = 'Insatisfactorio';
 
         $resultado = ($VERIFICAR_PE['CAR']=='01' // arquitectura
@@ -59,8 +63,10 @@ function verificar_prueba_especifica($VERIFICAR_PE) {
             && $aspiranteAplicacion->nota_RV >= $aplicacion->percentil_RV_disenio
             && $aspiranteAplicacion->nota_APN >= $aplicacion->percentil_APN_disenio
         ) ? 'Satisfactorio': $resultado;
+        */
 
         $acta = $aspiranteAplicacion->getActaAprobada();
+        
         if($acta==null)
             return $RESPUESTA=[
                 'NOV' => $VERIFICAR_PE['NOV'],
@@ -77,7 +83,7 @@ function verificar_prueba_especifica($VERIFICAR_PE) {
         $RESPUESTA['EXT'] = $VERIFICAR_PE['EXT'] ;
         $RESPUESTA['CAR'] = $VERIFICAR_PE['CAR'] ;
         $RESPUESTA['CICLO'] = $aspiranteAplicacion->updated_at->year;
-        $RESPUESTA['RESULTADO'] = $resultado;
+        $RESPUESTA['RESULTADO'] = $aspiranteAplicacion->resultado;
         $RESPUESTA['FECHA_CALIFICACION'] = $acta->updated_at;
         $RESPUESTA['FECHA_CADUCA'] = $acta->updated_at->addYears(2);
         $RESPUESTA['NOTA'] = '';
