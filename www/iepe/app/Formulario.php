@@ -14,4 +14,5 @@ class Formulario extends Model
         'dependientes','centro_educativo','direccion_centro_educativo','sector','carrera', 'jornada',
         'confirmacion_intereses','municipio','genero','fecha_nacimiento'
     ];
+
 }
