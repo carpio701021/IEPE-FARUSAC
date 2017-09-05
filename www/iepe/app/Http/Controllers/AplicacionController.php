@@ -340,7 +340,7 @@ class AplicacionController extends Controller
                 foreach ($salones_horarios as $sh){
 
                     //obtener data
-                    $excel->sheet($sh->printNombre(), function($sheet) use ($sh,$aplicacion) {
+                    $excel->sheet(substr($sh->printNombre(),0,30), function($sheet) use ($sh,$aplicacion) {
                         $asignaciones=$sh->hasMany('App\AspiranteAplicacion','aplicacion_salon_horario_id')
                             ->join('aspirantes','aspirante_id','=','aspirantes.NOV')
                             ->selectRaw('NOV,nombre,apellido')

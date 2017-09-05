@@ -39,6 +39,7 @@ class SoapController extends Controller
                 'USR' => array ('name'=>'USR', 'type' => 'xsd:string'),
                 'PWD' => array ('name'=>'PWD', 'type' => 'xsd:string'),
                 'NOV' => array ('name'=>'NOV', 'type' => 'xsd:string'),
+                'CUI' => array ('name'=>'CUI', 'type' => 'xsd:string'),
                 'UA' => array ('name'=>'UA', 'type' => 'xsd:string'),
                 'EXT' => array ('name'=>'EXT', 'type' => 'xsd:string'),
                 'CAR' => array ('name'=>'CAR', 'type' => 'xsd:string'),
@@ -55,6 +56,7 @@ class SoapController extends Controller
             '',
             array(
                 'NOV'  => array('name' => 'NOV', 'type' => 'xsd:string'),
+                'CUI'  => array('name' => 'CUI', 'type' => 'xsd:string'),
                 'UA'  => array('name' => 'UA', 'type' => 'xsd:string'),
                 'EXT'  => array('name' => 'EXT', 'type' => 'xsd:string'),
                 'CAR'  => array('name' => 'CAR', 'type' => 'xsd:string'),

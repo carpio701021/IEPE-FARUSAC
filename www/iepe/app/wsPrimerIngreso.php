@@ -27,15 +27,20 @@ function verificar_prueba_especifica($VERIFICAR_PE) {
             return erroresWsPrimerIngreso(2);
 
         //verifica que el usuario exista
-        $aspirante = Aspirante::where('NOV',$VERIFICAR_PE['NOV'])->first();
-        if($aspirante===null)
-            return erroresWsPrimerIngreso(3);
+        $aspirante = Aspirante::
+            where('NOV',$VERIFICAR_PE['NOV'])
+            ->orWhere('CUI',$VERIFICAR_PE['CUI'])
+            ->first();
+        if($aspirante===null) return erroresWsPrimerIngreso(3);
+        
+            
 
         //traer resultados satisfactorios
         $aspiranteAplicacion = $aspirante->resultadosPruebaEspecifica();
         if($aspiranteAplicacion===null)
             return $RESPUESTA=[
                 'NOV' => $VERIFICAR_PE['NOV'],
+                'CUI' => $VERIFICAR_PE['CUI'],
                 'RESULTADO' => 'Insatisfactorio',
                 'ERROR' => '0',
                 'MSG_ERROR' => ''
@@ -70,20 +75,22 @@ function verificar_prueba_especifica($VERIFICAR_PE) {
         if($acta==null)
             return $RESPUESTA=[
                 'NOV' => $VERIFICAR_PE['NOV'],
+                'CUI' => $VERIFICAR_PE['CUI'],
                 'RESULTADO' => 'Insatisfactorio',
                 'ERROR' => '0',
                 'MSG_ERROR' => 'Acta incompleta'
             ];
 
-
+        $satisfactorio = ($aspiranteAplicacion->resultado == 'aprobado')? 'Satisfactorio' : 'Insatisfactorio';
 
         //devolver respuesta
         $RESPUESTA['NOV'] = $aspirante->getNOV();
+        $RESPUESTA['CUI'] = $aspirante->getCui(); ;
         $RESPUESTA['UA'] = $VERIFICAR_PE['UA'] ;
         $RESPUESTA['EXT'] = $VERIFICAR_PE['EXT'] ;
         $RESPUESTA['CAR'] = $VERIFICAR_PE['CAR'] ;
         $RESPUESTA['CICLO'] = $aspiranteAplicacion->updated_at->year;
-        $RESPUESTA['RESULTADO'] = $aspiranteAplicacion->resultado;
+        $RESPUESTA['RESULTADO'] = $satisfactorio;
         $RESPUESTA['FECHA_CALIFICACION'] = $acta->updated_at;
         $RESPUESTA['FECHA_CADUCA'] = $acta->updated_at->addYears(2);
         $RESPUESTA['NOTA'] = '';
@@ -108,7 +115,7 @@ function erroresWsPrimerIngreso($noError,$exception = null){
             $RESPUESTA['MSG_ERROR'] = 'Unidad, extension o carrera no válidos en este sistema.';
             break;
         case 3:
-            $RESPUESTA['MSG_ERROR'] = 'No se encontro ninguna coincidencia para el NOV proporcionado.';
+            $RESPUESTA['MSG_ERROR'] = 'No se encontro ninguna coincidencia para el NOV y CUI proporcionado.';
             break;
         default:
             $RESPUESTA['MSG_ERROR'] = 'Error inesperado.';
